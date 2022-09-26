@@ -1,0 +1,12 @@
+{
+    "name": "nHeptane",
+    "surface tension": 0.02014,
+    "dielectric const": 1.923,
+    "viscosity": 1130.1,
+    "density": 684,
+    "electrical conductivity": 1,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+}
+
+

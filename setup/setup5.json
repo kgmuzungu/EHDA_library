@@ -1,0 +1,13 @@
+{
+    "nozzle color": "pink",
+    "camera to nozzle distance": 16.5,
+    "config": "nozzle to plate",
+    "nozzle to plate or ring distance": 2.0,
+    "nozzle diameter": 0.061,
+    "nozzle outside": 0.091,
+    "nozzle height": 3.5,
+    "high voltage": "HV on the ground",
+    "diameter syringe": 0.015,
+    "units": "cm",
+    "coflow gas type": "none"
+}

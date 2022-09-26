@@ -1,0 +1,7 @@
+logging_test.out
+
+*.log
+*.out
+
+jsonfiles
+plot_generated

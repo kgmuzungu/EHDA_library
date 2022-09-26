@@ -1,0 +1,13 @@
+{
+    "name": "water",
+    "surface tension": 0.0311,
+    "dielectric const": 41.28,
+    "viscosity": 0.0,
+    "density": 1,
+    "electrical conductivity": 0.00041,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+    "slope": 8.3
+}
+
+

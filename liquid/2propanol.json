@@ -1,0 +1,12 @@
+{
+    "name": "2propanol",
+    "surface tension": 0.0219,
+    "dielectric const": 24.55,
+    "viscosity": 0.00173,
+    "density": 663.378,
+    "electrical conductivity": 0.000003,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+    "rho density": 123,
+    "slope": 0
+}
