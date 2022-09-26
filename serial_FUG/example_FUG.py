@@ -3,7 +3,7 @@ import serial
 
 # configure the serial connections (the parameters differs on the device you are connecting to)
 ser = serial.Serial(
-    port='COM7',
+    port='/dev/cu.usbserial-110',
     baudrate=9600,
     parity=serial.PARITY_ODD,
     stopbits=serial.STOPBITS_TWO,
