@@ -51,7 +51,11 @@ d_electrospray_measurements = {}
 d_electrospray_measurements_data = {}
 d_electrospray_processing = {}
 d_statistics = {}
-# ************************ INITIAL CONFIGURATION ************************
+
+
+# ************************************
+#       INITIAL CONFIGURATION
+# ************************************
 #  VAR_BIN_CONFIG = input("Would you like to save data? [True/False] ")
 VAR_BIN_CONFIG = True
 SAVE_DATA = VAR_BIN_CONFIG
@@ -64,34 +68,37 @@ flag_record_transition = False
 flag_last_measurement = False
 flag_voltage_low = True
 flag_increase_voltage = False
-# ************************ INITIAL CONFIGURATION OF LIQUID AND SETUP ************************
+
+# ************************************
+#   INIT CONFIG OF LIQUID AND SETUP
+# ************************************
 impedance, temperature, humidity = 2000000, 21, 31
-Q = 5  # flow rate  uL/h **********************************************************************
+Q = 5  # flow rate  uL/h 
 Q = Q * 10e-6  # liter/h                                         # Q = 0.0110  # ml/h flow rate
 Q = Q * 2.7778e-7  # m3/s                                        # Q = Q * 2.7778e-3  # cm3/s
-# **********************************************************************
+
 name_setup = "setup7"
 setup = "C:/Users/hvvhl/PycharmProjects/pyco/setup/" + name_setup
 name_liquid = "ethyleneglycol"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40]
-liquid = "liquid/" + name_liquid  # **********************************************************************
-# ******************************************
+liquid = "liquid/" + name_liquid 
+
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry",
                   "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
-current_shape = current_shapes[8]  # **********************************************************************
+current_shape = current_shapes[8] 
 current_shape_comment = ""
-# *********************
+
 voltage = 0
 main_voltage = 3000
 voltage_array = []
 current = 0
 current_array = []
-"""voltage = 9.2  # **********************************************************************
+"""voltage = 9.2  
 voltage = voltage * 1000  # V"""
-# *********************
-k_electrical_conductivity = 0.34  # uS/cm **********************************************************************
+
+k_electrical_conductivity = 0.34  # uS/cm 
 k_electrical_conductivity = k_electrical_conductivity * 10e-4  # S/m
-# ***********************************************
+
 number_measurements = 200
 flag_sjaak = ""
 FLAG_PLOT = False
@@ -102,6 +109,9 @@ j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
 
+# ************************************
+#           Electrospray
+# ************************************
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
