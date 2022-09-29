@@ -25,7 +25,6 @@ from aux_functions_electrospray import *
 from serial_FUG import serial_sync
 import configuration_tiepie
 
-
 import os
 import re
 import numpy as np
@@ -54,7 +53,10 @@ d_electrospray_measurements_data = {}
 d_electrospray_processing = {}
 d_statistics = {}
 
-# ************************ INITIAL CONFIGURATION ************************
+
+# ************************************
+#       INITIAL CONFIGURATION
+# ************************************
 #  save_data = input("Would you like to save data? [True/False] ")
 VAR_BIN_CONFIG = True
 save_data = VAR_BIN_CONFIG
@@ -63,33 +65,36 @@ save_processing = VAR_BIN_CONFIG
 append_array_processing = VAR_BIN_CONFIG
 save_config = VAR_BIN_CONFIG
 save_liquid = VAR_BIN_CONFIG
-# ************************ INITIAL CONFIGURATION OF LIQUID AND SETUP ************************
+
+# ************************************
+#   INIT CONFIG OF LIQUID AND SETUP
+# ************************************
 impedance, temperature, humidity = 2000000, 21, 31
 # Q = 0.0110  # ml/h flow rate
 # Q = Q * 2.7778e-3  # cm3/s
-Q = 106 # **********************************************************************
+Q = 106 
 Q = Q * 10e-6  # liter/h
 Q = Q * 2.7778e-7  # m3/s
-# **********************************************************************
+
 name_setup = "setup7"
 setup = "C:/Users/hvvhl/PycharmProjects/pyco/setup/" + name_setup
 name_liquid = "ethyleneglycol"
-liquid = "liquid/" + name_liquid  # **********************************************************************
+liquid = "liquid/" + name_liquid
 # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40]
-# ******************************************
+
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry"]
 # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry"]
-current_shape = current_shapes[6]  # **********************************************************************
+current_shape = current_shapes[6]  
 current_shape_comment = ""
-# *********************
-voltage = 9.2  # **********************************************************************
+
+voltage = 9.2 
 # voltage = input("Enter voltage [kV]: ")
 voltage = voltage * 1000  # V
-# *********************
-k_electrical_conductivity = 0.34  # uS/cm **********************************************************************
+
+k_electrical_conductivity = 0.34  # uS/cm 
 k_electrical_conductivity = k_electrical_conductivity * 10e-4  # S/m
-# ***********************************************
+
 number_measurements = 10
 flag_sjaak = ""
 flag_plot = False
@@ -98,7 +103,11 @@ res = ""
 j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
-#
+
+
+# ************************************
+#           Electrospray
+# ************************************
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
@@ -126,6 +135,11 @@ for i in listdir:
         print(filename)
         print("*******")
 
+
+
+# ************************************
+#              TiePie
+# ************************************
 def config_TiePieScope(scp):
     # ToDo set input to single ended or differential
     # in oscilloscopechannel.py _get_is_differential or _get_impedance ... investigate further
