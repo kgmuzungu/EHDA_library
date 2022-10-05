@@ -81,6 +81,9 @@ https://docs.scipy.org/doc/scipy/reference/tutorial/fft.html
 
 https://www.tiepie.com/en/libtiepie-sdk/linux#Downloads
 
+http://api.tiepie.com/libtiepie/0.9.16/
+
+
 
 # ACCOUNTS USED
 
@@ -131,3 +134,10 @@ https://pyexplabsys.readthedocs.io/drivers-autogen-only/fug.html
 # E RUIDO!
 
 # --- cortina de hidrogenio
+
+
+# VENV
+
+
+python3 -m venv {nameOfEnvironment}
+source /bin/activate
