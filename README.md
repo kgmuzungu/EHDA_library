@@ -141,3 +141,11 @@ https://pyexplabsys.readthedocs.io/drivers-autogen-only/fug.html
 
 python3 -m venv {nameOfEnvironment}
 source /bin/activate
+
+
+
+# git token for raspberry pi
+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
+
+# Python librarie for tiepie and FUG 
+pip install hvl-ccb
