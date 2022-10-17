@@ -136,8 +136,10 @@ https://pyexplabsys.readthedocs.io/drivers-autogen-only/fug.html
 # --- cortina de hidrogenio
 
 
-# VENV
+### 乔昂的东西在下后
 
+
+# VENV
 
 python3 -m venv {nameOfEnvironment}
 source /bin/activate
@@ -149,3 +151,7 @@ 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
 
 # Python librarie for tiepie and FUG 
 pip install hvl-ccb
+
+
+# influx db token:
+30zF8j190P9AesW2fi60lkr_vkfG6vvUYg_OHtGqAJvywL92dTOxgS6y20F2LRvcn8DQZFgXDpgbY23W-44G-Q==
