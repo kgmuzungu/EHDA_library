@@ -67,7 +67,7 @@ for i in directory_contents:
         continue
     else:
         print(i)
-        with open('C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/' + i) as json_file:
+        with open('C:/Users/hvvhl/PycharmProjects/EHDA/jsonfiles/' + i) as json_file:
             data_dict = json.load(json_file)
             manual_shape = data_dict['config']['liquid']['actual measurement']['current shape manual']
             print("\nmanual shape:", manual_shape)
@@ -244,7 +244,7 @@ plt.ylabel('I[nA]')
 plt.title('I x Q ' + current_shapes[2])
 plt.legend(loc='best')
 plt.grid()
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/ganancalvo_"+current_shapes[2]+".svg", format='svg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/ganancalvo_"+current_shapes[2]+".svg", format='svg', dpi=300)
 
 plt.figure()
 # plt.loglog(x_ganan_calvo, I_Ig_ganan_calvo, '--r', linewidth=2, label='liquid')
@@ -258,7 +258,7 @@ for j in range(index + 1):
 plt.xlabel('log(x)', fontsize=13)
 plt.ylabel('log(y)', fontsize=13)
 plt.legend(loc='best')
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/ganancalvo2_"+current_shapes[2]+".svg", format='svg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/ganancalvo2_"+current_shapes[2]+".svg", format='svg', dpi=300)
 
 values = ["column 1: sjaak_std_mean_array ]2.5", "column 2: sjaak_mean_median_array ]0.9,1.1["]
 fig, axs = plt.subplots(index + 1)
@@ -272,7 +272,7 @@ for j in range(index + 1):
     axs[j].set(xlabel=values)
     axs[j].set_title(name[j])
     axs[j].boxplot(data, vert=False)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/boxplotsjaak_"+current_shapes[2]+".svg", format='svg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/boxplotsjaak_"+current_shapes[2]+".svg", format='svg', dpi=300)
 
 
 ## DRIPPING PLOTS
@@ -300,7 +300,7 @@ plt.xticks(fontsize=14)
 plt.setp(ytickNames, rotation=45, fontsize=12)
 ax1.set_title('Sjaak | deviation σ / avg | > 2.5 : '+current_shapes[2])
 plt.show()
-plt.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/Sjaakdeviation_avg' + current_shapes[2] + ".jpg",
+plt.savefig('C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/Sjaakdeviation_avg' + current_shapes[2] + ".jpg",
             format='jpg', dpi=300)
 
 data = [mean_value_array[0], mean_value_array[1], mean_value_array[2], mean_value_array[3]]
@@ -316,7 +316,7 @@ ax1.set_title('Sjaak | avg | < 5nA : ')
 ax1.set_ylabel('Different liquids')
 ax1.set_xlabel('Current [nA]'+current_shapes[2], fontsize=12)
 plt.show()
-plt.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/Current [nA]' + current_shapes[2] + ".jpg",
+plt.savefig('C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/Current [nA]' + current_shapes[2] + ".jpg",
             format='jpg', dpi=300)
 
 data = [sjaak_mean_median_array[0], sjaak_mean_median_array[1], sjaak_mean_median_array[2], sjaak_mean_median_array[3]]
@@ -396,7 +396,7 @@ for j in range(index + 1):
     ax2.set_ylabel(' sjaak_mean_median_array [0.9,1.1] ', color=color)  # we already handled the x-label with ax1
     ax2.plot(x1, data_red[j][1], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
-    plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_mean_med"+str(name[j])+current_shapes[2]+".svg", format='svg', dpi=300)
+    plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_mean_med"+str(name[j])+current_shapes[2]+".svg", format='svg', dpi=300)
 
 
 fig.tight_layout()  # otherwise the right y-label is slightly clipped
@@ -412,7 +412,7 @@ for j in range(index + 1):
     axs[j].set_title(name[j])
     axs[j].boxplot(data, vert=False, flierprops=red_square)
 plt.savefig(
-    "C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_sjaak_std_mean_mean_median" + current_shapes[2] + str(
+    "C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_sjaak_std_mean_mean_median" + current_shapes[2] + str(
         name[j]) + ".svg", format='svg', dpi=300)
 
 for j in range(index + 1):

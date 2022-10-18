@@ -75,7 +75,7 @@ time_step = 1 / sampling_frequency
 ki = 6.46
 index = 0
 index_aux = 0
-# path = 'C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles'
+# path = 'C:/Users/hvvhl/PycharmProjects/EHDA/jsonfiles'
 
 path = 'E:/2022json/'
 directory_contents = os.listdir(path)
@@ -292,7 +292,7 @@ ax.legend(loc='best')
 handles = [Rectangle((0, 0), 1, 1, color=c, ec="k") for c in colors]
 ax.legend(handles, labels_name)
 plt.rcParams["figure.figsize"] = (20, 12)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/histogram_mean_each_shape" + str(labels_name)+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/histogram_mean_each_shape" + str(labels_name)+".jpg", format='jpg', dpi=300)
 # ax.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=len(name)))
 
 
@@ -316,7 +316,7 @@ ax.legend(loc='best')
 handles = [Rectangle((0, 0), 1, 1, color=c, ec="k") for c in colors]
 ax.legend(handles, labels_name)
 plt.rcParams["figure.figsize"] = (20, 12)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/histogram_mean_each_shape" + str(labels_name)+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/histogram_mean_each_shape" + str(labels_name)+".jpg", format='jpg', dpi=300)
 # ax.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=len(name)))
 
 
@@ -337,6 +337,6 @@ ax.legend(loc='best')
 handles = [Rectangle((0, 0), 1, 1, color=c, ec="k") for c in colors]
 ax.legend(handles, labels_name)
 plt.rcParams["figure.figsize"] = (20, 12)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/histogram_mean_10measurements" + str(labels_name)+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/histogram_mean_10measurements" + str(labels_name)+".jpg", format='jpg', dpi=300)
 
 plt.show()

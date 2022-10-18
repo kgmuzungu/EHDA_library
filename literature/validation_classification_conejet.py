@@ -53,7 +53,7 @@ time_step = 1 / sampling_frequency
 ki = 6.46
 index = 0
 index_aux = 0
-path = 'C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/'
+path = 'C:/Users/hvvhl/PycharmProjects/EHDA/jsonfiles/'
 directory_contents = os.listdir(path)
 print(directory_contents)
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
@@ -247,7 +247,7 @@ plt.xlabel('alpha')
 plt.ylabel('I emitted [nA]')
 plt.legend(loc='best')
 plt.title('Chen n Pui')
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_chen_pui"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_chen_pui"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 plt.figure()
 x = np.linspace(0, 0.000000005)
@@ -273,7 +273,7 @@ for j in range(index + 1):
     plt.ylabel('I emitted [nA]')
     plt.legend(loc='best')
     plt.title('Chen n Pui combined')
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/combined_chen_pui"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/combined_chen_pui"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 plt.figure()
 for j in range(index + 1):
@@ -286,7 +286,7 @@ plt.ylabel('I[nA]')
 plt.title('I x Q')
 plt.legend(loc='best')
 plt.grid()
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/ganancalvo"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/ganancalvo"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 plt.figure()
 # plt.loglog(x_ganan_calvo, I_Ig_ganan_calvo, '--r', linewidth=2, label='liquid')
@@ -300,7 +300,7 @@ for j in range(index + 1):
 plt.xlabel('log(x)', fontsize=13)
 plt.ylabel('log(y)', fontsize=13)
 plt.legend(loc='best')
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/ganancalvo2"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/ganancalvo2"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 values = ["column 1: sjaak_std_mean_array ]2.5", "column 2: sjaak_mean_median_array ]0.9,1.1["]
 fig, axs = plt.subplots(index + 1)
@@ -314,7 +314,7 @@ for j in range(index + 1):
     axs[index].set(xlabel=values)
     axs[j].set_title(name[j])
     axs[j].boxplot(data, vert=False)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/boxplotsjaak"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/boxplotsjaak"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 """plt.figure()
 plt.title("sjaak: std / mean")
@@ -347,7 +347,7 @@ plt.axvline(x=0.5, color="green", linestyle="--")
 plt.xticks(fontsize=14)
 plt.setp(ytickNames, rotation=45, fontsize=12)
 ax1.set_title('Sjaak | deviation σ / avg | < 0.5 : '+ current_shapes[4])
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_deviation_avg" + str(name[j]) +current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_deviation_avg" + str(name[j]) +current_shapes[4]+".jpg", format='jpg', dpi=300)
 plt.show()
 
 
@@ -380,14 +380,14 @@ for j in range(index + 1):
     axs[j].boxplot(data, vert=True)
 plt.savefig("box_plot.svg", format='svg', dpi=300)
 """
-fig.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/filename.eps', format='eps')
+fig.savefig('C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/filename.eps', format='eps')
 png1 = io.BytesIO()
 fig.savefig(png1, format="png")
 
 # Load this image into PIL
 png2 = Image.open(png1)
 # Save as TIFF
-png2.save("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/3dPlot.tiff")
+png2.save("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/3dPlot.tiff")
 png1.close()
 
 red_square = dict(markerfacecolor='r', marker='s')
@@ -412,7 +412,7 @@ for j in range(index + 1):
     ax2.plot(x1, data_blue[j][1], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
 
-    plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_mean_med"+str(name[j])+current_shapes[4]+".jpg", format='jpg', dpi=300)
+    plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_mean_med"+str(name[j])+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 for j in range(index + 1):
     fig, ax1 = plt.subplots()
@@ -434,7 +434,7 @@ for j in range(index + 1):
     ax2.plot(x1, data_red[j][1], color=color)
     ax2.tick_params(axis='y', labelcolor=color)
 
-    plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_sjaak_std_mean_mean_median"+str(name[j])+current_shapes[4]+".jpg", format='jpg', dpi=300)
+    plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/plot_sjaak_std_mean_mean_median"+str(name[j])+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 
 fig.tight_layout()  # otherwise the right y-label is slightly clipped
@@ -449,7 +449,7 @@ for j in range(index + 1):
     axs[index].set(xlabel=values)
     axs[j].set_title(name[j])
     axs[j].boxplot(data, vert=False, flierprops=red_square)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/mean_med"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/mean_med"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 
 data = [mean_value_array[0], mean_value_array[1], mean_value_array[2]]
@@ -464,7 +464,7 @@ plt.xticks(fontsize=14)
 ax1.set_title('Sjaak | avg | > 5nA : ')
 ax1.set_ylabel('Different liquids')
 ax1.set_xlabel('Current [nA]'+ current_shapes[4],  fontsize=15)
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/boxplotmean"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/boxplotmean"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 plt.show()
 
@@ -490,7 +490,7 @@ plt.setp(ytickNames, rotation=45, fontsize=15)
 plt.xticks(fontsize=14)
 ax1.set_title('Sjaak avg / median η > 0.9 or avg / median η < 1.1 : '+ current_shapes[4])
 plt.show()
-plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/boxplotmean_med"+current_shapes[4]+".jpg", format='jpg', dpi=300)
+plt.savefig("C:/Users/hvvhl/PycharmProjects/EHDA/plot_generated/boxplotmean_med"+current_shapes[4]+".jpg", format='jpg', dpi=300)
 
 """
 fig.tight_layout()  # otherwise the right y-label is slightly clipped

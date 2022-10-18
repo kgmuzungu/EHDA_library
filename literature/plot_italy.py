@@ -35,7 +35,7 @@ fft for cone jet is empty except for the dc frequency
 index = 0
 index_aux = 0
 path = "E:/2022JSONCORRECT/"
-#path = "C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/"
+#path = "C:/Users/hvvhl/PycharmProjects/EHDA/jsonfiles/"
 filename = "rampsetup7ethyleneglycol_all shapes_1.222232e-09m3_s.json"
 
 #filename = "rampsetup7ethyleneglycol_CONE JET REGION_1.222232e-09m3_s.json"
