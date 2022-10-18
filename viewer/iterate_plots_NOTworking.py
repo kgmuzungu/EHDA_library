@@ -23,7 +23,7 @@ time_step = 1 / sampling_frequency
 index = 0
 index_aux = 0
 path = "E:/2022JSONCORRECT/"
-# path = "C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/"
+# path = "C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/"
 filename = "stepsetup7ethyleneglycol_all shapes_1.11112e-09m3_s.json"
 
 #filename = "stepsetup7ethyleneglycol_all shapes_1.194454e-09m3_s.json"

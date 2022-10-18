@@ -35,7 +35,7 @@ index = 0
 index_aux = 0
 path = "E:/2022JSONTESTSEG/"
 #path = "E:/2022jsonauxethanol/"
-#path = "C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/"
+#path = "C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/"
 directory_contents = os.listdir(path)
 
 data = []
@@ -151,4 +151,4 @@ plt.show()
 array = [flow_rate_actual_array, voltage_PS_array]
 
 df = pd.DataFrame(array).T
-df.to_excel(excel_writer = "C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/flowrate_voltagePS"+name_liquid+".xlsx")
+df.to_excel(excel_writer = "C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/flowrate_voltagePS"+name_liquid+".xlsx")

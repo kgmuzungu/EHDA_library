@@ -46,7 +46,7 @@ for i in directory_contents:
         continue
     else:
         print(i)
-        with open('C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/'+i) as json_file:
+        with open('C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/'+i) as json_file:
             data_dict = json.load(json_file)
 
             manual_shape = data_dict['config']['liquid']['actual measurement']['current shape manual']

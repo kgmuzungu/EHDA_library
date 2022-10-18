@@ -91,7 +91,7 @@ Q = Q * 2.7778e-7  # m3/s                                        # Q = Q * 2.777
 impedance, temperature, humidity = 2000000, 27.8, 49
 # *********************************************************************************************
 name_setup = "setup9"
-setup = "C:/Users/hvvhl/PycharmProjects/pyco/setup/" + name_setup
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  # ***********************************************************
 # *********************************************************************************************
