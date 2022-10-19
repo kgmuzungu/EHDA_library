@@ -34,7 +34,7 @@ fft for cone jet is empty except for the dc frequency
 index = 0
 index_aux = 0
 path = "E:/summer2022/"
-# path = "C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/"
+# path = "C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/"
 #filename = "stepsetup7ethanol_all shapes_1.3889e-09m3_s.json"
 filename = "rampsetup92propanol_all shapes_1.9361266000000003e-08m3_s.json"
 directory_contents = os.listdir(path)

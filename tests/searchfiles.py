@@ -3,7 +3,7 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 import re
-path = 'C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles'
+path = 'C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles'
 
 directory_contents = os.listdir(path)
 

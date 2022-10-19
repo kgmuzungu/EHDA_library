@@ -42,7 +42,7 @@ event = threading.Event()
 from threading import Thread
 # fig = pylab.gcf()
 LOG_FILENAME = r'logging_test.out'
-save_path = """E:/summer2022/"""
+save_path = """E:/joao/"""
 
 logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s %(message)s', level=logging.INFO)
 logging.info('Started')
@@ -66,7 +66,7 @@ d_statistics = {}
 # ****************************************************************************************************************
 
 #  VAR_BIN_CONFIG = input("Would you like to save data? [True/False] ")
-VAR_BIN_CONFIG = True
+VAR_BIN_CONFIG = False
 SAVE_DATA = VAR_BIN_CONFIG
 SAVE_PROCESSING = VAR_BIN_CONFIG
 SAVE_CONFIG = VAR_BIN_CONFIG
@@ -91,8 +91,8 @@ Q = Q * 2.7778e-7  # m3/s                                        # Q = Q * 2.777
 impedance, temperature, humidity = 2000000, 27.8, 49
 # *********************************************************************************************
 name_setup = "setup9"
-setup = "C:/Users/hvvhl/PycharmProjects/pyco/setup/" + name_setup
-name_liquid = "paraffin"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
+name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  # ***********************************************************
 # *********************************************************************************************
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",

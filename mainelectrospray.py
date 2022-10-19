@@ -72,7 +72,7 @@ Q = Q * 10e-6  # liter/h
 Q = Q * 2.7778e-7  # m3/s
 # **********************************************************************
 name_setup = "setup7"
-setup = "C:/Users/hvvhl/PycharmProjects/pyco/setup/" + name_setup
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "ethyleneglycol"
 liquid = "liquid/" + name_liquid  # **********************************************************************
 # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40]

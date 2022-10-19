@@ -50,7 +50,7 @@ time_step = 1 / sampling_frequency
 ki = 6.46
 index = 0
 index_aux = 0
-path = 'C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/'
+path = 'C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/'
 directory_contents = os.listdir(path)
 print(directory_contents)
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",

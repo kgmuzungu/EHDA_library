@@ -100,7 +100,7 @@ time_step = 1 / sampling_frequency
 ki = 6.46
 index = 0
 index_aux = 0
-# path = 'C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles'
+# path = 'C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles'
 
 path = 'E:/2022json/'
 directory_contents = os.listdir(path)
@@ -354,5 +354,5 @@ plt.rcParams["figure.figsize"] = (20, 12)
 # ax.yaxis.set_major_formatter(ticker.PercentFormatter(xmax=len(name)))
 plt.show()
 plt.savefig(
-    "C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/plot_sjaak_std_mean_mean_median" + current_shapes[3] + str(
+    "C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/plot_sjaak_std_mean_mean_median" + current_shapes[3] + str(
         name[j]) + ".svg", format='svg', dpi=300)

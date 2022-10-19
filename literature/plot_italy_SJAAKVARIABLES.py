@@ -24,7 +24,7 @@ index_aux = 0
 #path = "E:/summer22propanol/"
 path = "E:/summer22ethanol/"
 #path = "E:/summer22propanol/"
-#path = "C:/Users/hvvhl/PycharmProjects/pyco/jsonfiles/"
+#path = "C:/Users/hvvhl/Desktop/joao/EHDA_library/jsonfiles/"
 directory_contents = os.listdir(path)
 #directory_contents = "stepsetup92propanol_all shapes_1.94446e-08m3_s.json"
 data = []
@@ -115,12 +115,12 @@ for file in directory_contents:
 
 #axs.legend(plot_lines, flow_rate_actual_array, loc='upper left')
 
-#plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/sjaak_mean" + name_liquid + ".jpg", format='jpg', dpi=300)
+#plt.savefig("C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/sjaak_mean" + name_liquid + ".jpg", format='jpg', dpi=300)
 
-#plt.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/sjaak_std_div_mean' + name_liquid + ".tiff", format='tiff', dpi=300)
-#plt.savefig("C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/sjaak_std_div_mean" + name_liquid + ".jpg", format='jpg', dpi=300)
-#plt.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/logdeviation_div_meanXvoltage' + name_liquid[3] + ".jpg", format='jpg', dpi=300)
-#plt.savefig('C:/Users/hvvhl/PycharmProjects/pyco/plot_generated/logmean_div_medianXvoltage_' + name_liquid[3] + ".jpg", format='jpg', dpi=300)
+#plt.savefig('C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/sjaak_std_div_mean' + name_liquid + ".tiff", format='tiff', dpi=300)
+#plt.savefig("C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/sjaak_std_div_mean" + name_liquid + ".jpg", format='jpg', dpi=300)
+#plt.savefig('C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/logdeviation_div_meanXvoltage' + name_liquid[3] + ".jpg", format='jpg', dpi=300)
+#plt.savefig('C:/Users/hvvhl/Desktop/joao/EHDA_library/plot_generated/logmean_div_medianXvoltage_' + name_liquid[3] + ".jpg", format='jpg', dpi=300)
 plt.show()
 
 
