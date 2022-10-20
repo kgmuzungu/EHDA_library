@@ -138,25 +138,6 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 #               THREADS
 # **************************************
 
-def get_voltage_from_PS():
-    try:
-        voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
-        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
-        print(numbers[0])
-    except:
-        numbers = ["0"]
-    return float(numbers[0])
-
-
-def get_current_from_PS():
-    try:
-        current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
-        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
-        print(numbers[0])
-    except:
-        numbers = ["0"]
-    return float(numbers[0])
-
 
 # obj_fug_com ... fug serial object
 # step_size=300 ... in volt
@@ -171,7 +152,7 @@ def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage
     responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
                                                'U ' + str(voltage_start), 'F1'])
 
-    if (get_voltage_from_PS() < voltage_start or get_voltage_from_PS() > voltage_start):
+    if (get_voltage_from_PS(obj_fug_com) < voltage_start or get_voltage_from_PS(obj_fug_com) > voltage_start):
         time.sleep(step_time)
 
     voltage = voltage_start
@@ -366,14 +347,14 @@ with obj_fug_com:
 
         fig.canvas.blit(fig.bbox)
 
-        print(get_voltage_from_PS())
+        print(get_voltage_from_PS(obj_fug_com))
 
         for j in range(number_measurements):
             # reset the background back in the canvas state, screen unchange
             fig.canvas.restore_region(bg)
 
-            voltage_from_PS = get_voltage_from_PS()
-            current_from_PS = get_current_from_PS()
+            voltage_from_PS = get_voltage_from_PS(obj_fug_com)
+            current_from_PS = get_current_from_PS(obj_fug_com)
             current_array.append(current_from_PS)
             voltage_array.append(voltage_from_PS)
             print("Actual voltage: " + str(voltage_from_PS) + " for the measurement " + str(

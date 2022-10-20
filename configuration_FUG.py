@@ -3,6 +3,7 @@
 import serial.tools.list_ports
 # package needed for sleep
 import time
+import re
 
 
 def FUG_initialize(com_port_idx):
@@ -64,4 +65,24 @@ def FUG_sendcommands(com_port, cmd):
 
 def FUG_off():
     serial.Serial('COM8').close()
+
+
+def get_voltage_from_PS(obj_fug_com):
+    try:
+        voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
+        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
+        print(numbers[0])
+    except:
+        numbers = ["0"]
+    return float(numbers[0])
+
+
+def get_current_from_PS(obj_fug_com):
+    try:
+        current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
+        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
+        print(numbers[0])
+    except:
+        numbers = ["0"]
+    return float(numbers[0])
 
