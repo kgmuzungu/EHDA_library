@@ -20,8 +20,8 @@ from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
+from configuration_FUG import *
 # from aux_functions_electrospray import *
-from serial_FUG.serial_sync import *
 import configuration_tiepie
 
 from simple_pid import PID
@@ -85,10 +85,18 @@ append_array_processing = VAR_BIN_CONFIG
 
 MODERAMP = True  # else go in steps
 number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
+print('number_measurements: ', number_measurements)
+
 Q = 1450 # flow rate  uL/h 
 Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
 Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
+print('flowrate cm3/s: ', Q)
+
 impedance, temperature, humidity = 2000000, 27.8, 49
+print('impedance: ', impedance)
+print('temperature: ', temperature)
+print('humidity: ', humidity)
+
 name_setup = "setup9"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
@@ -130,7 +138,6 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 #               THREADS
 # **************************************
 
-# returns float
 def get_voltage_from_PS():
     try:
         voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
@@ -141,7 +148,6 @@ def get_voltage_from_PS():
     return float(numbers[0])
 
 
-# returns float
 def get_current_from_PS():
     try:
         current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
@@ -221,13 +227,13 @@ def print_screen(save_path, name_liquid, flow_rate):
 
 
 """
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['U0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U0']))
     print("**********************")
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print("Command F0 sent to FUG!")
 """
 # if __name__ == "__main__":
-# with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
+# with configuration_FUG('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 
 
 # FUG - POWER SUPPLY
@@ -240,7 +246,7 @@ except Exception as e:
 
 print('FUG initialized!')
 print("FUG Opened port:")
-# print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+# print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
 print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
 
 
@@ -345,7 +351,7 @@ with obj_fug_com:
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()
         figManager.window.showMaximized()
-        # print(serial_sync.FUG_sendcommands(obj_fug_com, ['U 8000']))
+        # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U 8000']))
 
         # make sure the window is raised, but the script keeps going
         plt.show(block=False)

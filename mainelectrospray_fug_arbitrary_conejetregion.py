@@ -18,7 +18,7 @@ from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 from aux_functions_electrospray import *
-from serial_FUG.serial_sync import *
+from serial_FUG.configuration_FUG import *
 import configuration_tiepie
 import os
 import re
@@ -173,19 +173,19 @@ def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100
     return responses
 
 """
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['U0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U0']))
     print("**********************")
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print("Command F0 sent to FUG!")
 """
 
 # if __name__ == "__main__":
-# with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
+# with configuration_FUG('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 obj_fug_com = FUG_initialize(2)
 with obj_fug_com:
     # Print info about serial open port:
     print("Opened port!")
-    # print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
     # 3 plots in the same figure
     fig, ax = plt.subplots(3)
@@ -276,7 +276,7 @@ with obj_fug_com:
             # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
             figManager = plt.get_current_fig_manager()
             figManager.window.showMaximized()
-            # print(serial_sync.FUG_sendcommands(obj_fug_com, ['U 8000']))
+            # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U 8000']))
 
             # make sure the window is raised, but the script keeps going
             plt.show(block=False)

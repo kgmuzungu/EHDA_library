@@ -1,44 +1,6 @@
-##
- # @file serial_com.py
- #
- # @author Birkmaier Thomas
- #
- # @version v0.00
- #
- # @par Development System
- # - Hardware: --
- # - IDE     : Microsoft Visual Studio Code
- #
- # @brief Example program to send commands using a COM Port.
- #
- # @details How to use this example:
- #  - Use this link to set up Visual Studio Code for Python:
- #    https://code.visualstudio.com/docs/python/python-tutorial
- #  - Use information provided by this link to install pySerial library
- #  - Run this Python script
- #  - Program shows you available COM ports
- #  - Choose the port you want to send commands to
- #  - Example command ">S0 10.00"
- #  - Device responds "#0 >S0:1.000000E+1"
- #  - Example command ">S0?"
- #  - Device responds "#1 >S0:0.000000E+00"
- #  - Type "exit" to exit the program
- #
- # @note This is just an example to show how to create a connection. Be aware
- # that This is not production ready code!
- #
- # @copyright
- # THIS DOCUMENT/MEDIA IS THE PERSONAL PROPERTY OF FuG GMBH
- # AND WAS CREATED AND COPYRIGHTED BY FuG GMBH IN 2018. ALL
- # RIGHTS TO ITS USE ARE RESERVED.  THIS  MATERIAL  MAY NOT BE USED,
- # COPIED OR DISCLOSED  TO ANY THIRD PARTY WITHOUT THE PRIOR WRITTEN
- # AGREEMENT OF FuG GMBH. (c) 2019 FuG GMBH.
- #
- ##
 
 # package needed to list available COM ports
 import serial.tools.list_ports
-
 # package needed for sleep
 import time
 

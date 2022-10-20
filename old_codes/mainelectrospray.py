@@ -22,7 +22,7 @@ from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 from aux_functions_electrospray import *
-from serial_FUG import serial_sync
+import configuration_FUG
 import configuration_tiepie
 
 

@@ -1,4 +1,4 @@
-from serial_sync import *
+from configuration_FUG import *
 import time
 import re
 
