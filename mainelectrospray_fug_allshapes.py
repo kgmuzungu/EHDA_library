@@ -260,7 +260,7 @@ else:
     sys.exit(1)
 
 
-with obj_fug_com and scp:
+with obj_fug_com:
 
     fig, ax = plt.subplots(3)
 
