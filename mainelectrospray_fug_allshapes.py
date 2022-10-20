@@ -253,11 +253,12 @@ scp = None
 for item in libtiepie.device_list:
     if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE): # Try to open an oscilloscope with block measurement support
         scp = item.open_oscilloscope()
-if scp:
-    print('Oscilloscope initialized!')
-else:
-    print('No oscilloscope available with block measurement support!')
-    sys.exit(1)
+    else:
+        print('No oscilloscope available with block measurement support!')
+        sys.exit(1)
+
+print('Oscilloscope initialized!')
+
 
 
 with obj_fug_com:
