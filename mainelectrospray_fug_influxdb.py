@@ -15,8 +15,8 @@ from electrospray import ElectrosprayDataProcessing
 from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
-from classificationelectrospray import ElectrosprayClassification
-from aux_functions_electrospray import *
+from classification_electrospray import ElectrosprayClassification
+# from old_codes.aux_functions_electrospray import * # testar qual das classes esta sendo utilizada
 from serial_FUG.serial_sync import *
 from influx_db.sync_db import *
 import configuration_tiepie

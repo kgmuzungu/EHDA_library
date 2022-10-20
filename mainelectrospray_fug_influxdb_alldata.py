@@ -16,7 +16,7 @@ from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-from aux_functions_electrospray import *
+# from old_codes.aux_functions_electrospray import *  # testar qual das classes esta sendo utilizada
 from serial_FUG.serial_sync import *
 from influx_db.sync_db import *
 from influx_db.syncdb_allsignal import *

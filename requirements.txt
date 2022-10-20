@@ -10,6 +10,7 @@ conda install -c auto jsonobject
 conda install -c conda-forge networkx
 conda install -c anaconda configparser
 conda install -c anaconda pyserial
+conda install -c anaconda pyautogui
 
 conda install -c esrf-bcu simple-pid
 
