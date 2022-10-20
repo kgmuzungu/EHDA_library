@@ -15,13 +15,11 @@ from time import gmtime, strftime
 import csv
 import configparser
 
-from electrospray import ElectrosprayDataProcessing
-from electrospray import ElectrosprayConfig
-from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
-from serial_FUG.serial_sync import *
+from configuration_FUG import *
 import configuration_tiepie
 
 from simple_pid import PID
@@ -33,8 +31,7 @@ import logging
 import pylab
 import threading
 import numpy as np
-import cv2
-import pyautogui
+
 
 event = threading.Event()
 
@@ -85,10 +82,18 @@ append_array_processing = VAR_BIN_CONFIG
 
 MODERAMP = True  # else go in steps
 number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
+print('number_measurements: ', number_measurements)
+
 Q = 1450 # flow rate  uL/h 
 Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
 Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
+print('flowrate cm3/s: ', Q)
+
 impedance, temperature, humidity = 2000000, 27.8, 49
+print('impedance: ', impedance)
+print('temperature: ', temperature)
+print('humidity: ', humidity)
+
 name_setup = "setup9"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
@@ -105,7 +110,10 @@ current_array = []
 voltage = voltage * 1000  # V"""
 
 # k_electrical_conductivity = 0.34 * 10e-4 # uS/cm 
-""" AUX VARIABLES"""
+
+# **************************************
+#            AUX VARIABLES
+# **************************************
 first_measurement = True
 FLAG_PLOT = False
 classification_sjaak = ""
@@ -117,10 +125,12 @@ j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
 
+# **************************************
+#          CREATING INSTANCES
+# **************************************
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
-
 electrospray_validation = ElectrosprayValidation(name_liquid)
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
@@ -130,104 +140,13 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 #               THREADS
 # **************************************
 
-# returns float
-def get_voltage_from_PS():
-    try:
-        voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
-        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
-        print(numbers[0])
-    except:
-        numbers = ["0"]
-    return float(numbers[0])
-
-
-# returns float
-def get_current_from_PS():
-    try:
-        current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
-        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
-        print(numbers[0])
-    except:
-        numbers = ["0"]
-    return float(numbers[0])
-
-
-# obj_fug_com ... fug serial object
-# step_size=300 ... in volt
-# step_time=1 step time in seconds : sleep time in seconds
-# step_slope=0 step slope in voltage per second
-# voltage_start=0  ... in volt
-# voltage_stop=100 ... in volt
-
-def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage_start=3000, voltage_stop=100):
-    """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
-                                               'U ' + str(voltage_start), 'F1'])"""
-    responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
-                                               'U ' + str(voltage_start), 'F1'])
-
-    if (get_voltage_from_PS() < voltage_start or get_voltage_from_PS() > voltage_start):
-        time.sleep(step_time)
-
-    voltage = voltage_start
-    while voltage < voltage_stop:
-        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
-        time.sleep(step_time)
-        voltage += step_size
-
-    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
-    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
-
-    print("Responses from step frequency : ", str(responses) + " *********************** ")
-
-
-def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100):
-    responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(voltage_start), 'F1'])
-
-    responses.append(FUG_sendcommands(obj_fug_com, ['>S0B 2', '>S0R ' + str(ramp_slope), 'U ' + str(voltage_stop)]))
-
-    # FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)])
-
-    return responses
-
-
-def print_screen(save_path, name_liquid, flow_rate):
-    # take screenshot using pyautogui
-    print(" +++++++++++++++++++++++++ teste print")
-    cont = 0
-    while cont < 6:
-        time.sleep(5)
-        image = pyautogui.screenshot()
-        # time_now = time.localtime()
-        now = datetime.datetime.now()
-
-        #time_now = time.strftime('%a, %d %b %Y %Y %H:%M:%S GMT')
-        time_now = (str(now.year) + str(now.month) + str(now.day) + str(now.hour) + str(now.minute) + str(now.second))
-        # since the pyautogui takes as a
-        # PIL(pillow) and in RGB we need to
-        # convert it to numpy array and BGR
-        # so we can write it to the disk
-        image = cv2.cvtColor(np.array(image),
-                             cv2.COLOR_RGB2BGR)
-        # writing it to the disk using opencv
-        cv2.imwrite(save_path+name_liquid+"_Q"+str(flow_rate)+"_time"+str(time_now)+".png", image)
-        cont = cont + 1
-
-
 
 
 # **************************************
 #                MAIN
 # **************************************
 
-
-"""
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['U0']))
-    print("**********************")
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
-    print("Command F0 sent to FUG!")
-"""
 # if __name__ == "__main__":
-# with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 
 
 # FUG - POWER SUPPLY
@@ -240,7 +159,6 @@ except Exception as e:
 
 print('FUG initialized!')
 print("FUG Opened port:")
-# print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
 print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
 
 
@@ -256,7 +174,6 @@ for item in libtiepie.device_list:
     else:
         print('No oscilloscope available with block measurement support!')
         sys.exit(1)
-
 print('Oscilloscope initialized!')
 
 
@@ -272,7 +189,7 @@ with obj_fug_com:
     voltage_stop = 11000
     step_size = 300
     step_time = 4  # 10
-    printscreen_thread = threading.Thread(target=print_screen, name='print', args=(
+    printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
                                                     save_path, name_liquid, Q))
     printscreen_thread.start()
     step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
@@ -345,7 +262,6 @@ with obj_fug_com:
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()
         figManager.window.showMaximized()
-        # print(serial_sync.FUG_sendcommands(obj_fug_com, ['U 8000']))
 
         # make sure the window is raised, but the script keeps going
         plt.show(block=False)
@@ -360,14 +276,14 @@ with obj_fug_com:
 
         fig.canvas.blit(fig.bbox)
 
-        print(get_voltage_from_PS())
+        print(get_voltage_from_PS(obj_fug_com))
 
         for j in range(number_measurements):
             # reset the background back in the canvas state, screen unchange
             fig.canvas.restore_region(bg)
 
-            voltage_from_PS = get_voltage_from_PS()
-            current_from_PS = get_current_from_PS()
+            voltage_from_PS = get_voltage_from_PS(obj_fug_com)
+            current_from_PS = get_current_from_PS(obj_fug_com)
             current_array.append(current_from_PS)
             voltage_array.append(voltage_from_PS)
             print("Actual voltage: " + str(voltage_from_PS) + " for the measurement " + str(

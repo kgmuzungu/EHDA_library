@@ -1,46 +1,9 @@
-##
- # @file serial_com.py
- #
- # @author Birkmaier Thomas
- #
- # @version v0.00
- #
- # @par Development System
- # - Hardware: --
- # - IDE     : Microsoft Visual Studio Code
- #
- # @brief Example program to send commands using a COM Port.
- #
- # @details How to use this example:
- #  - Use this link to set up Visual Studio Code for Python:
- #    https://code.visualstudio.com/docs/python/python-tutorial
- #  - Use information provided by this link to install pySerial library
- #  - Run this Python script
- #  - Program shows you available COM ports
- #  - Choose the port you want to send commands to
- #  - Example command ">S0 10.00"
- #  - Device responds "#0 >S0:1.000000E+1"
- #  - Example command ">S0?"
- #  - Device responds "#1 >S0:0.000000E+00"
- #  - Type "exit" to exit the program
- #
- # @note This is just an example to show how to create a connection. Be aware
- # that This is not production ready code!
- #
- # @copyright
- # THIS DOCUMENT/MEDIA IS THE PERSONAL PROPERTY OF FuG GMBH
- # AND WAS CREATED AND COPYRIGHTED BY FuG GMBH IN 2018. ALL
- # RIGHTS TO ITS USE ARE RESERVED.  THIS  MATERIAL  MAY NOT BE USED,
- # COPIED OR DISCLOSED  TO ANY THIRD PARTY WITHOUT THE PRIOR WRITTEN
- # AGREEMENT OF FuG GMBH. (c) 2019 FuG GMBH.
- #
- ##
 
 # package needed to list available COM ports
 import serial.tools.list_ports
-
 # package needed for sleep
 import time
+import re
 
 
 def FUG_initialize(com_port_idx):
@@ -103,3 +66,61 @@ def FUG_sendcommands(com_port, cmd):
 def FUG_off():
     serial.Serial('COM8').close()
 
+
+# obj_fug_com ... fug serial object
+# step_size=300 ... in volt
+# step_time=1 step time in seconds : sleep time in seconds
+# step_slope=0 step slope in voltage per second
+# voltage_start=0  ... in volt
+# voltage_stop=100 ... in volt
+
+def get_voltage_from_PS(obj_fug_com):
+    try:
+        voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
+        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
+        print(numbers[0])
+    except:
+        numbers = ["0"]
+    return float(numbers[0])
+
+
+def get_current_from_PS(obj_fug_com):
+    try:
+        current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
+        numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
+        print(numbers[0])
+    except:
+        numbers = ["0"]
+    return float(numbers[0])
+
+
+def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage_start=3000, voltage_stop=100):
+    """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
+                                               'U ' + str(voltage_start), 'F1'])"""
+    responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
+                                               'U ' + str(voltage_start), 'F1'])
+
+    if (get_voltage_from_PS(obj_fug_com) < voltage_start or get_voltage_from_PS(obj_fug_com) > voltage_start):
+        time.sleep(step_time)
+
+    voltage = voltage_start
+    while voltage < voltage_stop:
+        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+        time.sleep(step_time)
+        voltage += step_size
+
+    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
+    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
+
+    print("Responses from step frequency : ", str(responses) + " *********************** ")
+
+
+
+def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100):
+    responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(voltage_start), 'F1'])
+
+    responses.append(FUG_sendcommands(obj_fug_com, ['>S0B 2', '>S0R ' + str(ramp_slope), 'U ' + str(voltage_stop)]))
+
+    # FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)])
+
+    return responses

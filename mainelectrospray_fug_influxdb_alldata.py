@@ -14,10 +14,10 @@ from time import gmtime, strftime
 from electrospray import ElectrosprayDataProcessing
 from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 # from old_codes.aux_functions_electrospray import *  # testar qual das classes esta sendo utilizada
-from serial_FUG.serial_sync import *
+from configuration_FUG import *
 from influx_db.sync_db import *
 from influx_db.syncdb_allsignal import *
 import configuration_tiepie
@@ -177,12 +177,12 @@ def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100
 """
 
 # if __name__ == "__main__":
-# with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
+# with configuration_FUG('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 obj_fug_com = FUG_initialize(0)
 with obj_fug_com:
     # Print info about serial open port:
     print("Opened port!")
-    # print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
 
     # Print oscilloscope library info:

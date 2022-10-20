@@ -15,10 +15,10 @@ import configparser
 from electrospray import ElectrosprayDataProcessing
 from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-from aux_functions_electrospray import *
-from serial_FUG.serial_sync import *
+from old_codes.aux_functions_electrospray import *
+from configuration_FUG import *
 import configuration_tiepie
 import os
 import re
@@ -149,12 +149,12 @@ def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100
 
 
 # if __name__ == "__main__":
-# with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
+# with configuration_FUG('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 
 obj_fug_com = FUG_initialize(2)
 with obj_fug_com:
     print("Opened port!")
-    # print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
 
     MODERAMP = False  # else go in steps
@@ -224,7 +224,7 @@ with obj_fug_com:
             # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
             figManager = plt.get_current_fig_manager()
             figManager.window.showMaximized()
-            # print(serial_sync.FUG_sendcommands(obj_fug_com, ['U 8000']))
+            # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U 8000']))
 
             # make sure the window is raised, but the script keeps going
             plt.show(block=False)
@@ -330,9 +330,9 @@ with obj_fug_com:
         print('No oscilloscope available with block measurement support!')
         sys.exit(1)
 """
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['U0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U0']))
     print("**********************")
-    print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
+    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
     print("Command F0 sent to FUG!")
 """
 
