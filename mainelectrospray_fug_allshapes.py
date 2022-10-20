@@ -20,7 +20,7 @@ from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
 from validationelectrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-from aux_functions_electrospray import *
+# from aux_functions_electrospray import *
 from serial_FUG.serial_sync import *
 import configuration_tiepie
 
@@ -41,9 +41,10 @@ event = threading.Event()
 
 from threading import Thread
 # fig = pylab.gcf()
-LOG_FILENAME = r'logging_test.out'
 save_path = """E:/joao/"""
 
+# LOGGING CONFIG
+LOG_FILENAME = r'logging_test.out'
 logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s %(message)s', level=logging.INFO)
 logging.info('Started')
 
@@ -61,54 +62,49 @@ d_electrospray_measurements_data = {}
 d_electrospray_processing = {}
 d_statistics = {}
 
-# ****************************************************************************************************************
-# ************************ INITIAL CONFIGURATION **********************************************
-# ****************************************************************************************************************
+
+
+# *************************************
+#       INITIAL CONFIGURATION 
+# *************************************
 
 #  VAR_BIN_CONFIG = input("Would you like to save data? [True/False] ")
 VAR_BIN_CONFIG = False
 SAVE_DATA = VAR_BIN_CONFIG
 SAVE_PROCESSING = VAR_BIN_CONFIG
 SAVE_CONFIG = VAR_BIN_CONFIG
-
 SAVE_JSON = VAR_BIN_CONFIG
 append_array_data = VAR_BIN_CONFIG
 append_array_processing = VAR_BIN_CONFIG
-# ****************************************************************************************************************
-# ************************ INITIAL CONFIGURATION OF LIQUID AND SETUP **************************
-# ****************************************************************************************************************
-"""
-MODERAMP = False  # else go in steps
-number_measurements = 100
-"""
-MODERAMP = True  # else go in steps
-number_measurements = 45
-#"""
-Q = 1450 # flow rate  uL/h **********************************************************************
-Q = Q * 10e-6  # liter/h                                         # Q = 0.0110  # ml/h flow rate
-Q = Q * 2.7778e-7  # m3/s                                        # Q = Q * 2.7778e-3  # cm3/s
 
+
+
+# **************************************
+#    LIQUID AND SETUP INITIAL CONFIG
+# **************************************
+
+MODERAMP = True  # else go in steps
+number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
+Q = 1450 # flow rate  uL/h 
+Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
+Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
 impedance, temperature, humidity = 2000000, 27.8, 49
-# *********************************************************************************************
 name_setup = "setup9"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
-liquid = "liquid/" + name_liquid  # ***********************************************************
-# *********************************************************************************************
+liquid = "liquid/" + name_liquid  
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
-current_shape = current_shapes[8]  # **********************************************************
+current_shape = current_shapes[8]  
 current_shape_comment = "difficult cone jet stabilization"
-# *********************************************************************************************
 voltage = 0
 voltage_array = []
 current = 0
 current_array = []
-"""voltage = 9.2  # **********************************************************************
+"""voltage = 9.2  
 voltage = voltage * 1000  # V"""
-# *********************
-# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm ******************************************************
-# ***********************************************
+
+# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm 
 """ AUX VARIABLES"""
 first_measurement = True
 FLAG_PLOT = False
@@ -120,25 +116,19 @@ listdir = os.listdir()
 j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
-# ***********************************************
+
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
 
 electrospray_validation = ElectrosprayValidation(name_liquid)
-
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
-
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
-# ***********************************************
 
 
-# ****************************************************************************************************************
-# ****************************************************************************************************************
-# *************************************** THREADS ********************************************************
-# ****************************************************************************************************************
-# ****************************************************************************************************************
-
+# **************************************
+#               THREADS
+# **************************************
 
 # returns float
 def get_voltage_from_PS():
@@ -223,16 +213,12 @@ def print_screen(save_path, name_liquid, flow_rate):
         cont = cont + 1
 
 
-"""
-# ****************************************************************************************************************
-# ****************************************************************************************************************
-# ****************************************************************************************************************
-     **************************************************** MAIN *********************************************
-# ****************************************************************************************************************
-# ****************************************************************************************************************
-# ****************************************************************************************************************
 
-"""
+
+# **************************************
+#                MAIN
+# **************************************
+
 
 """
     print(serial_sync.FUG_sendcommands(obj_fug_com, ['U0']))
@@ -240,29 +226,32 @@ def print_screen(save_path, name_liquid, flow_rate):
     print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
     print("Command F0 sent to FUG!")
 """
-
 # if __name__ == "__main__":
 # with serial_sync('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
-obj_fug_com = FUG_initialize(4)
+
+# FUG
+obj_fug_com = FUG_initialize(4) # parameter: COM port idx
 with obj_fug_com:
     # Print info about serial open port:
-    print("Opened port!")
+    print("FUG Opened port!")
     # print(serial_sync.FUG_sendcommands(obj_fug_com, ['F0']))
     print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
     # 3 plots in the same figure
     fig, ax = plt.subplots(3)
-    # Print oscilloscope library info:
+
+    # OSCILLOSCOPE
     print_library_info()
     time_step = 1 / sampling_frequency
-    # Enable network search:
-    libtiepie.network.auto_detect_enabled = True
-    # Search for devices:
-    libtiepie.device_list.update()
+    libtiepie.network.auto_detect_enabled = True # Enable network search
+    libtiepie.device_list.update() # Search for devices
+
     # Try to open an oscilloscope with block measurement support:
     scp = None
     for item in libtiepie.device_list:
         if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):
             scp = item.open_oscilloscope()
+
+    # ROUTINE
     if scp:
         txt_mode = "step"
         slope = 350
