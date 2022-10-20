@@ -15,13 +15,11 @@ from time import gmtime, strftime
 import csv
 import configparser
 
-from electrospray import ElectrosprayDataProcessing
-from electrospray import ElectrosprayConfig
-from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-from configuration_FUG import *
 # from aux_functions_electrospray import *
+from configuration_FUG import *
 import configuration_tiepie
 
 from simple_pid import PID
@@ -33,8 +31,7 @@ import logging
 import pylab
 import threading
 import numpy as np
-import cv2
-import pyautogui
+
 
 event = threading.Event()
 
@@ -113,7 +110,10 @@ current_array = []
 voltage = voltage * 1000  # V"""
 
 # k_electrical_conductivity = 0.34 * 10e-4 # uS/cm 
-""" AUX VARIABLES"""
+
+# **************************************
+#            AUX VARIABLES
+# **************************************
 first_measurement = True
 FLAG_PLOT = False
 classification_sjaak = ""
@@ -125,10 +125,12 @@ j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
 
+# **************************************
+#          CREATING INSTANCES
+# **************************************
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
-
 electrospray_validation = ElectrosprayValidation(name_liquid)
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
@@ -140,44 +142,11 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
 
-def print_screen(save_path, name_liquid, flow_rate):
-    # take screenshot using pyautogui
-    print(" +++++++++++++++++++++++++ teste print")
-    cont = 0
-    while cont < 6:
-        time.sleep(5)
-        image = pyautogui.screenshot()
-        # time_now = time.localtime()
-        now = datetime.datetime.now()
-
-        #time_now = time.strftime('%a, %d %b %Y %Y %H:%M:%S GMT')
-        time_now = (str(now.year) + str(now.month) + str(now.day) + str(now.hour) + str(now.minute) + str(now.second))
-        # since the pyautogui takes as a
-        # PIL(pillow) and in RGB we need to
-        # convert it to numpy array and BGR
-        # so we can write it to the disk
-        image = cv2.cvtColor(np.array(image),
-                             cv2.COLOR_RGB2BGR)
-        # writing it to the disk using opencv
-        cv2.imwrite(save_path+name_liquid+"_Q"+str(flow_rate)+"_time"+str(time_now)+".png", image)
-        cont = cont + 1
-
-
-
-
 # **************************************
 #                MAIN
 # **************************************
 
-
-"""
-    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U0']))
-    print("**********************")
-    print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
-    print("Command F0 sent to FUG!")
-"""
 # if __name__ == "__main__":
-# with configuration_FUG('COM8', 9600, timeout=0) as ser, open("voltages.txt", 'w') as text_file:
 
 
 # FUG - POWER SUPPLY
@@ -190,7 +159,6 @@ except Exception as e:
 
 print('FUG initialized!')
 print("FUG Opened port:")
-# print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['F0']))
 print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
 
 
@@ -206,7 +174,6 @@ for item in libtiepie.device_list:
     else:
         print('No oscilloscope available with block measurement support!')
         sys.exit(1)
-
 print('Oscilloscope initialized!')
 
 
@@ -222,7 +189,7 @@ with obj_fug_com:
     voltage_stop = 11000
     step_size = 300
     step_time = 4  # 10
-    printscreen_thread = threading.Thread(target=print_screen, name='print', args=(
+    printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
                                                     save_path, name_liquid, Q))
     printscreen_thread.start()
     step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
@@ -295,7 +262,6 @@ with obj_fug_com:
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()
         figManager.window.showMaximized()
-        # print(configuration_FUG.FUG_sendcommands(obj_fug_com, ['U 8000']))
 
         # make sure the window is raised, but the script keeps going
         plt.show(block=False)

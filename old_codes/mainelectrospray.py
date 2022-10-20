@@ -19,7 +19,7 @@ import configparser
 from electrospray import ElectrosprayDataProcessing
 from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 from aux_functions_electrospray import *
 import configuration_FUG

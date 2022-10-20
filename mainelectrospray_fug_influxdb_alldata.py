@@ -14,10 +14,10 @@ from time import gmtime, strftime
 from electrospray import ElectrosprayDataProcessing
 from electrospray import ElectrosprayConfig
 from electrospray import ElectrosprayMeasurements
-from validationelectrospray import ElectrosprayValidation
+from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 # from old_codes.aux_functions_electrospray import *  # testar qual das classes esta sendo utilizada
-from serial_FUG.configuration_FUG import *
+from configuration_FUG import *
 from influx_db.sync_db import *
 from influx_db.syncdb_allsignal import *
 import configuration_tiepie

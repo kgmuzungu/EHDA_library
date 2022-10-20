@@ -1,5 +1,9 @@
 import numpy as np
 import json
+import cv2
+import pyautogui
+import time
+import datetime
 
 
 class ElectrosprayValidation:
@@ -97,3 +101,29 @@ class ElectrosprayValidation:
             else:
                 self.flow_rate_chen_pui.append(
                     (self.dieletric_const ** 0.5) * self.permitivity * self.surface_tension / (self.rho * self.electrical_conductivity))
+
+
+
+    def print_screen(save_path, name_liquid, flow_rate):
+        # take screenshot using pyautogui
+        print(" +++++++++++++++++++++++++ teste print")
+        cont = 0
+        while cont < 6:
+            time.sleep(5)
+            image = pyautogui.screenshot()
+            # time_now = time.localtime()
+            now = datetime.datetime.now()
+
+            #time_now = time.strftime('%a, %d %b %Y %Y %H:%M:%S GMT')
+            time_now = (str(now.year) + str(now.month) + str(now.day) + str(now.hour) + str(now.minute) + str(now.second))
+            # since the pyautogui takes as a
+            # PIL(pillow) and in RGB we need to
+            # convert it to numpy array and BGR
+            # so we can write it to the disk
+            image = cv2.cvtColor(np.array(image),
+                                cv2.COLOR_RGB2BGR)
+            # writing it to the disk using opencv
+            cv2.imwrite(save_path+name_liquid+"_Q"+str(flow_rate)+"_time"+str(time_now)+".png", image)
+            cont = cont + 1
+
+
