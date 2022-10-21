@@ -84,15 +84,3 @@ def send_to_influxdb(id, mean, std, voltage_PS, timestamp, classification, tempe
 # if __name__ == "__main__":
 #     main()
 
-
-        # Send data to database
-        configuration_influxDB.send_to_influxdb(
-            id='01',
-            mean=electrospray_processing.mean_value,
-            sdt=electrospray_processing.stddev,
-            voltage_PS=voltage_from_PS,
-            timestamp=datetime.datetime.utcnow(),
-            classification=classification_sjaak,
-            temperature=temperature,
-            humidity=humidity
-        )
