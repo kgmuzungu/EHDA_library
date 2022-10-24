@@ -38,7 +38,6 @@ event = threading.Event()
 
 from threading import Thread
 # fig = pylab.gcf()
-save_path = """E:/joao/"""
 
 # LOGGING CONFIG
 LOG_FILENAME = r'logging_test.out'
@@ -67,6 +66,7 @@ d_statistics = {}
 
 #  VAR_BIN_CONFIG = input("Would you like to save data? [True/False] ")
 VAR_BIN_CONFIG = False
+SAVE_DB = True
 SAVE_DATA = VAR_BIN_CONFIG
 SAVE_PROCESSING = VAR_BIN_CONFIG
 SAVE_CONFIG = VAR_BIN_CONFIG
@@ -95,7 +95,7 @@ print('temperature: ', temperature)
 print('humidity: ', humidity)
 
 name_setup = "setup9"
-setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup 
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
@@ -133,11 +133,6 @@ electrospray_config_liquid_setup_obj.load_json_config_setup()
 electrospray_validation = ElectrosprayValidation(name_liquid)
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
-
-
-# **************************************
-#               THREADS
-# **************************************
 
 
 
@@ -187,9 +182,7 @@ with obj_fug_com:
     voltage_stop = 11000
     step_size = 300
     step_time = 4  # 10
-    printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
-                                                    save_path, name_liquid, Q))
-    printscreen_thread.start()
+
     step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
                                             args=(
                                                 obj_fug_com, step_size, step_time, slope, voltage_start,
@@ -310,17 +303,6 @@ with obj_fug_com:
                 a_electrospray_processing.append(d_electrospray_processing)
 
             
-            # Send data to database
-            configuration_influxDB.send_to_influxdb(
-                id='01',
-                mean=electrospray_processing.mean_value,
-                sdt=electrospray_processing.stddev,
-                voltage_PS=voltage_from_PS,
-                timestamp=datetime.datetime.utcnow(),
-                classification=classification_sjaak,
-                temperature=temperature,
-                humidity=humidity
-            )
 
             # Start new measurement:
             scp.start()
@@ -340,7 +322,6 @@ with obj_fug_com:
         del scp
 
 
-    printscreen_thread.join()
     # wait until threads finish
     if MODERAMP:
         ramp_sequency_thread.join()
@@ -397,12 +378,21 @@ if SAVE_CONFIG:
         Q = str(Q) + 'm3_s'
         voltage_filename = str(voltage_array) + 'V'
         file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
-        completeName = os.path.join(save_path, file_name)
+        # put here the code to save json file somewhere
 
-        with open(completeName, 'w') as file:
-            json.dump((full_dict), file, indent=4)
-        # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
-        electrospray_validation.open_load_json_data(filename=completeName)
+    if SAVE_DB:   
+        # Send data to database
+        configuration_influxDB.send_to_influxdb(
+            id='01',
+            mean=electrospray_processing.mean_value,
+            sdt=electrospray_processing.stddev,
+            voltage_PS=voltage_from_PS,
+            timestamp=datetime.datetime.utcnow(),
+            classification=classification_sjaak,
+            temperature=temperature,
+            humidity=humidity
+        )
+
 
 logging.info('Finished')
 sys.exit(0)
