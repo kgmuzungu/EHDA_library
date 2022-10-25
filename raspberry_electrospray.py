@@ -91,6 +91,7 @@ print('impedance: ', impedance)
 print('temperature: ', temperature)
 print('humidity: ', humidity)
 
+fug_com_port = 0
 name_setup = "setup9"
 setup = "/home/lab/EHDA_library/setup/" + name_setup 
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
@@ -141,7 +142,7 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 # FUG - POWER SUPPLY
 try:
-    obj_fug_com = FUG_initialize(0) # parameter: COM port idx
+    obj_fug_com = FUG_initialize(fug_com_port) # parameter: COM port idx
 except Exception as e:
             print('Could not initialize FUG')
             print('Exception: ' + e.message)
