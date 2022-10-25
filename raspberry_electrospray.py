@@ -15,20 +15,17 @@ import csv
 import configparser
 
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
-from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
 from configuration_FUG import *
 import configuration_tiepie
 import configuration_influxDB
 
-from simple_pid import PID
 import os
 import re
 import numpy as np
 import json
 import logging
-import pylab
 import threading
 import numpy as np
 
@@ -95,7 +92,7 @@ print('temperature: ', temperature)
 print('humidity: ', humidity)
 
 name_setup = "setup9"
-setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup 
+setup = "/home/lab/EHDA_library/setup/" + name_setup 
 name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
@@ -130,7 +127,6 @@ j = 0
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
-electrospray_validation = ElectrosprayValidation(name_liquid)
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
@@ -145,7 +141,7 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 # FUG - POWER SUPPLY
 try:
-    obj_fug_com = FUG_initialize(4) # parameter: COM port idx
+    obj_fug_com = FUG_initialize(0) # parameter: COM port idx
 except Exception as e:
             print('Could not initialize FUG')
             print('Exception: ' + e.message)
