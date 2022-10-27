@@ -10,14 +10,16 @@ void setup()
 {
 	pinMode(8, OUTPUT);
 	digitalWrite(8, LOW);
-	Serial.begin(9600); 
+	Serial.begin(9600);
 }
 
 void loop()
 {
 	if (Serial.available() > 0)
 	{
-		if(Serial.read() == 49){
+		int value = Serial.readString().toInt();
+		if (value == 1)
+		{
 			digitalWrite(8, HIGH);
 			delay(1);
 			digitalWrite(8, LOW);
@@ -25,8 +27,12 @@ void loop()
 			digitalWrite(8, HIGH);
 			delay(1);
 			digitalWrite(8, LOW);
+			Serial.print("Start Reccording!");
 		}
-		Serial.print("Start Reccording!");
+		else
+		{
+			Serial.print("Arduino Wrong Value Received: ");
+			Serial.print(value);
+		}
 	}
-
 }
