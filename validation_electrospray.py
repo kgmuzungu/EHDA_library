@@ -1,6 +1,5 @@
 import numpy as np
 import json
-import cv2
 import pyautogui
 import time
 import datetime

@@ -1,4 +1,4 @@
-# electrospray library
+# EHDA - Electric Hidrodynamics Atomization library
 
 #### liquid folder -> json files about the liquid
 #### setup folder -> json files about the setup
@@ -15,7 +15,7 @@
 # To use this library you need to follow the steps bellow:
 
 
-#### 1. Open the file: mainelectrospray_fug_allshapes.py
+#### 1. Open the file: mainElectrospray.py
 
 #### 2. Verify the file that is indicated in the variable "name_setup" in the url indicated in the variable "setup". 
 
@@ -60,11 +60,9 @@
 
 #### 9. Verify if the path is the one that you would like to save in the variable "save_path".
 
-#### 10. Run the file defined in 1.
+#### 10. Run the mainElectrospray.py file.
 
 
-
-# updates should be in in master branch 
 
 
 # USEFULL LINKS
@@ -118,23 +116,12 @@ $ cd bin
 $ ./pycharm.sh
 
 
-Always test the electrical conductivity (K [S/m]) of the liquid and update in the json file related.
+# Always test the electrical conductivity (K [S/m]) of the liquid and update in the json file related.
 
 * PUMP NE-100 commands: verify serial port to see the serial commands
 
 https://smt.at/wp-content/uploads/smt-fug-Probus-V-Standard-IEEE-488-V15-englisch.pdf
 https://pyexplabsys.readthedocs.io/drivers-autogen-only/fug.html
-
-
-# dry spray - ganan calvo
-
-# ionizacao!
-# E RUIDO!
-
-# --- cortina de hidrogenio
-
-
-### 乔昂的东西在下后
 
 
 # VENV
@@ -143,13 +130,23 @@ python3 -m venv {nameOfEnvironment}
 source /bin/activate
 
 
-
 # git token for raspberry pi
 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
 
-# Python librarie for tiepie and FUG 
+
+# Python librarie for tiepie and FUG (not used yet)
 pip install hvl-ccb
 
 
 # influx db token:
 30zF8j190P9AesW2fi60lkr_vkfG6vvUYg_OHtGqAJvywL92dTOxgS6y20F2LRvcn8DQZFgXDpgbY23W-44G-Q==
+
+
+# CAMERA 
+Model: Photron fastcam mini AX100
+Ways of connecting to camera:
+- Photron supplies a C++ SDK
+- The latest customer python repository is https://gitlab.com/icm-institute/renier/pyphotron 
+- There is also a much older project at https://github.com/ion201/PyHSCam
+- One other option you could consider is the use of PFV keyboard shortcuts.
+- Another one is hardware trigger for the experiments – video recording you could consider using “ auto save” function in photron pfv software.
