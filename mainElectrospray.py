@@ -21,6 +21,7 @@ from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
 from configuration_FUG import *
 import configuration_tiepie
+import cameraTrigger
 
 from simple_pid import PID
 import os
@@ -102,6 +103,10 @@ current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", 
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
 current_shape = current_shapes[8]  
 current_shape_comment = "difficult cone jet stabilization"
+
+arduino_COM_port = 2
+fug_COM_port = 4
+
 voltage = 0
 voltage_array = []
 current = 0
@@ -136,11 +141,6 @@ electrospray_classification = classification_electrospray.ElectrosprayClassifica
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
-# **************************************
-#               THREADS
-# **************************************
-
-
 
 # **************************************
 #                MAIN
@@ -151,7 +151,7 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 # FUG - POWER SUPPLY
 try:
-    obj_fug_com = FUG_initialize(4) # parameter: COM port idx
+    obj_fug_com = FUG_initialize(fug_COM_port) # parameter: COM port idx
 except Exception as e:
             print('Could not initialize FUG')
             print('Exception: ' + e.message)
@@ -182,20 +182,11 @@ with obj_fug_com:
 
     fig, ax = plt.subplots(3)
 
-    # ROUTINE
-    txt_mode = "step"
-    slope = 350
-    voltage_start = 3000
-    voltage_stop = 11000
-    step_size = 300
-    step_time = 4  # 10
-    printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
-                                                    save_path, name_liquid, Q))
-    printscreen_thread.start()
-    step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                            args=(
-                                                obj_fug_com, step_size, step_time, slope, voltage_start,
-                                                voltage_stop))
+    # printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
+    #                                                 save_path, name_liquid, Q))
+
+    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=arduino_COM_port)
+
 
     if MODERAMP:
         txt_mode = "ramp"
@@ -211,12 +202,23 @@ with obj_fug_com:
                                                     obj_fug_com, slope, voltage_start,
                                                     voltage_stop))
         ramp_sequency_thread.start()
+        makeVideo_thread.start()
 
 
-    else:
-        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
-        step_sequency_thread.start()
+    else: # MODESTEP
         txt_mode = "step"
+        slope = 350
+        voltage_start = 3000
+        voltage_stop = 11000
+        step_size = 300
+        step_time = 4  # 10
+
+        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
+        step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
+                                        args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                            voltage_stop))
+        step_sequency_thread.start()
+        makeVideo_thread.start()
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
