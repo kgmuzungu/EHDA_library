@@ -47,7 +47,7 @@ def FUG_sendcommands(com_port, cmd):
     # cmd = ['>M0?'] readback the actual voltage
     responses = []
     for command in cmd:
-        print("cmd:" + command)
+        # print("cmd:" + command)
         com_port.write((command + '\r\n').encode())
         # send cmd to device # might not work with older devices -> "LF" only needed!
         time.sleep(0.1)  # small sleep for response
@@ -56,10 +56,10 @@ def FUG_sendcommands(com_port, cmd):
             response = com_port.readline()           # all characters received, read line till '\r\n'
         if response != '':
             responses.append(response.decode("utf-8"))
-            print("<<: " + response.decode("utf-8"))  # decode bytes received to string
+            # print("<<: " + response.decode("utf-8"))  # decode bytes received to string
         else:
             responses.append('')
-            print("<< Error, no Response!")
+            print("FUG ERROR: no Response!")
     return responses
 
 
@@ -78,7 +78,7 @@ def get_voltage_from_PS(obj_fug_com):
     try:
         voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
         numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
-        print(numbers[0])
+        print("Voltage from Power supply" + numbers[0])
     except:
         numbers = ["0"]
     return float(numbers[0])
@@ -88,7 +88,7 @@ def get_current_from_PS(obj_fug_com):
     try:
         current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
         numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
-        print(numbers[0])
+        print("Current from Power supply" + numbers[0])
     except:
         numbers = ["0"]
     return float(numbers[0])
@@ -112,7 +112,7 @@ def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
-    print("Responses from step frequency : ", str(responses) + " *********************** ")
+    print("Responses from step frequency : ", str(responses))
 
 
 

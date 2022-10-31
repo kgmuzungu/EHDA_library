@@ -21,6 +21,7 @@ from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
 from configuration_FUG import *
 import configuration_tiepie
+import cameraTrigger
 
 from simple_pid import PID
 import os
@@ -29,16 +30,13 @@ import numpy as np
 import json
 import logging
 import pylab
-import threading
 import numpy as np
 
-
-event = threading.Event()
 
 
 from threading import Thread
 # fig = pylab.gcf()
-save_path = """E:/joao/"""
+save_path = """C:/Users/hvvhl/Desktop/teste"""
 
 # LOGGING CONFIG
 LOG_FILENAME = r'logging_test.out'
@@ -46,7 +44,7 @@ logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s
 logging.info('Started')
 
 multiplier_for_nA = 500
-sampling_frequency = 1e5
+sampling_frequency = 1e5  # 100000
 
 a_electrospray_measurements = []
 a_electrospray_measurements_data = []
@@ -102,6 +100,7 @@ current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", 
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
 current_shape = current_shapes[8]  
 current_shape_comment = "difficult cone jet stabilization"
+
 voltage = 0
 voltage_array = []
 current = 0
@@ -109,7 +108,7 @@ current_array = []
 """voltage = 9.2  
 voltage = voltage * 1000  # V"""
 
-# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm 
+# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm
 
 # **************************************
 #            AUX VARIABLES
@@ -126,6 +125,17 @@ plt.style.use('seaborn-colorblind')
 plt.ion()
 
 # **************************************
+#                 THREADS
+# **************************************
+#PORTS
+arduino_COM_port = 0
+fug_COM_port = 4
+
+
+
+
+
+# **************************************
 #          CREATING INSTANCES
 # **************************************
 electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
@@ -134,11 +144,6 @@ electrospray_config_liquid_setup_obj.load_json_config_setup()
 electrospray_validation = ElectrosprayValidation(name_liquid)
 electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
-
-
-# **************************************
-#               THREADS
-# **************************************
 
 
 
@@ -151,25 +156,24 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 # FUG - POWER SUPPLY
 try:
-    obj_fug_com = FUG_initialize(4) # parameter: COM port idx
+    obj_fug_com = FUG_initialize(fug_COM_port) # parameter: COM port idx
 except Exception as e:
             print('Could not initialize FUG')
             print('Exception: ' + e.message)
             sys.exit(1)
 
 print('FUG initialized!')
-print("FUG Opened port:")
-print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
+print("FUG Opened port:", obj_fug_com)
 
 
 # OSCILLOSCOPE
-print_library_info()
+# print_library_info()
 time_step = 1 / sampling_frequency
 libtiepie.network.auto_detect_enabled = True # Enable network search
 libtiepie.device_list.update() # Search for devices
 scp = None 
 for item in libtiepie.device_list:
-    if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE): # Try to open an oscilloscope with block measurement support
+    if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
         scp = item.open_oscilloscope()
     else:
         print('No oscilloscope available with block measurement support!')
@@ -182,20 +186,15 @@ with obj_fug_com:
 
     fig, ax = plt.subplots(3)
 
-    # ROUTINE
-    txt_mode = "step"
-    slope = 350
-    voltage_start = 3000
-    voltage_stop = 11000
-    step_size = 300
-    step_time = 4  # 10
-    printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
-                                                    save_path, name_liquid, Q))
-    printscreen_thread.start()
-    step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                            args=(
-                                                obj_fug_com, step_size, step_time, slope, voltage_start,
-                                                voltage_stop))
+    threads = list()
+
+    # printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
+    #                                                 save_path, name_liquid, Q))
+
+    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=(arduino_COM_port,))
+    threads.append(makeVideo_thread)
+    makeVideo_thread.start()
+
 
     if MODERAMP:
         txt_mode = "ramp"
@@ -213,17 +212,25 @@ with obj_fug_com:
         ramp_sequency_thread.start()
 
 
-    else:
-        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
-        step_sequency_thread.start()
+    else: # MODESTEP
         txt_mode = "step"
+        slope = 350
+        voltage_start = 3000
+        voltage_stop = 11000
+        step_size = 300
+        step_time = 4  # 10
+
+        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
+        step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
+                                        args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                            voltage_stop))
+        step_sequency_thread.start()
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
-        # Print oscilloscope info:
-        print_device_info(scp)
-        # Start measurement:
+        # print_device_info(scp)
         scp.start()
+
         # Wait for measurement to complete:
         while not scp.is_data_ready:
             time.sleep(0.05)  # 50 ms delay, to save CPU time
@@ -276,9 +283,10 @@ with obj_fug_com:
 
         fig.canvas.blit(fig.bbox)
 
-        print(get_voltage_from_PS(obj_fug_com))
+        get_voltage_from_PS(obj_fug_com)
 
         for j in range(number_measurements):
+
             # reset the background back in the canvas state, screen unchange
             fig.canvas.restore_region(bg)
 
@@ -388,13 +396,15 @@ with obj_fug_com:
         del scp
 
 
-    printscreen_thread.join()
+    # printscreen_thread.join()
     # wait until threads finish
     if MODERAMP:
         ramp_sequency_thread.join()
+        makeVideo_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
     else:
         step_sequency_thread.join()
+        makeVideo_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
 
 

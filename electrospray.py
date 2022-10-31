@@ -28,20 +28,28 @@ class ElectrosprayConfig:
         return json.dumps(d, sort_keys=True)
 
     def load_json_config_setup(self):
-        print(self.file_setup)
+
+        print("load_json_config_setup")
+        # print(self.file_setup)
+        
         with open(self.file_setup, 'r') as file:
             # First we load existing data into a dict.
             self.json_setup_obj = json.load(file)
-            print(type(self.json_setup_obj))
+            # print(type(self.json_setup_obj))
+
         """with open(self.file_setup) as json_file:
             self.json_setup_obj = json.load(json_file)"""
 
     def load_json_config_liquid(self):
-        print(self.file_liquid)
+
+        print("load_json_config_liquid")
+        # print(self.file_liquid)
+
         with open(self.file_liquid, 'r') as file:
             # First we load existing data into a dict.
             self.json_liquid_obj = json.load(file)
-            print(type(self.json_liquid_obj))
+            # print(type(self.json_liquid_obj))
+
         """with open(self.file_liquid) as json_file:
             self.json_liquid_obj = json.load(json_file) # dictionary"""
 
