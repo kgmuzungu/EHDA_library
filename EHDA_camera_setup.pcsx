@@ -134,13 +134,13 @@
      <depth>12</depth>
     </effectiveBit>
     <segmentPos>
-     <sensorXpos>384</sensorXpos>
-     <sensorYpos>160</sensorYpos>
+     <sensorXpos>0</sensorXpos>
+     <sensorYpos>0</sensorYpos>
     </segmentPos>
    </imageDataInfo>
    <frameInfo>
     <recordedFrame>1091</recordedFrame>
-    <correctTriggerFrame>362</correctTriggerFrame>
+    <correctTriggerFrame>0</correctTriggerFrame>
     <adjustTriggerPoint>0</adjustTriggerPoint>
    </frameInfo>
    <basicInfo>
@@ -176,7 +176,7 @@
      <height>1024</height>
     </resolution>
     <variableChannel>0</variableChannel>
-    <shutterSpeed>12500</shutterSpeed>
+    <shutterSpeed>3000</shutterSpeed>
     <totalPartition>10</totalPartition>
     <currentPartition>1</currentPartition>
     <lockedResolution>0</lockedResolution>
@@ -1030,7 +1030,7 @@
    <BeforeSaveSetting>true</BeforeSaveSetting>
    <LastParititionAutoDownload>true</LastParititionAutoDownload>
    <LoopRecord>true</LoopRecord>
-   <RecAfterMode>1</RecAfterMode>
+   <RecAfterMode>0</RecAfterMode>
    <RecAllConnectedCamera>false</RecAllConnectedCamera>
    <RecordDuringDownload>false</RecordDuringDownload>
    <ResetPlaybackRange>false</ResetPlaybackRange>
