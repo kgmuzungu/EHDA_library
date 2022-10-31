@@ -30,11 +30,8 @@ import numpy as np
 import json
 import logging
 import pylab
-import threading
 import numpy as np
 
-
-event = threading.Event()
 
 
 from threading import Thread
@@ -104,10 +101,6 @@ current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", 
 current_shape = current_shapes[8]  
 current_shape_comment = "difficult cone jet stabilization"
 
-#PORTS
-arduino_COM_port = 5
-fug_COM_port = 4
-
 voltage = 0
 voltage_array = []
 current = 0
@@ -115,7 +108,7 @@ current_array = []
 """voltage = 9.2  
 voltage = voltage * 1000  # V"""
 
-# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm 
+# k_electrical_conductivity = 0.34 * 10e-4 # uS/cm
 
 # **************************************
 #            AUX VARIABLES
@@ -130,6 +123,17 @@ listdir = os.listdir()
 j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
+
+# **************************************
+#                 THREADS
+# **************************************
+#PORTS
+arduino_COM_port = 0
+fug_COM_port = 4
+
+
+
+
 
 # **************************************
 #          CREATING INSTANCES
@@ -182,10 +186,14 @@ with obj_fug_com:
 
     fig, ax = plt.subplots(3)
 
+    threads = list()
+
     # printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
     #                                                 save_path, name_liquid, Q))
 
-    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=arduino_COM_port)
+    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=(arduino_COM_port,))
+    threads.append(makeVideo_thread)
+    makeVideo_thread.start()
 
 
     if MODERAMP:
@@ -202,7 +210,6 @@ with obj_fug_com:
                                                     obj_fug_com, slope, voltage_start,
                                                     voltage_stop))
         ramp_sequency_thread.start()
-        makeVideo_thread.start()
 
 
     else: # MODESTEP
@@ -218,7 +225,6 @@ with obj_fug_com:
                                         args=(obj_fug_com, step_size, step_time, slope, voltage_start,
                                             voltage_stop))
         step_sequency_thread.start()
-        makeVideo_thread.start()
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
@@ -280,6 +286,7 @@ with obj_fug_com:
         get_voltage_from_PS(obj_fug_com)
 
         for j in range(number_measurements):
+
             # reset the background back in the canvas state, screen unchange
             fig.canvas.restore_region(bg)
 

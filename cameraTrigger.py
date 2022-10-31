@@ -8,9 +8,13 @@ import serial.tools.list_ports
 import time
 
 
-def activateTrigger(com_port_idx):
+def activateTrigger(com_port_idx=0):
     # Function to trigger Photron PFV4 with arduino Hardware Trigger INPUT
     # This functions needs at least 3 seconds in between each use so that the communication with arduino works.
+
+    n_camera_partitions = 10
+    time_between_videos  = 10 #    minimum 3
+
 
     com_ports = list(serial.tools.list_ports.comports())
     com_port = serial.Serial(
@@ -40,7 +44,7 @@ def activateTrigger(com_port_idx):
     else:
         print("ERROR: Communication to Arduino/camera failed!")
 
-    for i in range(10):
+    for i in range(0, n_camera_partitions + 1):
 
         if com_port.is_open:
             com_port.flushInput()
@@ -58,11 +62,10 @@ def activateTrigger(com_port_idx):
         print()
 
         # fazer algoritmo para determinar frequencia do envio de sinal
-        time.sleep(10)
+        time.sleep(time_between_videos - 3)
 
 
             
-
 
 # Test
 # activateTrigger(0)
