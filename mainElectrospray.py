@@ -159,8 +159,7 @@ except Exception as e:
             sys.exit(1)
 
 print('FUG initialized!')
-print("FUG Opened port:")
-print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com.py
+print("FUG Opened port:", obj_fug_com)
 
 
 # OSCILLOSCOPE
@@ -278,7 +277,7 @@ with obj_fug_com:
 
         fig.canvas.blit(fig.bbox)
 
-        print(get_voltage_from_PS(obj_fug_com))
+        get_voltage_from_PS(obj_fug_com)
 
         for j in range(number_measurements):
             # reset the background back in the canvas state, screen unchange
