@@ -39,7 +39,7 @@ event = threading.Event()
 
 from threading import Thread
 # fig = pylab.gcf()
-save_path = """E:/joao/"""
+save_path = """C:/Users/hvvhl/Desktop/teste"""
 
 # LOGGING CONFIG
 LOG_FILENAME = r'logging_test.out'
@@ -47,7 +47,7 @@ logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s
 logging.info('Started')
 
 multiplier_for_nA = 500
-sampling_frequency = 1e5
+sampling_frequency = 1e5  # 100000
 
 a_electrospray_measurements = []
 a_electrospray_measurements_data = []
@@ -104,7 +104,8 @@ current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", 
 current_shape = current_shapes[8]  
 current_shape_comment = "difficult cone jet stabilization"
 
-arduino_COM_port = 2
+#PORTS
+arduino_COM_port = 5
 fug_COM_port = 4
 
 voltage = 0
@@ -163,13 +164,13 @@ print(obj_fug_com)  # port COM 2 - if does not work, verify with file serial_com
 
 
 # OSCILLOSCOPE
-print_library_info()
+# print_library_info()
 time_step = 1 / sampling_frequency
 libtiepie.network.auto_detect_enabled = True # Enable network search
 libtiepie.device_list.update() # Search for devices
 scp = None 
 for item in libtiepie.device_list:
-    if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE): # Try to open an oscilloscope with block measurement support
+    if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
         scp = item.open_oscilloscope()
     else:
         print('No oscilloscope available with block measurement support!')
@@ -222,10 +223,9 @@ with obj_fug_com:
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
-        # Print oscilloscope info:
-        print_device_info(scp)
-        # Start measurement:
+        # print_device_info(scp)
         scp.start()
+
         # Wait for measurement to complete:
         while not scp.is_data_ready:
             time.sleep(0.05)  # 50 ms delay, to save CPU time
@@ -390,13 +390,15 @@ with obj_fug_com:
         del scp
 
 
-    printscreen_thread.join()
+    # printscreen_thread.join()
     # wait until threads finish
     if MODERAMP:
         ramp_sequency_thread.join()
+        makeVideo_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
     else:
         step_sequency_thread.join()
+        makeVideo_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
 
 
