@@ -33,6 +33,7 @@ import pylab
 import numpy as np
 
 
+event = threading.Event() # this is somehow important to fug
 
 from threading import Thread
 # fig = pylab.gcf()
@@ -161,9 +162,6 @@ except Exception as e:
             print('Could not initialize FUG')
             print('Exception: ' + e.message)
             sys.exit(1)
-
-print('FUG initialized!')
-print("FUG Opened port:", obj_fug_com)
 
 
 # OSCILLOSCOPE

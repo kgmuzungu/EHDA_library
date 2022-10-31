@@ -8,7 +8,7 @@ import serial.tools.list_ports
 import time
 
 
-def activateTrigger(com_port_idx=0):
+def activateTrigger(com_port_idx):
     # Function to trigger Photron PFV4 with arduino Hardware Trigger INPUT
     # This functions needs at least 3 seconds in between each use so that the communication with arduino works.
 

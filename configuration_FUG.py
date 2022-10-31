@@ -35,7 +35,8 @@ def FUG_initialize(com_port_idx):
         if com_port.is_open:
             com_port.flushInput()
             com_port.flushOutput()
-            print("Opened Port: " + com_ports[com_port_idx].device)
+            print('FUG initialized!')
+            print("FUG Opened Port: " + com_ports[com_port_idx].device)
     return com_port
 
 
