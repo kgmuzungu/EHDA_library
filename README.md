@@ -10,9 +10,10 @@
 #### viewer folder -> pump control commands
 ### viewer folder -> class that loads saved data in json and visualizes (plots) it, including FFT.
 #### tiepie folder -> communication with oscilloscope control 
+#### Arduino_camera_trigger -> Arduino code for send camera trigger signal to start video.
 
 
-# To use this library you need to follow the steps bellow:
+# Main code Tutorial:
 
 
 #### 1. Open the file: mainElectrospray.py
@@ -60,7 +61,15 @@
 
 #### 9. Verify if the path is the one that you would like to save in the variable "save_path".
 
-#### 10. Run the mainElectrospray.py file.
+#### 10. Camera configuration
+
+    10.1  Open FPV4 photron camera software.
+    10.2  Press update button to recognize camera.
+    10.3  Load "EHDA_camera_setup.pcsx" file in camera software. This file has all pre setted confiuration to make this trigger work.
+    10.4  If necessary change camera partitions, framerate speed and saving location.
+    10.5  Verify if variable arduino_com_port is correct. 
+
+#### 11. Run the mainElectrospray.py file.
 
 
 
