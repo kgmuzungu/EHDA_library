@@ -9,6 +9,7 @@ import warnings
 from pandas.io.json import json_normalize
 import json
 import matplotlib.pyplot as plt
+from sklearn.utils import column_or_1d
 
 warnings.filterwarnings('ignore')
 
@@ -41,14 +42,29 @@ measurements_data_window = pd.json_normalize(data['measurements'])
 processing_data_window = pd.json_normalize(data['processing'])
 data_window = [measurements_data_window, processing_data_window]
 data_window = pd.concat(data_window, axis=1)
+
+colormap = []
+for electro_class in data_window['spray mode.Sjaak']:
+    if electro_class == 'intermittent' or electro_class == 'intermittent 1':
+        colormap.append('blue')
+    elif electro_class == 'cone jet ':
+        colormap.append('red')
+    elif electro_class == 'dripping' or electro_class == 'dripping 1 ':
+        colormap.append('green')
+    else:
+        colormap.append('black')
+
+data_window.insert(1, 'colormap', colormap)
+
 print(data_window.info())
+
 
 
 ######################################
 #              PLOTTING
 ######################################
 
-fig, axs = plt.subplots(9, 1)
+fig, axs = plt.subplots(8, 1)
 
 axs[0].set(ylabel='data [nA]')
 axs[0].plot(data_sample['data-0'])
@@ -60,22 +76,19 @@ axs[2].set(ylabel='current PS')
 axs[2].plot(data_sample['current PS'])
 
 axs[3].set(ylabel='mean')
-axs[3].scatter( data_window.index, data_window['mean'])
+axs[3].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
 
 axs[4].set(ylabel='variance')
-axs[4].scatter( data_window.index, data_window['variance'])
+axs[4].scatter( data_window.index, data_window['variance'], color=data_window['colormap'])
 
 axs[5].set(ylabel='deviation')
-axs[5].scatter( data_window.index, data_window['deviation'])
+axs[5].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
 
 axs[6].set(ylabel='median')
-axs[6].scatter( data_window.index, data_window['median'])
+axs[6].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
 
 axs[7].set(ylabel='rms')
-axs[7].scatter( data_window.index, data_window['rms'])
-
-axs[8].set(ylabel='maximum variation distance')
-axs[8].scatter( data_window.index, data_window['maximum variation distance'])
+axs[7].scatter( data_window.index, data_window['rms'], color=data_window['colormap'])
 
 
 plt.xlabel('samples')
