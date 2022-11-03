@@ -10,6 +10,7 @@ from pandas.io.json import json_normalize
 import json
 import matplotlib.pyplot as plt
 from sklearn.utils import column_or_1d
+import numpy as np
 
 warnings.filterwarnings('ignore')
 
@@ -68,27 +69,48 @@ fig, axs = plt.subplots(8, 1)
 
 axs[0].set(ylabel='data [nA]')
 axs[0].plot(data_sample['data-0'])
+axs[0].grid()
 
 axs[1].set(ylabel='voltage')
+axs[1].set_yticks(np.arange(0, 5000, 10))
 axs[1].plot(data_sample['voltage'])
+axs[1].grid()
 
 axs[2].set(ylabel='current PS')
+axs[2].set_yticks(np.arange(0, 5000, 10))
 axs[2].plot(data_sample['current PS'])
+axs[2].grid()
 
 axs[3].set(ylabel='mean')
 axs[3].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
+axs[3].grid()
 
 axs[4].set(ylabel='variance')
 axs[4].scatter( data_window.index, data_window['variance'], color=data_window['colormap'])
+axs[4].grid()
 
 axs[5].set(ylabel='deviation')
 axs[5].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
+axs[5].grid()
 
 axs[6].set(ylabel='median')
 axs[6].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
+axs[6].grid()
 
 axs[7].set(ylabel='rms')
-axs[7].scatter( data_window.index, data_window['rms'], color=data_window['colormap'])
+axs[7].scatter( data_window.index, data_window['rms'], color=data_window['colormap'],picker=True, pickradius=5)
+axs[7].grid()
+
+
+def onpick(event):
+    thisline = event.artist
+    xdata = thisline.get_xdata()
+    ydata = thisline.get_ydata()
+    ind = event.ind
+    points = tuple(zip(xdata[ind], ydata[ind]))
+    print('onpick points:', points)
+
+fig.canvas.mpl_connect('pick_event', onpick)
 
 
 plt.xlabel('samples')
