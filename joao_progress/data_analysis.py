@@ -11,13 +11,14 @@ import json
 import matplotlib.pyplot as plt
 from sklearn.utils import column_or_1d
 import numpy as np
+import scipy.fftpack
 
 warnings.filterwarnings('ignore')
 
-file_path1 = "summer2022/rampsetup9ethanol_all shapes_5.000040000000001e-10m3_s.json"
-file_path2 = "summer2022/rampsetup9paraffin_all shapes_1.6666799999999999e-09m3_s.json"
-file_path3 = "summer2022/rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s.json"
-file_path4 = "summer2022/rampsetup92propanol_all shapes_1.777792e-09m3_s.json"
+file_path1 = "monicaData/summer2022/rampsetup9ethanol_all shapes_5.000040000000001e-10m3_s.json"
+file_path2 = "monicaData/summer2022/rampsetup9paraffin_all shapes_1.6666799999999999e-09m3_s.json"
+file_path3 = "monicaData/summer2022/rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s.json"
+file_path4 = "monicaData/summer2022/rampsetup92propanol_all shapes_1.777792e-09m3_s.json"
 
 with open(file_path1, 'r') as data_file:    
     data = json.loads(data_file.read())  
@@ -65,7 +66,7 @@ print(data_window.info())
 #              PLOTTING
 ######################################
 
-fig, axs = plt.subplots(8, 1)
+fig, axs = plt.subplots(7, 1)
 
 axs[0].set(ylabel='data [nA]')
 axs[0].plot(data_sample['data-0'])
@@ -76,9 +77,8 @@ axs[1].set_yticks(np.arange(0, 5000, 10))
 axs[1].plot(data_sample['voltage'])
 axs[1].grid()
 
-axs[2].set(ylabel='current PS')
-axs[2].set_yticks(np.arange(0, 5000, 10))
-axs[2].plot(data_sample['current PS'])
+axs[2].set(ylabel='rms')
+axs[2].scatter( data_window.index, data_window['rms'], color=data_window['colormap'],picker=True, pickradius=5)
 axs[2].grid()
 
 axs[3].set(ylabel='mean')
@@ -97,20 +97,26 @@ axs[6].set(ylabel='median')
 axs[6].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
 axs[6].grid()
 
-axs[7].set(ylabel='rms')
-axs[7].scatter( data_window.index, data_window['rms'], color=data_window['colormap'],picker=True, pickradius=5)
-axs[7].grid()
 
+
+######################################
+#              fft on_cick
+######################################
 
 def onpick(event):
-    thisline = event.artist
-    xdata = thisline.get_xdata()
-    ydata = thisline.get_ydata()
-    ind = event.ind
-    points = tuple(zip(xdata[ind], ydata[ind]))
-    print('onpick points:', points)
+    print (f'button={event.button}, x={event.x}, y={event.y}, xdata={event.xdata}, ydata={event.ydata}')
+    # round x value per multiple of five
+    x_value = event.xdata / 5
+    x_value = round(x_value) * 5
+    plt.figure()
+    plt.plot(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value]))
+    plt.grid()
+    plt.title(f'fast fourier of sample window: {x_value}')
+    plt.ylabel('fft magnitude')
+    plt.xlabel('frequency (Hz)')
+    plt.show()
 
-fig.canvas.mpl_connect('pick_event', onpick)
+fig.canvas.mpl_connect('button_press_event', onpick)
 
 
 plt.xlabel('samples')
