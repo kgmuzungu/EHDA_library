@@ -12,15 +12,30 @@ import matplotlib.pyplot as plt
 from sklearn.utils import column_or_1d
 import numpy as np
 import scipy.fftpack
+import easygui
+import os
+
 
 warnings.filterwarnings('ignore')
 
-file_path1 = "monicaData/summer2022/rampsetup9ethanol_all shapes_5.000040000000001e-10m3_s.json"
-file_path2 = "monicaData/summer2022/rampsetup9paraffin_all shapes_1.6666799999999999e-09m3_s.json"
-file_path3 = "monicaData/summer2022/rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s.json"
-file_path4 = "monicaData/summer2022/rampsetup92propanol_all shapes_1.777792e-09m3_s.json"
 
-with open(file_path1, 'r') as data_file:    
+file_path = "monicaData/summer2022/"
+file_name1 = "rampsetup9ethanol_all shapes_5.000040000000001e-10m3_s"
+file_name2 = "rampsetup9paraffin_all shapes_1.6666799999999999e-09m3_s"
+file_name3 = "rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s"
+file_name4 = "rampsetup92propanol_all shapes_1.777792e-09m3_s"
+
+easygui.msgbox("How to use this code: ..............")
+
+msg ="What experiment do you want to run?"
+title = "EDHA - Monicas data"
+choices = [file_name1, file_name2, file_name3, file_name4]
+exp_choice = easygui.choicebox(msg, title, choices)
+
+
+easygui.msgbox("You chose: " + str(exp_choice), "Survey Result")
+
+with open(file_path + exp_choice + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 
@@ -100,14 +115,15 @@ axs[6].grid()
 
 
 ######################################
-#              fft on_cick
+#           fft on_cick
 ######################################
 
 def onpick(event):
     print (f'button={event.button}, x={event.x}, y={event.y}, xdata={event.xdata}, ydata={event.ydata}')
-    # round x value per multiple of five
-    x_value = event.xdata / 5
+    
+    x_value = event.xdata / 5 # round x value per multiple of five
     x_value = round(x_value) * 5
+
     plt.figure()
     plt.plot(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value]))
     plt.grid()
@@ -118,7 +134,7 @@ def onpick(event):
 
 fig.canvas.mpl_connect('button_press_event', onpick)
 
-
+plt.title(exp_choice)
 plt.xlabel('samples')
 plt.show()
 
