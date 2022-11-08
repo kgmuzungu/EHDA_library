@@ -5,7 +5,6 @@
 '''
 
 import pandas as pd
-import warnings
 from pandas.io.json import json_normalize
 import json
 import matplotlib.pyplot as plt
@@ -13,10 +12,11 @@ from sklearn.utils import column_or_1d
 import numpy as np
 import scipy.fftpack
 import easygui
-import os
 
 
-warnings.filterwarnings('ignore')
+
+# warnings.filterwarnings('ignore')
+osci_freq = 100000
 
 
 file_path = "monicaData/summer2022/"
@@ -77,42 +77,6 @@ print(data_window.info())
 
 
 
-######################################
-#              PLOTTING
-######################################
-
-fig, axs = plt.subplots(7, 1)
-
-axs[0].set(ylabel='data [nA]')
-axs[0].plot(data_sample['data-0'])
-axs[0].grid()
-
-axs[1].set(ylabel='voltage')
-axs[1].set_yticks(np.arange(0, 5000, 10))
-axs[1].plot(data_sample['voltage'])
-axs[1].grid()
-
-axs[2].set(ylabel='rms')
-axs[2].scatter( data_window.index, data_window['rms'], color=data_window['colormap'],picker=True, pickradius=5)
-axs[2].grid()
-
-axs[3].set(ylabel='mean')
-axs[3].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
-axs[3].grid()
-
-axs[4].set(ylabel='variance')
-axs[4].scatter( data_window.index, data_window['variance'], color=data_window['colormap'])
-axs[4].grid()
-
-axs[5].set(ylabel='deviation')
-axs[5].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
-axs[5].grid()
-
-axs[6].set(ylabel='median')
-axs[6].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
-axs[6].grid()
-
-
 
 ######################################
 #           fft on_cick
@@ -132,9 +96,66 @@ def onpick(event):
     plt.xlabel('frequency (Hz)')
     plt.show()
 
-fig.canvas.mpl_connect('button_press_event', onpick)
 
-plt.title(exp_choice)
-plt.xlabel('samples')
-plt.show()
+
+######################################
+#              PLOTTING
+######################################
+
+
+if easygui.ynbox(msg="What tool want to use", title="Monica Data Analysis", choices=["Oscilloscope data", "Statistic Data"]):
+
+    fig, axs = plt.subplots(2, 1)
+    plt.title(exp_choice)
+    axs[0].set(ylabel='ccurent nA')
+    axs[0].plot(data_sample.index/osci_freq, data_sample['data-0'])
+    axs[0].grid()
+
+    axs[1].set(ylabel='voltage (V)')
+    axs[1].set_yticks(np.arange(0, 5000, 10))
+    axs[1].plot(data_sample.index/osci_freq, data_sample['voltage'])
+    axs[1].grid()
+    plt.show()
+
+else:
+
+    fig, axs = plt.subplots(7, 1)
+
+    axs[0].set(ylabel='ccurent nA')
+    axs[0].plot(data_sample.index/osci_freq, data_sample['data-0'])
+    axs[0].grid()
+
+    axs[1].set(ylabel='voltage (V)')
+    axs[1].set_yticks(np.arange(0, 5000, 10))
+    axs[1].plot(data_sample.index/osci_freq, data_sample['voltage'])
+    axs[1].grid()
+
+    axs[2].set(ylabel='rms')
+    axs[2].scatter( data_window.index, data_window['rms'], color=data_window['colormap'])
+    axs[2].grid()
+
+    axs[3].set(ylabel='mean')
+    axs[3].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
+    axs[3].grid()
+
+    axs[4].set(ylabel='variance')
+    axs[4].scatter( data_window.index, data_window['variance'], color=data_window['colormap'])
+    axs[4].grid()
+
+    axs[5].set(ylabel='deviation')
+    axs[5].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
+    axs[5].grid()
+
+    axs[6].set(ylabel='median')
+    axs[6].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
+    axs[6].grid()
+
+    fig.canvas.mpl_connect('button_press_event', onpick)
+
+    plt.xlabel('samples')
+    plt.show()
+
+
+
+
 
