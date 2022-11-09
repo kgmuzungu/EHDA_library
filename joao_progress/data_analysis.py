@@ -20,16 +20,18 @@ osci_freq = 100000
 
 
 file_path = "monicaData/summer2022/"
-file_name1 = "rampsetup9ethanol_all shapes_5.000040000000001e-10m3_s"
-file_name2 = "rampsetup9paraffin_all shapes_1.6666799999999999e-09m3_s"
+file_name1 = "rampsetup9water60alcohol40_all shapes_1.3889e-09m3_s"
+file_name2 = "stepsetup9water60alcohol40_all shapes_1.3611220000000002e-09m3_s"
 file_name3 = "rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s"
 file_name4 = "rampsetup92propanol_all shapes_1.777792e-09m3_s"
+file_name5 = "stepsetup9ethanol_all shapes_9.7223e-10m3_s"
+file_name6 = "rampsetup9ethanol_all shapes_9.7223e-10m3_s"
 
 easygui.msgbox("How to use this code: ..............")
 
 msg ="What experiment do you want to run?"
 title = "EDHA - Monicas data"
-choices = [file_name1, file_name2, file_name3, file_name4]
+choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6]
 exp_choice = easygui.choicebox(msg, title, choices)
 
 
@@ -135,6 +137,7 @@ else:
     axs[2].grid()
 
     axs[3].set(ylabel='mean')
+    axs[3].set_ylim(0, 300)
     axs[3].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
     axs[3].grid()
 
