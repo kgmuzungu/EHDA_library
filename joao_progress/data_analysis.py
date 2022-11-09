@@ -73,6 +73,15 @@ for electro_class in data_window['spray mode.Sjaak']:
     else:
         colormap.append('black')
 
+# Monica spark classification
+sampleIndex = 0
+for monica_class in data_window['spray mode.Monica']:
+    if monica_class == 'streamer onset':
+        colormap[sampleIndex] = 'purple'
+    sampleIndex+=1
+
+
+
 data_window.insert(1, 'colormap', colormap)
 
 print(data_window.info())
@@ -91,7 +100,7 @@ def onpick(event):
     x_value = round(x_value) * 5
 
     plt.figure()
-    plt.plot(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value]))
+    plt.plot(abs(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value])[:300]))
     plt.grid()
     plt.title(f'fast fourier of sample window: {x_value}')
     plt.ylabel('fft magnitude')
