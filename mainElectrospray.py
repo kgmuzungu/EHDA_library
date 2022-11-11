@@ -93,7 +93,7 @@ print('impedance: ', impedance)
 print('temperature: ', temperature)
 print('humidity: ', humidity)
 
-name_setup = "setup9"
+name_setup = "setup10"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
 name_liquid = "water60alcohol40"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  
