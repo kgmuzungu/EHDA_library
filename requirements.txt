@@ -15,6 +15,7 @@ conda install -c anaconda pyautogui
 conda install -c esrf-bcu simple-pid
 
 pip install influxdb
+pip install hvl_ccb
 
 conda install -c conda-forge influxdb-client
 

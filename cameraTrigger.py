@@ -12,8 +12,8 @@ def activateTrigger(com_port_idx):
     # Function to trigger Photron PFV4 with arduino Hardware Trigger INPUT
     # This functions needs at least 3 seconds in between each use so that the communication with arduino works.
 
-    n_camera_partitions = 10
-    time_between_videos  = 10 #    minimum 3
+    n_camera_partitions = 35
+    time_between_videos  = 20 #    minimum 3
 
 
     com_ports = list(serial.tools.list_ports.comports())

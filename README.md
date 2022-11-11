@@ -156,6 +156,7 @@ Model: Photron fastcam mini AX100
 Ways of connecting to camera:
 - Photron supplies a C++ SDK
 - The latest customer python repository is https://gitlab.com/icm-institute/renier/pyphotron 
+- adjust number of camera partitions in cameraTrigger.py
 - There is also a much older project at https://github.com/ion201/PyHSCam
 - One other option you could consider is the use of PFV keyboard shortcuts.
 - Another one is hardware trigger for the experiments – video recording you could consider using “ auto save” function in photron pfv software.

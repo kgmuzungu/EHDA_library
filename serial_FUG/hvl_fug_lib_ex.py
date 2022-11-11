@@ -6,13 +6,14 @@ Example script for the device FuG
 
 import logging
 from time import sleep
-
+import serial
 from hvl_ccb.dev import FuG, FuGDigitalVal, FuGError
+
 
 logging.basicConfig(level=logging.INFO)
 
 # create device object
-hv = FuG({"port": "COM3"})
+hv = FuG({"port": "COM9"})
 
 # start the device
 hv.start(max_voltage=1e3, max_current=10e-3)

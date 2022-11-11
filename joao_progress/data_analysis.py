@@ -19,25 +19,28 @@ import easygui
 osci_freq = 100000
 
 
-file_path = "monicaData/summer2022/"
+file_path1 = "monicaData/summer2022/"
+file_path2 = "joaoData/"
+
 file_name1 = "rampsetup9water60alcohol40_all shapes_1.3889e-09m3_s"
 file_name2 = "stepsetup9water60alcohol40_all shapes_1.3611220000000002e-09m3_s"
 file_name3 = "rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s"
 file_name4 = "rampsetup92propanol_all shapes_1.777792e-09m3_s"
 file_name5 = "stepsetup9ethanol_all shapes_9.7223e-10m3_s"
 file_name6 = "rampsetup9ethanol_all shapes_9.7223e-10m3_s"
+file_name7 = "stepsetup9water60alcohol40_all shapes_4.02781e-09m3_s"
 
 easygui.msgbox("How to use this code: ..............")
 
 msg ="What experiment do you want to run?"
 title = "EDHA - Monicas data"
-choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6]
+choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6, file_name7]
 exp_choice = easygui.choicebox(msg, title, choices)
 
 
 easygui.msgbox("You chose: " + str(exp_choice), "Survey Result")
 
-with open(file_path + exp_choice + ".json", 'r') as data_file:    
+with open(file_path2 + exp_choice + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 
