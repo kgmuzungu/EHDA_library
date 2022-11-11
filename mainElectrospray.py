@@ -94,7 +94,7 @@ print('temperature: ', temperature)
 print('humidity: ', humidity)
 
 name_setup = "setup10"
-setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle" + name_setup
 name_liquid = "water60alcohol40"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",

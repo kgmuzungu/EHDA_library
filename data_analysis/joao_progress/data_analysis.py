@@ -28,7 +28,7 @@ file_name3 = "rampsetup9water60alcohol40_all shapes_1.416678e-09m3_s"
 file_name4 = "rampsetup92propanol_all shapes_1.777792e-09m3_s"
 file_name5 = "stepsetup9ethanol_all shapes_9.7223e-10m3_s"
 file_name6 = "rampsetup9ethanol_all shapes_9.7223e-10m3_s"
-file_name7 = "stepsetup9water60alcohol40_all shapes_4.02781e-09m3_s"
+file_name7 = "stepsetup10water60alcohol40_all shapes_4.02781e-09m3_s"
 
 easygui.msgbox("How to use this code: ..............")
 
