@@ -65,7 +65,7 @@ d_statistics = {}
 # *************************************
 
 #  VAR_BIN_CONFIG = input("Would you like to save data? [True/False] ")
-VAR_BIN_CONFIG = False
+VAR_BIN_CONFIG = True
 SAVE_DATA = VAR_BIN_CONFIG
 SAVE_PROCESSING = VAR_BIN_CONFIG
 SAVE_CONFIG = VAR_BIN_CONFIG
@@ -79,7 +79,7 @@ append_array_processing = VAR_BIN_CONFIG
 #    LIQUID AND SETUP INITIAL CONFIG
 # **************************************
 
-MODERAMP = True  # else go in steps
+MODERAMP = False  # else go in steps
 number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
 print('number_measurements: ', number_measurements)
 
@@ -93,9 +93,9 @@ print('impedance: ', impedance)
 print('temperature: ', temperature)
 print('humidity: ', humidity)
 
-name_setup = "setup9"
+name_setup = "setup10"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/" + name_setup
-name_liquid = "ethyleneglycolHNO3"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+name_liquid = "water60alcohol40"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
 liquid = "liquid/" + name_liquid  
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
@@ -186,13 +186,6 @@ with obj_fug_com:
 
     threads = list()
 
-    # printscreen_thread = threading.Thread(target=electrospray_validation.print_screen, name='print', args=(
-    #                                                 save_path, name_liquid, Q))
-
-    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=(arduino_COM_port,))
-    threads.append(makeVideo_thread)
-    makeVideo_thread.start()
-
 
     if MODERAMP:
         txt_mode = "ramp"
@@ -212,17 +205,23 @@ with obj_fug_com:
 
     else: # MODESTEP
         txt_mode = "step"
-        slope = 350
+        slope = 10000
         voltage_start = 3000
-        voltage_stop = 11000
-        step_size = 300
-        step_time = 4  # 10
+        voltage_stop = 10000
+        step_size = 100
+        step_time = 10  # 10
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
                                         args=(obj_fug_com, step_size, step_time, slope, voltage_start,
                                             voltage_stop))
         step_sequency_thread.start()
+
+
+    # Video Thread
+    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=(arduino_COM_port,))
+    threads.append(makeVideo_thread)
+    makeVideo_thread.start()
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)

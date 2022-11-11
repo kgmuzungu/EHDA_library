@@ -2,7 +2,7 @@ from configuration_FUG import *
 import time
 import re
 
-obj_fug_com = FUG_initialize(2)
+obj_fug_com = FUG_initialize(4)
 FUG_sendcommands(obj_fug_com, ['>M1I 7'])
 while True:
     FUG_sendcommands(obj_fug_com, ['>M1?'])
