@@ -22,6 +22,7 @@ from classification_electrospray import ElectrosprayClassification
 from configuration_FUG import *
 import configuration_tiepie
 import cameraTrigger
+import data_acquisition
 
 from simple_pid import PID
 import os
@@ -48,6 +49,8 @@ LOG_FILENAME = r'logging_test.out'
 logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s %(message)s', level=logging.INFO)
 logging.info('Started')
 
+
+# tiepie params
 multiplier_for_nA = 500
 sampling_frequency = 1e5  # 100000
 
@@ -102,7 +105,6 @@ current_array = []
 voltage = voltage * 1000  # V"""
 # k_electrical_conductivity = 0.34 * 10e-4 # uS/cm
 
-first_measurement = True
 FLAG_PLOT = False
 classification_sjaak = ""
 day_measurement = strftime("%a_%d %b %Y", gmtime())
@@ -130,22 +132,22 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
 
-# **************************************
-#           OSCILLOSCOPE
-# **************************************
+# # **************************************
+# #           OSCILLOSCOPE
+# # **************************************
 
-# print_library_info()
-time_step = 1 / sampling_frequency
-libtiepie.network.auto_detect_enabled = True # Enable network search
-libtiepie.device_list.update() # Search for devices
-scp = None 
-for item in libtiepie.device_list:
-    if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
-        scp = item.open_oscilloscope()
-    else:
-        print('No oscilloscope available with block measurement support!')
-        sys.exit(1)
-print('Oscilloscope initialized!')
+# # print_library_info()
+# time_step = 1 / sampling_frequency
+# libtiepie.network.auto_detect_enabled = True # Enable network search
+# libtiepie.device_list.update() # Search for devices
+# scp = None 
+# for item in libtiepie.device_list:
+#     if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
+#         scp = item.open_oscilloscope()
+#     else:
+#         print('No oscilloscope available with block measurement support!')
+#         sys.exit(1)
+# print('Oscilloscope initialized!')
 
 
 fig, ax = plt.subplots(3)
@@ -198,283 +200,288 @@ else: # MODESTEP
 
 
 # Video Thread
-makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video', args=(arduino_COM_port,))
+makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,))
 threads.append(makeVideo_thread)
 makeVideo_thread.start()
 
 
-# **************************************
-#              TIEPIE
-# **************************************
-try:
-    scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
-    # print_device_info(scp)
-    scp.start()
+# data_acquisition_thread
+data_acquisition_thread = threading.Thread(target=data_acquisition.data_acquisition, name='Data acquisition thread')
+threads.append(data_acquisition_thread)
+data_acquisition_thread.start()
 
-    # Wait for measurement to complete:
-    while not scp.is_data_ready:
-        time.sleep(0.05)  # 50 ms delay, to save CPU time
 
-    # Get 1st data:
-    data = scp.get_data()
+# # **************************************
+# #              TIEPIE
+# # **************************************
+# try:
+#     scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
+#     # print_device_info(scp)
+#     scp.start()
 
-    #  1Mohm input resistance when in single ended input mode
-    datapoints = np.array(data[0]) * multiplier_for_nA  # 2Mohm default input resistance
+#     # Wait for measurement to complete:
+#     while not scp.is_data_ready:
+#         time.sleep(0.05)  # 50 ms delay, to save CPU time
 
-    # low pass filter to flatten out noise
-    cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
-    b, a = butter(6, Wn=cutoff_freq_normalized, btype='low',
-                    analog=False)  # first argument is the order of the filter
-    datapoints_filtered = lfilter(b, a, datapoints)
-except:
-    print("Failed to config tie pie!")
-    sys.exit(1)  
+#     # Get 1st data:
+#     data = scp.get_data()
 
+#     #  1Mohm input resistance when in single ended input mode
+#     datapoints = np.array(data[0]) * multiplier_for_nA  # 2Mohm default input resistance
 
-# **************************************
-#              PLOTTING
-# **************************************
-try:
+#     # low pass filter to flatten out noise
+#     cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
+#     b, a = butter(6, Wn=cutoff_freq_normalized, btype='low',
+#                     analog=False)  # first argument is the order of the filter
+#     datapoints_filtered = lfilter(b, a, datapoints)
+# except:
+#     print("Failed to config tie pie!")
+#     sys.exit(1)  
 
-    # check here to plot the transfer function of the filter
-    # https://stackoverflow.com/questions/25191620/creating-lowpass-filter-in-scipy-understanding-methods-and-units
-    # ax[0].text(.5, .5, 'blabla', animated=True)
 
-    # animated=True tells matplotlib to only draw the artist when we explicitly request it
-    (ln0,) = ax[0].plot(np.arange(0, len(datapoints) * time_step, time_step), datapoints, animated=True)
+# # **************************************
+# #              PLOTTING
+# # **************************************
+# try:
 
-    (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered,
-                        animated=True)
-    freq = np.fft.fftfreq(len(datapoints_filtered), d=time_step)
+#     # check here to plot the transfer function of the filter
+#     # https://stackoverflow.com/questions/25191620/creating-lowpass-filter-in-scipy-understanding-methods-and-units
+#     # ax[0].text(.5, .5, 'blabla', animated=True)
 
-    (ln2,) = ax[2].plot(freq[0:500], np.zeros(500), animated=True)
+#     # animated=True tells matplotlib to only draw the artist when we explicitly request it
+#     (ln0,) = ax[0].plot(np.arange(0, len(datapoints) * time_step, time_step), datapoints, animated=True)
 
-    ax[0].set(xlabel='time [s]', ylabel='current (nA)', title='osci reading', ylim=[-3e2, 3e2])
-    ax[1].set(xlabel='time', ylabel='nA', title='LP filtered', ylim=[-1e1, 5e2])
-    ax[2].set(xlabel='Frequency [Hz]', ylabel='mag', title='fourier transform', ylim=[0, 1e6])
-    # freqs_psd, psd = signal.welch(datapoints)
-    # (ln3,) = ax[3].semilogx(freqs_psd, psd)
-    # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
-    figManager = plt.get_current_fig_manager()
-    figManager.window.showMaximized()
+#     (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered,
+#                         animated=True)
+#     freq = np.fft.fftfreq(len(datapoints_filtered), d=time_step)
 
-    # make sure the window is raised, but the script keeps going
-    plt.show(block=False)
-    plt.pause(0.1)
+#     (ln2,) = ax[2].plot(freq[0:500], np.zeros(500), animated=True)
 
-    # get copy of entire figure (everything inside fig.bbox) sans animated artist
-    bg = fig.canvas.copy_from_bbox(fig.bbox)
-    # draw the animated artist, this uses a cached renderer
-    ax[0].draw_artist(ln0)
-    ax[1].draw_artist(ln1)
-    ax[2].draw_artist(ln2)
+#     ax[0].set(xlabel='time [s]', ylabel='current (nA)', title='osci reading', ylim=[-3e2, 3e2])
+#     ax[1].set(xlabel='time', ylabel='nA', title='LP filtered', ylim=[-1e1, 5e2])
+#     ax[2].set(xlabel='Frequency [Hz]', ylabel='mag', title='fourier transform', ylim=[0, 1e6])
+#     # freqs_psd, psd = signal.welch(datapoints)
+#     # (ln3,) = ax[3].semilogx(freqs_psd, psd)
+#     # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
+#     figManager = plt.get_current_fig_manager()
+#     figManager.window.showMaximized()
 
-    fig.canvas.blit(fig.bbox)
+#     # make sure the window is raised, but the script keeps going
+#     plt.show(block=False)
+#     plt.pause(0.1)
 
-except:
-    print("Failed make iterable plot")
-    sys.exit(1)  
+#     # get copy of entire figure (everything inside fig.bbox) sans animated artist
+#     bg = fig.canvas.copy_from_bbox(fig.bbox)
+#     # draw the animated artist, this uses a cached renderer
+#     ax[0].draw_artist(ln0)
+#     ax[1].draw_artist(ln1)
+#     ax[2].draw_artist(ln2)
 
+#     fig.canvas.blit(fig.bbox)
 
-# **************************************
-#              MAIN LOOP
-# **************************************
+# except:
+#     print("Failed make iterable plot")
+#     sys.exit(1)  
 
-try:
 
-    # get_voltage_from_PS(obj_fug_com)
+# # **************************************
+# #              MAIN LOOP
+# # **************************************
 
-    for j in range(number_measurements):
+# try:
 
-        # reset the background back in the canvas state, screen unchange
-        fig.canvas.restore_region(bg)
+#     # get_voltage_from_PS(obj_fug_com)
 
-        voltage_from_PS = 1# get_voltage_from_PS(obj_fug_com)
-        current_from_PS = 1 #get_current_from_PS(obj_fug_com)
-        current_array.append(current_from_PS)
-        voltage_array.append(voltage_from_PS)
-        print("Actual voltage: " + str(voltage_from_PS) + " for the measurement " + str(
-            j) + " actual current: " + str(current_from_PS))
+#     for j in range(number_measurements):
 
+#         # reset the background back in the canvas state, screen unchange
+#         fig.canvas.restore_region(bg)
 
-        #-----------Processing stuff----------
-        electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, Q, temperature,
-                                                        humidity, day_measurement, current_shape, current_from_PS)
+#         voltage_from_PS = 1# get_voltage_from_PS(obj_fug_com)
+#         current_from_PS = 1 #get_current_from_PS(obj_fug_com)
+#         current_array.append(current_from_PS)
+#         voltage_array.append(voltage_from_PS)
+#         print("Actual voltage: " + str(voltage_from_PS) + " for the measurement " + str(
+#             j) + " actual current: " + str(current_from_PS))
 
-        electrospray_processing.calculate_filter(a, b, electrospray_data.data)
-        electrospray_processing.calculate_fft_raw(electrospray_data.data)
 
-        electrospray_processing.calculate_statistics(electrospray_data.data,
-                                                        electrospray_processing.datapoints_filtered)
-        electrospray_processing_freq, electrospray_processing_psd = electrospray_processing.calculate_power_spectral_density(
-            electrospray_data.data)
+#         #-----------Processing stuff----------
+#         electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, Q, temperature,
+#                                                         humidity, day_measurement, current_shape, current_from_PS)
 
+#         electrospray_processing.calculate_filter(a, b, electrospray_data.data)
+#         electrospray_processing.calculate_fft_raw(electrospray_data.data)
 
-        max_data, quantity_max_data, percentage_max = electrospray_processing.calculate_peaks_signal(
-            electrospray_data.data)
-
-        max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(electrospray_data.data)
-
-        classification_sjaak = electrospray_classification.do_sjaak(electrospray_processing.mean_value,
-                                                            electrospray_processing.med,
-                                                            electrospray_processing.stddev,
-                                                            electrospray_processing.psd_welch,
-                                                            electrospray_processing.variance)
+#         electrospray_processing.calculate_statistics(electrospray_data.data,
+#                                                         electrospray_processing.datapoints_filtered)
+#         electrospray_processing_freq, electrospray_processing_psd = electrospray_processing.calculate_power_spectral_density(
+#             electrospray_data.data)
 
-        classification_monica = electrospray_classification.do_monica(float(max_data), float(quantity_max_data),
-                                                                        float(percentage_max), float(Q), max_fft_peaks,
-                                                                        cont_max_fft_peaks)
-        txt_sjaak_str = str(classification_sjaak)
-        txt_monica_str = str(classification_monica)
 
-        current_shape = {
-            "Sjaak":  str(classification_sjaak),
-            "Monica": str(classification_monica),
-        }
-        electrospray_data.set_shape(current_shape)
+#         max_data, quantity_max_data, percentage_max = electrospray_processing.calculate_peaks_signal(
+#             electrospray_data.data)
+
+#         max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(electrospray_data.data)
+
+#         classification_sjaak = electrospray_classification.do_sjaak(electrospray_processing.mean_value,
+#                                                             electrospray_processing.med,
+#                                                             electrospray_processing.stddev,
+#                                                             electrospray_processing.psd_welch,
+#                                                             electrospray_processing.variance)
 
-        txt_max_peaks = " Max: " + str(max_data) + " Quantity max: " + str(
-            quantity_max_data) + " Percentage: " + str(percentage_max)
+#         classification_monica = electrospray_classification.do_monica(float(max_data), float(quantity_max_data),
+#                                                                         float(percentage_max), float(Q), max_fft_peaks,
+#                                                                         cont_max_fft_peaks)
+#         txt_sjaak_str = str(classification_sjaak)
+#         txt_monica_str = str(classification_monica)
 
-        electrospray_processing.calculate_fft_filtered()
-        electrospray_processing.calculate_fft_peaks()
+#         current_shape = {
+#             "Sjaak":  str(classification_sjaak),
+#             "Monica": str(classification_monica),
+#         }
+#         electrospray_data.set_shape(current_shape)
 
-        #-----------<\Processing stuff----------
+#         txt_max_peaks = " Max: " + str(max_data) + " Quantity max: " + str(
+#             quantity_max_data) + " Percentage: " + str(percentage_max)
 
-        #-----------Plotting stuff----------
+#         electrospray_processing.calculate_fft_filtered()
+#         electrospray_processing.calculate_fft_peaks()
 
-        ln0.set_ydata(electrospray_data.data)
-        ln1.set_ydata(electrospray_processing.datapoints_filtered)
-        ln2.set_ydata(
-            (electrospray_processing.fourier_transform[0:500]))
-        ax[0].legend(bbox_to_anchor=(1.05, 1),
-                        loc='upper left', borderaxespad=0.)
+#         #-----------<\Processing stuff----------
 
-        # re-render the artist, updating the canvas state, but not the screen
-        ax[0].draw_artist(ln0)
-        ax[1].draw_artist(ln1)
-        ax[2].draw_artist(ln2)
+#         #-----------Plotting stuff----------
 
-        fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
-                                            " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
-            current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
-
-
-        """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
-                                            " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
-            current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value) ] } ) """
+#         ln0.set_ydata(electrospray_data.data)
+#         ln1.set_ydata(electrospray_processing.datapoints_filtered)
+#         ln2.set_ydata(
+#             (electrospray_processing.fourier_transform[0:500]))
+#         ax[0].legend(bbox_to_anchor=(1.05, 1),
+#                         loc='upper left', borderaxespad=0.)
 
-
-        # copy the image to the GUI state, but screen might not be changed yet
-        fig.canvas.blit(fig.bbox)
-        # flush any pending GUI events, re-painting the screen if needed
-        fig.canvas.flush_events()
-
-        #-----------<\Plotting stuff----------    
-
-
-
-        if current_shape["Sjaak"] == "cone jet" and FLAG_PLOT:
-            electrospray_validation.set_data_from_dict_liquid(
-                electrospray_config_liquid_setup_obj.get_json_liquid())
-            electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
-                                                                    electrospray_processing.mean_value, Q)
-        if append_array_data:
-            d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-            a_electrospray_measurements.append(d_electrospray_measurements)
-
-        if append_array_processing:
-            d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
-            a_electrospray_processing.append(d_electrospray_processing)
-
-        # Start new measurement:
-        scp.start()
-        # Wait for measurement to complete:
-        while not scp.is_data_ready:
-            time.sleep(0.05)  # 50 ms delay, to save CPU time
-        # Get more data:
-        data = scp.get_data()
-        first_measurement = False
-        datapoints = np.array(data[0]) * multiplier_for_nA
-
-except Exception as e:
-    print('Exception: ' + e.message)
-    print('Main loop failed')
-    sys.exit(1)
-    # Close oscilloscope:
-    del scp
-
-
-# wait until threads finish
-if MODERAMP:
-    ramp_sequency_thread.join()
-    makeVideo_thread.join()
-    FUG_sendcommands(obj_fug_com, ['U 0'])
-else:
-    step_sequency_thread.join()
-    makeVideo_thread.join()
-    FUG_sendcommands(obj_fug_com, ['U 0'])
-
-
-
-# **************************************
-#              SAVING
-# **************************************
-
-
-typeofmeasurement = {
-    "sequency": str(txt_mode),
-    "start": str(voltage_start),
-    "stop": str(voltage_stop),
-    "slope": str(slope),
-    "size": str(step_size),
-    "step time": str(step_time)
-}
-#electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
-electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
-aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
-if FLAG_PLOT:
-    electrospray_classification.plot_sjaak_cone_jet()
-    electrospray_classification.plot_sjaak_classification()
-
-full_dict = {}
-full_dict['config'] = {}
-
-if SAVE_CONFIG:
-    electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
-    electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-    full_dict['config']['liquid'] = electrospray_config_liquid
-    full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-
-    full_dict['config']['setup'] = electrospray_config_setup
-    full_dict['config']['setup']['voltage regime'] = typeofmeasurement
-    full_dict['config']['setup']['comments'] = current_shape_comment
-
-    """                                                                                                                                                                                                                                                                                                     
-        load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
-        shape = input("Enter manual classification for the recorded shape : ")
-        a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
-    """
-    if SAVE_PROCESSING:
-        full_dict['processing'] = a_electrospray_processing
-
-    if SAVE_DATA:
-        full_dict['measurements'] = a_electrospray_measurements
-
-    # voltage = str(voltage) + 'V'
-    if SAVE_JSON:
-        # arbitrary, defined in the header
-        Q = str(Q) + 'm3_s'
-        voltage_filename = str(voltage_array) + 'V'
-        file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
-        completeName = os.path.join(save_path, file_name)
-
-        with open(completeName, 'w') as file:
-            json.dump((full_dict), file, indent=4)
-        # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
-        electrospray_validation.open_load_json_data(filename=completeName)
-
-logging.info('Finished')
-sys.exit(0)
+#         # re-render the artist, updating the canvas state, but not the screen
+#         ax[0].draw_artist(ln0)
+#         ax[1].draw_artist(ln1)
+#         ax[2].draw_artist(ln2)
+
+#         fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
+#                                             " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
+#             current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
+
+
+#         """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
+#                                             " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
+#             current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value) ] } ) """
+
+
+#         # copy the image to the GUI state, but screen might not be changed yet
+#         fig.canvas.blit(fig.bbox)
+#         # flush any pending GUI events, re-painting the screen if needed
+#         fig.canvas.flush_events()
+
+#         #-----------<\Plotting stuff----------    
+
+
+
+#         if current_shape["Sjaak"] == "cone jet" and FLAG_PLOT:
+#             electrospray_validation.set_data_from_dict_liquid(
+#                 electrospray_config_liquid_setup_obj.get_json_liquid())
+#             electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
+#                                                                     electrospray_processing.mean_value, Q)
+#         if append_array_data:
+#             d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
+#             a_electrospray_measurements.append(d_electrospray_measurements)
+
+#         if append_array_processing:
+#             d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
+#             a_electrospray_processing.append(d_electrospray_processing)
+
+#         # Start new measurement:
+#         scp.start()
+#         # Wait for measurement to complete:
+#         while not scp.is_data_ready:
+#             time.sleep(0.05)  # 50 ms delay, to save CPU time
+#         # Get more data:
+#         data = scp.get_data()
+#         datapoints = np.array(data[0]) * multiplier_for_nA
+
+# except Exception as e:
+#     print('Exception: ' + e.message)
+#     print('Main loop failed')
+#     sys.exit(1)
+#     # Close oscilloscope:
+#     del scp
+
+
+# # wait until threads finish
+# if MODERAMP:
+#     ramp_sequency_thread.join()
+#     makeVideo_thread.join()
+#     FUG_sendcommands(obj_fug_com, ['U 0'])
+# else:
+#     step_sequency_thread.join()
+#     makeVideo_thread.join()
+#     FUG_sendcommands(obj_fug_com, ['U 0'])
+
+
+
+# # **************************************
+# #              SAVING
+# # **************************************
+
+
+# typeofmeasurement = {
+#     "sequency": str(txt_mode),
+#     "start": str(voltage_start),
+#     "stop": str(voltage_stop),
+#     "slope": str(slope),
+#     "size": str(step_size),
+#     "step time": str(step_time)
+# }
+# #electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
+
+# electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
+# aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
+
+# if FLAG_PLOT:
+#     electrospray_classification.plot_sjaak_cone_jet()
+#     electrospray_classification.plot_sjaak_classification()
+
+# full_dict = {}
+# full_dict['config'] = {}
+
+# if SAVE_CONFIG:
+#     electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
+#     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
+#     full_dict['config']['liquid'] = electrospray_config_liquid
+#     full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
+
+#     full_dict['config']['setup'] = electrospray_config_setup
+#     full_dict['config']['setup']['voltage regime'] = typeofmeasurement
+#     full_dict['config']['setup']['comments'] = current_shape_comment
+
+#     """                                                                                                                                                                                                                                                                                                     
+#         load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
+#         shape = input("Enter manual classification for the recorded shape : ")
+#         a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
+#     """
+#     if SAVE_PROCESSING:
+#         full_dict['processing'] = a_electrospray_processing
+
+#     if SAVE_DATA:
+#         full_dict['measurements'] = a_electrospray_measurements
+
+#     # voltage = str(voltage) + 'V'
+#     if SAVE_JSON:
+#         # arbitrary, defined in the header
+#         Q = str(Q) + 'm3_s'
+#         voltage_filename = str(voltage_array) + 'V'
+#         file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
+#         completeName = os.path.join(save_path, file_name)
+
+#         with open(completeName, 'w') as file:
+#             json.dump((full_dict), file, indent=4)
+#         # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
+#         electrospray_validation.open_load_json_data(filename=completeName)
+
+# logging.info('Finished')
+# sys.exit(0)
