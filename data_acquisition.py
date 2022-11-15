@@ -12,6 +12,8 @@ import configuration_tiepie
 from scipy.signal import butter, lfilter
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 
+from multiprocessing import Process, Queue
+
 # tiepie params
 sampling_frequency = 1e5  # 100 KHz
 multiplier_for_nA = 500
@@ -33,7 +35,7 @@ a_electrospray_measurements_data = []
 
 
 
-def data_acquisition():
+def data_acquisition(data_queue):
 
 
     # **************************************
@@ -84,7 +86,8 @@ def data_acquisition():
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, 10, 10, 10, 10, 10, current_shape, 10)
 
             d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-            a_electrospray_measurements.append(d_electrospray_measurements)
+            data_queue.put(d_electrospray_measurements)
+            
 
         except:
             print("Failed to get tiePie values!")
@@ -99,3 +102,15 @@ def data_acquisition():
 
     with open(completeName, 'w') as file:
         json.dump((full_dict), file, indent=4)
+
+
+
+def data_process(data_queue):
+
+    while(1):
+        if data_queue.empty():
+            print("fila vazia")
+        else:
+            a_electrospray_measurements.append(data_queue.get())
+            print('Data Append!')
+        time.sleep(0.5)

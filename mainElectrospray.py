@@ -15,6 +15,8 @@ from time import gmtime, strftime
 import csv
 import configparser
 
+from multiprocessing import Process, Queue
+
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
@@ -209,6 +211,15 @@ makeVideo_thread.start()
 data_acquisition_thread = threading.Thread(target=data_acquisition.data_acquisition, name='Data acquisition thread')
 threads.append(data_acquisition_thread)
 data_acquisition_thread.start()
+
+
+
+data_queue = Queue()
+producer = Process(target=data_acquisition.data_acquisition, args=(data_queue,))
+consumer = Process(target=data_acquisition.data_process, args=(data_queue,))
+producer.start()
+consumer.start()
+# producer.join()
 
 
 # # **************************************
