@@ -69,8 +69,8 @@ def data_acquisition():
             while not scp.is_data_ready:
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
-            # Get 1st data:
             data = scp.get_data()
+            print('got data points')
 
             #  1Mohm input resistance when in single ended input mode
             datapoints = np.array(data[0]) * multiplier_for_nA  # 2Mohm default input resistance
@@ -92,9 +92,9 @@ def data_acquisition():
 
     full_dict = {}
     full_dict['measurements'] = a_electrospray_measurements
-    Q = str(Q) + 'm3_s'
+    # Q = str(Q) + 'm3_s'
     # voltage_filename = str(voltage_array) + 'V'
-    file_name = "ramp" + name_setup + name_liquid + "_all shapes_" + Q + ".json"
+    file_name = "ramp" + name_setup + name_liquid + "_all shapes_" + str(10) + ".json"
     completeName = os.path.join("""C:/Users/hvvhl/Desktop/teste""", file_name)
 
     with open(completeName, 'w') as file:

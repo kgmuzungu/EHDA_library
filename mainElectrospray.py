@@ -483,5 +483,5 @@ data_acquisition_thread.start()
 #         # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
 #         electrospray_validation.open_load_json_data(filename=completeName)
 
-logging.info('Finished')
-sys.exit(0)
+# logging.info('Finished')
+# sys.exit(0)
