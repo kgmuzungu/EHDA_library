@@ -71,7 +71,7 @@ SAVE_JSON = VAR_BIN_CONFIG
 append_array_data = VAR_BIN_CONFIG
 append_array_processing = VAR_BIN_CONFIG
 
-MODERAMP = False  # else go in steps
+MODERAMP = True  # else go in steps
 number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
 print('number_measurements: ', number_measurements)
 
@@ -86,9 +86,9 @@ print('temperature: ', temperature)
 print('humidity: ', humidity)
 
 name_setup = "setup10"
-setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle" + name_setup
+setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
 name_liquid = "water60alcohol40"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
-liquid = "liquid/" + name_liquid  
+liquid = "setup/liquid/" + name_liquid
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
 current_shape = current_shapes[8]  
@@ -131,17 +131,6 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
 # **************************************
-#                FUG
-# **************************************
-try:
-    obj_fug_com = FUG_initialize(fug_COM_port) # parameter: COM port idx
-except Exception as e:
-            print('Could not initialize FUG')
-            print('Exception: ' + e.message)
-            sys.exit(1)
-
-
-# **************************************
 #           OSCILLOSCOPE
 # **************************************
 
@@ -161,42 +150,49 @@ print('Oscilloscope initialized!')
 
 fig, ax = plt.subplots(3)
 
+
+# **************************************
+#                FUG
+# **************************************
+obj_fug_com = FUG_initialize(fug_COM_port) # parameter: COM port idx
+print("obj_fug_com: ", obj_fug_com)
+
 # **************************************
 #              THREADS
 # **************************************
 threads = list()
 
-with obj_fug_com:
+get_voltage_from_PS(obj_fug_com)
 
-    if MODERAMP:
-        txt_mode = "ramp"
-        slope = 200
-        voltage_start = 3000
-        voltage_stop = 11000
-        step_size=0
-        step_time=0
+if MODERAMP:
+    txt_mode = "ramp"
+    slope = 200
+    voltage_start = 3000
+    voltage_stop = 11000
+    step_size=0
+    step_time=0
 
-        # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
-        ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
-                                                args=(
-                                                    obj_fug_com, slope, voltage_start,
-                                                    voltage_stop))
-        ramp_sequency_thread.start()
+    # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
+    ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
+                                            args=(
+                                                obj_fug_com, slope, voltage_start,
+                                                voltage_stop))
+    ramp_sequency_thread.start()
 
 
-    else: # MODESTEP
-        txt_mode = "step"
-        slope = 10000
-        voltage_start = 3000
-        voltage_stop = 10000
-        step_size = 100
-        step_time = 10  # 10
+else: # MODESTEP
+    txt_mode = "step"
+    slope = 10000
+    voltage_start = 3000
+    voltage_stop = 10000
+    step_size = 100
+    step_time = 10  # 10
 
-        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
-        step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                        args=(obj_fug_com, step_size, step_time, slope, voltage_start,
-                                            voltage_stop))
-        step_sequency_thread.start()
+    # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
+    step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
+                                    args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                        voltage_stop))
+    step_sequency_thread.start()
 
 
 
@@ -286,15 +282,15 @@ except:
 
 try:
 
-    get_voltage_from_PS(obj_fug_com)
+    # get_voltage_from_PS(obj_fug_com)
 
     for j in range(number_measurements):
 
         # reset the background back in the canvas state, screen unchange
         fig.canvas.restore_region(bg)
 
-        voltage_from_PS = get_voltage_from_PS(obj_fug_com)
-        current_from_PS = get_current_from_PS(obj_fug_com)
+        voltage_from_PS = 1# get_voltage_from_PS(obj_fug_com)
+        current_from_PS = 1 #get_current_from_PS(obj_fug_com)
         current_array.append(current_from_PS)
         voltage_array.append(voltage_from_PS)
         print("Actual voltage: " + str(voltage_from_PS) + " for the measurement " + str(
