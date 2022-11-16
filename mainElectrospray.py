@@ -17,7 +17,7 @@ from scipy import signal
 from time import gmtime, strftime
 import csv
 import configparser
-
+import multiprocessing
 
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 from validation_electrospray import ElectrosprayValidation
@@ -121,8 +121,8 @@ res = ""
 count_sequency_cone_jet = 0
 listdir = os.listdir()
 j = 0
-plt.style.use('seaborn-colorblind')
-plt.ion()
+# plt.style.use('seaborn-colorblind')
+# plt.ion()
 # PORTS
 arduino_COM_port = 0
 fug_COM_port = 4
@@ -196,7 +196,7 @@ makeVideo_thread = threading.Thread(
 threads.append(makeVideo_thread)
 makeVideo_thread.start()
 
-pipeline = queue.Queue(maxsize=10)
+pipeline = multiprocessing.Queue(maxsize=100)
 
 # data_acquisition_thread
 data_acquisition_thread = threading.Thread(
@@ -223,18 +223,21 @@ data_acquisition_thread = threading.Thread(
 threads.append(data_acquisition_thread)
 data_acquisition_thread.start()
 
+# plotting_process
+plotting_process = multiprocessing.Process(target=plotting.real_time_plot, args=(pipeline, event))
+plotting_process.start()
 
-# plotting_thread
-plotting_thread = threading.Thread(
-    target=plotting.real_time_plot,
-    name='Real Time Plotting thread',
-    args=(
-        pipeline, 
-        event,
-    )
-)
-threads.append(plotting_thread)
-plotting_thread.start()
+# # plotting_thread
+# plotting_thread = threading.Thread(
+#     target=plotting.real_time_plot,
+#     name='Real Time Plotting thread',
+#     args=(
+#         pipeline, 
+#         event,
+#     )
+# )
+# threads.append(plotting_thread)
+# plotting_thread.start()
 
 
 # # **************************************
