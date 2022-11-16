@@ -184,7 +184,7 @@ def data_acquisition(queue,
 
 
             # put values in the queue
-            message = [datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS]
+            message = [datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS]
             queue.put(message)
 
 

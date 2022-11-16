@@ -6,6 +6,7 @@ import json
 import logging
 import pylab
 import numpy as np
+import plotting
 import libtiepie
 from configuration_FUG import *
 import configuration_tiepie
@@ -14,12 +15,12 @@ from time import gmtime, strftime
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-import matplotlib as plt
-
-fig, ax = plt.subplots(3)
+import matplotlib.pyplot as plt
 
 
-def real_time_plot(queue, event):
+
+
+def real_time_plot( queue, event):
 
     # wait for first value
     while queue.empty():
@@ -28,21 +29,27 @@ def real_time_plot(queue, event):
 
     message = queue.get()
 
-    datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS = message
-    
+    datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
+
+    plt.style.use('seaborn-colorblind')
+    plt.ion()
+
     logging.info(
         "Consumer got: %s (queue size=%d)", message, queue.qsize()
     )
     logging.info("Consumer received event. Exiting")
 
+    fig, ax = plt.subplots(3)
+
+
     try:
+
         #     # check here to plot the transfer function of the filter
         #     # https://stackoverflow.com/questions/25191620/creating-lowpass-filter-in-scipy-understanding-methods-and-units
         #     # ax[0].text(.5, .5, 'blabla', animated=True)
 
         # animated=True tells matplotlib to only draw the artist when we explicitly request it
-        (ln0,) = ax[0].plot(np.arange(0, len(datapoints) *
-         time_step, time_step), datapoints, animated=True)
+        (ln0,) = ax[0].plot(np.arange(0, len(datapoints) * time_step, time_step), datapoints, animated=True)
 
         (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered,
                             animated=True)
@@ -85,9 +92,11 @@ def real_time_plot(queue, event):
 
     while not event.is_set() or not queue.empty():
 
-        print('plotting loop')
 
+
+        print('plotting loop')
         message = queue.get()
+
         datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
         logging.info(
             "Consumer got message: %s (queue size=%d)", message, queue.qsize()
@@ -96,7 +105,8 @@ def real_time_plot(queue, event):
 
         try:
 
-            # pick data from the queue
+            # reset the background back in the canvas state, screen unchange
+            fig.canvas.restore_region(bg)
 
             ln0.set_ydata(electrospray_data.data)
             ln1.set_ydata(electrospray_processing.datapoints_filtered)
