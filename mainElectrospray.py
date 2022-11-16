@@ -6,7 +6,6 @@ import threading
 import sys
 import libtiepie
 import concurrent.futures
-import pipeline
 import random
 
 import classification_electrospray
@@ -139,25 +138,7 @@ electrospray_classification = classification_electrospray.ElectrosprayClassifica
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
-# # **************************************
-# #           OSCILLOSCOPE
-# # **************************************
 
-# # print_library_info()
-# time_step = 1 / sampling_frequency
-# libtiepie.network.auto_detect_enabled = True # Enable network search
-# libtiepie.device_list.update() # Search for devices
-# scp = None
-# for item in libtiepie.device_list:
-#     if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
-#         scp = item.open_oscilloscope()
-#     else:
-#         print('No oscilloscope available with block measurement support!')
-#         sys.exit(1)
-# print('Oscilloscope initialized!')
-
-
-fig, ax = plt.subplots(3)
 
 
 # **************************************
@@ -169,6 +150,10 @@ print("obj_fug_com: ", obj_fug_com)
 # **************************************
 #              THREADS
 # **************************************
+
+fig, ax = plt.subplots(3)
+
+
 threads = list()
 
 get_voltage_from_PS(obj_fug_com)
@@ -233,43 +218,6 @@ data_acquisition_thread = threading.Thread(
 )
 threads.append(data_acquisition_thread)
 data_acquisition_thread.start()
-
-
-
-data_queue = Queue()
-producer = Process(target=data_acquisition.data_acquisition, args=(data_queue,))
-consumer = Process(target=data_acquisition.data_process, args=(data_queue,))
-producer.start()
-consumer.start()
-# producer.join()
-
-
-# # **************************************
-# #              TIEPIE
-# # **************************************
-# try:
-#     scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
-#     # print_device_info(scp)
-#     scp.start()
-
-#     # Wait for measurement to complete:
-#     while not scp.is_data_ready:
-#         time.sleep(0.05)  # 50 ms delay, to save CPU time
-
-#     # Get 1st data:
-#     data = scp.get_data()
-
-#     #  1Mohm input resistance when in single ended input mode
-#     datapoints = np.array(data[0]) * multiplier_for_nA  # 2Mohm default input resistance
-
-#     # low pass filter to flatten out noise
-#     cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
-#     b, a = butter(6, Wn=cutoff_freq_normalized, btype='low',
-#                     analog=False)  # first argument is the order of the filter
-#     datapoints_filtered = lfilter(b, a, datapoints)
-# except:
-#     print("Failed to config tie pie!")
-#     sys.exit(1)
 
 
 # # **************************************
@@ -454,65 +402,6 @@ consumer.start()
 #     makeVideo_thread.join()
 #     FUG_sendcommands(obj_fug_com, ['U 0'])
 
-
-# # **************************************
-# #              SAVING
-# # **************************************
-
-
-# typeofmeasurement = {
-#     "sequency": str(txt_mode),
-#     "start": str(voltage_start),
-#     "stop": str(voltage_stop),
-#     "slope": str(slope),
-#     "size": str(step_size),
-#     "step time": str(step_time)
-# }
-# #electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
-# electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
-# aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
-# if FLAG_PLOT:
-#     electrospray_classification.plot_sjaak_cone_jet()
-#     electrospray_classification.plot_sjaak_classification()
-
-# full_dict = {}
-# full_dict['config'] = {}
-
-# if SAVE_CONFIG:
-#     electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
-#     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-#     full_dict['config']['liquid'] = electrospray_config_liquid
-#     full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-
-#     full_dict['config']['setup'] = electrospray_config_setup
-#     full_dict['config']['setup']['voltage regime'] = typeofmeasurement
-#     full_dict['config']['setup']['comments'] = current_shape_comment
-
-#     """
-#         load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
-#         shape = input("Enter manual classification for the recorded shape : ")
-#         a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
-#     """
-#     if SAVE_PROCESSING:
-#         full_dict['processing'] = a_electrospray_processing
-
-#     if SAVE_DATA:
-#         full_dict['measurements'] = a_electrospray_measurements
-
-#     # voltage = str(voltage) + 'V'
-#     if SAVE_JSON:
-#         # arbitrary, defined in the header
-#         Q = str(Q) + 'm3_s'
-#         voltage_filename = str(voltage_array) + 'V'
-#         file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
-#         completeName = os.path.join(save_path, file_name)
-
-#         with open(completeName, 'w') as file:
-#             json.dump((full_dict), file, indent=4)
-#         # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
-#         electrospray_validation.open_load_json_data(filename=completeName)
 
 # logging.info('Finished')
 # sys.exit(0)
