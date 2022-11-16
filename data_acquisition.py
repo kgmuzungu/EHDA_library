@@ -43,7 +43,9 @@ SAVE_CONFIG = True
 SAVE_JSON = True
 
 
-def data_acquisition(electrospray_config_liquid_setup_obj,
+def data_acquisition(queue, 
+                     event, 
+                     electrospray_config_liquid_setup_obj,
                      electrospray_processing,
                      electrospray_classification,
                      electrospray_validation,
@@ -179,6 +181,12 @@ def data_acquisition(electrospray_config_liquid_setup_obj,
             if append_array_processing:
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
                 a_electrospray_processing.append(d_electrospray_processing)
+
+
+            # put values in the queue
+            message = [datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS]
+            queue.put(message)
+
 
         except:
             print("Failed to get tiePie values!")

@@ -7,6 +7,7 @@ import sys
 import libtiepie
 import concurrent.futures
 import random
+import queue
 
 import classification_electrospray
 from printinfo import *
@@ -17,16 +18,18 @@ from time import gmtime, strftime
 import csv
 import configparser
 
-from multiprocessing import Process, Queue
 
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
+
+
 from configuration_FUG import *
 import configuration_tiepie
 import cameraTrigger
 import data_acquisition
+import plotting
 
 from simple_pid import PID
 import os
@@ -139,8 +142,6 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 
 
 
-
-
 # **************************************
 #                FUG
 # **************************************
@@ -151,7 +152,7 @@ print("obj_fug_com: ", obj_fug_com)
 #              THREADS
 # **************************************
 
-fig, ax = plt.subplots(3)
+# fig, ax = plt.subplots(3)
 
 
 threads = list()
@@ -195,12 +196,15 @@ makeVideo_thread = threading.Thread(
 threads.append(makeVideo_thread)
 makeVideo_thread.start()
 
+pipeline = queue.Queue(maxsize=10)
 
 # data_acquisition_thread
 data_acquisition_thread = threading.Thread(
     target=data_acquisition.data_acquisition,
     name='Data acquisition thread',
     args=(
+        pipeline, 
+        event,
         electrospray_config_liquid_setup_obj,
         electrospray_processing,
         electrospray_classification,
@@ -218,6 +222,19 @@ data_acquisition_thread = threading.Thread(
 )
 threads.append(data_acquisition_thread)
 data_acquisition_thread.start()
+
+
+# plotting_thread
+plotting_thread = threading.Thread(
+    target=plotting.real_time_plot,
+    name='Real Time Plotting thread',
+    args=(
+        pipeline, 
+        event,
+    )
+)
+threads.append(plotting_thread)
+plotting_thread.start()
 
 
 # # **************************************
