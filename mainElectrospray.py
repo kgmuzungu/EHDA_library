@@ -5,6 +5,9 @@ import time
 import threading
 import sys
 import libtiepie
+import concurrent.futures
+import pipeline
+import random
 
 import classification_electrospray
 from printinfo import *
@@ -34,19 +37,19 @@ import pylab
 import numpy as np
 
 
-
 # *************************************
-#       INITIAL CONFIGURATION 
+#       INITIAL CONFIGURATION
 # *************************************
 
-event = threading.Event() # this is somehow important to fug
+event = threading.Event()  # this is somehow important to fug
 
 # fig = pylab.gcf()
 save_path = """C:/Users/hvvhl/Desktop/teste"""
 
 # LOGGING CONFIG
 LOG_FILENAME = r'logging_test.out'
-logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s %(message)s', level=logging.INFO)
+logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8',
+                    format='%(asctime)s %(message)s', level=logging.INFO)
 logging.info('Started')
 
 
@@ -75,10 +78,11 @@ append_array_data = VAR_BIN_CONFIG
 append_array_processing = VAR_BIN_CONFIG
 
 MODERAMP = True  # else go in steps
-number_measurements = 45 # maybe change to 100 (45 looks to be a good size for saving)
+# maybe change to 100 (45 looks to be a good size for saving)
+number_measurements = 45
 print('number_measurements: ', number_measurements)
 
-Q = 1450 # flow rate  uL/h 
+Q = 1450  # flow rate  uL/h
 Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
 Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
 print('flowrate cm3/s: ', Q)
@@ -90,11 +94,12 @@ print('humidity: ', humidity)
 
 name_setup = "setup10"
 setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
-name_liquid = "water60alcohol40"  # liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+# liquids = ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+name_liquid = "water60alcohol40"
 liquid = "setup/liquid/" + name_liquid
 current_shapes = ["no voltage no fr", "no voltage", "dripping", "intermittent", "cone jet", "multijet",
                   "streamer onset", "dry", "all shapes"]  # 0no voltage no fr/1no voltage/2dripping/3intermittent/4cone jet/5multijet/6streamer onset/7dry/8all shapes"]
-current_shape = current_shapes[8]  
+current_shape = current_shapes[8]
 current_shape_comment = "difficult cone jet stabilization"
 
 voltage = 0
@@ -114,7 +119,7 @@ listdir = os.listdir()
 j = 0
 plt.style.use('seaborn-colorblind')
 plt.ion()
-#PORTS
+# PORTS
 arduino_COM_port = 0
 fug_COM_port = 4
 
@@ -122,14 +127,14 @@ fug_COM_port = 4
 # **************************************
 #          CREATING INSTANCES
 # **************************************
-electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
+electrospray_config_liquid_setup_obj = ElectrosprayConfig(
+    setup + ".json", liquid + ".json")
 electrospray_config_liquid_setup_obj.load_json_config_liquid()
 electrospray_config_liquid_setup_obj.load_json_config_setup()
 electrospray_validation = ElectrosprayValidation(name_liquid)
-electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
+electrospray_classification = classification_electrospray.ElectrosprayClassification(
+    name_liquid)
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
-
-
 
 
 # # **************************************
@@ -140,7 +145,7 @@ electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 # time_step = 1 / sampling_frequency
 # libtiepie.network.auto_detect_enabled = True # Enable network search
 # libtiepie.device_list.update() # Search for devices
-# scp = None 
+# scp = None
 # for item in libtiepie.device_list:
 #     if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):  # Try to open an oscilloscope with block measurement support
 #         scp = item.open_oscilloscope()
@@ -156,7 +161,7 @@ fig, ax = plt.subplots(3)
 # **************************************
 #                FUG
 # **************************************
-obj_fug_com = FUG_initialize(fug_COM_port) # parameter: COM port idx
+obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
 print("obj_fug_com: ", obj_fug_com)
 
 # **************************************
@@ -171,8 +176,8 @@ if MODERAMP:
     slope = 200
     voltage_start = 3000
     voltage_stop = 11000
-    step_size=0
-    step_time=0
+    step_size = 0
+    step_time = 0
 
     # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
     ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
@@ -182,7 +187,7 @@ if MODERAMP:
     ramp_sequency_thread.start()
 
 
-else: # MODESTEP
+else:  # MODESTEP
     txt_mode = "step"
     slope = 10000
     voltage_start = 3000
@@ -192,21 +197,38 @@ else: # MODESTEP
 
     # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
     step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                    args=(obj_fug_com, step_size, step_time, slope, voltage_start,
-                                        voltage_stop))
+                                            args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                                  voltage_stop))
     step_sequency_thread.start()
 
 
-
-
 # Video Thread
-makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,))
+makeVideo_thread = threading.Thread(
+    target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,))
 threads.append(makeVideo_thread)
 makeVideo_thread.start()
 
 
 # data_acquisition_thread
-data_acquisition_thread = threading.Thread(target=data_acquisition.data_acquisition, name='Data acquisition thread')
+data_acquisition_thread = threading.Thread(
+    target=data_acquisition.data_acquisition,
+    name='Data acquisition thread',
+    args=(
+        electrospray_config_liquid_setup_obj,
+        electrospray_processing,
+        electrospray_classification,
+        electrospray_validation,
+        txt_mode,
+        slope,
+        voltage_start,
+        voltage_stop,
+        step_size,
+        step_time,
+        Q,
+        current_shape,
+        save_path
+    )
+)
 threads.append(data_acquisition_thread)
 data_acquisition_thread.start()
 
@@ -236,7 +258,7 @@ data_acquisition_thread.start()
 #     datapoints_filtered = lfilter(b, a, datapoints)
 # except:
 #     print("Failed to config tie pie!")
-#     sys.exit(1)  
+#     sys.exit(1)
 
 
 # # **************************************
@@ -281,7 +303,7 @@ data_acquisition_thread.start()
 
 # except:
 #     print("Failed make iterable plot")
-#     sys.exit(1)  
+#     sys.exit(1)
 
 
 # # **************************************
@@ -378,8 +400,7 @@ data_acquisition_thread.start()
 #         # flush any pending GUI events, re-painting the screen if needed
 #         fig.canvas.flush_events()
 
-#         #-----------<\Plotting stuff----------    
-
+#         #-----------<\Plotting stuff----------
 
 
 #         if current_shape["Sjaak"] == "cone jet" and FLAG_PLOT:
@@ -423,7 +444,6 @@ data_acquisition_thread.start()
 #     FUG_sendcommands(obj_fug_com, ['U 0'])
 
 
-
 # # **************************************
 # #              SAVING
 # # **************************************
@@ -459,7 +479,7 @@ data_acquisition_thread.start()
 #     full_dict['config']['setup']['voltage regime'] = typeofmeasurement
 #     full_dict['config']['setup']['comments'] = current_shape_comment
 
-#     """                                                                                                                                                                                                                                                                                                     
+#     """
 #         load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
 #         shape = input("Enter manual classification for the recorded shape : ")
 #         a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
