@@ -147,7 +147,7 @@ if __name__ == '__main__':
     #              FUG INIT
     # **************************************
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
-    print("obj_fug_com: ", obj_fug_com)
+    print("[FUG] obj_fug_com: ", obj_fug_com)
     get_voltage_from_PS(obj_fug_com)
 
 
@@ -242,7 +242,7 @@ if __name__ == '__main__':
 
     #  plotting is not a thread. It is a function running in a loop in the main.
     fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_queue, event)
-    while not event.is_set() or not data_queue.empty():
+    while 1:
         plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2, bg)
 
 

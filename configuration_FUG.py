@@ -21,7 +21,7 @@ def FUG_initialize(com_port_idx):
             print("  " + str(idx) + ".)  " + curr.description)
 
         if com_port_idx > no_com_ports or com_port_idx < 0:
-            print("Incorrect value for COM port! Enter a Number (0 - " + str(no_com_ports - 1) + ")")
+            print("[FUG] Incorrect value for COM port! Enter a Number (0 - " + str(no_com_ports - 1) + ")")
             return None
 
         # configure the COM port to talk to. Default values: 115200,8,N,1
@@ -37,17 +37,17 @@ def FUG_initialize(com_port_idx):
             if com_port.is_open:
                 com_port.flushInput()
                 com_port.flushOutput()
-                print('FUG initialized!')
-                print("FUG Opened Port: " + com_ports[com_port_idx].device)
+                print('[FUG] FUG initialized!')
+                print("[FUG] FUG Opened Port: " + com_ports[com_port_idx].device)
                 return com_port
         except Exception as e:
-            print('Error FUG_initialize()')
-            print('Exception: ' + e.message)
+            print('[FUG] Error FUG_initialize()')
+            print('[FUG] Exception: ' + e.message)
             return e.message
             sys.exit(1)
 
     else:
-        print('Error FUG_initialize()')
+        print('[FUG] Error FUG_initialize()')
         return None
 
 
@@ -76,8 +76,8 @@ def FUG_sendcommands(com_port, cmd):
                 responses.append('')
                 print("FUG ERROR: no Response!")
     except Exception as e:
-        print('Error FUG_sendcommands()')
-        print('Exception: ' + e.message)
+        print('[FUG] Error FUG_sendcommands()')
+        print('[FUG] Exception: ' + e.message)
         sys.exit(1)
         return sys.exit(1)
     return responses
@@ -98,10 +98,10 @@ def get_voltage_from_PS(obj_fug_com):
     try:
         voltage_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M0?'])[0]))
         numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', voltage_reading))
-        print("Voltage from Power supply" + numbers[0])
+        # print("[FUG] Voltage from Power supply" + numbers[0])
     except:
         numbers = ["0"]
-        print("Failed get Voltage from PS")
+        print("[FUG] Failed get Voltage from PS")
     return float(numbers[0])
 
 
@@ -109,7 +109,7 @@ def get_current_from_PS(obj_fug_com):
     try:
         current_reading = str.rstrip(str(FUG_sendcommands(obj_fug_com, ['>M1?'])[0]))
         numbers = (re.findall('[+,-][0-9].+E[+,-][0-9].', current_reading))
-        print("Current from Power supply" + numbers[0])
+        # print("[FUG] Current from Power supply" + numbers[0])
     except:
         numbers = ["0"]
     return float(numbers[0])
@@ -133,6 +133,7 @@ def step_sequency(fug_queue, obj_fug_com, step_size=350, step_time=1, step_slope
         fug_queue.put(fug_values)
 
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
+    time.sleep(step_time)
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
     print("Responses from step frequency : ", str(responses))
