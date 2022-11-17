@@ -1,19 +1,7 @@
 # EHDA - Electric Hidrodynamics Atomization library
 
-#### liquid folder -> json files about the liquid
-#### setup folder -> json files about the setup
-#### json folder -> json files for tests purposes with data collected
-#### literature folder -> files for diagrams purposes
-#### offline treatment folder -> non real time process
-#### serial_FUG folder -> power supply FUG control commands
-#### serial_FUG folder -> pump control commands
-#### viewer folder -> pump control commands
-### viewer folder -> class that loads saved data in json and visualizes (plots) it, including FFT.
-#### tiepie folder -> communication with oscilloscope control 
-#### Arduino_camera_trigger -> Arduino code for send camera trigger signal to start video.
 
-
-# Main code Tutorial:
+# Main code Tutorial: (mainElectrospray.py)
 
 
 #### 1. Open the file: mainElectrospray.py
@@ -150,13 +138,3 @@ pip install hvl-ccb
 # influx db token:
 30zF8j190P9AesW2fi60lkr_vkfG6vvUYg_OHtGqAJvywL92dTOxgS6y20F2LRvcn8DQZFgXDpgbY23W-44G-Q==
 
-
-# CAMERA 
-Model: Photron fastcam mini AX100
-Ways of connecting to camera:
-- Photron supplies a C++ SDK
-- The latest customer python repository is https://gitlab.com/icm-institute/renier/pyphotron 
-- adjust number of camera partitions in cameraTrigger.py
-- There is also a much older project at https://github.com/ion201/PyHSCam
-- One other option you could consider is the use of PFV keyboard shortcuts.
-- Another one is hardware trigger for the experiments – video recording you could consider using “ auto save” function in photron pfv software.

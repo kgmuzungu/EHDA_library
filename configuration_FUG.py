@@ -4,6 +4,7 @@ import serial.tools.list_ports
 # package needed for sleep
 import time
 import re
+import sys
 
 
 def FUG_initialize(com_port_idx):
@@ -32,12 +33,24 @@ def FUG_initialize(com_port_idx):
             stopbits=serial.STOPBITS_ONE,  # 1
             timeout=0
         )
-        if com_port.is_open:
-            com_port.flushInput()
-            com_port.flushOutput()
-            print('FUG initialized!')
-            print("FUG Opened Port: " + com_ports[com_port_idx].device)
-    return com_port
+        try:
+            if com_port.is_open:
+                com_port.flushInput()
+                com_port.flushOutput()
+                print('FUG initialized!')
+                print("FUG Opened Port: " + com_ports[com_port_idx].device)
+                return com_port
+        except Exception as e:
+            print('Error FUG_initialize()')
+            print('Exception: ' + e.message)
+            return e.message
+            sys.exit(1)
+
+    else:
+        print('Error FUG_initialize()')
+        return None
+
+
 
 
 # cmd, list of commands expected
@@ -47,20 +60,26 @@ def FUG_sendcommands(com_port, cmd):
     # cmd = ['F0'] turn it off
     # cmd = ['>M0?'] readback the actual voltage
     responses = []
-    for command in cmd:
-        # print("cmd:" + command)
-        com_port.write((command + '\r\n').encode())
-        # send cmd to device # might not work with older devices -> "LF" only needed!
-        time.sleep(0.1)  # small sleep for response
-        response = ''
-        while com_port.in_waiting > 0:
-            response = com_port.readline()           # all characters received, read line till '\r\n'
-        if response != '':
-            responses.append(response.decode("utf-8"))
-            # print("<<: " + response.decode("utf-8"))  # decode bytes received to string
-        else:
-            responses.append('')
-            print("FUG ERROR: no Response!")
+    try:
+        for command in cmd:
+            # print("cmd:" + command)
+            com_port.write((command + '\r\n').encode())
+            # send cmd to device # might not work with older devices -> "LF" only needed!
+            time.sleep(0.1)  # small sleep for response
+            response = ''
+            while com_port.in_waiting > 0:
+                response = com_port.readline()           # all characters received, read line till '\r\n'
+            if response != '':
+                responses.append(response.decode("utf-8"))
+                # print("<<: " + response.decode("utf-8"))  # decode bytes received to string
+            else:
+                responses.append('')
+                print("FUG ERROR: no Response!")
+    except Exception as e:
+        print('Error FUG_sendcommands()')
+        print('Exception: ' + e.message)
+        sys.exit(1)
+        return sys.exit(1)
     return responses
 
 
@@ -82,6 +101,7 @@ def get_voltage_from_PS(obj_fug_com):
         print("Voltage from Power supply" + numbers[0])
     except:
         numbers = ["0"]
+        print("Failed get Voltage from PS")
     return float(numbers[0])
 
 
