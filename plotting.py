@@ -20,9 +20,59 @@ import matplotlib.pyplot as plt
 
 
 
-def real_time_plot( queue, event):
+def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2):
+    # real time plotting loop event for iterable plotting
 
-    # wait for first value
+    while not event.is_set() or not queue.empty():
+
+        print('plotting loop')
+        message = queue.get()
+
+        datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
+        logging.info(
+            "Consumer got message: %s (queue size=%d)", message, queue.qsize()
+            )
+        logging.info("Consumer received event. Exiting")
+
+        try:
+
+            # reset the background back in the canvas state, screen unchange
+            fig.canvas.restore_region(bg)
+
+            ln0.set_ydata(electrospray_data.data)
+            ln1.set_ydata(electrospray_processing.datapoints_filtered)
+            ln2.set_ydata(
+                (electrospray_processing.fourier_transform[0:500]))
+            ax[0].legend(bbox_to_anchor=(1.05, 1),
+                         loc='upper left', borderaxespad=0.)
+
+            # re-render the artist, updating the canvas state, but not the screen
+            ax[0].draw_artist(ln0)
+            ax[1].draw_artist(ln1)
+            ax[2].draw_artist(ln2)
+
+            fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
+                                                " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
+                                                    current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
+
+            """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
+                                                " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
+                current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value) ] } ) """
+
+            # copy the image to the GUI state, but screen might not be changed yet
+            fig.canvas.blit(fig.bbox)
+            # flush any pending GUI events, re-painting the screen if needed
+            fig.canvas.flush_events()
+
+        except:
+            print("Failed to plot values!")
+            sys.exit(1)
+
+
+
+
+def start_plot(queue, event):
+        # wait for first value
     while queue.empty():
         print("No values in the queue yet")
         time.sleep(0.5)
@@ -82,57 +132,8 @@ def real_time_plot( queue, event):
 
         fig.canvas.blit(fig.bbox)
 
+        return fig, ax, ln0, ln1, ln2
+
     except:
         print("Failed make iterable plot")
-        sys.exit(1)
-
-    # **************************************
-    #           THREAD LOOP
-    # **************************************
-
-    while not event.is_set() or not queue.empty():
-
-
-
-        print('plotting loop')
-        message = queue.get()
-
-        datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
-        logging.info(
-            "Consumer got message: %s (queue size=%d)", message, queue.qsize()
-            )
-        logging.info("Consumer received event. Exiting")
-
-        try:
-
-            # reset the background back in the canvas state, screen unchange
-            fig.canvas.restore_region(bg)
-
-            ln0.set_ydata(electrospray_data.data)
-            ln1.set_ydata(electrospray_processing.datapoints_filtered)
-            ln2.set_ydata(
-                (electrospray_processing.fourier_transform[0:500]))
-            ax[0].legend(bbox_to_anchor=(1.05, 1),
-                         loc='upper left', borderaxespad=0.)
-
-            # re-render the artist, updating the canvas state, but not the screen
-            ax[0].draw_artist(ln0)
-            ax[1].draw_artist(ln1)
-            ax[2].draw_artist(ln2)
-
-            fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
-                                                " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
-                                                    current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
-
-            """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
-                                                " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
-                current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value) ] } ) """
-
-            # copy the image to the GUI state, but screen might not be changed yet
-            fig.canvas.blit(fig.bbox)
-            # flush any pending GUI events, re-painting the screen if needed
-            fig.canvas.flush_events()
-
-        except:
-            print("Failed to plot values!")
-            sys.exit(1)
+        return sys.exit(1)
