@@ -163,6 +163,8 @@ if __name__ == '__main__':
     #           FUG   ->   Power supply controller thread. It will be the future actuator thread.
     #
 
+    fug_queue = queue.Queue(maxsize=10)
+
     if MODERAMP:
         txt_mode = "ramp"
         slope = 200
@@ -174,7 +176,7 @@ if __name__ == '__main__':
         # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
         ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
                                                 args=(
-                                                    obj_fug_com, slope, voltage_start,
+                                                    fug_queue, obj_fug_com, slope, voltage_start,
                                                     voltage_stop))
         ramp_sequency_thread.start()
 
@@ -189,7 +191,7 @@ if __name__ == '__main__':
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                                args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                                args=(fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
                                                     voltage_stop))
         step_sequency_thread.start()
 
@@ -212,7 +214,8 @@ if __name__ == '__main__':
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
         args=(
-            data_queue, 
+            data_queue,
+            fug_queue,
             event,
             electrospray_config_liquid_setup_obj,
             electrospray_processing,

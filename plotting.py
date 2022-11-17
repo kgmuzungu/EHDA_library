@@ -72,12 +72,15 @@ def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2, bg):
 
 
 def start_plot(queue, event):
-        # wait for first value
+
+    # wait for first value
+    print("No values in the data_queue yet")
     while queue.empty():
-        print("No values in the queue yet")
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     message = queue.get()
+
+    print("got values on data_queue")
 
     datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
 

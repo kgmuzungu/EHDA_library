@@ -43,7 +43,8 @@ SAVE_CONFIG = True
 SAVE_JSON = True
 
 
-def data_acquisition(queue, 
+def data_acquisition(queue,
+                     fug_queue,
                      event, 
                      electrospray_config_liquid_setup_obj,
                      electrospray_processing,
@@ -59,8 +60,6 @@ def data_acquisition(queue,
                      current_shape,
                      save_path):
 
-    current_from_PS = 10
-    voltage_from_PS = 10
     voltage_array = []
     current_array = []
     temperature = 10
@@ -92,6 +91,10 @@ def data_acquisition(queue,
         print("Failed to config tie pie!")
         sys.exit(1)
 
+    print("No values in the fug_queue yet")
+    while fug_queue.empty():
+        time.sleep(0.1)
+
     # **************************************
     #           THREAD LOOP
     # **************************************
@@ -99,8 +102,12 @@ def data_acquisition(queue,
     for j in range(50):
         try:
 
+            fug_values = fug_queue.get()
+            voltage_from_PS, current_from_PS = fug_values
             current_array.append(current_from_PS)
             voltage_array.append(voltage_from_PS)
+
+            print('got fug_queue data')
 
             scp.start()
             # Wait for measurement to complete:

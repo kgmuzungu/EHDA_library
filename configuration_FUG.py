@@ -115,7 +115,7 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage_start=3000, voltage_stop=100):
+def step_sequency(fug_queue, obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage_start=3000, voltage_stop=100):
     """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
                                                'U ' + str(voltage_start), 'F1'])"""
     responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
@@ -129,6 +129,8 @@ def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage
         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
         time.sleep(step_time)
         voltage += step_size
+        fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
+        fug_queue.put(fug_values)
 
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
@@ -137,10 +139,15 @@ def step_sequency(obj_fug_com, step_size=350, step_time=1, step_slope=0, voltage
 
 
 
-def ramp_sequency(obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100):
+def ramp_sequency(fug_queue, obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100):
     responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(voltage_start), 'F1'])
 
     responses.append(FUG_sendcommands(obj_fug_com, ['>S0B 2', '>S0R ' + str(ramp_slope), 'U ' + str(voltage_stop)]))
+
+    while get_voltage_from_PS(obj_fug_com) < voltage_stop:
+        fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
+        fug_queue.put(fug_values)
+        time.sleep(0.5)
 
     # FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)])
 
