@@ -20,7 +20,7 @@ import matplotlib.pyplot as plt
 
 
 
-def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2):
+def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2, bg):
     # real time plotting loop event for iterable plotting
 
     while not event.is_set() or not queue.empty():
@@ -132,7 +132,7 @@ def start_plot(queue, event):
 
         fig.canvas.blit(fig.bbox)
 
-        return fig, ax, ln0, ln1, ln2
+        return fig, ax, ln0, ln1, ln2, bg
 
     except:
         print("Failed make iterable plot")

@@ -243,13 +243,13 @@ if __name__ == '__main__':
 
 
     
-    fig, ax, ln0, ln1, ln2 = plotting.start_plot(data_queue, event)
+    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_queue, event)
 # # **************************************
 # #              MAIN LOOP
 # # **************************************
 
     while not event.is_set() or not data_queue.empty():
-        plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2)
+        plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2, bg)
 
     # fazer funcao de saida do loop
 

@@ -108,7 +108,7 @@ def data_acquisition(queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
-            print('got data points')
+            print('got tiepie data')
 
             #  1Mohm input resistance when in single ended input mode
             # 2Mohm default input resistance
