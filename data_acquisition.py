@@ -99,16 +99,26 @@ def data_acquisition(queue,
     #           THREAD LOOP
     # **************************************
 
+    voltage_from_PS = voltage_start
+    sample = 0
 
-    while voltage_from_PS < voltage_stop:
+    while not event.is_set():
+
         try:
+            if not fug_queue.empty():
+                fug_values = fug_queue.get()
+                voltage_from_PS, current_from_PS = fug_values
 
-            fug_values = fug_queue.get()
-            voltage_from_PS, current_from_PS = fug_values
             current_array.append(current_from_PS)
             voltage_array.append(voltage_from_PS)
 
             print('[DATA_ACQUISITION THREAD] got fug_queue data')
+
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
+            sys.exit(1)
+
+        try:
 
             scp.start()
             # Wait for measurement to complete:
@@ -117,6 +127,12 @@ def data_acquisition(queue,
 
             data = scp.get_data()
             print('[DATA_ACQUISITION THREAD] got tiepie data')
+
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
+            sys.exit(1)
+
+        try:
 
             #  1Mohm input resistance when in single ended input mode
             # 2Mohm default input resistance
@@ -190,16 +206,17 @@ def data_acquisition(queue,
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
                 a_electrospray_processing.append(d_electrospray_processing)
 
-
             # put values in the queue
             message = [datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS]
             queue.put(message)
 
-            print(f"[DATA_ACQUISITION THREAD] put data sample \f{j} in data_queue")
+            sample += 1
+
+            print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
 
 
         except:
-            print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
+            print("[DATA_ACQUISITION THREAD] Failed to process values!")
             sys.exit(1)
 
     print("[DATA_ACQUISITION THREAD] Finish acquirind data")
@@ -267,6 +284,5 @@ def data_acquisition(queue,
 
         print("[DATA_ACQUISITION THREAD] FILE SAVED")
 
-        event.set() # trigger for join threads
 
 

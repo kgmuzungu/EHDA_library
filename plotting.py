@@ -25,7 +25,7 @@ def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2, bg):
 
     while not event.is_set() or not queue.empty():
 
-        print('[PLOTTING] starting plotting loop')
+        print('[PLOTTING] plot event')
         message = queue.get()
 
         datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message

@@ -195,7 +195,7 @@ if __name__ == '__main__':
                                                     voltage_stop))
         step_sequency_thread.start()
 
-    # 
+    #
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
     #
 
@@ -247,13 +247,11 @@ if __name__ == '__main__':
 
 
 
-
     # # **************************************
     # #                EXIT
     # # **************************************
 
-    data_acquisition_thread.join()
-    print(print('[DATA_ACQUISITION THREAD] thread CLOSED!'))
+
 
     if MODERAMP:
         ramp_sequency_thread.join()
