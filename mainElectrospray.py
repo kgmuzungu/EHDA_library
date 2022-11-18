@@ -82,7 +82,7 @@ if __name__ == '__main__':
     append_array_data = VAR_BIN_CONFIG
     append_array_processing = VAR_BIN_CONFIG
 
-    MODERAMP = True  # else go in steps
+    MODERAMP = False  # else go in steps
     # maybe change to 100 (45 looks to be a good size for saving)
     number_measurements = 45
     print('number_measurements: ', number_measurements)
@@ -163,7 +163,7 @@ if __name__ == '__main__':
     #           FUG   ->   Power supply controller thread. It will be the future actuator thread.
     #
 
-    fug_queue = queue.Queue(maxsize=10)
+    fug_queue = queue.Queue(maxsize=100)
 
     if MODERAMP:
         txt_mode = "ramp"
@@ -187,7 +187,7 @@ if __name__ == '__main__':
         voltage_start = 3000
         voltage_stop = 10000
         step_size = 100
-        step_time = 10  # 10
+        step_time = 5  # 10
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     #          DATA ACQUISITION  ->   Data acquisition + data proccessing + data saving thread  (it will be the future sensor thread)
     #   
 
-    data_queue = queue.Queue(maxsize=10)
+    data_queue = queue.Queue(maxsize=100)
 
     data_acquisition_thread = threading.Thread(
         target=data_acquisition.data_acquisition,
