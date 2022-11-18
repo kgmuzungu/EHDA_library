@@ -1,50 +1,40 @@
-# SuperFastPython.com
-# example of using the queue with processes
-from time import sleep
-from random import random
-from multiprocessing import Process
-from multiprocessing import Queue
- 
-# generate work
-def producer(queue):
-    print('Producer: Running', flush=True)
-    # generate work
-    for i in range(10):
-        # generate a value
-        value = random()
-        # block
-        sleep(value)
-        # add to the queue
-        queue.put(value)
-    # all done
-    queue.put(None)
-    print('Producer: Done', flush=True)
- 
-# consume work
-def consumer(queue):
-    print('Consumer: Running', flush=True)
-    # consume work
-    while True:
-        # get a unit of work
-        item = queue.get()
-        # check for stop
-        if item is None:
-            break
-        # report
-        print(f'>got {item}', flush=True)
-    # all done
-    print('Consumer: Done', flush=True)
- 
-# entry point
-if __name__ == '__main__':
-    # create the shared queue
-    queue = Queue()
-    # start the consumer
-    consumer_process = Process(target=consumer, args=(queue,))
-    consumer_process.start()
-    # start the producer
-    producer_process = Process(target=producer, args=(queue,))
-    producer_process.start()
-    # wait for all processes to finish
-    producer_process.join()
-    consumer_process.join()
+import concurrent.futures
+import logging
+import queue
+import random
+import threading
+import time
+
+def producer(queue, event):
+    """Pretend we're getting a number from the network."""
+    while not event.is_set():
+        message = random.randint(1, 101)
+        logging.info("Producer got message: %s", message)
+        queue.put(message)
+
+    logging.info("Producer received event. Exiting")
+
+def consumer(queue, event):
+    """Pretend we're saving a number in the database."""
+    while not event.is_set() or not queue.empty():
+        message = queue.get()
+        logging.info(
+            "Consumer storing message: %s (size=%d)", message, queue.qsize()
+        )
+
+    logging.info("Consumer received event. Exiting")
+
+if __name__ == "__main__":
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level=logging.INFO,
+                        datefmt="%H:%M:%S")
+
+    pipeline = queue.Queue(maxsize=10)
+    event = threading.Event()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        executor.submit(producer, pipeline, event)
+        executor.submit(consumer, pipeline, event)
+
+        time.sleep(0.1)
+        logging.info("Main: about to set event")
+        event.set()

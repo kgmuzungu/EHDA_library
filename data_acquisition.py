@@ -99,7 +99,8 @@ def data_acquisition(queue,
     #           THREAD LOOP
     # **************************************
 
-    for j in range(40):
+
+    while voltage_from_PS < voltage_stop:
         try:
 
             fug_values = fug_queue.get()
@@ -265,3 +266,7 @@ def data_acquisition(queue,
             electrospray_validation.open_load_json_data(filename=completeName)
 
         print("[DATA_ACQUISITION THREAD] FILE SAVED")
+
+        event.set() # trigger for join threads
+
+
