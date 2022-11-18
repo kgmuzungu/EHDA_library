@@ -102,7 +102,7 @@ def data_acquisition(queue,
     voltage_from_PS = voltage_start
     sample = 0
 
-    while sample < 600:
+    while not event.is_set():
 
         try:
             if not fug_queue.empty():

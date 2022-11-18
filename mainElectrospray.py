@@ -186,12 +186,12 @@ if __name__ == '__main__':
         slope = 10000
         voltage_start = 3000
         voltage_stop = 10000
-        step_size = 100
+        step_size = 500
         step_time = 5  # 10
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                                args=(fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
+                                                args=(event, fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
                                                     voltage_stop))
         step_sequency_thread.start()
 
