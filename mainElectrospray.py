@@ -195,7 +195,7 @@ if __name__ == '__main__':
                                                     voltage_stop))
         step_sequency_thread.start()
 
-    # 
+    #
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
     #
 
@@ -237,20 +237,31 @@ if __name__ == '__main__':
 
 
     # **************************************
-    #              PLOTTING
+    #            PLOTTING LOOP
     # **************************************
 
     #  plotting is not a thread. It is a function running in a loop in the main.
     fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_queue, event)
-    while 1:
+    while not event.is_set():
         plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2, bg)
-
 
 
 
     # # **************************************
     # #                EXIT
     # # **************************************
+
+
+
+    if MODERAMP:
+        ramp_sequency_thread.join()
+        print(print('[RAMP THREAD] thread CLOSED!'))
+    else:
+        step_sequency_thread.join()
+        print(print('[STEP THREAD] thread CLOSED!'))
+
+    makeVideo_thread.join()
+    print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
 
         # fazer funcao de saida do loop
         #     ramp_sequency_thread.join()
