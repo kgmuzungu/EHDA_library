@@ -29,12 +29,14 @@ file_name4 = "rampsetup92propanol_all shapes_1.777792e-09m3_s"
 file_name5 = "stepsetup9ethanol_all shapes_9.7223e-10m3_s"
 file_name6 = "rampsetup9ethanol_all shapes_9.7223e-10m3_s"
 file_name7 = "stepsetup10water60alcohol40_all shapes_4.02781e-09m3_s"
+file_name8 = "data1"
+file_name9 = "data2"
 
 easygui.msgbox("How to use this code: ..............")
 
 msg ="What experiment do you want to run?"
 title = "EDHA - Monicas data"
-choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6, file_name7]
+choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6, file_name7, file_name8, file_name9]
 exp_choice = easygui.choicebox(msg, title, choices)
 
 
@@ -102,12 +104,16 @@ def onpick(event):
     x_value = event.xdata / 5 # round x value per multiple of five
     x_value = round(x_value) * 5
 
-    plt.figure()
-    plt.plot(abs(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value])[:300]))
-    plt.grid()
+    fig, axs = plt.subplots(2, 1)
+    axs[0].set(ylabel='ccurent nA')
+    axs[0].plot(np.array(data_window['data [nA]'])[x_value])
+    axs[0].grid()
+
+    axs[1].set(ylabel='fft magnitude', xlabel='frequency (Hz)')
+    axs[1].plot(abs(scipy.fftpack.fft(np.array(data_window['data [nA]'])[x_value])[:300]))
+    axs[1].grid()
+
     plt.title(f'fast fourier of sample window: {x_value}')
-    plt.ylabel('fft magnitude')
-    plt.xlabel('frequency (Hz)')
     plt.show()
 
 

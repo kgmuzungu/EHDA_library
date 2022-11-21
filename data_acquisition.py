@@ -43,7 +43,8 @@ SAVE_CONFIG = True
 SAVE_JSON = True
 
 
-def data_acquisition(queue, 
+def data_acquisition(queue,
+                     fug_queue,
                      event, 
                      electrospray_config_liquid_setup_obj,
                      electrospray_processing,
@@ -59,8 +60,6 @@ def data_acquisition(queue,
                      current_shape,
                      save_path):
 
-    current_from_PS = 10
-    voltage_from_PS = 10
     voltage_array = []
     current_array = []
     temperature = 10
@@ -81,26 +80,45 @@ def data_acquisition(queue,
         if item.can_open(libtiepie.DEVICETYPE_OSCILLOSCOPE):
             scp = item.open_oscilloscope()
         else:
-            print('No oscilloscope available with block measurement support!')
+            print('[DATA_ACQUISITION THREAD] No oscilloscope available with block measurement support!')
             sys.exit(1)
-    print('Oscilloscope initialized!')
+    print('[DATA_ACQUISITION THREAD] Oscilloscope initialized!')
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
         # print_device_info(scp)
     except:
-        print("Failed to config tie pie!")
+        print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
+
+    print("[DATA_ACQUISITION THREAD] No values in the fug_queue yet")
+    while fug_queue.empty():
+        time.sleep(0.1)
 
     # **************************************
     #           THREAD LOOP
     # **************************************
 
-    for j in range(50):
+    voltage_from_PS = voltage_start
+    sample = 0
+
+    while not event.is_set():
+
         try:
+            if not fug_queue.empty():
+                fug_values = fug_queue.get()
+                voltage_from_PS, current_from_PS = fug_values
 
             current_array.append(current_from_PS)
             voltage_array.append(voltage_from_PS)
+
+            print('[DATA_ACQUISITION THREAD] got fug_queue data')
+
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
+            sys.exit(1)
+
+        try:
 
             scp.start()
             # Wait for measurement to complete:
@@ -108,7 +126,13 @@ def data_acquisition(queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
-            print('got tiepie data')
+            print('[DATA_ACQUISITION THREAD] got tiepie data')
+
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
+            sys.exit(1)
+
+        try:
 
             #  1Mohm input resistance when in single ended input mode
             # 2Mohm default input resistance
@@ -182,19 +206,26 @@ def data_acquisition(queue,
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
                 a_electrospray_processing.append(d_electrospray_processing)
 
-
             # put values in the queue
             message = [datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS]
             queue.put(message)
 
+            sample += 1
+
+            print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
+
 
         except:
-            print("Failed to get tiePie values!")
+            print("[DATA_ACQUISITION THREAD] Failed to process values!")
             sys.exit(1)
+
+    print("[DATA_ACQUISITION THREAD] Finish acquirind data")
 
     # **************************************
     #              SAVING
     # **************************************
+
+    print("[DATA_ACQUISITION THREAD] start saving")
 
     typeofmeasurement = {
         "sequency": str(txt_mode),
@@ -250,3 +281,8 @@ def data_acquisition(queue,
                 json.dump((full_dict), file, indent=4)
             # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
             electrospray_validation.open_load_json_data(filename=completeName)
+
+        print("[DATA_ACQUISITION THREAD] FILE SAVED")
+
+
+

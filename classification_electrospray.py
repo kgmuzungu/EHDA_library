@@ -85,7 +85,7 @@ class ElectrosprayClassification:
                   cont_fft_max_peaks):
         # todo: use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
         # PEAKS SIGNAL
-        print("****************** MAX = " + str(max_value_of_the_data))
+        # print("****************** MAX = " + str(max_value_of_the_data))
         if float(max_value_of_the_data) >= 900.0:
             if (flow_rate / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
                 if float(max_value_of_the_data)>= 2000.0:

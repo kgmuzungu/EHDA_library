@@ -82,7 +82,7 @@ if __name__ == '__main__':
     append_array_data = VAR_BIN_CONFIG
     append_array_processing = VAR_BIN_CONFIG
 
-    MODERAMP = True  # else go in steps
+    MODERAMP = False  # else go in steps
     # maybe change to 100 (45 looks to be a good size for saving)
     number_measurements = 45
     print('number_measurements: ', number_measurements)
@@ -129,9 +129,8 @@ if __name__ == '__main__':
     fug_COM_port = 4
 
 
-    # **************************************
+
     #          CREATING INSTANCES
-    # **************************************
     electrospray_config_liquid_setup_obj = ElectrosprayConfig(
         setup + ".json", liquid + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_liquid()
@@ -143,11 +142,9 @@ if __name__ == '__main__':
 
 
 
-    # **************************************
     #              FUG INIT
-    # **************************************
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
-    print("obj_fug_com: ", obj_fug_com)
+    print("[FUG] obj_fug_com: ", obj_fug_com)
     get_voltage_from_PS(obj_fug_com)
 
 
@@ -160,8 +157,10 @@ if __name__ == '__main__':
 
 
     # 
-    #           FUG   ->   Power supply controller thread. It will be the future actuator thread.
+    #           FUG   ->   Power supply controller thread. (It will be the future actuator thread.)
     #
+
+    fug_queue = queue.Queue(maxsize=100)
 
     if MODERAMP:
         txt_mode = "ramp"
@@ -174,7 +173,7 @@ if __name__ == '__main__':
         # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
         ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
                                                 args=(
-                                                    obj_fug_com, slope, voltage_start,
+                                                    fug_queue, obj_fug_com, slope, voltage_start,
                                                     voltage_stop))
         ramp_sequency_thread.start()
 
@@ -184,16 +183,16 @@ if __name__ == '__main__':
         slope = 10000
         voltage_start = 3000
         voltage_stop = 10000
-        step_size = 100
-        step_time = 10  # 10
+        step_size = 500
+        step_time = 5  # 10
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                                args=(obj_fug_com, step_size, step_time, slope, voltage_start,
+                                                args=(event, fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
                                                     voltage_stop))
         step_sequency_thread.start()
 
-    # 
+    #
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
     #
 
@@ -206,13 +205,14 @@ if __name__ == '__main__':
     #          DATA ACQUISITION  ->   Data acquisition + data proccessing + data saving thread  (it will be the future sensor thread)
     #   
 
-    data_queue = queue.Queue(maxsize=10)
+    data_queue = queue.Queue(maxsize=100)
 
     data_acquisition_thread = threading.Thread(
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
         args=(
-            data_queue, 
+            data_queue,
+            fug_queue,
             event,
             electrospray_config_liquid_setup_obj,
             electrospray_processing,
@@ -234,20 +234,31 @@ if __name__ == '__main__':
 
 
     # **************************************
-    #              PLOTTING
+    #            PLOTTING LOOP
     # **************************************
 
     #  plotting is not a thread. It is a function running in a loop in the main.
     fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_queue, event)
-    while not event.is_set() or not data_queue.empty():
+    while not event.is_set():
         plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2, bg)
-
 
 
 
     # # **************************************
     # #                EXIT
     # # **************************************
+
+
+
+    if MODERAMP:
+        ramp_sequency_thread.join()
+        print(print('[RAMP THREAD] thread CLOSED!'))
+    else:
+        step_sequency_thread.join()
+        print(print('[STEP THREAD] thread CLOSED!'))
+
+    makeVideo_thread.join()
+    print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
 
         # fazer funcao de saida do loop
         #     ramp_sequency_thread.join()
