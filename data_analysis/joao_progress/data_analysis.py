@@ -42,7 +42,7 @@ exp_choice = easygui.choicebox(msg, title, choices)
 
 easygui.msgbox("You chose: " + str(exp_choice), "Survey Result")
 
-with open(file_path2 + exp_choice + ".json", 'r') as data_file:    
+with open(file_path1 + exp_choice + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 

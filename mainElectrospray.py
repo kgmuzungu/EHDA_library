@@ -129,9 +129,8 @@ if __name__ == '__main__':
     fug_COM_port = 4
 
 
-    # **************************************
+
     #          CREATING INSTANCES
-    # **************************************
     electrospray_config_liquid_setup_obj = ElectrosprayConfig(
         setup + ".json", liquid + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_liquid()
@@ -143,9 +142,7 @@ if __name__ == '__main__':
 
 
 
-    # **************************************
     #              FUG INIT
-    # **************************************
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
     print("[FUG] obj_fug_com: ", obj_fug_com)
     get_voltage_from_PS(obj_fug_com)
@@ -160,7 +157,7 @@ if __name__ == '__main__':
 
 
     # 
-    #           FUG   ->   Power supply controller thread. It will be the future actuator thread.
+    #           FUG   ->   Power supply controller thread. (It will be the future actuator thread.)
     #
 
     fug_queue = queue.Queue(maxsize=100)
