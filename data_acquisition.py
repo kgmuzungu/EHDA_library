@@ -12,10 +12,8 @@ multiplier_for_nA = 500
 
 a_electrospray_measurements = []
 a_electrospray_measurements_data = []
-a_electrospray_processing = []
 
 append_array_data = True
-append_array_processing = True
 FLAG_PLOT = False
 SAVE_DATA = True
 SAVE_PROCESSING = False
@@ -25,12 +23,10 @@ SAVE_JSON = True
 
 def data_acquisition(data_queue,
                      fug_queue,
-                     event, 
-                     electrospray_processing,
+                     finish_event,
                      voltage_start,
                      liquid,
-                     Q,
-                     current_shape
+                     Q
                      ):
 
 
@@ -68,7 +64,7 @@ def data_acquisition(data_queue,
     sample = 0
 
     #  THREAD LOOP
-    while not event.is_set():
+    while not finish_event.is_set():
 
         try:
             if not fug_queue.empty():
@@ -102,16 +98,30 @@ def data_acquisition(data_queue,
             # 2Mohm default input resistance
             datapoints = np.array(data[0]) * multiplier_for_nA
 
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to create datapoints!")
+            sys.exit(1)
+
+        try:
+
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, Q, temperature,
-                                                         humidity, day_measurement, current_shape, current_from_PS)
+                                                         humidity, day_measurement, current_from_PS)
+
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to EsctrosprayMeasurements")
+            sys.exit(1)
+
+        try:
 
             if append_array_data:
                 d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
                 a_electrospray_measurements.append(d_electrospray_measurements)
 
-            if append_array_processing:
-                d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
-                a_electrospray_processing.append(d_electrospray_processing)
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to append array")
+            sys.exit(1)
+
+        try:
 
             # put values in the queue
             data_queue.put(electrospray_data)
@@ -122,7 +132,7 @@ def data_acquisition(data_queue,
 
 
         except:
-            print("[DATA_ACQUISITION THREAD] Failed to process values!")
+            print("[DATA_ACQUISITION THREAD] Failed to put values on data_queue")
             sys.exit(1)
 
     print("[DATA_ACQUISITION THREAD] Finish acquirind data")

@@ -20,19 +20,19 @@ import matplotlib.pyplot as plt
 
 
 
-def real_time_plot(queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
+def real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
     # real time plotting loop event for iterable plotting
 
-    while not finish_event.is_set() or not queue.empty():
+    while not finish_event.is_set() or not data_processed_queue.empty():
 
         print('[PLOTTING] plot finish_event')
-        message = queue.get()
+        message = data_processed_queue.get()
 
-        datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
+        electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
         logging.info(
-            "Consumer got message: %s (queue size=%d)", message, queue.qsize()
+            "Consumer got message: %s (data_processed_queue size=%d)", message, data_processed_queue.qsize()
             )
-        logging.info("Consumer received queue. Exiting")
+        logging.info("Consumer received data_processed_queue. Exiting")
 
         try:
 
@@ -52,8 +52,8 @@ def real_time_plot(queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
             ax[2].draw_artist(ln2)
 
             fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
-                                                " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
-                                                    current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
+                                                " voltage_PS= " + str(electrospray_data.voltage) + " current_PS= " + str(
+                                                    electrospray_data.current * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
 
             """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
                                                 " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
@@ -71,24 +71,24 @@ def real_time_plot(queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
 
 
 
-def start_plot(queue, finish_event):
+def start_plot(data_processed_queue, finish_event):
 
     # wait for first value
-    print("[PLOTTING] No values in the data_queue yet")
-    while queue.empty():
+    print("[PLOTTING] No values in the data_processed_queue yet")
+    while data_processed_queue.empty():
         time.sleep(0.1)
 
-    message = queue.get()
+    message = data_processed_queue.get()
 
-    print("[PLOTTING] got values on data_queue")
+    print("[PLOTTING] got values on data_processed_queue")
 
-    datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
+    electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
 
     plt.style.use('seaborn-colorblind')
     plt.ion()
 
     logging.info(
-        "Consumer got: %s (queue size=%d)", message, queue.qsize()
+        "Consumer got: %s (data_processed_queue size=%d)", message, data_processed_queue.qsize()
     )
     logging.info("Consumer received event. Exiting")
 
@@ -102,7 +102,7 @@ def start_plot(queue, finish_event):
         #     # ax[0].text(.5, .5, 'blabla', animated=True)
 
         # animated=True tells matplotlib to only draw the artist when we explicitly request it
-        (ln0,) = ax[0].plot(np.arange(0, len(datapoints) * time_step, time_step), datapoints, animated=True)
+        (ln0,) = ax[0].plot(np.arange(0, len(electrospray_data.data) * time_step, time_step), electrospray_data.data, animated=True)
 
         (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered,
                             animated=True)
@@ -116,7 +116,7 @@ def start_plot(queue, finish_event):
                   title='LP filtered', ylim=[-1e1, 5e2])
         ax[2].set(xlabel='Frequency [Hz]', ylabel='mag',
                   title='fourier transform', ylim=[0, 1e6])
-        # freqs_psd, psd = signal.welch(datapoints)
+        # freqs_psd, psd = signal.welch(electrospray_data.data)
         # (ln3,) = ax[3].semilogx(freqs_psd, psd)
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()

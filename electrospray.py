@@ -120,7 +120,6 @@ class ElectrosprayConfig:
 #             MEASUREMENTS
 # *****************************************
 
-
 class ElectrosprayMeasurements:
     """ Electrospray setup representation """
 

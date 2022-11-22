@@ -22,13 +22,13 @@ def data_processing(data_queue,
                     electrospray_classification,
                     electrospray_validation,
                     Q,
-                    current_shape,
                     ):
 
 
     print("[DATA_PROCESSING THREAD] STARTING")
 
     time_step = 1 / sampling_frequency
+    sample = 0
 
     # THREAD LOOP
     while not event.is_set():
@@ -50,8 +50,20 @@ def data_processing(data_queue,
                             analog=False)  # first argument is the order of the filter
             datapoints_filtered = lfilter(b, a, electrospray_data.data)
 
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to filter points!")
+            sys.exit(1)
+
+        try:
+
             d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
             a_electrospray_measurements.append(d_electrospray_measurements)
+
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to get data dictionary")
+            sys.exit(1)
+
+        try:
 
             electrospray_processing.calculate_filter(
                 a, b, electrospray_data.data)
@@ -67,6 +79,12 @@ def data_processing(data_queue,
 
             max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(
                 electrospray_data.data)
+
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to process data")
+            sys.exit(1)
+
+        try:
 
             classification_sjaak = electrospray_classification.do_sjaak(electrospray_processing.mean_value,
                                                                         electrospray_processing.med,
@@ -85,7 +103,14 @@ def data_processing(data_queue,
                 "Sjaak":  str(classification_sjaak),
                 "Monica": str(classification_monica),
             }
-            electrospray_data.set_shape(current_shape)
+
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to classify")
+            sys.exit(1)
+
+        try:
+
+            electrospray_processing.set_shape(current_shape)
 
             txt_max_peaks = " Max: " + str(max_data) + " Quantity max: " + str(
                 quantity_max_data) + " Percentage: " + str(percentage_max)
@@ -112,11 +137,11 @@ def data_processing(data_queue,
 
             sample += 1
 
-            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in data_queue")
+            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in data_processed_queue")
 
 
         except:
-            print("[DATA_PROCESSING THREAD] Failed to process values!")
+            print("[DATA_PROCESSING THREAD] Failed to finish process")
             sys.exit(1)
 
     print("[DATA_PROCESSING THREAD] Finish Processing data")

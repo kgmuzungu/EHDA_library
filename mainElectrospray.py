@@ -116,7 +116,7 @@ if __name__ == '__main__':
     voltage = voltage * 1000  # V"""
     # k_electrical_conductivity = 0.34 * 10e-4 # uS/cm
 
-    FLAG_PLOT = False
+    FLAG_PLOT = True
     classification_sjaak = ""
     day_measurement = strftime("%a_%d %b %Y", gmtime())
     res = ""
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     #
 
     makeVideo_thread = threading.Thread(
-        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,))
+        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,finish_event))
     threads.append(makeVideo_thread)
     makeVideo_thread.start()
 
@@ -212,12 +212,11 @@ if __name__ == '__main__':
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
         args=(data_queue,
-                fug_queue,
-                finish_event, 
-                electrospray_processing,
-                voltage_start,
-                liquid,
-                Q
+             fug_queue,
+             finish_event,
+             voltage_start,
+             liquid,
+             Q
         )
     )
     threads.append(data_acquisition_thread)
@@ -240,8 +239,7 @@ if __name__ == '__main__':
                 electrospray_processing,
                 electrospray_classification,
                 electrospray_validation,
-                Q,
-                current_shape,
+                Q
         )
     )
     threads.append(data_processing_thread)
@@ -257,78 +255,9 @@ if __name__ == '__main__':
     while not finish_event.is_set():
         plotting.real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
 
-
-    
-    # **************************************
-    #              SAVING
-    # **************************************
-
-    print("START SAVING")
-
-    typeofmeasurement = {
-        "sequency": str(txt_mode),
-        "start": str(voltage_start),
-        "stop": str(voltage_stop),
-        "slope": str(slope),
-        "size": str(step_size),
-        "step time": str(step_time)
-    }
-    # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
-    electrospray_config_liquid_setup_obj.set_type_of_measurement(
-        typeofmeasurement)
-    aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
-    if FLAG_PLOT:
-        electrospray_classification.plot_sjaak_cone_jet()
-        electrospray_classification.plot_sjaak_classification()
-
-    full_dict = {}
-    full_dict['config'] = {}
-
-    if SAVE_CONFIG:
-        electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
-        electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-        full_dict['config']['liquid'] = electrospray_config_liquid
-        full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-
-        full_dict['config']['setup'] = electrospray_config_setup
-        full_dict['config']['setup']['voltage regime'] = typeofmeasurement
-        full_dict['config']['setup']['comments'] = current_shape_comment
-
-        """
-            load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
-            shape = input("Enter manual classification for the recorded shape : ")
-            a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
-        """
-        if SAVE_PROCESSING:
-            full_dict['processing'] = a_electrospray_processing
-
-        if SAVE_DATA:
-            full_dict['measurements'] = a_electrospray_measurements
-
-        # voltage = str(voltage) + 'V'
-        if SAVE_JSON:
-            # arbitrary, defined in the header
-            Q = str(Q) + 'm3_s'
-            voltage_filename = str(voltage_array) + 'V'
-            file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
-            completeName = os.path.join(save_path, file_name)
-
-            with open(completeName, 'w') as file:
-                json.dump((full_dict), file, indent=4)
-            # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
-            electrospray_validation.open_load_json_data(filename=completeName)
-
-        print("[DATA_ACQUISITION THREAD] FILE SAVED")
-
-
-
     # # **************************************
     # #                EXIT
     # # **************************************
-
-
 
     if MODERAMP:
         ramp_sequency_thread.join()
@@ -339,6 +268,95 @@ if __name__ == '__main__':
 
     makeVideo_thread.join()
     print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
+
+
+    
+    # **************************************
+    #              SAVING
+    # **************************************
+
+    print("[SAVING] START SAVING")
+
+    try:
+
+        typeofmeasurement = {
+            "sequency": str(txt_mode),
+            "start": str(voltage_start),
+            "stop": str(voltage_stop),
+            "slope": str(slope),
+            "size": str(step_size),
+            "step time": str(step_time)
+        }
+        # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
+
+        electrospray_config_liquid_setup_obj.set_type_of_measurement(
+            typeofmeasurement)
+        aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
+
+        if FLAG_PLOT:
+            electrospray_classification.plot_sjaak_cone_jet()
+            electrospray_classification.plot_sjaak_classification()
+
+        full_dict = {}
+        full_dict['config'] = {}
+
+        if SAVE_CONFIG:
+            electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
+            electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
+            full_dict['config']['liquid'] = electrospray_config_liquid
+            full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
+
+            full_dict['config']['setup'] = electrospray_config_setup
+            full_dict['config']['setup']['voltage regime'] = typeofmeasurement
+            full_dict['config']['setup']['comments'] = current_shape_comment
+
+            """
+                load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
+                shape = input("Enter manual classification for the recorded shape : ")
+                a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
+            """
+            if SAVE_PROCESSING:
+                full_dict['processing'] = a_electrospray_processing
+
+            if SAVE_DATA:
+                full_dict['measurements'] = a_electrospray_measurements
+
+            # voltage = str(voltage) + 'V'
+            if SAVE_JSON:
+                # arbitrary, defined in the header
+                Q = str(Q) + 'm3_s'
+                voltage_filename = str(voltage_array) + 'V'
+                file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
+                completeName = os.path.join(save_path, file_name)
+
+                with open(completeName, 'w') as file:
+                    json.dump((full_dict), file, indent=4)
+                # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
+                electrospray_validation.open_load_json_data(filename=completeName)
+
+            print("[SAVING] FILE SAVED")
+
+    except:
+        print("[SAVING] Failed to SAVE")
+        sys.exit(1)
+
+
+
+    # # # **************************************
+    # # #                EXIT
+    # # # **************************************
+    #
+    #
+    #
+    # if MODERAMP:
+    #     ramp_sequency_thread.join()
+    #     print(print('[RAMP THREAD] thread CLOSED!'))
+    # else:
+    #     step_sequency_thread.join()
+    #     print(print('[STEP THREAD] thread CLOSED!'))
+    #
+    # makeVideo_thread.join()
+    # print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
 
         # fazer funcao de saida do loop
         #     ramp_sequency_thread.join()
