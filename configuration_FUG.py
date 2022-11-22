@@ -115,7 +115,7 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def step_sequency(event, fug_queue, obj_fug_com, step_size=100, step_time=5, step_slope=0, voltage_start=3000, voltage_stop=100):
+def step_sequency(finish_event, fug_queue, obj_fug_com, step_size=100, step_time=5, step_slope=0, voltage_start=3000, voltage_stop=100):
     """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
                                                'U ' + str(voltage_start), 'F1'])"""
     responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
@@ -131,15 +131,15 @@ def step_sequency(event, fug_queue, obj_fug_com, step_size=100, step_time=5, ste
         voltage += step_size
         fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
         fug_queue.put(fug_values)
-        print("[FUG THREAD]:put values in fug_queue")
+        print("[FUG THREAD]: put values in fug_queue")
 
-    event.set()
+    finish_event.set()
 
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
     time.sleep(step_time)
     responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
-    print("Responses from step frequency : ", str(responses))
+    print("Responses from step frequency: ", str(responses))
 
 
 

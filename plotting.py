@@ -20,19 +20,19 @@ import matplotlib.pyplot as plt
 
 
 
-def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2, bg):
+def real_time_plot(queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
     # real time plotting loop event for iterable plotting
 
-    while not event.is_set() or not queue.empty():
+    while not finish_event.is_set() or not queue.empty():
 
-        print('[PLOTTING] plot event')
+        print('[PLOTTING] plot finish_event')
         message = queue.get()
 
         datapoints, datapoints_filtered, time_step, electrospray_data, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks, voltage_from_PS, current_from_PS = message
         logging.info(
             "Consumer got message: %s (queue size=%d)", message, queue.qsize()
             )
-        logging.info("Consumer received event. Exiting")
+        logging.info("Consumer received queue. Exiting")
 
         try:
 
@@ -71,7 +71,7 @@ def real_time_plot(queue, event, fig, ax, ln0, ln1, ln2, bg):
 
 
 
-def start_plot(queue, event):
+def start_plot(queue, finish_event):
 
     # wait for first value
     print("[PLOTTING] No values in the data_queue yet")

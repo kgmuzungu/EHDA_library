@@ -124,7 +124,7 @@ class ElectrosprayConfig:
 class ElectrosprayMeasurements:
     """ Electrospray setup representation """
 
-    def __init__(self, name, data, voltage, flow_rate, temperature, humidity, day_measurement, shape, current):
+    def __init__(self, name, data, voltage, flow_rate, temperature, humidity, day_measurement, current):
         self.name = name  # name of liquid
         self.data = data  # array nA
         self.flow_rate = flow_rate  # m3/s
@@ -133,7 +133,6 @@ class ElectrosprayMeasurements:
         self.humidity = humidity  # relative percentage
         self.day_measurement = day_measurement  # date
         # self.gas_coflow_rate  = gas_coflow_rate
-        self.shape_current = shape,
         self.current = current
 
     def __repr__(self):
@@ -144,8 +143,7 @@ class ElectrosprayMeasurements:
             "current PS": self.current,
             "temperature": self.temperature,  # graus Celsius
             "humidity": self.humidity,  # percentage
-            "date and time": self.day_measurement,
-            "spray mode": self.shape_current
+            "date and time": self.day_measurement
         }
         """
         d = dict(statistics=dict(mean=str(self.mean_value), variance=str(self.variance),
@@ -166,8 +164,7 @@ class ElectrosprayMeasurements:
             "current PS": str(self.current),
             "temperature": str(self.temperature),  # graus Celsius
             "humidity": str(self.humidity),  # percentage
-            "date and time": str(self.day_measurement),
-            "spray mode": self.shape_current
+            "date and time": str(self.day_measurement)
         }
         # self.json_measurements_obj.write(json.dumps((dictionary), sort_keys=True, indent=4, separators=(". ", " = ")))
         return dictionary
@@ -184,8 +181,6 @@ class ElectrosprayMeasurements:
     def set_voltage(self, voltage_update):
         self.voltage = voltage_update
 
-    def set_shape(self, shape_current):
-        self.shape_current = shape_current
 
 
 # *****************************************
@@ -210,6 +205,8 @@ class ElectrosprayDataProcessing:
         self.freq = []
         self.fourier_peaks = []
         self.all_fourier_peaks = []
+        self.shape_current = []
+
 
     # expected are the polinominal coef for denominator and numerator for filter function
     def calculate_filter(self, a_coef, b_coef, datapoints):
@@ -280,6 +277,7 @@ class ElectrosprayDataProcessing:
             tvd.append(abs(data[i] - data_filtered_array[i]))
         self.total_variation_distance = max(tvd)
         logging.info('variation array: %s' % tvd)
+
 
     def calculate_peaks_fft(self, data):
         sorted_indices = np.argsort(abs(self.fourier_transform[self.all_fourier_peaks]))
@@ -409,3 +407,6 @@ class ElectrosprayDataProcessing:
 
     def set_voltage(self, voltage):
         self.voltage = voltage
+
+    def set_shape(self, shape_current):
+        self.shape_current = shape_current

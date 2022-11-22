@@ -23,7 +23,8 @@ from configuration_FUG import *
 import configuration_tiepie
 import cameraTrigger
 import data_acquisition
-import plotting
+import plotting 
+import data_processing
 
 import os
 import numpy as np
@@ -46,7 +47,7 @@ if __name__ == '__main__':
     #       INITIAL CONFIGURATION
     # *************************************
 
-    event = threading.Event()  # this is somehow important to fug
+    finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
     # fig = pylab.gcf()
     save_path = """C:/Users/hvvhl/Desktop/teste"""
@@ -188,7 +189,7 @@ if __name__ == '__main__':
 
         # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
         step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                                args=(event, fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
+                                                args=(finish_event, fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
                                                     voltage_stop))
         step_sequency_thread.start()
 
@@ -202,7 +203,7 @@ if __name__ == '__main__':
     makeVideo_thread.start()
 
     # 
-    #          DATA ACQUISITION  ->   Data acquisition + data proccessing + data saving thread  (it will be the future sensor thread)
+    #          DATA ACQUISITION  ->   Data acquisition (it will be the future sensor thread)
     #   
 
     data_queue = queue.Queue(maxsize=100)
@@ -210,27 +211,41 @@ if __name__ == '__main__':
     data_acquisition_thread = threading.Thread(
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
-        args=(
-            data_queue,
-            fug_queue,
-            event,
-            electrospray_config_liquid_setup_obj,
-            electrospray_processing,
-            electrospray_classification,
-            electrospray_validation,
-            txt_mode,
-            slope,
-            voltage_start,
-            voltage_stop,
-            step_size,
-            step_time,
-            Q,
-            current_shape,
-            save_path
+        args=(data_queue,
+                fug_queue,
+                finish_event, 
+                electrospray_processing,
+                voltage_start,
+                liquid,
+                Q
         )
     )
     threads.append(data_acquisition_thread)
     data_acquisition_thread.start()
+
+
+    # 
+    #          DATA PROCESSING  ->  data proccessing
+    #   
+
+    data_processed_queue = queue.Queue(maxsize=100)
+
+    data_processing_thread = threading.Thread(
+        target=data_processing.data_processing,
+        name='Data acquisition thread',
+        args=(data_queue,
+                finish_event,
+                data_processed_queue,
+                electrospray_config_liquid_setup_obj,
+                electrospray_processing,
+                electrospray_classification,
+                electrospray_validation,
+                Q,
+                current_shape,
+        )
+    )
+    threads.append(data_processing_thread)
+    data_processing_thread.start()
 
 
     # **************************************
@@ -238,9 +253,74 @@ if __name__ == '__main__':
     # **************************************
 
     #  plotting is not a thread. It is a function running in a loop in the main.
-    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_queue, event)
-    while not event.is_set():
-        plotting.real_time_plot(data_queue, event, fig, ax, ln0, ln1, ln2, bg)
+    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_processed_queue, finish_event)
+    while not finish_event.is_set():
+        plotting.real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
+
+
+    
+    # **************************************
+    #              SAVING
+    # **************************************
+
+    print("START SAVING")
+
+    typeofmeasurement = {
+        "sequency": str(txt_mode),
+        "start": str(voltage_start),
+        "stop": str(voltage_stop),
+        "slope": str(slope),
+        "size": str(step_size),
+        "step time": str(step_time)
+    }
+    # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
+
+    electrospray_config_liquid_setup_obj.set_type_of_measurement(
+        typeofmeasurement)
+    aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
+
+    if FLAG_PLOT:
+        electrospray_classification.plot_sjaak_cone_jet()
+        electrospray_classification.plot_sjaak_classification()
+
+    full_dict = {}
+    full_dict['config'] = {}
+
+    if SAVE_CONFIG:
+        electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
+        electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
+        full_dict['config']['liquid'] = electrospray_config_liquid
+        full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
+
+        full_dict['config']['setup'] = electrospray_config_setup
+        full_dict['config']['setup']['voltage regime'] = typeofmeasurement
+        full_dict['config']['setup']['comments'] = current_shape_comment
+
+        """
+            load_setup("ethanol.json", repr(electrospray_config_liquid_setup_obj))
+            shape = input("Enter manual classification for the recorded shape : ")
+            a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
+        """
+        if SAVE_PROCESSING:
+            full_dict['processing'] = a_electrospray_processing
+
+        if SAVE_DATA:
+            full_dict['measurements'] = a_electrospray_measurements
+
+        # voltage = str(voltage) + 'V'
+        if SAVE_JSON:
+            # arbitrary, defined in the header
+            Q = str(Q) + 'm3_s'
+            voltage_filename = str(voltage_array) + 'V'
+            file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
+            completeName = os.path.join(save_path, file_name)
+
+            with open(completeName, 'w') as file:
+                json.dump((full_dict), file, indent=4)
+            # electrospray_load_plot.plot_validation(number_measurements, sampling_frequency)
+            electrospray_validation.open_load_json_data(filename=completeName)
+
+        print("[DATA_ACQUISITION THREAD] FILE SAVED")
 
 
 
