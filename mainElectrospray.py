@@ -233,15 +233,14 @@ if __name__ == '__main__':
         target=data_processing.data_processing,
         name='Data acquisition thread',
         args=(data_queue,
-                finish_event,
-                data_processed_queue,
-                electrospray_config_liquid_setup_obj,
-                electrospray_processing,
-                array_electrospray_processing,
-                array_electrospray_measurements,
-                electrospray_classification,
-                electrospray_validation,
-                Q
+            finish_event,
+            data_processed_queue,
+            electrospray_config_liquid_setup_obj,
+            electrospray_processing,
+            array_electrospray_processing,
+            electrospray_classification,
+            electrospray_validation,
+            Q,
         )
     )
     threads.append(data_processing_thread)
