@@ -5,10 +5,6 @@ from scipy.signal import butter, lfilter
 sampling_frequency = 1e5  # 100 KHz
 multiplier_for_nA = 500
 
-a_electrospray_measurements = []
-a_electrospray_measurements_data = []
-a_electrospray_processing = []
-
 append_array_data = True
 append_array_processing = True
 FLAG_PLOT = True
@@ -19,6 +15,8 @@ def data_processing(data_queue,
                     data_processed_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
+                    array_electrospray_processing,
+                    array_electrospray_measurements,
                     electrospray_classification,
                     electrospray_validation,
                     Q,
@@ -52,15 +50,6 @@ def data_processing(data_queue,
 
         except:
             print("[DATA_PROCESSING THREAD] Failed to filter points!")
-            sys.exit(1)
-
-        try:
-
-            d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-            a_electrospray_measurements.append(d_electrospray_measurements)
-
-        except:
-            print("[DATA_PROCESSING THREAD] Failed to get data dictionary")
             sys.exit(1)
 
         try:
@@ -123,13 +112,10 @@ def data_processing(data_queue,
                     electrospray_config_liquid_setup_obj.get_json_liquid())
                 electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
                                                                         electrospray_processing.mean_value, Q)
-            if append_array_data:
-                d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-                a_electrospray_measurements.append(d_electrospray_measurements)
 
             if append_array_processing:
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
-                a_electrospray_processing.append(d_electrospray_processing)
+                array_electrospray_processing.append(d_electrospray_processing)
 
             # put values in the queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]

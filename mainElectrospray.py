@@ -63,9 +63,8 @@ if __name__ == '__main__':
     multiplier_for_nA = 500
     sampling_frequency = 1e5  # 100000
 
-    a_electrospray_measurements = []
-    a_electrospray_measurements_data = []
-    a_electrospray_processing = []
+    array_electrospray_measurements = []
+    array_electrospray_processing = []
     a_statistics = []
     append_array_measurements = []
 
@@ -216,6 +215,7 @@ if __name__ == '__main__':
              finish_event,
              voltage_start,
              liquid,
+             array_electrospray_measurements,
              Q
         )
     )
@@ -237,6 +237,8 @@ if __name__ == '__main__':
                 data_processed_queue,
                 electrospray_config_liquid_setup_obj,
                 electrospray_processing,
+                array_electrospray_processing,
+                array_electrospray_measurements,
                 electrospray_classification,
                 electrospray_validation,
                 Q
@@ -293,12 +295,18 @@ if __name__ == '__main__':
             typeofmeasurement)
         aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
 
-        if FLAG_PLOT:
-            electrospray_classification.plot_sjaak_cone_jet()
-            electrospray_classification.plot_sjaak_classification()
+        # if FLAG_PLOT:
+        #     electrospray_classification.plot_sjaak_cone_jet()
+        #     electrospray_classification.plot_sjaak_classification()
 
         full_dict = {}
         full_dict['config'] = {}
+
+    except:
+        print("[SAVING] failed creating saving files")
+        sys.exit(1)
+
+    try:
 
         if SAVE_CONFIG:
             electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
@@ -315,11 +323,26 @@ if __name__ == '__main__':
                 shape = input("Enter manual classification for the recorded shape : ")
                 a_statistics.append("manual_shape: " + shape + ", voltage:"+str(voltage))
             """
+
+
+        try:
             if SAVE_PROCESSING:
-                full_dict['processing'] = a_electrospray_processing
+                full_dict['processing'] = array_electrospray_processing
+
+        except:
+            print("[SAVING] failed saving array_electrospray_processing")
+            sys.exit(1)
+
+        try:
 
             if SAVE_DATA:
-                full_dict['measurements'] = a_electrospray_measurements
+                full_dict['measurements'] = array_electrospray_measurements
+
+        except:
+            print("[SAVING] failed saving array_electrospray_measurements")
+            sys.exit(1)
+
+        try:
 
             # voltage = str(voltage) + 'V'
             if SAVE_JSON:
@@ -335,9 +358,14 @@ if __name__ == '__main__':
                 electrospray_validation.open_load_json_data(filename=completeName)
 
             print("[SAVING] FILE SAVED")
+            sys.exit(0)
+
+        except:
+            print("[SAVING] Failed to SAVE JSON")
+            sys.exit(1)
 
     except:
-        print("[SAVING] Failed to SAVE")
+        print("[SAVING] Failed to on saving function")
         sys.exit(1)
 
 

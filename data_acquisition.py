@@ -10,8 +10,6 @@ sampling_frequency = 1e5  # 100 KHz
 multiplier_for_nA = 500
 
 
-a_electrospray_measurements = []
-a_electrospray_measurements_data = []
 
 append_array_data = True
 FLAG_PLOT = False
@@ -26,6 +24,7 @@ def data_acquisition(data_queue,
                      finish_event,
                      voltage_start,
                      liquid,
+                     array_electrospray_measurements,
                      Q
                      ):
 
@@ -115,7 +114,7 @@ def data_acquisition(data_queue,
 
             if append_array_data:
                 d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-                a_electrospray_measurements.append(d_electrospray_measurements)
+                array_electrospray_measurements.append(d_electrospray_measurements)
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to append array")
