@@ -340,15 +340,21 @@ class ElectrosprayDataProcessing:
 
     # string representation of this class
     def __repr__(self):
-        d = dict(mean=str(self.mean_value), variance=str(self.variance),
-                 deviation=str(self.stddev), median=str(self.med), rms=str(self.rms),
-                 psd_welch=str(self.psd_welch.tolist()),  # fourier_transform=str(self.fourier_transform),
-                 total_variation_distance=str(self.total_variation_distance),
-                 freq=str(self.freq.tolist()), fourier_peaks=str(self.fourier_peaks))
+        d = dict(mean=str(self.mean_value),
+                variance=str(self.variance),
+                deviation=str(self.stddev),
+                median=str(self.med),
+                rms=str(self.rms),
+                shape_current=str(self.shape_current),
+                #  psd_welch=str(self.psd_welch.tolist()),
+                # fourier_transform=str(self.fourier_transform),
+                total_variation_distance=str(self.total_variation_distance),
+                freq=str(self.freq.tolist()),
+                fourier_peaks=str(self.fourier_peaks))
         return (json.dumps(d, sort_keys=True))
 
     def get_statistics(self):
-        return self.mean_value, self.variance, self.stddev, self.med, self.total_variation_distance, self.len_fourier_peaks_array, self.rms, self.rang_confidence
+        return self.mean_value, self.variance, self.stddev, self.med, self.total_variation_distance, self.len_fourier_peaks_array, self.rms, self.rang_confidence, self.shape_current
 
     def get_statistics_dictionary(self):
         dictionary = {
@@ -357,9 +363,10 @@ class ElectrosprayDataProcessing:
             "deviation": np.float64(self.stddev),
             "median": np.float64(self.med),
             "rms": np.float64(self.rms),
-            "psd welch": self.psd_welch.tolist(),
+            "spray mode": self.shape_current,
+            # "psd welch": self.psd_welch.tolist(),
             "fourier peaks": self.fourier_peaks,
-            "maximum variation distance": np.float64(self.total_variation_distance),
+            # "maximum variation distance": np.float64(self.total_variation_distance),
             "freq": self.freq.tolist()
         }
         return dictionary
@@ -375,10 +382,11 @@ class ElectrosprayDataProcessing:
             "deviation": self.stddev,
             "median": self.med,
             "rms": self.rms,
-            "psd_welch": self.psd_welch.tolist(),
+            # "psd_welch": self.psd_welch.tolist(),
+            "spray mode": self.shape_current,
             "fourier transform": self.fourier_transform.tolist(),
             "fourier peaks": self.fourier_peaks,
-            "maximum variation distance": self.total_variation_distance,
+            # "maximum variation distance": self.total_variation_distance,
             "freq": self.freq.tolist()
         }
         self.json_statistics_obj.write(json.dumps(str(dictionary), sort_keys=True, indent=4))
@@ -394,6 +402,7 @@ class ElectrosprayDataProcessing:
             "median": self.med,
             "range": self.rang_confidence,
             "rms": self.rms,
+            "spray mode": self.shape_current,
         }
         self.json_statistics_obj.write(json.dumps(str(dictionary), sort_keys=True, indent=4))
         self.json_statistics_obj.close()

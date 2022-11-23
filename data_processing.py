@@ -11,12 +11,11 @@ FLAG_PLOT = True
 
 
 def data_processing(data_queue,
-                    event,
+                    finish_event,
                     data_processed_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
                     array_electrospray_processing,
-                    array_electrospray_measurements,
                     electrospray_classification,
                     electrospray_validation,
                     Q,
@@ -29,7 +28,7 @@ def data_processing(data_queue,
     sample = 0
 
     # THREAD LOOP
-    while not event.is_set():
+    while not finish_event.is_set():
 
         # wait for first value
         while data_queue.empty():
@@ -92,6 +91,7 @@ def data_processing(data_queue,
                 "Sjaak":  str(classification_sjaak),
                 "Monica": str(classification_monica),
             }
+
 
         except:
             print("[DATA_PROCESSING THREAD] Failed to classify")
