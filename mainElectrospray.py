@@ -72,8 +72,8 @@ if __name__ == '__main__':
     SAVE_PROCESSING = electrospray_config_setup["save_processing"]
     SAVE_CONFIG = electrospray_config_setup["save_config"]
     SAVE_JSON = electrospray_config_setup["save_json"]
-    MODERAMP = electrospray_config_setup["moderamp"]  # else go in steps
-
+    typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
+    
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
     Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
@@ -100,35 +100,15 @@ if __name__ == '__main__':
 
     fug_queue = queue.Queue(maxsize=100)
 
-    if MODERAMP:
-        txt_mode = "ramp"
-        slope = 200
-        voltage_start = 3000
-        voltage_stop = 11000
-        step_size = 0
-        step_time = 0
+    fug_power_supply_thread = threading.Thread(target=fug_power_supply, name='Power Supply FUG',
+                                            args=(
+                                                typeofmeasurement,
+                                                finish_event,
+                                                fug_queue,
+                                                obj_fug_com
+                                                ))
+    fug_power_supply_thread.start()
 
-        # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
-        ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
-                                                args=(
-                                                    fug_queue, obj_fug_com, slope, voltage_start,
-                                                    voltage_stop))
-        ramp_sequency_thread.start()
-
-
-    else:  # MODESTEP
-        txt_mode = "step"
-        slope = 10000
-        voltage_start = 3000
-        voltage_stop = 10000
-        step_size = 500
-        step_time = 5  # 10
-
-        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
-        step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
-                                                args=(finish_event, fug_queue, obj_fug_com, step_size, step_time, slope, voltage_start,
-                                                    voltage_stop))
-        step_sequency_thread.start()
 
     #
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
@@ -151,7 +131,7 @@ if __name__ == '__main__':
         args=(data_queue,
              fug_queue,
              finish_event,
-             voltage_start,
+             typeofmeasurement['voltage_start'],
              liquid,
              array_electrospray_measurements,
              Q
@@ -194,12 +174,8 @@ if __name__ == '__main__':
 
     #                EXIT
 
-    if MODERAMP:
-        ramp_sequency_thread.join()
-        print(print('[RAMP THREAD] thread CLOSED!'))
-    else:
-        step_sequency_thread.join()
-        print(print('[STEP THREAD] thread CLOSED!'))
+    fug_power_supply_thread.join()
+    print(print('[POWER SUPPLY THREAD] thread CLOSED!'))
 
     makeVideo_thread.join()
     print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
@@ -212,14 +188,6 @@ if __name__ == '__main__':
 
     try:
 
-        typeofmeasurement = {
-            "sequency": str(txt_mode),
-            "start": str(voltage_start),
-            "stop": str(voltage_stop),
-            "slope": str(slope),
-            "size": str(step_size),
-            "step time": str(step_time)
-        }
         # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
 
         electrospray_config_liquid_setup_obj.set_type_of_measurement(
@@ -246,7 +214,6 @@ if __name__ == '__main__':
             full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
 
             full_dict['config']['setup'] = electrospray_config_setup
-            full_dict['config']['setup']['voltage regime'] = typeofmeasurement
             full_dict['config']['setup']['comments'] = current_shape_comment
 
 
@@ -273,7 +240,7 @@ if __name__ == '__main__':
             if SAVE_JSON:
                 # arbitrary, defined in the header
                 Q = str(Q) + 'm3_s'
-                file_name = txt_mode + name_setup + name_liquid + "_all shapes_" + Q + ".json"
+                file_name = str(typeofmeasurement['sequency']) + name_setup + name_liquid + "_all shapes_" + Q + ".json"
                 completeName = os.path.join(save_path, file_name)
 
                 with open(completeName, 'w') as file:

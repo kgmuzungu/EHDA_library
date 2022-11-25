@@ -15,6 +15,13 @@
     "save_data": "True",
     "save_processing": "True",
     "save_config": "True",
-    "save_json": "True",
-    "moderamp": "False"
+    "save_json": "True",   
+    "typeofmeasurement": {
+        "sequency": "step",
+        "voltage_start": 3000,
+        "voltage_stop": 10000,
+        "slope": 10000,
+        "step_size": 500,
+        "step_time": 5
+    }
 }

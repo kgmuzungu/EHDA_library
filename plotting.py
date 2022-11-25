@@ -103,11 +103,8 @@ def start_plot(data_processed_queue, finish_event):
 
         # animated=True tells matplotlib to only draw the artist when we explicitly request it
         (ln0,) = ax[0].plot(np.arange(0, len(electrospray_data.data) * time_step, time_step), electrospray_data.data, animated=True)
-
-        (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered,
-                            animated=True)
+        (ln1,) = ax[1].plot(np.arange(0, len(datapoints_filtered) * time_step, time_step), datapoints_filtered, animated=True)
         freq = np.fft.fftfreq(len(datapoints_filtered), d=time_step)
-
         (ln2,) = ax[2].plot(freq[0:500], np.zeros(500), animated=True)
 
         ax[0].set(xlabel='time [s]', ylabel='current (nA)',
