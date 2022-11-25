@@ -20,7 +20,7 @@
         "sequency": "step",
         "voltage_start": 3000,
         "voltage_stop": 10000,
-        "step_slope": 10000,
+        "slope": 10000,
         "step_size": 500,
         "step_time": 5
     }

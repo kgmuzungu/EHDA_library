@@ -72,7 +72,6 @@ if __name__ == '__main__':
     SAVE_PROCESSING = electrospray_config_setup["save_processing"]
     SAVE_CONFIG = electrospray_config_setup["save_config"]
     SAVE_JSON = electrospray_config_setup["save_json"]
-    MODERAMP = electrospray_config_setup["moderamp"]  # else go in steps
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
@@ -215,7 +214,6 @@ if __name__ == '__main__':
             full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
 
             full_dict['config']['setup'] = electrospray_config_setup
-            full_dict['config']['setup']['voltage regime'] = typeofmeasurement
             full_dict['config']['setup']['comments'] = current_shape_comment
 
 
