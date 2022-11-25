@@ -11,14 +11,6 @@ multiplier_for_nA = 500
 
 
 
-append_array_data = True
-FLAG_PLOT = False
-SAVE_DATA = True
-SAVE_PROCESSING = False
-SAVE_CONFIG = True
-SAVE_JSON = True
-
-
 def data_acquisition(data_queue,
                      fug_queue,
                      finish_event,
@@ -112,9 +104,8 @@ def data_acquisition(data_queue,
 
         try:
 
-            if append_array_data:
-                d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-                array_electrospray_measurements.append(d_electrospray_measurements)
+            d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
+            array_electrospray_measurements.append(d_electrospray_measurements)
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to append array")
