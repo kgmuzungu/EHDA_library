@@ -115,44 +115,45 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def step_sequency(finish_event, fug_queue, obj_fug_com, step_size=100, step_time=5, step_slope=0, voltage_start=3000, voltage_stop=100):
-    """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
-                                               'U ' + str(voltage_start), 'F1'])"""
-    responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(step_slope),
-                                               'U ' + str(voltage_start), 'F1'])
+def fug_power_supply(typeofmeasurement, finish_event, fug_queue, obj_fug_com):
 
-    if (get_voltage_from_PS(obj_fug_com) < voltage_start or get_voltage_from_PS(obj_fug_com) > voltage_start):
-        time.sleep(step_time)
+    if typeofmeasurement['sequency'] == "step":
+        """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
+                                                'U ' + str(voltage_start), 'F1'])"""
+        responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']),
+                                                'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
 
-    voltage = voltage_start
-    while voltage < voltage_stop:
-        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
-        time.sleep(step_time)
-        voltage += step_size
-        fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
-        fug_queue.put(fug_values)
-        print("[FUG THREAD]: put values in fug_queue")
+        if (get_voltage_from_PS(obj_fug_com) < typeofmeasurement['voltage_start'] or get_voltage_from_PS(obj_fug_com) > typeofmeasurement['voltage_start']):
+            time.sleep(typeofmeasurement['step_time'])
 
-    finish_event.set()
+        voltage = typeofmeasurement['voltage_start']
+        while voltage < typeofmeasurement['voltage_stop']:
+            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+            time.sleep(typeofmeasurement['step_time'])
+            voltage += typeofmeasurement['step_size']
+            fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
+            fug_queue.put(fug_values)
+            print("[FUG THREAD]: put values in fug_queue")
 
-    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)]))
-    time.sleep(step_time)
-    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
+        finish_event.set()
 
-    print("Responses from step frequency: ", str(responses))
+        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(typeofmeasurement['voltage_stop'])]))
+        time.sleep(typeofmeasurement['step_time'])
+        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
+
+        print("Responses from step frequency: ", str(responses))
+
+    elif typeofmeasurement['sequency'] == "ramp":
+        responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
+
+        responses.append(FUG_sendcommands(obj_fug_com, ['>S0B 2', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_stop'])]))
+
+        while get_voltage_from_PS(obj_fug_com) < typeofmeasurement['voltage_stop']:
+            fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
+            fug_queue.put(fug_values)
+            time.sleep(0.5)
+
+    else:
+        print("Mode not available")
 
 
-
-def ramp_sequency(fug_queue, obj_fug_com, ramp_slope=250, voltage_start=0, voltage_stop=100):
-    responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(voltage_start), 'F1'])
-
-    responses.append(FUG_sendcommands(obj_fug_com, ['>S0B 2', '>S0R ' + str(ramp_slope), 'U ' + str(voltage_stop)]))
-
-    while get_voltage_from_PS(obj_fug_com) < voltage_stop:
-        fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
-        fug_queue.put(fug_values)
-        time.sleep(0.5)
-
-    # FUG_sendcommands(obj_fug_com, ['U ' + str(voltage_stop)])
-
-    return responses
