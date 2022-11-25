@@ -18,13 +18,15 @@ import logging
 
 
 
-# *************************************
-#            MAIN FUNCTION
-# *************************************
+# # # **************************************
+# # #                 MAIN
+# # # **************************************
 if __name__ == '__main__':
 
 
-    #       INITIAL CONFIGURATION
+# # # **************************************
+# # #         INITIAL CONFIGURATION
+# # # **************************************
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
@@ -36,27 +38,19 @@ if __name__ == '__main__':
                         format='%(asctime)s %(message)s', level=logging.INFO)
     logging.info('Started')
 
-
     sampling_frequency = 1e5  # 100000
     array_electrospray_measurements = []
     array_electrospray_processing = []
-
 
     name_setup = "setup10"
     setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
     name_liquid = "water60alcohol40" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
     current_shape_comment = "difficult cone jet stabilization"
-
    
     FLAG_PLOT = True
     plt.style.use('seaborn-colorblind')
     plt.ion()
-
-
-
-
-    #          CREATING INSTANCES
 
     electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_liquid()
@@ -64,17 +58,11 @@ if __name__ == '__main__':
     electrospray_validation = ElectrosprayValidation(name_liquid)
     electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
     electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
-    
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
     impedance = electrospray_config_setup["osc_impedance"]
-
-    SAVE_DATA = electrospray_config_setup["save_data"]
-    SAVE_PROCESSING = electrospray_config_setup["save_processing"]
-    SAVE_CONFIG = electrospray_config_setup["save_config"]
-    SAVE_JSON = electrospray_config_setup["save_json"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
-    
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
+
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
     Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
     print('flowrate cm3/s: ', Q)
@@ -83,17 +71,14 @@ if __name__ == '__main__':
     arduino_COM_port = 0
     fug_COM_port = 4
 
-    #              FUG INIT
-    obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
-    print("[FUG] obj_fug_com: ", obj_fug_com)
-    get_voltage_from_PS(obj_fug_com)
 
-
-
-    #              THREADS
+# # # **************************************
+# # #                THREADS
+# # # **************************************
 
     threads = list()
 
+    
     # 
     #           FUG   ->   Power supply controller thread. (It will be the future actuator thread.)
     #
@@ -105,7 +90,7 @@ if __name__ == '__main__':
                                                 typeofmeasurement,
                                                 finish_event,
                                                 fug_queue,
-                                                obj_fug_com
+                                                fug_COM_port
                                                 ))
     fug_power_supply_thread.start()
 
@@ -115,10 +100,11 @@ if __name__ == '__main__':
     #
 
     makeVideo_thread = threading.Thread(
-        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port,finish_event))
+        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event))
     threads.append(makeVideo_thread)
     makeVideo_thread.start()
 
+    
     # 
     #          DATA ACQUISITION  ->   Data acquisition (it will be the future sensor thread)
     #   
@@ -140,7 +126,7 @@ if __name__ == '__main__':
     threads.append(data_acquisition_thread)
     data_acquisition_thread.start()
 
-
+    
     # 
     #          DATA PROCESSING  ->  data proccessing
     #   
@@ -165,14 +151,20 @@ if __name__ == '__main__':
     data_processing_thread.start()
 
 
-    #            PLOTTING LOOP
+    # 
+    #          PLOTTING LOOP  ->    (注意) It's not a Thread 
+    #  
 
     #  plotting is not a thread. It is a function running in a loop in the main.
     fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_processed_queue, finish_event)
     while not finish_event.is_set():
         plotting.real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
 
-    #                EXIT
+
+        
+# # # **************************************
+# # #                EXIT
+# # # **************************************
 
     fug_power_supply_thread.join()
     print(print('[POWER SUPPLY THREAD] thread CLOSED!'))
@@ -182,7 +174,9 @@ if __name__ == '__main__':
 
 
     
-    #              SAVING
+# # # **************************************
+# # #                SAVING
+# # # **************************************
 
     print("[SAVING] START SAVING")
 
@@ -207,18 +201,17 @@ if __name__ == '__main__':
 
     try:
 
-        if SAVE_CONFIG:
+        if electrospray_config_setup["save_config"]:
             electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
             electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
             full_dict['config']['liquid'] = electrospray_config_liquid
             full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-
             full_dict['config']['setup'] = electrospray_config_setup
             full_dict['config']['setup']['comments'] = current_shape_comment
 
 
         try:
-            if SAVE_PROCESSING:
+            if electrospray_config_setup["save_processing"]:
                 full_dict['processing'] = array_electrospray_processing
 
         except:
@@ -227,7 +220,7 @@ if __name__ == '__main__':
 
         try:
 
-            if SAVE_DATA:
+            if electrospray_config_setup["save_data"]:
                 full_dict['measurements'] = array_electrospray_measurements
 
         except:
@@ -237,7 +230,7 @@ if __name__ == '__main__':
         try:
 
             # voltage = str(voltage) + 'V'
-            if SAVE_JSON:
+            if electrospray_config_setup["save_json"]:
                 # arbitrary, defined in the header
                 Q = str(Q) + 'm3_s'
                 file_name = str(typeofmeasurement['sequency']) + name_setup + name_liquid + "_all shapes_" + Q + ".json"
@@ -259,29 +252,3 @@ if __name__ == '__main__':
         sys.exit(1)
 
 
-
-    # # # **************************************
-    # # #                EXIT
-    # # # **************************************
-    #
-    #
-    #
-    # if MODERAMP:
-    #     ramp_sequency_thread.join()
-    #     print(print('[RAMP THREAD] thread CLOSED!'))
-    # else:
-    #     step_sequency_thread.join()
-    #     print(print('[STEP THREAD] thread CLOSED!'))
-    #
-    # makeVideo_thread.join()
-    # print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
-
-        # fazer funcao de saida do loop
-        #     ramp_sequency_thread.join()
-        #     makeVideo_thread.join()
-        #     FUG_sendcommands(obj_fug_com, ['U 0'])
-        #     sys.exit(1)
-        #     # Close oscilloscope:
-        #     del scp
-        # logging.info('Finished')
-        # sys.exit(0)

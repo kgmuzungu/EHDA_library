@@ -115,7 +115,14 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def fug_power_supply(typeofmeasurement, finish_event, fug_queue, obj_fug_com):
+def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
+
+    #              FUG INIT
+    obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
+    print("[FUG] obj_fug_com: ", obj_fug_com)
+    get_voltage_from_PS(obj_fug_com)
+
+    #         DEFINE SEQUENCE MODE
 
     if typeofmeasurement['sequency'] == "step":
         """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
