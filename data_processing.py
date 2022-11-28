@@ -58,7 +58,7 @@ def data_processing(data_queue,
 
             electrospray_processing.calculate_statistics( electrospray_data.data, electrospray_processing.datapoints_filtered )
             
-            # electrospray_processing_freq, electrospray_processing_psd = electrospray_processing.calculate_power_spectral_density(electrospray_data.data)
+            electrospray_processing_freq, electrospray_processing_psd = electrospray_processing.calculate_power_spectral_density(electrospray_data.data)
 
             max_data, quantity_max_data, percentage_max = electrospray_processing.calculate_peaks_signal(electrospray_data.data)
 
