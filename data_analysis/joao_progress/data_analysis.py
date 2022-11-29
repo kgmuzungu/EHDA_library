@@ -163,11 +163,9 @@ else:
     axs[4].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
     axs[4].grid()
 
-    plt.gca().legend(('y0','y1'))
-
     fig.canvas.mpl_connect('button_press_event', onpick)
 
-    plt.xlabel('samples')
+    plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
     plt.show()
 
 
