@@ -60,7 +60,7 @@ def data_acquisition(data_queue,
         try:
             if not fug_queue.empty():
                 fug_values = fug_queue.get()
-                voltage_from_PS, current_from_PS = fug_values
+                voltage_from_PS, current_from_PS, target_voltage = fug_values
 
 
             print('[DATA_ACQUISITION THREAD] got fug_queue data')
@@ -96,7 +96,7 @@ def data_acquisition(data_queue,
         try:
 
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, Q, temperature,
-                                                         humidity, day_measurement, current_from_PS)
+                                                         humidity, day_measurement, current_from_PS, target_voltage)
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to EsctrosprayMeasurements")
