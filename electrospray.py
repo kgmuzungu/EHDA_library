@@ -367,8 +367,8 @@ class ElectrosprayDataProcessing:
             "rms": self.rms,
             # "psd_welch": self.psd_welch.tolist(),
             "spray mode": self.shape_current,
-            "fourier transform": self.fourier_transform.tolist(),
-            "fourier peaks": self.fourier_peaks,
+            # "fourier transform": self.fourier_transform.tolist(),
+            # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": self.total_variation_distance,
             "freq": self.freq.tolist()
         }

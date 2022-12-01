@@ -43,7 +43,7 @@ if __name__ == '__main__':
     array_electrospray_processing = []
 
     name_setup = "setup11"
-    setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
+    setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
     current_shape_comment = "difficult cone jet stabilization"
