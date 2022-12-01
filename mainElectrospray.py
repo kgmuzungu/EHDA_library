@@ -61,6 +61,7 @@ if __name__ == '__main__':
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
     save_path = electrospray_config_setup["save_path"]
+    number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
     Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
@@ -99,7 +100,7 @@ if __name__ == '__main__':
     #
 
     makeVideo_thread = threading.Thread(
-        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event))
+        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
     threads.append(makeVideo_thread)
     makeVideo_thread.start()
 

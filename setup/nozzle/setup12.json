@@ -16,7 +16,8 @@
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
-    "save_path": """E:/Joao_01-12-22""", 
+    "save_path": "E:/Joao_01-12-22", 
+    "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequency": "step",
         "voltage_start": 3000,
