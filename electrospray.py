@@ -123,7 +123,7 @@ class ElectrosprayConfig:
 class ElectrosprayMeasurements:
     """ Electrospray setup representation """
 
-    def __init__(self, name, data, voltage, flow_rate, temperature, humidity, day_measurement, current):
+    def __init__(self, name, data, voltage, flow_rate, temperature, humidity, day_measurement, current, target_voltage):
         self.name = name  # name of liquid
         self.data = data  # array nA
         self.flow_rate = flow_rate  # m3/s
@@ -133,6 +133,7 @@ class ElectrosprayMeasurements:
         self.day_measurement = day_measurement  # date
         # self.gas_coflow_rate  = gas_coflow_rate
         self.current = current
+        self.target_voltage = target_voltage
 
     def __repr__(self):
         dictionary = {
@@ -142,16 +143,10 @@ class ElectrosprayMeasurements:
             "current PS": self.current,
             "temperature": self.temperature,  # graus Celsius
             "humidity": self.humidity,  # percentage
-            "date and time": self.day_measurement
+            "date and time": self.day_measurement,
+            "target voltage": self.target_voltage
         }
-        """
-        d = dict(statistics=dict(mean=str(self.mean_value), variance=str(self.variance),
-                                     deviation=str(self.stddev), median=str(self.med), rms=str(self.rms),
-                                     len_fourier_peaks=str(self.len_fourier_peaks_array),
-                                     total_variation_distance=str(self.total_variation_distance),
-                                     range=str(self.rang_confidence)))
-        return (json.dumps(d, sort_keys=True))
-        """
+
         return (json.dumps(dictionary))
 
     def get_measurements_dictionary(self):
@@ -163,7 +158,8 @@ class ElectrosprayMeasurements:
             "current PS": str(self.current),
             "temperature": str(self.temperature),  # graus Celsius
             "humidity": str(self.humidity),  # percentage
-            "date and time": str(self.day_measurement)
+            "date and time": str(self.day_measurement),
+            "target voltage": self.target_voltage
         }
         # self.json_measurements_obj.write(json.dumps((dictionary), sort_keys=True, indent=4, separators=(". ", " = ")))
         return dictionary
@@ -172,7 +168,7 @@ class ElectrosprayMeasurements:
         return self.flow_rate
 
     def get_measurements(self):
-        return self.name, self.voltage, self.data, self.impedance, self.temperature, self.humidity, self.current, self.shape_current, self.flow_rate
+        return self.name, self.voltage, self.data, self.impedance, self.temperature, self.humidity, self.current, self.shape_current, self.flow_rate, self.target_voltage
 
     def set_data(self, data_update):
         self.data = data_update  # array nA
@@ -258,7 +254,7 @@ class ElectrosprayDataProcessing:
          # list containing the positions of the peaks
         """
 
-    def calculate_statistics(self, data, data_filtered_array):
+    def calculate_statistics(self, data):
         self.mean_value = np.mean(data)
         self.variance = np.var(data)
         # is a squared mean value of values of the average,
@@ -267,17 +263,7 @@ class ElectrosprayDataProcessing:
         self.med = np.median(data)
         self.rms = np.sqrt(np.mean(data ** 2))
 
-        # ToDo check if this is TVD and does it tell you something about the signal
-        #  Total Variation Distance (TVD) : distance measure for probability distributions
-        #  largest possible difference between the probabilities that the two probability distributions can assign to the same event
-
-        tvd = []
-        for i in range(0, int(len(data))):
-            tvd.append(abs(data[i] - data_filtered_array[i]))
-        self.total_variation_distance = max(tvd)
-        logging.info('variation array: %s' % tvd)
-
-
+        
     def calculate_peaks_fft(self, data):
         sorted_indices = np.argsort(abs(self.fourier_transform[self.all_fourier_peaks]))
         freq_step = self.freq[1] - self.freq[0]
@@ -348,13 +334,10 @@ class ElectrosprayDataProcessing:
                 shape_current=str(self.shape_current),
                 #  psd_welch=str(self.psd_welch.tolist()),
                 # fourier_transform=str(self.fourier_transform),
-                total_variation_distance=str(self.total_variation_distance),
+                # total_variation_distance=str(self.total_variation_distance),
                 freq=str(self.freq.tolist()),
                 fourier_peaks=str(self.fourier_peaks))
         return (json.dumps(d, sort_keys=True))
-
-    def get_statistics(self):
-        return self.mean_value, self.variance, self.stddev, self.med, self.total_variation_distance, self.len_fourier_peaks_array, self.rms, self.rang_confidence, self.shape_current
 
     def get_statistics_dictionary(self):
         dictionary = {
