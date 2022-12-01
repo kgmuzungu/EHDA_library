@@ -365,9 +365,9 @@ class ElectrosprayDataProcessing:
             "rms": np.float64(self.rms),
             "spray mode": self.shape_current,
             # "psd welch": self.psd_welch.tolist(),
-            "fourier peaks": self.fourier_peaks,
+            # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": np.float64(self.total_variation_distance),
-            "freq": self.freq.tolist()
+            # "freq": self.freq.tolist()
         }
         return dictionary
 

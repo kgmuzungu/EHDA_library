@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
-    save_path = """C:/Users/hvvhl/Desktop/teste"""
+    save_path = """E:\Joao_01-12-22"""
 
     # LOGGING CONFIG
     LOG_FILENAME = r'logging_test.out'
@@ -42,9 +42,9 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup10"
+    name_setup = "setup11"
     setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
-    name_liquid = "water60alcohol40" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+    name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
     current_shape_comment = "difficult cone jet stabilization"
    
