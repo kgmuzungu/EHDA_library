@@ -137,8 +137,8 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
         while voltage < typeofmeasurement['voltage_stop']:
             responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
             time.sleep(typeofmeasurement['step_time'])
+            fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
             voltage += typeofmeasurement['step_size']
-            fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
             fug_queue.put(fug_values)
             print("[FUG THREAD]: put values in fug_queue")
 

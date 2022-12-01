@@ -251,8 +251,7 @@ with obj_fug_com:
             electrospray_processing.calculate_filter(a, b, electrospray_data.data)
             electrospray_processing.calculate_fft_raw(electrospray_data.data)
 
-            electrospray_processing.calculate_statistics(electrospray_data.data,
-                                                            electrospray_processing.datapoints_filtered)
+            electrospray_processing.calculate_statistics(electrospray_data.data)
             electrospray_processing_freq, electrospray_processing_psd = electrospray_processing.calculate_power_spectral_density(
                 electrospray_data.data)
 

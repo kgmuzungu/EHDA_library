@@ -30,8 +30,6 @@ if __name__ == '__main__':
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
-    save_path = """C:/Users/hvvhl/Desktop/teste"""
-
     # LOGGING CONFIG
     LOG_FILENAME = r'logging_test.out'
     logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8',
@@ -42,9 +40,9 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup10"
-    setup = "C:/Users/hvvhl/Desktop/joao/EHDA_library/setup/nozzle/" + name_setup
-    name_liquid = "water60alcohol40" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
+    name_setup = "setup11"
+    setup = "setup/nozzle/" + name_setup
+    name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
     current_shape_comment = "difficult cone jet stabilization"
    
@@ -62,6 +60,8 @@ if __name__ == '__main__':
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
+    save_path = electrospray_config_setup["save_path"]
+    number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
     Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     #
 
     makeVideo_thread = threading.Thread(
-        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event))
+        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
     threads.append(makeVideo_thread)
     makeVideo_thread.start()
 
