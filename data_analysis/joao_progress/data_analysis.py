@@ -21,12 +21,13 @@ file_path1 = "joaoData/"
 
 file_name1 = "data1"
 file_name2 = "data2"
+file_name3 = "data3"
 
 easygui.msgbox("欢迎")
 
 msg ="What experiment do you want to run?"
 title = "EDHA - JSON data"
-choices = [file_name1, file_name2]
+choices = [file_name1, file_name2, file_name3]
 exp_choice = easygui.choicebox(msg, title, choices)
 
 
