@@ -16,7 +16,7 @@ from scipy.signal import butter, lfilter
 sampling_frequency = 1e5
 
 
-with open("joaoData/" + "data3" + ".json", 'r') as data_file:    
+with open("joaoData/" + "data4" + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 data_measurements = pd.json_normalize(data, record_path=['measurements'])

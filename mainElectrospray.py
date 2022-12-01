@@ -30,8 +30,6 @@ if __name__ == '__main__':
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
-    save_path = """E:\Joao_01-12-22"""
-
     # LOGGING CONFIG
     LOG_FILENAME = r'logging_test.out'
     logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8',
@@ -62,6 +60,7 @@ if __name__ == '__main__':
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
+    save_path = electrospray_config_setup["save_path"]
 
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
     Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
