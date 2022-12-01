@@ -23,7 +23,7 @@
         "voltage_start": 3000,
         "voltage_stop": 11000,
         "slope": 100000,
-        "step_size": 50,
-        "step_time": 1
+        "step_size": 500,
+        "step_time": 5
     }
 }
