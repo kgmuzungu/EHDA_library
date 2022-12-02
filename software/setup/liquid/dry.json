@@ -1,0 +1,12 @@
+{
+    "name": "dry",
+    "surface tension": 1.0,
+    "dielectric const": 1.0,
+    "viscosity": 1.0,
+    "density": 1.0,
+    "electrical conductivity": 1.0,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85E-12,
+    "rho density": 123,
+    "slope": 0.0
+}
