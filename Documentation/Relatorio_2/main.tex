@@ -1,0 +1,38 @@
+\documentclass[10pt]{article}
+\usepackage{multicol}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}%
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage[backend=biber]{biblatex}
+\usepackage{newclude}
+\addbibresource{refs.bib}
+
+
+\author{João Pedro Miranda Marques - 2017050495}
+
+\begin{document}
+
+\include{front_cover/front_cover}
+
+% % \begin{multicols}{2}
+% % \end{multicols}
+
+% % \thispagestyle{empty}
+% % \pagestyle{empty}
+
+% % \maketitle
+
+\include*{Summary/Summary}
+
+
+\include*{Development/Development}
+
+\include*{Conclusion/Conclusion}
+
+
+\pagebreak
+\printbibliography
+\end{document}

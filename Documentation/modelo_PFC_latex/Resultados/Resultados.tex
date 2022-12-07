@@ -1,0 +1,145 @@
+\chapter{Resultados}
+
+Para a execução do projeto, algumas etapas de desenvolvimento tiveram de ser seguidas: familiarização com o sistema, estudo dos módulos envolvidos, leitura dos requisitos, elaboração de documento descrevendo todo o processo de implementação e relacionamento com os diversos módulos, implementação e testes.
+
+
+\section{Atividades do Projeto}
+\label{metodo3}
+
+\section {Requisitos do Sistema}
+\label{req}
+
+
+\section{Desenvolvimeto e Implementação}
+
+A Tabela \ref{tab:tabela} apresenta as atividades executadas.
+
+\begin{table}
+\centering
+%Note os alinhamentos diferentes em cada coluna
+\begin{tabular}{|c|r|l|}\hline
+		Atividade 1 & aa  & ab  \\ 
+					 & a & b \\ \hline
+		Ativ. 2  & aa & ab \\			
+					 &  a & b \\ \hline
+		\end{tabular}
+	\caption{Exemplo de tabela - Coloque toda informação sobre a tabela aqui}
+	\label{tab:tabela}
+\end{table}
+
+\section{Testes}
+
+\section{Análise dos Resultados}
+
+Apresente os resultados sem adulterações e faça análises objetivas. Pense na melhor maneira de apresentar os resultados graficamente. Se os gráficos são difíceis de interpretar, talvez tabelas sejam uma forma melhor de apresentar resultados. Não apresente dados (gráficos e tabelas) se não há uma conclusão interessante a ser tirada. Lembre-se de ser conciso.
+
+\emph{Não se esqueça das unidades!} Pense que \emph{a priori} todo número deve ter uma unidade. Não escreva as unidades em itálico (no ambiente matemático) e tome cuidado para diferenciar maiúsculas e minúsculas. Um exemplo é escrever $22$ [kN] e não $22 KN$ (Kelvin vezes Newton!).
+
+Ao apresentar resultados experimentais, tome o cuidado para também apresentar o cálculo das incertezas sempre que forem significativas. Ao fazer conclusões, sempre considere se o tamanho da sua amostra é grande o suficiente do ponto de vista estatístico. Lembre que a média empírica $\hat{\mu}_X$ de $N$ observações independentes da variável $X_i$ possui variância
+\[
+\hat{\sigma}_{\mu}^2 = \frac{1}{N(N-1)} \sum_{i=1}^N (X_i-\hat{\mu}_X)^2
+\enspace,
+\]
+onde se assume que as variáveis $X_i$ possuem uma mesma ditribuição e que essa distribuição possui segundo momento finito.
+
+
+\section{Resumo do Capítulo}
+\label{sec:resumoo4}
+Tente não terminar de forma abrupta. Se for escrever algo aqui, não seja genérico!
+
+\section{Formato, expressões matemáticas e o \LaTeX}
+
+\subsection{O \LaTeX}
+
+O {\LaTeX}  é o método preferencial de preparação de documentos para textos técnicos nas ciências exatas. O {\LaTeX} permite não só lidar com equações de uma forma mais prática que em editores de texto, mas também facilita a formatação de documentos e tem um desempenho marcadamente superior a editores de texto na preparação de documentos longos como monografias. 
+
+Documentos em {\LaTeX} são escritos em um ou mais arquivos de texto com extensão .tex. Após a escrita, o .tex é \emph{compilado} para gerar arquivos nos formatos .pdf, .dvi ou .ps. Hoje há duas distribuições padrão para o \LaTeX. Sistemas Windows usam o {Mik\TeX} e sistemas Unix usam o \TeX Live. Além das distribuições, muitos usuários utilizam \emph{front-ends} que facilitam a edição do texto, a compilação e a instalação de pacotes. 
+
+Os pacotes necessários para compilar o presente documento devem ser encontrados numa instalação completa dessas distribuições. Se tiver dificuldades com os pacotes, você pode instalá-los manualmente ou tentar alterar o código para usar versões antigas dos mesmos.
+
+A compilação pode ser feita pelos comandos \textsf{latex} ou \textsf{pdflatex}, invocados pela linha de comando ou pelo \emph{front-end}. Note que será necessário empregar o comando \textbf{mais de uma vez} para que as referências cruzadas saiam corretas.
+
+Como discutido na Seção \ref{sec:revisão}, uma ferramenta útil para gerenciar as citações em {\LaTeX} é o Bib\TeX. Para gerar uma lista bibliográfica a partir do arquivo .bib, este arquivo deve ser indicado no arquivo .tex. Em seguida devem-se executar os comandos \textsf{pdflatex}, \textsf{bibtex} e \textsf{pdflatex} novamente sempre usando o .tex como argumento. Note que os comandos são executados nesta ordem e de forma repetida para que as referências cruzadas sejam geradas corretamente.
+
+Nesta seção você deve encontrar exemplos dos comandos mais usados em \LaTeX. Outros exemplos e manuais podem ser encontrados na internet com facilidade.
+
+\subsection{Expressões Matemáticas}
+
+Ao escrever expressões matemáticas, defina todas as variáveis antes de usá-las ou imediatamente depois da expressão. Deixar de fazê-lo torna seu texto \textbf{ilegível}. Segue um exemplo.
+
+Seja o par $(a_1,a_2)\in \mathbb{R}^2$. Para $s\in\mathbb{C}$, definimos a função $f(s)$ como
+\[%cria equações sem numeração
+f(s)\triangleq \frac{a_1 s+a_2}{s^2+2\zeta\omega_n s+\omega_n^2}
+\enspace,
+\]
+onde os escalares $\zeta,\omega_n>0$ são constantes.
+
+Note que não foi necessário atribuir valores às variáveis neste momento. Repare também como devemos \textbf{usar pontuação} (vírgula) nas equações, tratando-as como parte da frase. Usamos o símbolo $\triangleq$ ou $:=$ para deixar explícito que se trata de uma definição. Ser claro nesse aspecto facilita o entendimento do leitor.
+
+A equação acima não foi numerada porque não será citada no texto. Vejamos um exemplo com numeração.
+
+A função $f(\cdot)$ possui um zero em $-a_2/a_1$ (ou $-\frac{a_2}{a_1}$) e, para $\zeta<1$, possui polos complexos $p_{1,2}$ dados por
+\begin{equation}
+\label{eq:polos}
+p_{1,2}=\omega_n \left(-\zeta\pm j\sqrt{1-\zeta^2}\right)
+\enspace.
+\end{equation}
+Agora podemos citar os polos dados pela Equação (\ref{eq:polos}) (aqui adotamos a convenção de citar sempre com o número entre parênteses precedido da palavra Equação). Note como usamos um comando especial na Equação \ref{eq:polos} para garantir o ajuste automático do tamanho dos parênteses.
+
+Vejamos agora como criar equações alinhadas. Considere o sistema dinâmico dado pelas equações diferenciais:
+
+\begin{align}
+\dot{x}_1 & = \cos(x_2)\cdot\ln(1/x_1)+\tan(u) \label{eq:x1dot} \\
+\dot{x}_2 & = e^{-x_1-x_2} \nonumber \\
+& y  = \min\{x_1,x_2\}  \label{eq:saida}
+\enspace,
+\end{align}
+onde $x(t)=[x_1(t) ~ x_2(t)]'$, $t>0$, é a variável de estado do sistema, $u(t)$ é o sinal de entrada e $y(t)$ é o sinal de saída do sistema. Note no .tex que o caracter de tabulação \textsf{\&} foi usado para indicar o ponto de alinhamento horizontal das equações. Além disso, para ilustrar o uso do \LaTeX, retiramos a numeração da segunda equação e citamos as equações separadamente.
+
+Nas Equações (\ref{eq:x1dot}) e (\ref{eq:saida}), aparecem operadores como $\min$, $\ln$, $\cos$ e $\tan$. A convenção aqui é que \textbf{variáveis devem ser escritas em itálico e operadores não}. Por essa razão todas as expressões matemáticas devem ser escritas no ambiente matemático (entre cifrão) mesmo quando for possível usar texto comum. Isso garante a consistência das fontes utilizadas (nem sempre a fonte do ambiente matemático é a mesma fonte do texto). 
+
+Para escrever matrizes, podemos fazer por exemplo:
+\[
+\sum_{n=0}^{\infty}z^{-n}\left[\begin{array}{cc}
+\lambda & 1 \\
+0 & \lambda
+\end{array}\right]^n=
+\left[\begin{array}{cc}
+\frac{z}{z-\lambda} & \frac{z}{(z-\lambda)^2} \\
+0 & \frac{z}{z-\lambda}
+\end{array}\right]
+,~\forall \lambda<|z|
+\enspace.
+\]
+
+Para escrever uma expressão com múltiplos casos, podemos fazer, para um inteiro $N$ positivo,
+\[
+g[n]=
+\left\{
+\begin{array}{ll}
+0,& \mbox{se }~ n\leq 0 \\
+n,& \mbox{se }~ n=1,2,\ldots,N-1 \\
+N,& \mbox{se }~ n\mod N = 0 \\
+0,& \mbox{caso contrário}\enspace.
+\end{array}
+\right.
+\]
+
+\textbf{Nunca reaproveite símbolos} matemáticos, isto é, nunca use o mesmo símbolo para designar variáveis diferentes.
+
+Para um exemplo com múltiplas linhas de expressão matemática: tem-se que, para $a\neq 0$,
+
+\begin{equation}
+\begin{split}
+ax^2+bx+c &= 0 \\
+& \Rightarrow a(x^2+bx/a+c/a) =0 \Rightarrow a((x+b/(2a))^2+c/a-b^2/(4a^2))=0  \\
+& \Rightarrow (x+b/(2a))^2=(b^2-4ac)/(4a^2) \\
+& \Rightarrow (x+b/(2a))=\pm\sqrt{b^2-4ac}/(2a) \\
+& \Rightarrow x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\enspace.
+\end{split}
+\end{equation}
+
+Note a argumentação lógica aqui. Não estamos dizendo que o valor de $x$ é dado pela última linha. Estamos dizendo que a hipótese da primeira linha juntamente com a hipótese $a\neq 0$ implicam os referidos valores de $x$. \textbf{Um erro comum dos alunos ao escrever é não distinguir a veracidade das implicações com a veracidade das hipóteses}.
+
+\clearpage

@@ -1,0 +1,27 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.6 }
+
+\bibitem{eggert2002response}
+\abntrefinfo{Eggert}{EGGERT}{2002}
+{EGGERT, R.~J. Response tables from industry members of {ASME}’s design
+  engineering division and the manufacturing engineering division -
+  {E}ngineering design education: Surveys of demand and supply.
+\emph{Boise State University}, 2002.}
+
+\bibitem{spretnak1982survey}
+\abntrefinfo{Spretnak}{SPRETNAK}{1982}
+{SPRETNAK, C.~M. A survey of the frequency and importance of technical
+  communication in an engineering career.
+\emph{Technical Writing Teacher}, ERIC, v.~9, n.~3, p. 133--36, 1982.}
+
+\bibitem{cunningham2012perceptions}
+\abntrefinfo{Cunningham e Stewart}{CUNNINGHAM; STEWART}{2012}
+{CUNNINGHAM, D.; STEWART, J. Perceptions and practices: A survey of
+  professional engineers and architects.
+\emph{ISRN Education}, Hindawi Publishing Corporation, v.~2012, 2012.}
+
+\end{thebibliography}

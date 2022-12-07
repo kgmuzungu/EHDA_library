@@ -5,5 +5,3 @@ logging_test.out
 *.DS_Store
 .DS_Store
 
-jsonfiles
-plot_generated
