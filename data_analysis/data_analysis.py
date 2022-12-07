@@ -17,18 +17,23 @@ from scipy.signal import butter, lfilter
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path1 = "joaoData/"
+file_path1 = "joaoData/experiments_05_12/"
 
-file_name1 = "data1"
-file_name2 = "data2"
-file_name3 = "data3"
-file_name4 = "data4"
+file_name1 = "exp1"
+file_name2 = "exp2"
+file_name3 = "exp3"
+file_name4 = "exp4"
+file_name5 = "exp5"
+file_name6 = "exp6"
+file_name7 = "exp7"
+file_name8 = "exp8"
+file_name9 = "exp9"
 
 easygui.msgbox("欢迎")
 
 msg ="What experiment do you want to run?"
 title = "EDHA - JSON data"
-choices = [file_name1, file_name2, file_name3, file_name4]
+choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6, file_name7, file_name8, file_name9]
 exp_choice = easygui.choicebox(msg, title, choices)
 
 
@@ -143,9 +148,8 @@ else:
     fig, axs = plt.subplots(5, 1)
 
     axs[0].set(ylabel='ccurent nA')
-    axs[0].plot(data_sample.index/sampling_frequency, data_sample['data-0'])
+    axs[0].plot((data_sample.index/sampling_frequency)/60, data_sample['data-0'])
     axs[0].grid()
-    axs[0].legend(loc="upper right")
 
     axs[1].set(ylabel='voltage (V)')
     axs[1].set_yticks(np.arange(0, 5000, 10))
