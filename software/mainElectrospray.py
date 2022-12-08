@@ -69,7 +69,7 @@ if __name__ == '__main__':
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
-    Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/s
+    Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/sq
     print('flowrate cm3/s: ', Q)
 
     #        PORTS

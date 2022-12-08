@@ -83,10 +83,6 @@ def FUG_sendcommands(com_port, cmd):
     return responses
 
 
-def FUG_off():
-    serial.Serial('COM8').close()
-
-
 # obj_fug_com ... fug serial object
 # step_size=300 ... in volt
 # step_time=1 step time in seconds : sleep time in seconds

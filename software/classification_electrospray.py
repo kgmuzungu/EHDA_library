@@ -76,7 +76,7 @@ class ElectrosprayClassification:
             sjaak_classification_txt = "Cone Jet"
             if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
                 sjaak_classification_txt = "Cone Jet"
-        # print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
+        print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
 
         return sjaak_classification_txt
 

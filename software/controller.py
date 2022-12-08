@@ -109,10 +109,8 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
             except:
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
-            
 
-
-    else:
-        print("[FUG THREAD] Mode not available")
-
+    # Closing FUG
+    voltage = 0
+    responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
 
