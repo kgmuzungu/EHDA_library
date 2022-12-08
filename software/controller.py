@@ -1,5 +1,6 @@
 
 from FUG_functions import *
+import keyboard
 
 
 def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, feedback_queue):
@@ -99,6 +100,11 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
 
                     fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
                     fug_values_queue.put(fug_values)
+
+                    # EXIT CONTROL SEQUENCE
+                    if keyboard.is_pressed("q"):
+                        print("You pressed q")
+                        finish_event.set()
 
             except:
                 print("[CONTROLLER THREAD] ERROR!")
