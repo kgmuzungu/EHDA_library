@@ -82,14 +82,15 @@ if __name__ == '__main__':
 # # # **************************************
 
     threads = list()
+    fug_values_queue = queue.Queue(maxsize=100)
+    feedback_queue = queue.Queue(maxsize=100)
+    data_queue = queue.Queue(maxsize=100)
+    plotting_data_queue = queue.Queue(maxsize=100)
 
-    
+
     # 
     #           CONTROLLER   ->   Power supply controller thread. 
     #
-
-    fug_values_queue = queue.Queue(maxsize=100)
-    feedback_queue = queue.Queue(maxsize=100)
 
     controller_thread = threading.Thread(target=controller, name='CONTROLLER THREAD',
                                             args=(
@@ -106,8 +107,7 @@ if __name__ == '__main__':
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
     #
 
-    makeVideo_thread = threading.Thread(
-        target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
+    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
     threads.append(makeVideo_thread)
     makeVideo_thread.start()
 
@@ -116,7 +116,6 @@ if __name__ == '__main__':
     #          SENSOR  ->   Data acquisition
     #   
 
-    data_queue = queue.Queue(maxsize=100)
 
     data_acquisition_thread = threading.Thread(
         target=data_acquisition.data_acquisition,
@@ -138,7 +137,6 @@ if __name__ == '__main__':
     #          DATA PROCESSING  ->  data proccessing
     #   
 
-    plotting_data_queue = queue.Queue(maxsize=100)
 
     data_processing_thread = threading.Thread(
         target=data_processing.data_processing,
@@ -164,7 +162,7 @@ if __name__ == '__main__':
     #  
 
     #  plotting is not a thread. It is a function running in a loop in the main.
-    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue, finish_event)
+    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue)
     while not finish_event.is_set():
         plotting.real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
 

@@ -1,24 +1,7 @@
-from simple_pid import PID
-import os
-import re
 import numpy as np
-import json
 import logging
-import pylab
-import numpy as np
-import plotting
-import libtiepie
 from FUG_functions import *
-import configuration_tiepie
-from scipy.signal import butter, lfilter
-from time import gmtime, strftime
-from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
-from validation_electrospray import ElectrosprayValidation
-from classification_electrospray import ElectrosprayClassification
 import matplotlib.pyplot as plt
-
-
-
 
 def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
     # real time plotting loop event for iterable plotting
@@ -70,7 +53,7 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
 
 
 
-def start_plot(plotting_data_queue, finish_event):
+def start_plot(plotting_data_queue):
 
     # wait for first value
     print("[PLOTTING] No values in the plotting_data_queue yet")

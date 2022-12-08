@@ -50,6 +50,8 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
             fug_values_queue.put(fug_values)
             time.sleep(0.5)
 
+        finish_event.set()
+
 
     #             CONTROL SEQUENCE
     elif typeofmeasurement['sequence'] == "control":
