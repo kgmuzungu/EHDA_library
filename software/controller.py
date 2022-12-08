@@ -65,17 +65,18 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
 
             try:
                 if not feedback_queue.empty():
+
                     current_state = feedback_queue.get()
-                    print("[FUG THREAD]:current state: ", current_state)
+                    print("[FUG THREAD] current state: ", current_state)
 
                     # CONTROL ALGORITHM
                     if current_state == "Dripping" or current_state == "Intermittent":
-                        voltage += 100
+                        voltage += 200
                         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                         print("[FUG THREAD] Increasing Voltage")
 
                     elif current_state == "Multi Jet" or current_state == "Corona Sparks":
-                        voltage -= 100
+                        voltage -= 200
                         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                         print("[FUG THREAD] Decreasing voltage")
 
@@ -84,6 +85,15 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
 
                     else:
                         print("[FUG THREAD] current state not known")
+
+
+                    # SAFETY VOLTAGE LIMITS
+                    if voltage > typeofmeasurement['voltage_stop']:
+                        voltage = typeofmeasurement['voltage_stop']
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                    elif voltage < typeofmeasurement['voltage_start']:
+                        voltage = typeofmeasurement['voltage_start']
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
 
                     fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
                     fug_values_queue.put(fug_values)
