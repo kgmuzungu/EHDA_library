@@ -16,14 +16,14 @@
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
-    "save_path": "E:/Joao_01-12-22", 
+    "save_path": "D://Joao_Pedro",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequency": "step",
         "voltage_start": 3000,
         "voltage_stop": 11000,
         "slope": 100000,
-        "step_size": 500,
+        "step_size": 300,
         "step_time": 5
     }
 }

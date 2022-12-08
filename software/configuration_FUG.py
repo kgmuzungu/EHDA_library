@@ -115,12 +115,13 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port, current_state):
+def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port, feedback_queue):
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
     print("[FUG] obj_fug_com: ", obj_fug_com)
     get_voltage_from_PS(obj_fug_com)
+    voltage = typeofmeasurement['voltage_start']
 
     #         DEFINE SEQUENCE MODE
 
@@ -135,7 +136,7 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port, c
         if (get_voltage_from_PS(obj_fug_com) < typeofmeasurement['voltage_start'] or get_voltage_from_PS(obj_fug_com) > typeofmeasurement['voltage_start']):
             time.sleep(typeofmeasurement['step_time'])
 
-        voltage = typeofmeasurement['voltage_start']
+
         while voltage < typeofmeasurement['voltage_stop']:
             responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
             time.sleep(typeofmeasurement['step_time'])
@@ -170,24 +171,42 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port, c
         # make here the control algorithm 
 
         responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
+        current_state = "Dripping"
 
-        while 1: # Control Loop
-            if current_state == ["Dripping"] or current_state == ["Intermittent"]:
+        #  THREAD LOOP
+        while not finish_event.is_set():
+
+            try:
+                if not feedback_queue.empty():
+                    current_state = feedback_queue.get()
+                print('[DATA_ACQUISITION THREAD] got fug_queue data')
+            except:
+                print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
+                sys.exit(1)
+
+            print("[FUG THREAD]:current state: ", current_state)
+
+            if current_state == "Dripping" or current_state == "Intermittent":
                 voltage += 100
                 responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                 fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
                 fug_queue.put(fug_values)
-                print("[FUG THREAD]: put values in fug_queue")
-            elif current_state == ["Multi Jet"] or current_state == ["Corona Sparks"]:
+                print("[FUG THREAD]: Increasing Voltage")
+
+            elif current_state == "Multi Jet" or current_state == "Corona Sparks":
                 voltage -= 100
                 responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                 fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
                 fug_queue.put(fug_values)
-                print("[FUG THREAD]: put values in fug_queue")
-            elif current_state == ["Cone Jet"]:
+                print("[FUG THREAD]: Decreasing voltage")
+
+            elif current_state == "Cone Jet":
                 print("[FUG THREAD]: Stable in Cone Jet")
 
-            time.sleep(1) # control loop delay
+            else:
+                print("[FUG THREAD]:current state not known")
+
+            # time.sleep(1) # control loop delay
             
 
 

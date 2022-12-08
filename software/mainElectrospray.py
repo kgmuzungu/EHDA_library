@@ -88,6 +88,7 @@ if __name__ == '__main__':
     #
 
     fug_queue = queue.Queue(maxsize=100)
+    feedback_queue = queue.Queue(maxsize=100)
 
     fug_power_supply_thread = threading.Thread(target=fug_power_supply, name='Power Supply FUG',
                                             args=(
@@ -95,7 +96,7 @@ if __name__ == '__main__':
                                                 finish_event,
                                                 fug_queue,
                                                 fug_COM_port,
-                                                current_state
+                                                feedback_queue
                                                 ))
     fug_power_supply_thread.start()
 
@@ -150,7 +151,7 @@ if __name__ == '__main__':
             electrospray_classification,
             electrospray_validation,
             Q,
-            current_state
+            feedback_queue
         )
     )
     threads.append(data_processing_thread)

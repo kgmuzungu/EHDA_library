@@ -19,7 +19,7 @@ def data_processing(data_queue,
                     electrospray_classification,
                     electrospray_validation,
                     Q,
-                    current_state
+                    feedback_queue
                     ):
 
 
@@ -95,7 +95,7 @@ def data_processing(data_queue,
                 "Monica": str(classification_monica),
             }
 
-            current_state = str(classification_sjaak)
+            feedback_queue.put(str(classification_sjaak))
 
         except:
             print("[DATA_PROCESSING THREAD] Failed to classify")
