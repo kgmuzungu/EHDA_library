@@ -23,12 +23,12 @@ def data_processing(data_queue,
                     ):
 
 
-    print("[DATA_PROCESSING THREAD] STARTING")
 
     time_step = 1 / sampling_frequency
     sample = 0
 
     # THREAD LOOP
+    print("[DATA_PROCESSING THREAD] starting loop")
     while not finish_event.is_set():
 
         # wait for first value
@@ -38,7 +38,7 @@ def data_processing(data_queue,
         electrospray_data  = data_queue.get()
 
 
-        print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
+        # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
         try:
 
@@ -125,7 +125,7 @@ def data_processing(data_queue,
 
             sample += 1
 
-            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
+            # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
 
         except:

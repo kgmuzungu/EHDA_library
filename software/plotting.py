@@ -25,7 +25,6 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
 
     while not finish_event.is_set() or not plotting_data_queue.empty():
 
-        print('[PLOTTING] plot finish_event')
         message = plotting_data_queue.get()
 
         electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message

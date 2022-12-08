@@ -47,7 +47,7 @@ def data_acquisition(data_queue,
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
-    print("[DATA_ACQUISITION THREAD] No values in the fug_values_queue yet")
+    # print("[DATA_ACQUISITION THREAD] No values in the fug_values_queue yet")
     while fug_values_queue.empty():
         time.sleep(0.1)
 
@@ -55,6 +55,7 @@ def data_acquisition(data_queue,
     sample = 0
 
     #  THREAD LOOP
+    print("[DATA_ACQUISITION THREAD] Starting loop")
     while not finish_event.is_set():
 
         try:
@@ -63,7 +64,7 @@ def data_acquisition(data_queue,
                 voltage_from_PS, current_from_PS, target_voltage = fug_values
 
 
-            print('[DATA_ACQUISITION THREAD] got fug_values_queue data')
+            # print('[DATA_ACQUISITION THREAD] got fug_values_queue data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
@@ -77,7 +78,7 @@ def data_acquisition(data_queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
-            print('[DATA_ACQUISITION THREAD] got tiepie data')
+            # print('[DATA_ACQUISITION THREAD] got tiepie data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
@@ -118,7 +119,7 @@ def data_acquisition(data_queue,
 
             sample += 1
 
-            print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
+            # print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
 
 
         except:
