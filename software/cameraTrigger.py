@@ -41,10 +41,10 @@ def activateTrigger(com_port_idx,finish_event, typeofmeasurement, number_camera_
     #
 
     if com_port.is_open:
-        print("Arduino Port: " + com_ports[com_port_idx].device)
-        print("Arduino Camera Trigger Connected!")
+        print("[CAMERA THREAD] Arduino Port: " + com_ports[com_port_idx].device)
+        print("[CAMERA THREAD] Arduino Camera Trigger Connected!")
     else:
-        print("ERROR: Communication to Arduino/camera failed!")
+        print("[CAMERA THREAD] ERROR: Communication to Arduino/camera failed!")
 
     #  THREAD LOOP
     i = 1
@@ -54,17 +54,17 @@ def activateTrigger(com_port_idx,finish_event, typeofmeasurement, number_camera_
             com_port.flushInput()
             com_port.flushOutput()
             time.sleep(1)
-            print("Camera Trigger", i)
+            print("[CAMERA THREAD] Camera Trigger", i)
             com_port.write(bytes('1', 'utf-8'))
             time.sleep(2)
             # Fazer algoritmo de checar response
             response = com_port.readline()
-            print(response.decode())
+            # print(response.decode())
             i += 1
         else:
-            print("ERROR: Communication to Arduino/camera failed!")
+            print("[CAMERA THREAD] ERROR: Communication to Arduino/camera failed!")
 
-        print()
+        # print()
 
         # fazer algoritmo para determinar frequencia do envio de sinal
         time.sleep(time_between_videos - 3)

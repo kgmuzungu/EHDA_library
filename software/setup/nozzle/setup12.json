@@ -19,7 +19,7 @@
     "save_path": "D://Joao_Pedro",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
-        "sequency": "step",
+        "sequence": "step",
         "voltage_start": 3000,
         "voltage_stop": 11000,
         "slope": 100000,

@@ -1,4 +1,4 @@
-from configuration_FUG import *
+from FUG_functions import *
 from scipy.signal import butter, lfilter
 
 # tiepie params
@@ -12,7 +12,7 @@ FLAG_PLOT = True
 
 def data_processing(data_queue,
                     finish_event,
-                    data_processed_queue,
+                    plotting_data_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
                     array_electrospray_processing,
@@ -121,11 +121,11 @@ def data_processing(data_queue,
 
             # put values in the queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]
-            data_processed_queue.put(message)
+            plotting_data_queue.put(message)
 
             sample += 1
 
-            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in data_processed_queue")
+            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
 
         except:
