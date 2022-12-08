@@ -17,6 +17,8 @@ import json
 import logging
 
 
+state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
+
 
 # # # **************************************
 # # #                 MAIN
@@ -27,6 +29,8 @@ if __name__ == '__main__':
 # # # **************************************
 # # #         INITIAL CONFIGURATION
 # # # **************************************
+
+    current_state = state_machine[0]    
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
@@ -40,7 +44,7 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup12"
+    name_setup = "setup13"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
@@ -90,7 +94,8 @@ if __name__ == '__main__':
                                                 typeofmeasurement,
                                                 finish_event,
                                                 fug_queue,
-                                                fug_COM_port
+                                                fug_COM_port,
+                                                current_state
                                                 ))
     fug_power_supply_thread.start()
 
@@ -145,6 +150,7 @@ if __name__ == '__main__':
             electrospray_classification,
             electrospray_validation,
             Q,
+            current_state
         )
     )
     threads.append(data_processing_thread)

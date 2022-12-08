@@ -115,7 +115,7 @@ def get_current_from_PS(obj_fug_com):
     return float(numbers[0])
 
 
-def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
+def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port, current_state):
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
@@ -123,6 +123,8 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
     get_voltage_from_PS(obj_fug_com)
 
     #         DEFINE SEQUENCE MODE
+
+
 
     if typeofmeasurement['sequency'] == "step":
         """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
@@ -150,6 +152,8 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
 
         print("Responses from step frequency: ", str(responses))
 
+
+
     elif typeofmeasurement['sequency'] == "ramp":
         responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
 
@@ -159,6 +163,35 @@ def fug_power_supply(typeofmeasurement, finish_event, fug_queue, fug_COM_port):
             fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com)]
             fug_queue.put(fug_values)
             time.sleep(0.5)
+
+
+
+    elif typeofmeasurement['sequency'] == "control":
+        # make here the control algorithm 
+
+        responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
+
+        while 1: # Control Loop
+            if current_state == ["Dripping"] or current_state == ["Intermittent"]:
+                voltage += 100
+                responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
+                fug_queue.put(fug_values)
+                print("[FUG THREAD]: put values in fug_queue")
+            elif current_state == ["Multi Jet"] or current_state == ["Corona Sparks"]:
+                voltage -= 100
+                responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
+                fug_queue.put(fug_values)
+                print("[FUG THREAD]: put values in fug_queue")
+            elif current_state == ["Cone Jet"]:
+                print("[FUG THREAD]: Stable in Cone Jet")
+
+            time.sleep(1) # control loop delay
+            
+
+
+
 
     else:
         print("Mode not available")
