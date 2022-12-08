@@ -17,7 +17,7 @@ import configparser
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig, ElectrosprayMeasurements
 from classification_electrospray import ElectrosprayClassification
 # from aux_functions_electrospray import *
-from configuration_FUG import *
+from FUG_functions import *
 import configuration_tiepie
 import configuration_influxDB
 
@@ -117,7 +117,7 @@ FLAG_PLOT = False
 classification_sjaak = ""
 day_measurement = strftime("%a_%d %b %Y", gmtime())
 res = ""
-count_sequency_cone_jet = 0
+count_sequence_cone_jet = 0
 listdir = os.listdir()
 j = 0
 
@@ -180,7 +180,7 @@ with obj_fug_com:
     step_size = 300
     step_time = 4  # 10
 
-    step_sequency_thread = threading.Thread(target=step_sequency, name='step sequency FUG',
+    step_sequence_thread = threading.Thread(target=step_sequence, name='step sequence FUG',
                                             args=(
                                                 obj_fug_com, step_size, step_time, slope, voltage_start,
                                                 voltage_stop))
@@ -193,17 +193,17 @@ with obj_fug_com:
         step_size=0
         step_time=0
 
-        # ramp_sequency(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
-        ramp_sequency_thread = threading.Thread(target=ramp_sequency, name='ramp sequency FUG',
+        # ramp_sequence(obj_fug_com, ramp_slope=slope, voltage_start=voltage_start, voltage_stop=voltage_stop)
+        ramp_sequence_thread = threading.Thread(target=ramp_sequence, name='ramp sequence FUG',
                                                 args=(
                                                     obj_fug_com, slope, voltage_start,
                                                     voltage_stop))
-        ramp_sequency_thread.start()
+        ramp_sequence_thread.start()
 
 
     else:
-        # step_sequency(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
-        step_sequency_thread.start()
+        # step_sequence(obj_fug_com,  step_size=300, step_time=5, step_slope=300, voltage_start=3000, voltage_stop=6000)
+        step_sequence_thread.start()
         txt_mode = "step"
 
     try:
@@ -320,15 +320,15 @@ with obj_fug_com:
 
     # wait until threads finish
     if MODERAMP:
-        ramp_sequency_thread.join()
+        ramp_sequence_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
     else:
-        step_sequency_thread.join()
+        step_sequence_thread.join()
         print(FUG_sendcommands(obj_fug_com, ['U 0']))
 
 
 typeofmeasurement = {
-    "sequency": str(txt_mode),
+    "sequence": str(txt_mode),
     "start": str(voltage_start),
     "stop": str(voltage_stop),
     "slope": str(slope),

@@ -1,4 +1,4 @@
-from configuration_FUG import *
+from FUG_functions import *
 import time
 import re
 

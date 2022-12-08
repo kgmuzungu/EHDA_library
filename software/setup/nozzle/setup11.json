@@ -17,7 +17,7 @@
     "save_config": "True",
     "save_json": "True",
     "typeofmeasurement": {
-        "sequency": "step",
+        "sequence": "step",
         "voltage_start": 3000,
         "voltage_stop": 11000,
         "slope": 100000,

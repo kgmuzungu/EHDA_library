@@ -1,4 +1,4 @@
-from configuration_FUG import *
+from FUG_functions import *
 from scipy.signal import butter, lfilter
 
 # tiepie params
@@ -12,22 +12,23 @@ FLAG_PLOT = True
 
 def data_processing(data_queue,
                     finish_event,
-                    data_processed_queue,
+                    plotting_data_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
                     array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
                     Q,
+                    feedback_queue
                     ):
 
 
-    print("[DATA_PROCESSING THREAD] STARTING")
 
     time_step = 1 / sampling_frequency
     sample = 0
 
     # THREAD LOOP
+    print("[DATA_PROCESSING THREAD] starting loop")
     while not finish_event.is_set():
 
         # wait for first value
@@ -37,7 +38,7 @@ def data_processing(data_queue,
         electrospray_data  = data_queue.get()
 
 
-        print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
+        # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
         try:
 
@@ -94,6 +95,7 @@ def data_processing(data_queue,
                 "Monica": str(classification_monica),
             }
 
+            feedback_queue.put(str(classification_sjaak))
 
         except:
             print("[DATA_PROCESSING THREAD] Failed to classify")
@@ -119,11 +121,11 @@ def data_processing(data_queue,
 
             # put values in the queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]
-            data_processed_queue.put(message)
+            plotting_data_queue.put(message)
 
             sample += 1
 
-            print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in data_processed_queue")
+            # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
 
         except:

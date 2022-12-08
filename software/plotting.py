@@ -8,7 +8,7 @@ import pylab
 import numpy as np
 import plotting
 import libtiepie
-from configuration_FUG import *
+from FUG_functions import *
 import configuration_tiepie
 from scipy.signal import butter, lfilter
 from time import gmtime, strftime
@@ -20,19 +20,18 @@ import matplotlib.pyplot as plt
 
 
 
-def real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
+def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg):
     # real time plotting loop event for iterable plotting
 
-    while not finish_event.is_set() or not data_processed_queue.empty():
+    while not finish_event.is_set() or not plotting_data_queue.empty():
 
-        print('[PLOTTING] plot finish_event')
-        message = data_processed_queue.get()
+        message = plotting_data_queue.get()
 
         electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
         logging.info(
-            "Consumer got message: %s (data_processed_queue size=%d)", message, data_processed_queue.qsize()
+            "Consumer got message: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
             )
-        logging.info("Consumer received data_processed_queue. Exiting")
+        logging.info("Consumer received plotting_data_queue. Exiting")
 
         try:
 
@@ -71,16 +70,16 @@ def real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, b
 
 
 
-def start_plot(data_processed_queue, finish_event):
+def start_plot(plotting_data_queue, finish_event):
 
     # wait for first value
-    print("[PLOTTING] No values in the data_processed_queue yet")
-    while data_processed_queue.empty():
+    print("[PLOTTING] No values in the plotting_data_queue yet")
+    while plotting_data_queue.empty():
         time.sleep(0.1)
 
-    message = data_processed_queue.get()
+    message = plotting_data_queue.get()
 
-    print("[PLOTTING] got values on data_processed_queue")
+    print("[PLOTTING] got values on plotting_data_queue")
 
     electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
 
@@ -88,7 +87,7 @@ def start_plot(data_processed_queue, finish_event):
     plt.ion()
 
     logging.info(
-        "Consumer got: %s (data_processed_queue size=%d)", message, data_processed_queue.qsize()
+        "Consumer got: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
     )
     logging.info("Consumer received event. Exiting")
 

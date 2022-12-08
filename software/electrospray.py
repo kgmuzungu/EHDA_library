@@ -289,10 +289,10 @@ class ElectrosprayDataProcessing:
             if data[i] == max_data:
                 quantity_max_data = quantity_max_data + 1
         percentage_max = (quantity_max_data / 50000) * 100
-        print(max_data)
-        print(quantity_max_data)
-        print(percentage_max)
-        print("*************")
+        # print(max_data)
+        # print(quantity_max_data)
+        # print(percentage_max)
+        # print("*************")
         return max_data, quantity_max_data, percentage_max
 
     def calculate_power_spectral_density(self, data):

@@ -51,19 +51,19 @@ class ElectrosprayClassification:
         # classification for dripping
         # if mean <= 5:
         if self.sjaak_std_mean > 2.5:
-            sjaak_classification_txt = "dripping 1 "
+            sjaak_classification_txt = "Dripping"
             if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
                 # logging.info("Dripping Sjaak")
                 # print("classification dripping confirmed!")
-                sjaak_classification_txt = "dripping"
+                sjaak_classification_txt = "Dripping"
 
         # classification for intermittent
         # if mean > 5:
         if (self.sjaak_std_mean) < 2.5 and self.sjaak_std_mean > 0.5:
             # print("intermittent Sjaak!")
-            sjaak_classification_txt = "intermittent 1"
+            sjaak_classification_txt = "Intermittent"
             if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                sjaak_classification_txt = "intermittent"
+                sjaak_classification_txt = "Intermittent"
 
             # ToDo: check this value different conditions
             """if psd_values.any() > 0.2 and psd_values.any() < 0.75:
@@ -73,10 +73,10 @@ class ElectrosprayClassification:
         # classification for cone-jet
         # if mean > 10:  # ToDo replace absolut value with cone-jet current estimation by laMora/Calvo
         if self.sjaak_std_mean < 0.3:
-            sjaak_classification_txt = "cone jet 1"
+            sjaak_classification_txt = "Cone Jet"
             if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
-                sjaak_classification_txt = "cone jet "
-        print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
+                sjaak_classification_txt = "Cone Jet"
+        # print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
 
         return sjaak_classification_txt
 

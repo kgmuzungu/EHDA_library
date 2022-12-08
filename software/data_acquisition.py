@@ -1,6 +1,6 @@
 import numpy as np
 import libtiepie
-from configuration_FUG import *
+from FUG_functions import *
 import configuration_tiepie
 from time import gmtime, strftime
 from electrospray import ElectrosprayMeasurements
@@ -12,7 +12,7 @@ multiplier_for_nA = 500
 
 
 def data_acquisition(data_queue,
-                     fug_queue,
+                     fug_values_queue,
                      finish_event,
                      voltage_start,
                      liquid,
@@ -47,23 +47,24 @@ def data_acquisition(data_queue,
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
-    print("[DATA_ACQUISITION THREAD] No values in the fug_queue yet")
-    while fug_queue.empty():
+    # print("[DATA_ACQUISITION THREAD] No values in the fug_values_queue yet")
+    while fug_values_queue.empty():
         time.sleep(0.1)
 
     voltage_from_PS = voltage_start
     sample = 0
 
     #  THREAD LOOP
+    print("[DATA_ACQUISITION THREAD] Starting loop")
     while not finish_event.is_set():
 
         try:
-            if not fug_queue.empty():
-                fug_values = fug_queue.get()
+            if not fug_values_queue.empty():
+                fug_values = fug_values_queue.get()
                 voltage_from_PS, current_from_PS, target_voltage = fug_values
 
 
-            print('[DATA_ACQUISITION THREAD] got fug_queue data')
+            # print('[DATA_ACQUISITION THREAD] got fug_values_queue data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
@@ -77,7 +78,7 @@ def data_acquisition(data_queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
-            print('[DATA_ACQUISITION THREAD] got tiepie data')
+            # print('[DATA_ACQUISITION THREAD] got tiepie data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
@@ -118,7 +119,7 @@ def data_acquisition(data_queue,
 
             sample += 1
 
-            print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
+            # print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
 
 
         except:

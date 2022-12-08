@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 from electrospray import ElectrosprayDataProcessing, ElectrosprayConfig
 from validation_electrospray import ElectrosprayValidation
 from classification_electrospray import ElectrosprayClassification
-from configuration_FUG import *
+from FUG_functions import *
+from controller import *
 import cameraTrigger
 import data_acquisition
 import plotting 
@@ -16,6 +17,8 @@ import os
 import json
 import logging
 
+
+state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
 
 
 # # # **************************************
@@ -27,6 +30,8 @@ if __name__ == '__main__':
 # # # **************************************
 # # #         INITIAL CONFIGURATION
 # # # **************************************
+
+    current_state = state_machine[0]    
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
 
@@ -40,7 +45,7 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup12"
+    name_setup = "setup13"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
@@ -80,19 +85,21 @@ if __name__ == '__main__':
 
     
     # 
-    #           FUG   ->   Power supply controller thread. (It will be the future actuator thread.)
+    #           CONTROLLER   ->   Power supply controller thread. 
     #
 
-    fug_queue = queue.Queue(maxsize=100)
+    fug_values_queue = queue.Queue(maxsize=100)
+    feedback_queue = queue.Queue(maxsize=100)
 
-    fug_power_supply_thread = threading.Thread(target=fug_power_supply, name='Power Supply FUG',
+    controller_thread = threading.Thread(target=controller, name='CONTROLLER THREAD',
                                             args=(
                                                 typeofmeasurement,
                                                 finish_event,
-                                                fug_queue,
-                                                fug_COM_port
+                                                fug_values_queue,
+                                                fug_COM_port,
+                                                feedback_queue
                                                 ))
-    fug_power_supply_thread.start()
+    controller_thread.start()
 
 
     #
@@ -106,7 +113,7 @@ if __name__ == '__main__':
 
     
     # 
-    #          DATA ACQUISITION  ->   Data acquisition (it will be the future sensor thread)
+    #          SENSOR  ->   Data acquisition
     #   
 
     data_queue = queue.Queue(maxsize=100)
@@ -115,7 +122,7 @@ if __name__ == '__main__':
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
         args=(data_queue,
-             fug_queue,
+             fug_values_queue,
              finish_event,
              typeofmeasurement['voltage_start'],
              liquid,
@@ -131,20 +138,21 @@ if __name__ == '__main__':
     #          DATA PROCESSING  ->  data proccessing
     #   
 
-    data_processed_queue = queue.Queue(maxsize=100)
+    plotting_data_queue = queue.Queue(maxsize=100)
 
     data_processing_thread = threading.Thread(
         target=data_processing.data_processing,
         name='Data acquisition thread',
         args=(data_queue,
             finish_event,
-            data_processed_queue,
+            plotting_data_queue,
             electrospray_config_liquid_setup_obj,
             electrospray_processing,
             array_electrospray_processing,
             electrospray_classification,
             electrospray_validation,
             Q,
+            feedback_queue
         )
     )
     threads.append(data_processing_thread)
@@ -156,9 +164,9 @@ if __name__ == '__main__':
     #  
 
     #  plotting is not a thread. It is a function running in a loop in the main.
-    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(data_processed_queue, finish_event)
+    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue, finish_event)
     while not finish_event.is_set():
-        plotting.real_time_plot(data_processed_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
+        plotting.real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
 
 
         
@@ -166,11 +174,11 @@ if __name__ == '__main__':
 # # #                EXIT
 # # # **************************************
 
-    fug_power_supply_thread.join()
-    print(print('[POWER SUPPLY THREAD] thread CLOSED!'))
+    controller_thread.join()
+    print('[POWER SUPPLY THREAD] thread CLOSED!')
 
     makeVideo_thread.join()
-    print(print('[MAKE VIDEO THREAD] thread CLOSED!'))
+    print('[MAKE VIDEO THREAD] thread CLOSED!')
 
 
     
