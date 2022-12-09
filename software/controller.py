@@ -40,7 +40,7 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
         print("[FUG THREAD] Responses from step sequence: ", str(responses))
 
 
-#                   RAMP SEQUENCE
+    #            RAMP SEQUENCE
     elif typeofmeasurement['sequence'] == "ramp":
         responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 0', 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
 
@@ -60,6 +60,7 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
 
         responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
         current_state = "Dripping"
+        previous_state = current_state
         fug_values = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage]
         fug_values_queue.put(fug_values)
 
@@ -74,14 +75,16 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
 
                     # CONTROL ALGORITHM
                     if current_state == "Dripping" or current_state == "Intermittent":
-                        voltage += 200
-                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
-                        print("[FUG THREAD] Increasing Voltage")
+                        if previous_state == current_state:
+                            voltage += 200
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Increasing Voltage")
 
                     elif current_state == "Multi Jet" or current_state == "Corona Sparks":
-                        voltage -= 200
-                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
-                        print("[FUG THREAD] Decreasing voltage")
+                        if previous_state == current_state:
+                            voltage -= 200
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Decreasing voltage")
 
                     elif current_state == "Cone Jet":
                         print("[FUG THREAD] Stable in Cone Jet")
@@ -89,6 +92,7 @@ def controller(typeofmeasurement, finish_event, fug_values_queue, fug_COM_port, 
                     else:
                         print("[FUG THREAD] current state not known")
 
+                    previous_state = current_state
 
                     # SAFETY VOLTAGE LIMITS
                     if voltage > typeofmeasurement['voltage_stop']:
