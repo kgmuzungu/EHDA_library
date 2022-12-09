@@ -16,7 +16,7 @@ from scipy.signal import butter, lfilter
 sampling_frequency = 1e5
 
 
-with open("joaoData/" + "data4" + ".json", 'r') as data_file:    
+with open("joaoData/control/" + "data1" + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 data_measurements = pd.json_normalize(data, record_path=['measurements'])
@@ -33,12 +33,12 @@ size = 50000
 last_value = 0
 
 for sample in current_df.index:
-    if current_df['spray mode.Sjaak'][sample] == 'intermittent' or current_df['spray mode.Sjaak'][sample] == 'intermittent 1':
-        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='blue', label='intermittent')
-    elif current_df['spray mode.Sjaak'][sample] == 'cone jet ':
-        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='red', label='cone jet')
-    elif current_df['spray mode.Sjaak'][sample] == 'dripping' or current_df['spray mode.Sjaak'][sample] == 'dripping 1 ':
-        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='green', label='dripping')
+    if current_df['spray mode.Sjaak'][sample] == 'Itermittent':
+        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='blue', label='Intermittent')
+    elif current_df['spray mode.Sjaak'][sample] == 'Cone Jet':
+        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='red', label='Cone Jet')
+    elif current_df['spray mode.Sjaak'][sample] == 'Dripping':
+        plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='green', label='Dripping')
     else:
         plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample], c='black', label='Undefined')
     # plt.plot(np.arange(last_value, last_value + size), current_df['data [nA]'][sample])

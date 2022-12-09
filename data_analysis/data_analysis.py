@@ -17,9 +17,9 @@ from scipy.signal import butter, lfilter
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path1 = "joaoData/experiments_05_12/"
+file_path1 = "joaoData/control/"
 
-file_name1 = "exp1"
+file_name1 = "data1"
 file_name2 = "exp2"
 file_name3 = "exp3"
 file_name4 = "exp4"
@@ -66,11 +66,11 @@ data_window = pd.concat(data_window, axis=1)
 
 colormap = []
 for electro_class in data_window['spray mode.Sjaak']:
-    if electro_class == 'intermittent' or electro_class == 'intermittent 1':
+    if electro_class == 'Intermittent':
         colormap.append('blue')
-    elif electro_class == 'cone jet ':
+    elif electro_class == 'Cone Jet':
         colormap.append('red')
-    elif electro_class == 'dripping' or electro_class == 'dripping 1 ':
+    elif electro_class == 'Dripping':
         colormap.append('green')
     else:
         colormap.append('black')
