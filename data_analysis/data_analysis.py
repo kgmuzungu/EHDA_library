@@ -17,10 +17,10 @@ from scipy.signal import butter, lfilter
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path1 = "joaoData/control/"
+file_path1 = "joaoData/experiments_05_12/"
 
 file_name1 = "data1"
-file_name2 = "data2"
+file_name2 = "exp2"
 file_name3 = "data3"
 file_name4 = "data4"
 file_name5 = "data5"
