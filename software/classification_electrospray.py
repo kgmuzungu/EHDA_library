@@ -71,12 +71,12 @@ class ElectrosprayClassification:
                 #logging.info("************")"""
 
         # classification for cone-jet
-        # if mean > 10:  # ToDo replace absolut value with cone-jet current estimation by laMora/Calvo
-        if self.sjaak_std_mean < 0.3:
-            sjaak_classification_txt = "Cone Jet"
-            if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
+        if mean > 10:  # replace absolut value with cone-jet current estimation by laMora/Calvo
+            if self.sjaak_std_mean < 0.3:
                 sjaak_classification_txt = "Cone Jet"
-        print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
+                if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
+                    sjaak_classification_txt = "Cone Jet"
+            print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
 
         return sjaak_classification_txt
 
