@@ -16,12 +16,14 @@
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
+    "save_path": "C:/Users/hvvhl/Desktop/teste",
+    "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "step",
-        "voltage_start": 3000,
+        "voltage_start": 4000,
         "voltage_stop": 11000,
         "slope": 100000,
-        "step_size": 50,
-        "step_time": 1
+        "step_size": 500,
+        "step_time": 5
     }
 }

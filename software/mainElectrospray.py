@@ -45,7 +45,7 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup13"
+    name_setup = "setup11"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid

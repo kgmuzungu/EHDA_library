@@ -20,7 +20,7 @@
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "control",
-        "voltage_start": 1000,
+        "voltage_start": 4000,
         "voltage_stop": 11000,
         "slope": 100000,
         "step_size": 500,
