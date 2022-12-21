@@ -26,7 +26,6 @@ IN6 Digital input #6
 """
 repeat = "VER"
 
-
 command_sequence = ["00PHN", "00STP", "*BUZ12", "0BUZ12", "00RUN", "00VOL", "00DIR", "00RAT",
                     "00FUN", "00TIM", "00PHN", "00STP"]
 
@@ -44,8 +43,14 @@ command_sequence_defining_step_rate = ["dia 1.3", "al 1", "bp 1", "PF 0", "phase
                                        "fun rat", "rat5uh", "vol1", "00dir", "dir inf",
                                        "phase", "fun rat", "rat5.5uh", "vol 5", "dir inf",
                                        "phase", "fun stp"]
+
+command_sequence = ["00PHN", "00DIA1.3", "00DIA", "00VOL", "00PHN", "*ADR0", "00RATE2.5UH", "00RUN",
+                    "00RAT", "00VOL", "00DIS", "00RAT", "00PHN", "00VOL", "00FUN", "00PHN", "00DIS",
+                    "00VOL", "00PHN", "00DIS", "00RAT", "00VOL", "00STP"]
+
+
 com_port = serial.Serial(
-    port="COM6",  # chosen COM port
+    port="/dev/cu.usbserial-AL00KSTG",  # chosen COM port
     baudrate=19200,  #
     bytesize=serial.EIGHTBITS,  # 8
     parity=serial.PARITY_NONE,  # N
@@ -60,7 +65,7 @@ if com_port.is_open:
     com_port.flushInput()
     com_port.flushOutput()
     print("Opened Port: COM6")
-    for command in command_sequence_defining_step_rate:
+    for command in command_sequence:
         com_port.write((command + '\r\n').encode())
         print("command sending: " + command)
         time.sleep(0.5)
@@ -75,3 +80,7 @@ else:
     print("port not open")
 
 com_port.close()
+
+
+
+
