@@ -48,6 +48,25 @@ command_sequence = ["00PHN", "00DIA1.3", "00DIA", "00VOL", "00PHN", "*ADR0", "00
                     "00RAT", "00VOL", "00DIS", "00RAT", "00PHN", "00VOL", "00FUN", "00PHN", "00DIS",
                     "00VOL", "00PHN", "00DIS", "00RAT", "00VOL", "00STP"]
 
+def set_phase():
+    command = "00PHN"
+    return command
+
+def set_inner_diameter():
+    command = "00DIA1.3"
+    return command
+
+def get_volume():
+    command = "00VOL"
+    return command
+
+def set_flowrate():
+    command = "00RAT1.50MH"
+    return command
+
+def start_pumping():
+    command = "00RUN"
+    return command 
 
 com_port = serial.Serial(
     port="/dev/cu.usbserial-AL00KSTG",  # chosen COM port
