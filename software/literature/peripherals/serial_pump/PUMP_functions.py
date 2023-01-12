@@ -54,54 +54,54 @@ command_sequence = ["00PHN", "00DIA1.3", "00DIA", "00VOL", "00PHN", "*ADR0", "00
 #     command = "*ADR0"
 #     return command
 
-def set_inner_diameter(com_port):
-    command = "00DIA1.3"
+def set_inner_diameter(com_port, dia):
+    command = "DIA" + dia
     com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
+    print("[PUMP] command sending: set inner diameter to " + dia)
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
-    print("response: " + response.decode("utf-8"))
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
 def get_volume(com_port):
-    command = "00VOL"
+    command = "VOL"
     com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
+    print("[PUMP] get volume: " + command)
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
-    print("response: " + response.decode("utf-8"))
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
-def set_flowrate(com_port):
-    command = "00RAT1.50MH"
+def set_flowrate(com_port, fr):
+    command = "RAT" + fr + "MH"
     com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
+    print("[PUMP] command sending: set flowrate to " + fr)
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
-    print("response: " + response.decode("utf-8"))
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
 def start_pumping(com_port):
-    command = "00RUN"
+    command = "RUN"
     com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
+    print("[PUMP] command sending: START")
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
-    print("response: " + response.decode("utf-8"))
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
 def stop_pumping(com_port):
-    command = "00STP"
+    command = "STP"
     com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
+    print("[PUMP] command sending: STOP")
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
-    print("response: " + response.decode("utf-8"))
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
 
@@ -126,9 +126,9 @@ if com_port.is_open:
     print("Opened Port: COM6")
 
 
-    set_inner_diameter(com_port)
+    set_inner_diameter(com_port, "1.3")
     get_volume(com_port)
-    set_flowrate(com_port)
+    set_flowrate(com_port, "1.5")
 
     start_pumping(com_port)
     time.sleep(5)
