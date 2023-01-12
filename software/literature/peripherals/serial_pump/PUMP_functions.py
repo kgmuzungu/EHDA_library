@@ -23,6 +23,21 @@ IN2 Digital input #2
 IN4 Digital input #3
 IN4 Digital input #4 
 IN6 Digital input #6
+
+
+prompt:
+    I W S P T U
+Infusing
+Withdrawing
+Pumping Program Stopped Pumping Program Paused
+Timed Pause Phase
+Operational trigger wait (user wait)
+
+ALARMs:
+    R S T E O
+Pump was reset (power was interrupted) Pump motor stalled
+Safe mode communications time out Pumping Program error
+Pumping Program Phase is out of range
 """
 repeat = "VER"
 
@@ -46,13 +61,26 @@ command_sequence = ["00PHN", "00DIA1.3", "00DIA", "00VOL", "00PHN", "*ADR0", "00
                     "00RAT", "00VOL", "00DIS", "00RAT", "00PHN", "00VOL", "00FUN", "00PHN", "00DIS",
                     "00VOL", "00PHN", "00DIS", "00RAT", "00VOL", "00STP"]
 
-# def set_phase():
-#     command = "00PHN"
-#     return command
 
-# def set_address():
-#     command = "*ADR0"
-#     return command
+
+def set_pump_direction(com_port, dir):
+    """ 
+    DIR 
+    [ INF | WDR | REV | STK ] Set/query pumping direction
+    INF = Infuse
+    WDR = Withdraw
+    REV = Reverse pumping direction
+    STK = “Sticky Direction” (See “Sticky Direction”, sec: .6.8.1)
+    """
+    command = "DIR" + dir
+    com_port.write((command + '\r\n').encode())
+    print("[PUMP] command sending: set inner direction to " + dir)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("[PUMP] response: " + response.decode("utf-8"))
+
+
 
 def set_inner_diameter(com_port, dia):
     command = "DIA" + dia
@@ -74,10 +102,16 @@ def get_volume(com_port):
     print("[PUMP] response: " + response.decode("utf-8"))
 
 
-def set_flowrate(com_port, fr):
-    command = "RAT" + fr + "MH"
+def set_flowrate(com_port, fr, unit):
+    """"
+    UM = μL/min 
+    MM = mL/min
+    UH = μL/hr 
+    MH = mL/hr
+    """
+    command = "RAT" + fr + unit
     com_port.write((command + '\r\n').encode())
-    print("[PUMP] command sending: set flowrate to " + fr)
+    print("[PUMP] command sending: set flowrate to " + fr + unit)
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
@@ -88,6 +122,15 @@ def start_pumping(com_port):
     command = "RUN"
     com_port.write((command + '\r\n').encode())
     print("[PUMP] command sending: START")
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("[PUMP] response: " + response.decode("utf-8"))
+
+def low_motor_noize(com_port):
+    command = "LN1"
+    com_port.write((command + '\r\n').encode())
+    print("[PUMP] command sending: Low Motor Noise")
     time.sleep(0.5)
     response = ''
     response = com_port.readline()
@@ -104,7 +147,27 @@ def stop_pumping(com_port):
     print("[PUMP] response: " + response.decode("utf-8"))
 
 
+def increase_flowrate(com_port):
+    command = "INC"
+    com_port.write((command + '\r\n').encode())
+    print("[PUMP] command sending: increase flowrate")
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("[PUMP] response: " + response.decode("utf-8"))
 
+
+def beep_command(com_port):
+    command = "BUZ1"
+    com_port.write((command + '\r\n').encode())
+    print("[PUMP] command sending: BEP")
+    time.sleep(0.5)
+    command = "BUZ0"
+    com_port.write((command + '\r\n').encode())
+    time.sleep(0.1)
+    response = ''
+    response = com_port.readline()
+    print("[PUMP] response: " + response.decode("utf-8"))
 
 
 
@@ -125,14 +188,18 @@ if com_port.is_open:
     com_port.flushOutput()
     print("Opened Port: COM6")
 
-
-    set_inner_diameter(com_port, "1.3")
+    set_pump_direction(com_port, "INF")
+    set_inner_diameter(com_port, "1.7")
     get_volume(com_port)
-    set_flowrate(com_port, "1.5")
+    set_flowrate(com_port, "1.5", "UM")
+    low_motor_noize(com_port)
 
+    beep_command(com_port)
     start_pumping(com_port)
     time.sleep(5)
+    increase_flowrate(com_port)
     stop_pumping(com_port)
+    beep_command(com_port)
 
 
 else:
