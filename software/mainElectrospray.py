@@ -64,7 +64,7 @@ if __name__ == '__main__':
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
-    Q = electrospray_config_setup["flow_rate"]  # flow rate  uL/h
+    Q = typeofmeasurement["flow_rate"]  
     save_path = electrospray_config_setup["save_path"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
@@ -75,14 +75,14 @@ if __name__ == '__main__':
     #        PORTS
     arduino_COM_port = 0
     fug_COM_port = 4
-
+    pump_COM_port = 5
 
 # # # **************************************
 # # #                THREADS
 # # # **************************************
 
     threads = list()
-    fug_values_queue = queue.Queue(maxsize=100)
+    controller_output_queue = queue.Queue(maxsize=100)
     feedback_queue = queue.Queue(maxsize=100)
     data_queue = queue.Queue(maxsize=100)
     plotting_data_queue = queue.Queue(maxsize=100)
@@ -96,8 +96,9 @@ if __name__ == '__main__':
                                             args=(
                                                 typeofmeasurement,
                                                 finish_event,
-                                                fug_values_queue,
+                                                controller_output_queue,
                                                 fug_COM_port,
+                                                pump_COM_port,
                                                 feedback_queue
                                                 ))
     controller_thread.start()
@@ -121,7 +122,7 @@ if __name__ == '__main__':
         target=data_acquisition.data_acquisition,
         name='Data acquisition thread',
         args=(data_queue,
-             fug_values_queue,
+             controller_output_queue,
              finish_event,
              typeofmeasurement['voltage_start'],
              liquid,
