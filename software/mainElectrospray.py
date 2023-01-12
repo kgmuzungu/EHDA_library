@@ -45,7 +45,7 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup1"
+    name_setup = "setup3"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
-    Q = typeofmeasurement["flow_rate"]  
+    Q = float(typeofmeasurement["flow_rate"])
     save_path = electrospray_config_setup["save_path"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
@@ -82,10 +82,10 @@ if __name__ == '__main__':
 # # # **************************************
 
     threads = list()
-    controller_output_queue = queue.Queue(maxsize=100)
-    feedback_queue = queue.Queue(maxsize=100)
-    data_queue = queue.Queue(maxsize=100)
-    plotting_data_queue = queue.Queue(maxsize=100)
+    controller_output_queue = queue.Queue(maxsize=1000)
+    feedback_queue = queue.Queue(maxsize=1000)
+    data_queue = queue.Queue(maxsize=1000)
+    plotting_data_queue = queue.Queue(maxsize=1000)
 
 
     # 
@@ -124,10 +124,9 @@ if __name__ == '__main__':
         args=(data_queue,
              controller_output_queue,
              finish_event,
-             typeofmeasurement['voltage_start'],
+             typeofmeasurement,
              liquid,
-             array_electrospray_measurements,
-             Q
+             array_electrospray_measurements
         )
     )
     threads.append(data_acquisition_thread)
@@ -150,7 +149,6 @@ if __name__ == '__main__':
             array_electrospray_processing,
             electrospray_classification,
             electrospray_validation,
-            Q,
             feedback_queue
         )
     )
@@ -162,7 +160,7 @@ if __name__ == '__main__':
     #          PLOTTING LOOP  ->    (注意) It's not a Thread 
     #  
 
-    #  plotting is not a thread. It is a function running in a loop in the main.
+     # plotting is not a thread. It is a function running in a loop in the main.
     fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue)
     while not finish_event.is_set():
         plotting.real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
@@ -173,8 +171,9 @@ if __name__ == '__main__':
 # # #                EXIT
 # # # **************************************
 
+
     controller_thread.join()
-    print('[POWER SUPPLY THREAD] thread CLOSED!')
+    print('[CONTROLLER THREAD] thread CLOSED!')
 
     makeVideo_thread.join()
     print('[MAKE VIDEO THREAD] thread CLOSED!')

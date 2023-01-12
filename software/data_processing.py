@@ -18,7 +18,6 @@ def data_processing(data_queue,
                     array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
-                    Q,
                     feedback_queue
                     ):
 
@@ -83,7 +82,7 @@ def data_processing(data_queue,
                                                                         float(max_data), 
                                                                         float(quantity_max_data),
                                                                         float(percentage_max),
-                                                                        float(Q),
+                                                                        float(electrospray_data.flow_rate),
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
@@ -113,7 +112,7 @@ def data_processing(data_queue,
             if current_shape["Sjaak"] == "cone jet" and FLAG_PLOT:
                 electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
 
-                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, Q)
+                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
 
             if append_array_processing:
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()

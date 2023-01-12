@@ -42,7 +42,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         time.sleep(typeofmeasurement['step_time'])
         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
-        print("[FUG THREAD] Responses from step sequence: ", str(responses))
+        # print("[FUG THREAD] Responses from step sequence: ", str(responses))
 
 
     #            RAMP SEQUENCE
@@ -110,7 +110,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         time.sleep(typeofmeasurement['step_time'])
         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
-        print("[FUG THREAD] Responses from MAP sequence: ", str(responses))
+        # print("[FUG THREAD] Responses from MAP sequence: ", str(responses))
 
 
     #             CONTROL SEQUENCE
