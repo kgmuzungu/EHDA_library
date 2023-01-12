@@ -35,8 +35,6 @@ command_sequence_run = ["00PHN", "00STP", "*BUZ12", "0BUZ12", "00RUN", "00VOL", 
 command_sequence_verify_how_much_dispensed = ["00PHN", "00STP", "*BUZ12", "0BUZ12", "00RUN", "00VOL", "00DIR", "00RAT",
                     "00FUN", "00TIM", "00PHN", "00STP"]
 
-command_sequence_stop = ["00STP"]
-
 command_diameter_double_check = ["00dia1.3", "00.dia"] # response should be 00S1.300
 
 command_sequence_defining_step_rate = ["dia 1.3", "al 1", "bp 1", "PF 0", "phase START",
@@ -48,33 +46,68 @@ command_sequence = ["00PHN", "00DIA1.3", "00DIA", "00VOL", "00PHN", "*ADR0", "00
                     "00RAT", "00VOL", "00DIS", "00RAT", "00PHN", "00VOL", "00FUN", "00PHN", "00DIS",
                     "00VOL", "00PHN", "00DIS", "00RAT", "00VOL", "00STP"]
 
-def set_phase():
-    command = "00PHN"
-    return command
+# def set_phase():
+#     command = "00PHN"
+#     return command
 
-def set_address():
-    command = "*ADR0"
-    return command
+# def set_address():
+#     command = "*ADR0"
+#     return command
 
-def set_inner_diameter():
+def set_inner_diameter(com_port):
     command = "00DIA1.3"
-    return command
+    com_port.write((command + '\r\n').encode())
+    print("command sending: " + command)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("response: " + response.decode("utf-8"))
 
-def get_volume():
+
+def get_volume(com_port):
     command = "00VOL"
-    return command
+    com_port.write((command + '\r\n').encode())
+    print("command sending: " + command)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("response: " + response.decode("utf-8"))
 
-def set_flowrate():
+
+def set_flowrate(com_port):
     command = "00RAT1.50MH"
-    return command
+    com_port.write((command + '\r\n').encode())
+    print("command sending: " + command)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("response: " + response.decode("utf-8"))
 
-def start_pumping():
+
+def start_pumping(com_port):
     command = "00RUN"
-    return command 
+    com_port.write((command + '\r\n').encode())
+    print("command sending: " + command)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("response: " + response.decode("utf-8"))
 
-def stop_pumping():
+
+def stop_pumping(com_port):
     command = "00STP"
-    return command 
+    com_port.write((command + '\r\n').encode())
+    print("command sending: " + command)
+    time.sleep(0.5)
+    response = ''
+    response = com_port.readline()
+    print("response: " + response.decode("utf-8"))
+
+
+
+
+
+
 
 com_port = serial.Serial(
     port="/dev/cu.usbserial-AL00KSTG",  # chosen COM port
@@ -86,121 +119,25 @@ com_port = serial.Serial(
 )
 print("name: " + com_port.name)
 
-# time.sleep(10)  # seconds to start the serial monitor
-
 
 if com_port.is_open:
     com_port.flushInput()
     com_port.flushOutput()
     print("Opened Port: COM6")
-    command = set_phase()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
-    time.sleep(0.5)
-
-    command = set_inner_diameter()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
-    time.sleep(0.5)
-
-    command = get_volume()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
-    time.sleep(0.5)
-
-    command = set_address()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
-    time.sleep(0.5)
-
-    command = set_flowrate()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
-    time.sleep(0.5)
-
-    command = start_pumping()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
 
 
+    set_inner_diameter(com_port)
+    get_volume(com_port)
+    set_flowrate(com_port)
 
-    time.sleep(10)
-
-    command = stop_pumping()
-    com_port.write((command + '\r\n').encode())
-    print("command sending: " + command)
-    time.sleep(0.5)
-    response = ''
-    # while com_port.in_waiting > 0:
-    response = com_port.readline()
-    """for x in range(10):
-    response = response + com_port.read().decode()"""
-    print("response: " + response.decode("utf-8"))
+    start_pumping(com_port)
+    time.sleep(5)
+    stop_pumping(com_port)
 
 
 else:
     print("port not open")
 
-
-# if com_port.is_open:
-#     com_port.flushInput()
-#     com_port.flushOutput()
-#     print("Opened Port: COM6")
-#     for command in command_sequence:
-#         com_port.write((command + '\r\n').encode())
-#         print("command sending: " + command)
-#         time.sleep(0.5)
-#         response = ''
-#         # while com_port.in_waiting > 0:
-#         response = com_port.readline()
-#         """for x in range(10):
-#         response = response + com_port.read().decode()"""
-#         print("response: " + response.decode("utf-8"))
-#         time.sleep(0.5)
-# else:
-#     print("port not open")
 
 com_port.close()
 
