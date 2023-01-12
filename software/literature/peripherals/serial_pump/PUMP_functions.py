@@ -38,6 +38,13 @@ ALARMs:
 Pump was reset (power was interrupted) Pump motor stalled
 Safe mode communications time out Pumping Program error
 Pumping Program Phase is out of range
+
+ERROR:
+    ? Command is not recognized (“?” only)
+    NA Command is not currently applicable
+    OOR Command data is out of range
+    COM Invalid communications packet received
+    IGN Command ignored due to a simultaneous new Phase start
 """
 repeat = "VER"
 
@@ -148,7 +155,7 @@ def stop_pumping(com_port):
 
 
 def increase_flowrate(com_port):
-    command = "INC"
+    command = "INC0.1"
     com_port.write((command + '\r\n').encode())
     print("[PUMP] command sending: increase flowrate")
     time.sleep(0.5)
@@ -191,13 +198,25 @@ if com_port.is_open:
     set_pump_direction(com_port, "INF")
     set_inner_diameter(com_port, "1.7")
     get_volume(com_port)
-    set_flowrate(com_port, "1.5", "UM")
     low_motor_noize(com_port)
 
+    set_flowrate(com_port, "1.5", "UM")
     beep_command(com_port)
     start_pumping(com_port)
     time.sleep(5)
-    increase_flowrate(com_port)
+
+    stop_pumping(com_port)
+    set_flowrate(com_port, "0.5", "UM")
+    beep_command(com_port)
+    start_pumping(com_port)
+    time.sleep(5)
+
+    stop_pumping(com_port)
+    set_flowrate(com_port, "2.5", "UM")
+    beep_command(com_port)
+    start_pumping(com_port)
+    time.sleep(5)
+
     stop_pumping(com_port)
     beep_command(com_port)
 
