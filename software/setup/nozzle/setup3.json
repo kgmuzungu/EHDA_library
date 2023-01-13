@@ -19,11 +19,11 @@
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "map",
-        "voltage_start": 4000,
+        "voltage_start": 3000,
         "voltage_stop": 11000,
         "slope": 100000,
         "step_size": 200,
         "step_time": 3,
-        "flow_rate": "1.5"
+        "flow_rate": 1.5
     }
 }

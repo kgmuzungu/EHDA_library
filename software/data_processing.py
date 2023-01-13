@@ -37,7 +37,7 @@ def data_processing(data_queue,
         electrospray_data  = data_queue.get()
 
 
-        # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
+        print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
         try:
 
@@ -82,7 +82,7 @@ def data_processing(data_queue,
                                                                         float(max_data), 
                                                                         float(quantity_max_data),
                                                                         float(percentage_max),
-                                                                        float(electrospray_data.flow_rate),
+                                                                        electrospray_data.flow_rate,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
