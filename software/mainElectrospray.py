@@ -73,9 +73,9 @@ if __name__ == '__main__':
     print('flowrate cm3/s: ', Q)
 
     #        PORTS
-    arduino_COM_port = 0
-    fug_COM_port = 4
-    pump_COM_port = 5
+    arduino_COM_port = 1
+    fug_COM_port = 5
+    pump_COM_port = 0
 
 # # # **************************************
 # # #                THREADS
@@ -108,9 +108,9 @@ if __name__ == '__main__':
     #           VIDEO   ->   Camera trigger thread using arduino microcontroller
     #
 
-    makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
-    threads.append(makeVideo_thread)
-    makeVideo_thread.start()
+    # makeVideo_thread = threading.Thread(target=cameraTrigger.activateTrigger, name='video reccording thread', args=(arduino_COM_port, finish_event, typeofmeasurement, number_camera_partitions))
+    # threads.append(makeVideo_thread)
+    # makeVideo_thread.start()
 
     
     # 
@@ -175,8 +175,8 @@ if __name__ == '__main__':
     controller_thread.join()
     print('[CONTROLLER THREAD] thread CLOSED!')
 
-    makeVideo_thread.join()
-    print('[MAKE VIDEO THREAD] thread CLOSED!')
+    # makeVideo_thread.join()
+    # print('[MAKE VIDEO THREAD] thread CLOSED!')
 
 
     

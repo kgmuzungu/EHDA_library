@@ -55,14 +55,6 @@ def PUMP_initialize(com_port_idx):
     no_com_ports = len(com_ports)
 
     if no_com_ports > 0:
-        print("Total no. of available COM ports: " + str(no_com_ports))
-        # show all available COM ports
-        for idx, curr in enumerate(com_ports):
-            print("  " + str(idx) + ".)  " + curr.description)
-
-        if com_port_idx > no_com_ports or com_port_idx < 0:
-            print("[PUMP] Incorrect value for COM port! Enter a Number (0 - " + str(no_com_ports - 1) + ")")
-            return None
 
         # configure the COM port to talk to. Default values: 115200,8,N,1
         com_port = serial.Serial(
