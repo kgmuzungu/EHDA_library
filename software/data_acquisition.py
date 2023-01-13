@@ -63,7 +63,7 @@ def data_acquisition(data_queue,
                 controller_output = controller_output_queue.get()
                 voltage_from_PS, current_from_PS, target_voltage, flow_rate = controller_output
 
-            print('[DATA_ACQUISITION THREAD] got controller_output_queue data')
+            # print('[DATA_ACQUISITION THREAD] got controller_output_queue data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get controller_output_queue!")
@@ -77,7 +77,7 @@ def data_acquisition(data_queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
-            print('[DATA_ACQUISITION THREAD] got tiepie data')
+            # print('[DATA_ACQUISITION THREAD] got tiepie data')
 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")

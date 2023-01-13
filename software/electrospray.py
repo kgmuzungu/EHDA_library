@@ -168,7 +168,7 @@ class ElectrosprayMeasurements:
         return self.flow_rate
 
     def get_measurements(self):
-        return self.name, self.voltage, self.data, self.impedance, self.temperature, self.humidity, self.current, self.shape_current, self.flow_rate, self.target_voltage
+        return self.name, self.data, self.voltage,  self.flow_rate, self.impedance, self.temperature, self.humidity, self.current, self.shape_current, self.target_voltage
 
     def set_data(self, data_update):
         self.data = data_update  # array nA

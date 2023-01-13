@@ -37,7 +37,7 @@ def data_processing(data_queue,
         electrospray_data  = data_queue.get()
 
 
-        print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
+        # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
         try:
 
@@ -77,6 +77,12 @@ def data_processing(data_queue,
                                                                         electrospray_processing.psd_welch,
                                                                         electrospray_processing.variance
                                                                         )
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to sjaak classify")
+            sys.exit(1)
+
+        try:
+
 
             classification_monica = electrospray_classification.do_monica(
                                                                         float(max_data), 
@@ -86,6 +92,14 @@ def data_processing(data_queue,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
+
+
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to monica classify")
+            sys.exit(1)
+
+        try:
+
             txt_sjaak_str = str(classification_sjaak)
             txt_monica_str = str(classification_monica)
 
@@ -95,12 +109,6 @@ def data_processing(data_queue,
             }
 
             feedback_queue.put(str(classification_sjaak))
-
-        except:
-            print("[DATA_PROCESSING THREAD] Failed to classify")
-            sys.exit(1)
-
-        try:
 
             electrospray_processing.set_shape(current_shape)
 
@@ -120,9 +128,11 @@ def data_processing(data_queue,
 
             # put values in the queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]
-            plotting_data_queue.put(message)
+            # plotting_data_queue.put(message)
 
             sample += 1
+
+            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", txt_sjaak_str)
 
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
