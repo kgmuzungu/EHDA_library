@@ -74,7 +74,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = ["1.5", "2.5", "3.5"]
+        flow_rate = ["0.5", "0.7", "0.9", "1.1", "1.3", "1.5", "1.7", "1.9"]
 
         for fr in flow_rate:
             print("\n Starting experiment with flowrate:", fr)
