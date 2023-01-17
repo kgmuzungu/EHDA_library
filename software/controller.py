@@ -83,8 +83,9 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
             beep_command(obj_pump_com)
             while voltage < typeofmeasurement['voltage_stop']:
                 responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
-                time.sleep(typeofmeasurement['step_time'])
+                time.sleep(typeofmeasurement['step_time']/2)
                 controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
+                time.sleep(typeofmeasurement['step_time']/2)
                 voltage += typeofmeasurement['step_size']
                 controller_output_queue.put(controller_output)
                 # print("[FUG THREAD] put values in controller_output_queue")

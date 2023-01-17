@@ -30,16 +30,6 @@ with open(file_path + file_name + ".json", 'r') as data_file:
 ######################################
 
 
-print("\ndata_sample\n")
-data_sample = pd.json_normalize(
-    data['measurements'], 
-    record_path = ["data [nA]"], 
-    record_prefix ='data-',
-    meta = ["name", "flow rate [m3/s]", "voltage", "current PS", "temperature", "humidity", "target voltage"]
-)
-print(data_sample.info())
-
-
 print("\data_window\n")
 measurements_data_window = pd.json_normalize(data['measurements'])
 processing_data_window = pd.json_normalize(data['processing'])
@@ -110,48 +100,26 @@ def onpick(event):
 #              PLOTTING
 ######################################
 
-#Oscilloscope data
-fig, axs = plt.subplots(2, 1)
-plt.title(file_name)
+fig, axs = plt.subplots(3, 1)
+
 axs[0].set(ylabel='ccurent nA')
-axs[0].plot(data_sample.index/sampling_frequency, data_sample['data-0'])
+axs[0].plot(data_window['data [nA]'].explode())
 axs[0].grid()
 
 axs[1].set(ylabel='voltage (V)')
-axs[1].set_yticks(np.arange(0, 7500, 10))
-axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
+axs[1].set_yticks(np.arange(0, 7500, 500))
+axs[1].scatter(data_window.index, data_window['target voltage'], color=data_window['colormap'])
 axs[1].grid()
+
+axs[2].set(ylabel='mean')
+axs[2].set_ylim(0, 300)
+axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
+axs[2].grid()
+
+fig.canvas.mpl_connect('button_press_event', onpick)
+
+plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
 plt.show()
-
-# # Other data
-# fig, axs = plt.subplots(5, 1)
-
-# axs[0].set(ylabel='ccurent nA')
-# axs[0].plot((data_sample.index/sampling_frequency)/60, data_sample['data-0'])
-# axs[0].grid()
-
-# axs[1].set(ylabel='voltage (V)')
-# axs[1].set_yticks(np.arange(0, 5000, 10))
-# axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
-# axs[1].grid()
-
-# axs[2].set(ylabel='mean')
-# axs[2].set_ylim(0, 300)
-# axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
-# axs[2].grid()
-
-# axs[3].set(ylabel='median')
-# axs[3].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
-# axs[3].grid()
-
-# axs[4].set(ylabel='deviation')
-# axs[4].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
-# axs[4].grid()
-
-# fig.canvas.mpl_connect('button_press_event', onpick)
-
-# plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
-# plt.show()
 
 
 
