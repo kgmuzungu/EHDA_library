@@ -238,7 +238,7 @@ if __name__ == '__main__':
             # voltage = str(voltage) + 'V'
             if electrospray_config_setup["save_json"]:
                 # arbitrary, defined in the header
-                file_name = name_liquid + '_step_size_' + str(typeofmeasurement['step_size']) + "_step_time_" + str(typeofmeasurement['step_time']) +  ".json"
+                file_name = name_liquid + '_step_size_' + str(typeofmeasurement['step_size']) + "_step_time_" + str(typeofmeasurement['step_time']) + ".json"
                 completeName = os.path.join(save_path, file_name)
 
                 with open(completeName, 'w') as file:

@@ -99,7 +99,7 @@ def data_acquisition(data_queue,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
         except:
-            print("[DATA_ACQUISITION THREAD] Failed to EsctrosprayMeasurements")
+            print("[DATA_ACQUISITION THREAD] Failed to ElectrosprayMeasurements")
             sys.exit(1)
 
         try:

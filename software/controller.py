@@ -74,17 +74,17 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = [1.5, 2.5, 3.5]
+        flow_rate = ["1.5", "2.5", "3.5"]
 
         for fr in flow_rate:
             print("\n Starting experiment with flowrate:", fr)
-            set_flowrate(obj_pump_com, str(fr), "UM")
+            set_flowrate(obj_pump_com, fr, "UM")
             start_pumping(obj_pump_com)
             beep_command(obj_pump_com)
             while voltage < typeofmeasurement['voltage_stop']:
                 responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                 time.sleep(typeofmeasurement['step_time'])
-                controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+                controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
                 voltage += typeofmeasurement['step_size']
                 controller_output_queue.put(controller_output)
                 # print("[FUG THREAD] put values in controller_output_queue")

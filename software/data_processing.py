@@ -128,7 +128,7 @@ def data_processing(data_queue,
 
             # put values in the queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]
-            # plotting_data_queue.put(message)
+            plotting_data_queue.put(message)
 
             sample += 1
 
