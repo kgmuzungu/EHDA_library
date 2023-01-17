@@ -1,0 +1,81 @@
+% Monografia para Projeto de Fim de Curso - Exemplo no LaTeX
+%-----------------------------------------------------------
+
+
+%---------------Inicialização de pacotes--------------------
+
+\documentclass[12pt,a4paper,notitlepage,twoside]{book}
+
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+%\usepackage[latin1]{inputenc} %%pode ser necessário trocar a codificação em sistemas Windows
+\usepackage[brazil]{babel}		%%pode ser necessário trocar o pacote de línguas em algumas distribuições LateX
+%\usepackage[portuguese]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm,amsfonts}
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{abntex2abrev}
+%\usepackage[alf]{abntex2cite} %se você quiser seguir as normas ABNT no sistema autor-data
+%\usepackage[num]{abntex2cite} %se você quiser seguir as normas ABNT no sistema numérico
+\usepackage{setspace}
+\usepackage[toc,page]{appendix}
+
+%Definindo fonte Times (Use os pacotes obsoletos se não conseguir instalar os atualizados)
+%\usepackage{times}     %Pacote de fontes obsoleto, apenas texto
+%usepackage{mathptmx}  %Pacote de fontes obsoleto, texto e símbolos matemáticos
+%\usepackage{newtxtext,newtxmath}  %Pacotes de fontes mais recentes
+
+\usepackage[a4paper,top=30mm,bottom=30mm,inner=30mm,outer=25mm,headheight=7mm,headsep=6mm,footskip=7mm]{geometry}
+\usepackage{enumerate}
+
+\makeindex
+
+%\singlespacing   %%espaçamento simples
+%\onehalfspacing
+%\setstretch{1.03} %%um pouco melhor que espaçamento simples
+\linespread{1.25} %corresponde ao espaçamento 1.5 do MS Word
+
+%---------------Início do documento-------------------------
+
+\begin{document}
+
+\include{Capa/capa}
+
+\pagenumbering{roman}
+\include{Resumo/Resumo}
+\include{Resumo/Abstract}
+\include{Agradecimentos/Agradecimentos}
+\include{TabelaConteudo/TabelaConteudo}
+\include{ListaFiguras/ListaFiguras}
+\include{ListaTabelas/ListaTabelas}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{Introducao/Introducao}
+\include{DescricaoProcesso/DescricaoProcesso}
+\include{Metodologia/Metodologia}
+\include{Resultados/Resultados}
+\include{Conclusao/Conclusao}
+
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\renewcommand{\bibname}{Referências Bibliográficas}
+
+%\bibliographystyle{abntex2-alf} %para norma ABNT no sistema autor-data
+\bibliographystyle{abntex2-num}
+\begin{small}
+\bibliography{ListadeReferencias}%,library}
+%\input{Monografia.bbl}
+\end{small}
+
+%\begin{appendices}
+\appendix
+\include{Apendices/ApendiceA}
+\include{Apendices/ApendiceB}
+%\end{appendices}
+
+\end{document}
+
+%---------------Fim do documento----------------------------

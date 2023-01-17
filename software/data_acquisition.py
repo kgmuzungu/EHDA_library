@@ -12,12 +12,11 @@ multiplier_for_nA = 500
 
 
 def data_acquisition(data_queue,
-                     fug_values_queue,
+                     controller_output_queue,
                      finish_event,
-                     voltage_start,
+                     typeofmeasurement,
                      liquid,
-                     array_electrospray_measurements,
-                     Q
+                     array_electrospray_measurements
                      ):
 
 
@@ -47,11 +46,12 @@ def data_acquisition(data_queue,
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
-    # print("[DATA_ACQUISITION THREAD] No values in the fug_values_queue yet")
-    while fug_values_queue.empty():
+    # print("[DATA_ACQUISITION THREAD] No values in the controller_output_queue yet")
+    while controller_output_queue.empty():
         time.sleep(0.1)
 
-    voltage_from_PS = voltage_start
+    voltage_from_PS = typeofmeasurement['voltage_start']
+    flow_rate = typeofmeasurement['flow_rate']
     sample = 0
 
     #  THREAD LOOP
@@ -59,15 +59,14 @@ def data_acquisition(data_queue,
     while not finish_event.is_set():
 
         try:
-            if not fug_values_queue.empty():
-                fug_values = fug_values_queue.get()
-                voltage_from_PS, current_from_PS, target_voltage = fug_values
+            if not controller_output_queue.empty():
+                controller_output = controller_output_queue.get()
+                voltage_from_PS, current_from_PS, target_voltage, flow_rate = controller_output
 
-
-            # print('[DATA_ACQUISITION THREAD] got fug_values_queue data')
+            # print('[DATA_ACQUISITION THREAD] got controller_output_queue data')
 
         except:
-            print("[DATA_ACQUISITION THREAD] Failed to get FUG values!")
+            print("[DATA_ACQUISITION THREAD] Failed to get controller_output_queue!")
             sys.exit(1)
 
         try:
@@ -96,11 +95,11 @@ def data_acquisition(data_queue,
 
         try:
 
-            electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, Q, temperature,
+            electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, flow_rate, temperature,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
         except:
-            print("[DATA_ACQUISITION THREAD] Failed to EsctrosprayMeasurements")
+            print("[DATA_ACQUISITION THREAD] Failed to ElectrosprayMeasurements")
             sys.exit(1)
 
         try:

@@ -18,7 +18,6 @@ def data_processing(data_queue,
                     array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
-                    Q,
                     feedback_queue
                     ):
 
@@ -78,15 +77,29 @@ def data_processing(data_queue,
                                                                         electrospray_processing.psd_welch,
                                                                         electrospray_processing.variance
                                                                         )
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to sjaak classify")
+            sys.exit(1)
+
+        try:
+
 
             classification_monica = electrospray_classification.do_monica(
                                                                         float(max_data), 
                                                                         float(quantity_max_data),
                                                                         float(percentage_max),
-                                                                        float(Q),
+                                                                        electrospray_data.flow_rate,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
+
+
+        except:
+            print("[DATA_PROCESSING THREAD] Failed to monica classify")
+            sys.exit(1)
+
+        try:
+
             txt_sjaak_str = str(classification_sjaak)
             txt_monica_str = str(classification_monica)
 
@@ -96,12 +109,6 @@ def data_processing(data_queue,
             }
 
             feedback_queue.put(str(classification_sjaak))
-
-        except:
-            print("[DATA_PROCESSING THREAD] Failed to classify")
-            sys.exit(1)
-
-        try:
 
             electrospray_processing.set_shape(current_shape)
 
@@ -113,7 +120,7 @@ def data_processing(data_queue,
             if current_shape["Sjaak"] == "cone jet" and FLAG_PLOT:
                 electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
 
-                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, Q)
+                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
 
             if append_array_processing:
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
@@ -124,6 +131,8 @@ def data_processing(data_queue,
             plotting_data_queue.put(message)
 
             sample += 1
+
+            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", txt_sjaak_str)
 
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 

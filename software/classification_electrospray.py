@@ -76,35 +76,39 @@ class ElectrosprayClassification:
                 sjaak_classification_txt = "Cone Jet"
                 if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
                     sjaak_classification_txt = "Cone Jet"
-            print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
+            # print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
 
         return sjaak_classification_txt
 
     @staticmethod
-    def do_monica(max_value_of_the_data, quantity_max_data, percentage_max, flow_rate, fft_max_peaks_array,
-                  cont_fft_max_peaks):
-        # todo: use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
+    def do_monica(max_value_of_the_data, quantity_max_data, percentage_max, flow_rate, fft_max_peaks_array, cont_fft_max_peaks):
+        # use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
         # PEAKS SIGNAL
         # print("****************** MAX = " + str(max_value_of_the_data))
-        if float(max_value_of_the_data) >= 900.0:
-            if (flow_rate / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
-                if float(max_value_of_the_data)>= 2000.0:
-                    return "streamer onset"
-                if percentage_max >= 0.0001:
-                    return "streamer onset"
-                if quantity_max_data >= 5.0:
-                    return "streamer onset"
+        try:
+            if float(max_value_of_the_data) >= 900.0:
+                if (float(flow_rate) / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
+                    if float(max_value_of_the_data)>= 2000.0:
+                        return "streamer onset"
+                    if percentage_max >= 0.0001:
+                        return "streamer onset"
+                    if quantity_max_data >= 5.0:
+                        return "streamer onset"
 
-            if (flow_rate / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
-                if float(max_value_of_the_data)>= 2000.0:
-                    return "streamer onset"
-                if percentage_max >= 0.5:
-                    return "streamer onset"
-                if quantity_max_data >= 10.0:
-                    return "streamer onset"
 
-        else:
-            return "no streamer onset"
+                if (float(flow_rate) / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
+                    if float(max_value_of_the_data)>= 2000.0:
+                        return "streamer onset"
+                    if percentage_max >= 0.5:
+                        return "streamer onset"
+                    if quantity_max_data >= 10.0:
+                        return "streamer onset"
+
+            else:
+                return "no streamer onset"
+        except:
+            print("Error on monica classification")
+            return "Undefined"
 
         # PEAKS FFT
         # fft_max_peaks_array has info about the frequency and amplitude
