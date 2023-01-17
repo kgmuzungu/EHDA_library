@@ -18,7 +18,7 @@ sampling_frequency = 1e5
 
 file_path = "joaoData/mapping/"
 
-file_name = "map2"
+file_name = "map1"
 
 
 with open(file_path + file_name + ".json", 'r') as data_file:    
@@ -36,6 +36,8 @@ processing_data_window = pd.json_normalize(data['processing'])
 data_window = [measurements_data_window, processing_data_window]
 data_window = pd.concat(data_window, axis=1)
 
+colors = {'Cone Jet':'red', 'Dripping':'green', 'Intermittent':'blue', 'Multi Jet':'purple', 'Undefined':'black', 'Corona':'cyan'}
+
 colormap = []
 for electro_class in data_window['spray mode.Sjaak']:
     if electro_class == 'Intermittent':
@@ -44,6 +46,12 @@ for electro_class in data_window['spray mode.Sjaak']:
         colormap.append('red')
     elif electro_class == 'Dripping':
         colormap.append('green')
+    elif electro_class == 'Multi Jet':
+        colormap.append('purple')
+    elif electro_class == 'Corona':
+        colormap.append('cyan')
+    elif electro_class == 'Undefined':
+        colormap.append('black')
     else:
         colormap.append('black')
 
@@ -51,7 +59,7 @@ for electro_class in data_window['spray mode.Sjaak']:
 sampleIndex = 0
 for monica_class in data_window['spray mode.Monica']:
     if monica_class == 'streamer onset':
-        colormap[sampleIndex] = 'purple'
+        colormap[sampleIndex] = 'cyan'
     sampleIndex+=1
 
 
@@ -96,29 +104,41 @@ def onpick(event):
 
 
 
+# ######################################
+# #              PLOTTING
+# ######################################
+
+# fig, axs = plt.subplots(3, 1)
+
+# axs[0].set(ylabel='ccurent nA')
+# axs[0].plot(data_window['data [nA]'].explode())
+# axs[0].grid()
+
+# axs[1].set(ylabel='voltage (V)')
+# axs[1].set_yticks(np.arange(0, 7500, 500))
+# axs[1].scatter(data_window.index, data_window['target voltage'], color=data_window['colormap'])
+# axs[1].grid()
+
+# axs[2].set(ylabel='mean')
+# axs[2].set_ylim(0, 300)
+# axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
+# axs[2].grid()
+
+# fig.canvas.mpl_connect('button_press_event', onpick)
+
+# plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
+# plt.show()
+
+
 ######################################
-#              PLOTTING
+#              PLOTTING  2
 ######################################
 
-fig, axs = plt.subplots(3, 1)
-
-axs[0].set(ylabel='ccurent nA')
-axs[0].plot(data_window['data [nA]'].explode())
-axs[0].grid()
-
-axs[1].set(ylabel='voltage (V)')
-axs[1].set_yticks(np.arange(0, 7500, 500))
-axs[1].scatter(data_window.index, data_window['target voltage'], color=data_window['colormap'])
-axs[1].grid()
-
-axs[2].set(ylabel='mean')
-axs[2].set_ylim(0, 300)
-axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
-axs[2].grid()
-
-fig.canvas.mpl_connect('button_press_event', onpick)
-
-plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
+data_window['flow rate [m3/s]'] = data_window['flow rate [m3/s]'].astype(float)
+plt.scatter(data_window['flow rate [m3/s]'], data_window['target voltage'], color=data_window['colormap'])
+plt.ylabel('Voltage [V]')
+plt.xlabel('Flow Rate [uL/min]')
+plt.title("colors = {'Cone Jet':'red', 'Dripping':'green', 'Intermittent':'blue', 'Multi Jet':'purple', 'Undefined':'black', 'Corona':'cyan'}")
 plt.show()
 
 
