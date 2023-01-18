@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1674047502 "main.bcf" "main.bbl" "main" 1674047576 0
+["biber main"] 1674047502 "main.bcf" "main.bbl" "main" 1674050873 0
   "./refs.bib" 1674046975 5179 437f565498b62d00e9ee3b5b36f5f5b0 ""
-  "main.bcf" 1674047576 107244 6e87c3124c2da16bb7314617c6ca5912 "pdflatex"
+  "main.bcf" 1674050872 107244 6e87c3124c2da16bb7314617c6ca5912 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1674047575 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1674047576 0
+["pdflatex"] 1674050870 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1674050873 0
   "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" 1674046975 728 814773c4de5fc270516829d8bd87cd65 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -97,15 +97,21 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1673438091 7874850 71c0f59ed8572e3f77b2c5c3302d6e42 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "Conclusion/Conclusion.tex" 1674046975 1254 3f4bae60d3aaad022f8ed295d8c1d1d0 ""
-  "Development/Development.tex" 1674047482 8245 6a4db2748eb67e4f2532fbbbe1fe182b ""
-  "Summary/Summary.tex" 1674047502 3567 c2e12c27e0d4521898e98c08a99ef915 ""
-  "front_cover/front_cover.tex" 1674047575 1201 b8de2d7cb802a6e3923999c2220989b9 ""
+  "Development/Development.tex" 1674050870 10134 c20c949072e660d875464c005ce955a1 ""
+  "Summary/Summary.tex" 1674049115 3806 73d9efebe61e38b317bf9e63d691f15f ""
+  "front_cover/front_cover.tex" 1674047906 1197 d90cf5ddf8b20d4be5e4723fde419903 ""
   "images/brasao_ufmg.png" 1674046975 9941 338739bbae18cb898c0bf2526869ace0 ""
   "images/electrospray.png" 1674046975 119110 c66186ceeb53abbfc46a8f68e3351b66 ""
-  "main.aux" 1674047576 16720 4c043257400727f55a69f4407b43819a "pdflatex"
+  "images/map1.png" 1673965785 988110 23c5d2d4021a02c8c4a08e91e1dd7d7a ""
+  "images/map2.png" 1673965734 982621 671335d22cb04ecc2da3714805977af8 ""
+  "images/map2Data.png" 1673964648 1326021 38015e212d71fb16c92615774636d4f5 ""
+  "images/software-design.png" 1674047340 112770 45a17f0fec03c7e7cd78d4abd43fd2cf ""
+  "images/system-design.png" 1674047365 135442 ae9707a67b458481bd25c1b6b6360da8 ""
+  "images/system_setup.png" 1674046975 137225 9caf83d4284e4c17b948e814d76242b6 ""
+  "main.aux" 1674050872 17699 12c6827dd92c72b91243481747cbffe5 "pdflatex"
   "main.bbl" 1674047505 2613 86031090e9a52d30b89b14b918a03a4a "biber main"
-  "main.out" 1674047576 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
-  "main.run.xml" 1674047576 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
+  "main.out" 1674050872 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
+  "main.run.xml" 1674050872 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
   "main.tex" 1674046975 728 814773c4de5fc270516829d8bd87cd65 ""
   (generated)
   "main.aux"
