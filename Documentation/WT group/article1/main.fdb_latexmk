@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1673969443 "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" "main.pdf" "main" 1673969443 0
-  "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" 1673969441 20095 21ddb6a4c91d179a7d84a38bf0f916d8 ""
+["pdflatex"] 1674052669 "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" "main.pdf" "main" 1674052670 0
+  "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" 1674052668 18487 f9fb0e75f00a8fbe0f045e7329407066 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -134,9 +134,9 @@
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "images/figur1.PNG" 1673952226 54779 5576d8f7b2ee1a9052606efeef51c2f1 ""
   "images/figur2.PNG" 1673952226 129447 868eb4424c3663800ffdad709f6ce425 ""
-  "main.aux" 1673969443 3819 9e1899dd2cc7ee2737da11842703a316 "pdflatex"
-  "main.out" 1673969443 1747 e1fb705524935710d6e356f1b8baf7cf "pdflatex"
-  "main.tex" 1673969441 20095 21ddb6a4c91d179a7d84a38bf0f916d8 ""
+  "main.aux" 1674052670 3801 c06886f131e17451829209534355c19e "pdflatex"
+  "main.out" 1674052670 1747 e1fb705524935710d6e356f1b8baf7cf "pdflatex"
+  "main.tex" 1674052668 18487 f9fb0e75f00a8fbe0f045e7329407066 ""
   (generated)
   "main.aux"
   "main.log"
