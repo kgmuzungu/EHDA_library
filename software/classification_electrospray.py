@@ -9,6 +9,7 @@ import math
 
 
 class ElectrosprayClassification:
+    
     def __init__(self, name_liquid):
         self.name_liquid = name_liquid
         self.all_data = []
@@ -19,6 +20,7 @@ class ElectrosprayClassification:
         self.sjaak_verified = []
         self.sjaak_verified_false = []
         self.sjaak_verified_true = []
+        self.previous_state = "Dripping"
 
         self.data_points_list = 0
         self.electrical_conductivity = 0
@@ -30,100 +32,162 @@ class ElectrosprayClassification:
         self.density = 0
 
 
-    def do_sjaak(self, mean, median, stddeviation, psd_values, variance):
+
+
+    def do_classification(
+            self,
+            mean,
+            median,
+            stddeviation,
+            psd_values,
+            variance,
+            max_value_of_the_data,
+            quantity_max_data,
+            percentage_max,
+            flow_rate,
+            fft_max_peaks_array,
+            cont_fft_max_peaks):
+
         self.med_value_array.append(median)
-        sjaak_classification_txt = ""
+        classification_txt = ""
 
-        if mean != 0:
-            self.sjaak_std_mean = (stddeviation / mean)
-            # print("std/mean = %f ;" % (self.sjaak_std_mean))
-        else:
-            self.sjaak_std_mean = 0
-        self.sjaak_std_mean_array.append(self.sjaak_std_mean)
 
-        if median != 0:
-            self.sjaak_mean_median = (mean / median)
-            # print('sjaak_mean_median: ', self.sjaak_mean_median)
-        else:
-            self.sjaak_mean_median = 0
-        self.sjaak_mean_median_array.append(self.sjaak_mean_median)
+        #
+        #       SJAAKS  -> Is capable of classifiying Dripping, Intermittent and Cone Jet
+        #
 
-        # classification for dripping
-        # if mean <= 5:
-        if self.sjaak_std_mean > 2.5:
-            sjaak_classification_txt = "Dripping"
-            if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                # logging.info("Dripping Sjaak")
-                # print("classification dripping confirmed!")
-                sjaak_classification_txt = "Dripping"
-
-        # classification for intermittent
-        # if mean > 5:
-        if (self.sjaak_std_mean) < 2.5 and self.sjaak_std_mean > 0.5:
-            # print("intermittent Sjaak!")
-            sjaak_classification_txt = "Intermittent"
-            if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                sjaak_classification_txt = "Intermittent"
-
-            # ToDo: check this value different conditions
-            """if psd_values.any() > 0.2 and psd_values.any() < 0.75:
-                logging.info("Intermittent psd Sjaak")
-                #logging.info("************")"""
-
-        # classification for cone-jet
-        if mean > 10:  # replace absolut value with cone-jet current estimation by laMora/Calvo
-            if self.sjaak_std_mean < 0.3:
-                sjaak_classification_txt = "Cone Jet"
-                if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
-                    sjaak_classification_txt = "Cone Jet"
-            # print("Sjaak txt do_sjaak = ", sjaak_classification_txt)
-
-        return sjaak_classification_txt
-
-    @staticmethod
-    def do_monica(max_value_of_the_data, quantity_max_data, percentage_max, flow_rate, fft_max_peaks_array, cont_fft_max_peaks):
-        # use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
-        # PEAKS SIGNAL
-        # print("****************** MAX = " + str(max_value_of_the_data))
         try:
+                
+            if mean != 0:
+                self.sjaak_std_mean = (stddeviation / mean)
+                # print("std/mean = %f ;" % (self.sjaak_std_mean))
+            else:
+                self.sjaak_std_mean = 0
+            self.sjaak_std_mean_array.append(self.sjaak_std_mean)
+
+            if median != 0:
+                self.sjaak_mean_median = (mean / median)
+                # print('sjaak_mean_median: ', self.sjaak_mean_median)
+            else:
+                self.sjaak_mean_median = 0
+            self.sjaak_mean_median_array.append(self.sjaak_mean_median)
+
+            # classification for dripping
+            # if mean <= 5:
+            if self.sjaak_std_mean > 2.5:
+                classification_txt = "Dripping"
+                if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
+                    # logging.info("Dripping Sjaak")
+                    # print("classification dripping confirmed!")
+                    classification_txt = "Dripping"
+
+            # classification for intermittent
+            # if mean > 5:
+            if (self.sjaak_std_mean) < 2.5 and self.sjaak_std_mean > 0.5:
+                # print("intermittent Sjaak!")
+                classification_txt = "Intermittent"
+                if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
+                    classification_txt = "Intermittent"
+
+                # ToDo: check this value different conditions
+                """if psd_values.any() > 0.2 and psd_values.any() < 0.75:
+                    logging.info("Intermittent psd Sjaak")
+                    #logging.info("************")"""
+
+            # classification for cone-jet
+            if mean > 10:  # replace absolut value with cone-jet current estimation by laMora/Calvo
+                if self.sjaak_std_mean < 0.3:
+                    classification_txt = "Cone Jet"
+                    if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
+                        classification_txt = "Cone Jet"
+                # print("Sjaak txt do_sjaak = ", classification_txt)
+
+        except:
+            print("Error on Sjaaks classification")
+
+
+        #
+        #       MONICA   -> Is capable of classifiying Corona Discharges
+        #
+
+        try:
+            # use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
+            # PEAKS SIGNAL
+            # print("****************** MAX = " + str(max_value_of_the_data))
+
             if float(max_value_of_the_data) >= 900.0:
                 if (float(flow_rate) / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
-                    if float(max_value_of_the_data)>= 2000.0:
-                        return "streamer onset"
+                    if float(max_value_of_the_data) >= 2000.0:
+                        classification_txt =  "Corona"
                     if percentage_max >= 0.0001:
-                        return "streamer onset"
+                        classification_txt =  "Corona"
                     if quantity_max_data >= 5.0:
-                        return "streamer onset"
-
+                        classification_txt =  "Corona"
 
                 if (float(flow_rate) / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
-                    if float(max_value_of_the_data)>= 2000.0:
-                        return "streamer onset"
+                    if float(max_value_of_the_data) >= 2000.0:
+                        classification_txt =  "Corona"
                     if percentage_max >= 0.5:
-                        return "streamer onset"
+                        classification_txt =  "Corona"
                     if quantity_max_data >= 10.0:
-                        return "streamer onset"
+                        classification_txt =  "Corona"
 
-            else:
-                return "no streamer onset"
+            # PEAKS FFT
+            # fft_max_peaks_array has info about the frequency and amplitude
+            """
+            if (flow_rate / (2.7778e-7 * 10e-6)) < 100:  # uL/h
+                if cont_fft_max_peaks > 2:
+                    return "streamer onset"
+            if (flow_rate / (2.7778e-7 * 10e-6)) > 100:  # uL/h
+                if cont_fft_max_peaks > 5:
+                    return "streamer onset"""
+            # a = np.asanyarray(data)
+
+            """sd0 = a.std(axis=0, ddof=0)
+            SNR0 = np.where(sd0 == 0, 0, mean_value / sd0)
+            return ("Signal to Noise Ratio : %s" % SNR0)"""
+
         except:
             print("Error on monica classification")
-            return "Undefined"
 
-        # PEAKS FFT
-        # fft_max_peaks_array has info about the frequency and amplitude
-        """
-        if (flow_rate / (2.7778e-7 * 10e-6)) < 100:  # uL/h
-            if cont_fft_max_peaks > 2:
-                return "streamer onset"
-        if (flow_rate / (2.7778e-7 * 10e-6)) > 100:  # uL/h
-            if cont_fft_max_peaks > 5:
-                return "streamer onset"""
-        # a = np.asanyarray(data)
 
-        """sd0 = a.std(axis=0, ddof=0)
-        SNR0 = np.where(sd0 == 0, 0, mean_value / sd0)
-        return ("Signal to Noise Ratio : %s" % SNR0)"""
+        #
+        #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
+        #
+        try:
+            # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
+            if(classification_txt == "Cone Jet") and (self.previous_state == "Intermittent"):
+                cone_jet_mean = mean
+            if(classification_txt == "Cone Jet") and (mean >= 1.5*cone_jet_mean): 
+                classification_txt == "Multi Jet"
+            
+        except:
+            print("Error on João classification")
+
+
+        #
+        #       Correcting some wrongly classified modes by the system knowledge and memory
+        #
+        try:
+            if(classification_txt == "Dripping") and (self.previous_state == "Cone Jet" or self.previous_state == "Multi Jet"):
+                classification_txt == "Undefined"
+
+            
+        except:
+            print("Error on correcting classification")
+        
+
+        
+
+
+        self.previous_state = classification_txt
+
+        return classification_txt
+
+
+
+
+
 
     def open_load_json_data(self, filename):
         with open(filename) as json_file:
@@ -162,7 +226,6 @@ class ElectrosprayClassification:
 
         var = (sum_aux / (len(data) - 1))
         return round(math.sqrt(var), 4)
-
 
     """
     def plot_sjaak_cone_jet(self):
