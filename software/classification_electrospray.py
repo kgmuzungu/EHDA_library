@@ -49,7 +49,7 @@ class ElectrosprayClassification:
             cont_fft_max_peaks):
 
         self.med_value_array.append(median)
-        classification_txt = ""
+        classification_txt = "Undefined"
 
 
         #
@@ -156,10 +156,14 @@ class ElectrosprayClassification:
         #
         try:
             # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
+            cone_jet_mean = 0
             if(classification_txt == "Cone Jet") and (self.previous_state == "Intermittent"):
                 cone_jet_mean = mean
-            if(classification_txt == "Cone Jet") and (mean >= 1.5*cone_jet_mean): 
-                classification_txt == "Multi Jet"
+                print("cone_jet_mean: ", cone_jet_mean)
+
+            if cone_jet_mean != 0:
+                if(classification_txt == "Cone Jet") and (mean >= (1.5 * cone_jet_mean)):
+                    classification_txt == "Multi Jet"
             
         except:
             print("Error on João classification")

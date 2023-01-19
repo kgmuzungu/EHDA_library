@@ -90,8 +90,6 @@ def data_processing(data_queue,
 
         try:
 
-            txt_sjaak_str = str(classification_txt)
-
             current_shape = str(classification_txt),
 
             feedback_queue.put(str(classification_txt))
@@ -113,12 +111,12 @@ def data_processing(data_queue,
                 array_electrospray_processing.append(d_electrospray_processing)
 
             # put values in the queue
-            message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks]
+            message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
             plotting_data_queue.put(message)
 
             sample += 1
 
-            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", txt_sjaak_str)
+            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", classification_txt)
 
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
