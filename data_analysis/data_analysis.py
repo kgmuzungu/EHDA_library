@@ -10,36 +10,18 @@ import json
 import matplotlib.pyplot as plt
 from sklearn.utils import column_or_1d
 import numpy as np
-import easygui
 from scipy.signal import butter, lfilter
 
 
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path1 = "joaoData/experiments_05_12/"
+file_path = "joaoData/mapping/"
 
-file_name1 = "data1"
-file_name2 = "exp2"
-file_name3 = "data3"
-file_name4 = "data4"
-file_name5 = "data5"
-file_name6 = "exp6"
-file_name7 = "exp7"
-file_name8 = "exp8"
-file_name9 = "exp9"
-
-easygui.msgbox("欢迎")
-
-msg ="What experiment do you want to run?"
-title = "EDHA - JSON data"
-choices = [file_name1, file_name2, file_name3, file_name4, file_name5, file_name6, file_name7, file_name8, file_name9]
-exp_choice = easygui.choicebox(msg, title, choices)
+file_name = "map2"
 
 
-easygui.msgbox("You chose: " + str(exp_choice), "Survey Result")
-
-with open(file_path1 + exp_choice + ".json", 'r') as data_file:    
+with open(file_path + file_name + ".json", 'r') as data_file:    
     data = json.loads(data_file.read())  
 
 
@@ -53,7 +35,7 @@ data_sample = pd.json_normalize(
     data['measurements'], 
     record_path = ["data [nA]"], 
     record_prefix ='data-',
-    meta = ["name", "flow rate [m3/s]", "voltage", "current PS", "temperature", "humidity"]
+    meta = ["name", "flow rate [m3/s]", "voltage", "current PS", "temperature", "humidity", "target voltage"]
 )
 print(data_sample.info())
 
@@ -128,51 +110,48 @@ def onpick(event):
 #              PLOTTING
 ######################################
 
+#Oscilloscope data
+fig, axs = plt.subplots(2, 1)
+plt.title(file_name)
+axs[0].set(ylabel='ccurent nA')
+axs[0].plot(data_sample.index/sampling_frequency, data_sample['data-0'])
+axs[0].grid()
 
-if easygui.ynbox(msg="What tool want to use", title="JSON Analysis", choices=["Oscilloscope data", "Statistic Data"]):
+axs[1].set(ylabel='voltage (V)')
+axs[1].set_yticks(np.arange(0, 7500, 10))
+axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
+axs[1].grid()
+plt.show()
 
-    fig, axs = plt.subplots(2, 1)
-    plt.title(exp_choice)
-    axs[0].set(ylabel='ccurent nA')
-    axs[0].plot(data_sample.index/sampling_frequency, data_sample['data-0'])
-    axs[0].grid()
+# # Other data
+# fig, axs = plt.subplots(5, 1)
 
-    axs[1].set(ylabel='voltage (V)')
-    axs[1].set_yticks(np.arange(0, 5000, 10))
-    axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
-    axs[1].grid()
-    plt.show()
+# axs[0].set(ylabel='ccurent nA')
+# axs[0].plot((data_sample.index/sampling_frequency)/60, data_sample['data-0'])
+# axs[0].grid()
 
-else:
+# axs[1].set(ylabel='voltage (V)')
+# axs[1].set_yticks(np.arange(0, 5000, 10))
+# axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
+# axs[1].grid()
 
-    fig, axs = plt.subplots(5, 1)
+# axs[2].set(ylabel='mean')
+# axs[2].set_ylim(0, 300)
+# axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
+# axs[2].grid()
 
-    axs[0].set(ylabel='ccurent nA')
-    axs[0].plot((data_sample.index/sampling_frequency)/60, data_sample['data-0'])
-    axs[0].grid()
+# axs[3].set(ylabel='median')
+# axs[3].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
+# axs[3].grid()
 
-    axs[1].set(ylabel='voltage (V)')
-    axs[1].set_yticks(np.arange(0, 5000, 10))
-    axs[1].plot(data_sample.index/sampling_frequency, data_sample['voltage'])
-    axs[1].grid()
+# axs[4].set(ylabel='deviation')
+# axs[4].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
+# axs[4].grid()
 
-    axs[2].set(ylabel='mean')
-    axs[2].set_ylim(0, 300)
-    axs[2].scatter( data_window.index, data_window['mean'], color=data_window['colormap'])
-    axs[2].grid()
+# fig.canvas.mpl_connect('button_press_event', onpick)
 
-    axs[3].set(ylabel='median')
-    axs[3].scatter( data_window.index, data_window['median'], color=data_window['colormap'])
-    axs[3].grid()
-
-    axs[4].set(ylabel='deviation')
-    axs[4].scatter( data_window.index, data_window['deviation'], color=data_window['colormap'])
-    axs[4].grid()
-
-    fig.canvas.mpl_connect('button_press_event', onpick)
-
-    plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
-    plt.show()
+# plt.xlabel('Legend:  blue = Intermittend ; red = Cone Jet ; green = Dripping ; purple = streamer onset ; black = Undefined ')
+# plt.show()
 
 
 

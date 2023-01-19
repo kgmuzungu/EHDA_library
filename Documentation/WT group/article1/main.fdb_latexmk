@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1673881396 "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" "main.pdf" "main" 1673881397 0
-  "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" 1673881395 19397 5dc853b21f77f936372723522fe474a9 ""
+["pdflatex"] 1674052669 "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" "main.pdf" "main" 1674052670 0
+  "/Users/jota/Documents/EHDA_library/Documentation/WT group/article1/main.tex" 1674052668 18487 f9fb0e75f00a8fbe0f045e7329407066 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -132,11 +132,11 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1673438013 4623329 f1091e81e9901d3293f1b5c335c5506c ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1673438091 7874850 71c0f59ed8572e3f77b2c5c3302d6e42 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "images/figur1.PNG" 1673871592 54779 5576d8f7b2ee1a9052606efeef51c2f1 ""
-  "images/figur2.PNG" 1673871592 129447 868eb4424c3663800ffdad709f6ce425 ""
-  "main.aux" 1673881397 3801 38998f37ab8e1c49589fd5498b4268a1 "pdflatex"
-  "main.out" 1673881397 1747 e1fb705524935710d6e356f1b8baf7cf "pdflatex"
-  "main.tex" 1673881395 19397 5dc853b21f77f936372723522fe474a9 ""
+  "images/figur1.PNG" 1673952226 54779 5576d8f7b2ee1a9052606efeef51c2f1 ""
+  "images/figur2.PNG" 1673952226 129447 868eb4424c3663800ffdad709f6ce425 ""
+  "main.aux" 1674052670 3801 c06886f131e17451829209534355c19e "pdflatex"
+  "main.out" 1674052670 1747 e1fb705524935710d6e356f1b8baf7cf "pdflatex"
+  "main.tex" 1674052668 18487 f9fb0e75f00a8fbe0f045e7329407066 ""
   (generated)
   "main.aux"
   "main.log"
