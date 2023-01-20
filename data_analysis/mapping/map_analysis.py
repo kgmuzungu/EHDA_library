@@ -1,7 +1,7 @@
 '''
-	JSON Data analysis from the experiments
+	Analysis of mapping V x FR experiments
 	AUTHOR: 乔昂 - jueta
-	DATE: 24/11/2022
+	DATE: 19/01/2023
 '''
 
 import pandas as pd
@@ -16,9 +16,9 @@ from scipy.signal import butter, lfilter
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path = "joaoData/mapping/"
+file_path = "../Data/mapping/"
 
-file_name = "map1"
+file_name = "map3"
 
 
 with open(file_path + file_name + ".json", 'r') as data_file:    
@@ -36,10 +36,13 @@ processing_data_window = pd.json_normalize(data['processing'])
 data_window = [measurements_data_window, processing_data_window]
 data_window = pd.concat(data_window, axis=1)
 
+
+print(data_window.head())
+
 colors = {'Cone Jet':'red', 'Dripping':'green', 'Intermittent':'blue', 'Multi Jet':'purple', 'Undefined':'black', 'Corona':'cyan'}
 
 colormap = []
-for electro_class in data_window['spray mode.Sjaak']:
+for electro_class in data_window['spray mode']:
     if electro_class == 'Intermittent':
         colormap.append('blue')
     elif electro_class == 'Cone Jet':
@@ -52,21 +55,22 @@ for electro_class in data_window['spray mode.Sjaak']:
         colormap.append('cyan')
     elif electro_class == 'Undefined':
         colormap.append('black')
-    else:
-        colormap.append('black')
+    # else:
+    #     colormap.append('black')
 
-# Monica spark classification
-sampleIndex = 0
-for monica_class in data_window['spray mode.Monica']:
-    if monica_class == 'streamer onset':
-        colormap[sampleIndex] = 'cyan'
-    sampleIndex+=1
+# # Monica spark classification
+# sampleIndex = 0
+# for monica_class in data_window['spray mode.Monica']:
+#     if monica_class == 'streamer onset':
+#         colormap[sampleIndex] = 'cyan'
+#     sampleIndex+=1
 
 
 
 data_window.insert(1, 'colormap', colormap)
 
 print(data_window.info())
+print(data_window.head())
 
 
 
