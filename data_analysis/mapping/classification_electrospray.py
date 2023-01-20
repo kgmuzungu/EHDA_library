@@ -162,7 +162,7 @@ class ElectrosprayClassification:
                 print("cone_jet_mean: ", cone_jet_mean)
 
             if cone_jet_mean != 0:
-                if(classification_txt == "Cone Jet") and (mean >= (1.5 * cone_jet_mean)):
+                if(classification_txt == "Cone Jet") and (mean >= (1.3 * cone_jet_mean)):
                     classification_txt == "Multi Jet"
             
         except:

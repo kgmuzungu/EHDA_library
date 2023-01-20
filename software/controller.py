@@ -74,7 +74,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = ["0.5", "0.7", "0.9", "1.1", "1.3", "1.5", "1.7", "1.9"]
+        flow_rate = ["0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7"]
 
         for fr in flow_rate:
             print("\n Starting experiment with flowrate:", fr)
@@ -93,7 +93,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
             voltage = typeofmeasurement['voltage_start']
             responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])) # turn voltage to zero
             beep_command(obj_pump_com)
-            time.sleep(2)
+            time.sleep(5)
 
 
         finish_event.set()

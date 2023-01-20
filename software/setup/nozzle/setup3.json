@@ -20,9 +20,9 @@
     "typeofmeasurement": {
         "sequence": "map",
         "voltage_start": 3000,
-        "voltage_stop": 7500,
+        "voltage_stop": 7000,
         "slope": 100000,
-        "step_size": 200,
+        "step_size": 100,
         "step_time": 2,
         "flow_rate": 1.5
     }

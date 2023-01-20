@@ -10,7 +10,7 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
 
         message = plotting_data_queue.get()
 
-        electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
+        electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
         logging.info(
             "Consumer got message: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
             )
@@ -33,11 +33,11 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
             ax[1].draw_artist(ln1)
             ax[2].draw_artist(ln2)
 
-            fig.canvas.manager.set_window_title('Sjaak: ' + txt_sjaak_str + 'monnica' + txt_monica_str + '; Peaks:' + txt_max_peaks +
+            fig.canvas.manager.set_window_title('Classification: ' + txt_classification_str + '; Peaks:' + txt_max_peaks +
                                                 " voltage_PS= " + str(electrospray_data.voltage) + " current_PS= " + str(
                                                     electrospray_data.current * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value))
 
-            """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_sjaak_str + ' ; Peaks:' + txt_max_peaks +
+            """df = pd.DataFrame({str(j): ['Sjaak: ' + txt_classification_str + ' ; Peaks:' + txt_max_peaks +
                                                 " voltage_PS= " + str(voltage_from_PS) + " current_PS= " + str(
                 current_from_PS * 1e6) + " current mean osci= " + str(electrospray_processing.mean_value) ] } ) """
 
@@ -64,7 +64,7 @@ def start_plot(plotting_data_queue):
 
     print("[PLOTTING] got values on plotting_data_queue")
 
-    electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_sjaak_str, txt_monica_str, txt_max_peaks = message
+    electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
 
     plt.style.use('seaborn-colorblind')
     plt.ion()

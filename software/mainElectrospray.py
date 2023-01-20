@@ -82,10 +82,10 @@ if __name__ == '__main__':
 # # # **************************************
 
     threads = list()
-    controller_output_queue = queue.Queue(maxsize=1000)
-    feedback_queue = queue.Queue(maxsize=1000)
-    data_queue = queue.Queue(maxsize=1000)
-    plotting_data_queue = queue.Queue(maxsize=1000)
+    controller_output_queue = queue.Queue(maxsize=3000)
+    feedback_queue = queue.Queue(maxsize=3000)
+    data_queue = queue.Queue(maxsize=3000)
+    plotting_data_queue = queue.Queue(maxsize=3000)
 
 
     # 
