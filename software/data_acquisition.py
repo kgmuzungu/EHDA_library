@@ -16,6 +16,7 @@ def data_acquisition(data_queue,
                      finish_event,
                      typeofmeasurement,
                      liquid,
+                     arduino_COM_port,
                      array_electrospray_measurements
                      ):
 
@@ -27,7 +28,7 @@ def data_acquisition(data_queue,
 
     com_ports = list(serial.tools.list_ports.comports())
     arduino_port = serial.Serial(
-        port=com_ports[1].device,
+        port=com_ports[arduino_COM_port].device,
         baudrate=9600,
         timeout=0.1
     )
@@ -98,10 +99,10 @@ def data_acquisition(data_queue,
                 val1, val2 = response.decode("utf-8").split("-") 
                 if(val1 == "temp"):
                     temperature = val2
-                    print("temperature: ", temperature)
+                    # print("temperature: ", temperature)
                 elif(val1 == "humy"):
                     humidity = val2
-                    print("humidity: ", humidity)
+                    # print("humidity: ", humidity)
 
                 
         except:

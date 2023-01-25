@@ -126,6 +126,7 @@ if __name__ == '__main__':
              finish_event,
              typeofmeasurement,
              liquid,
+             arduino_COM_port,
              array_electrospray_measurements
         )
     )
