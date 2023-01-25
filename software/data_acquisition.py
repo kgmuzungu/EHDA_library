@@ -20,8 +20,8 @@ def data_acquisition(data_queue,
                      ):
 
 
-    temperature = 10
-    humidity = 10
+    temperature = 0
+    humidity = 0
     day_measurement = strftime("%a_%d %b %Y", gmtime())
     arduino_responses = []
 
@@ -95,7 +95,14 @@ def data_acquisition(data_queue,
 
             if arduino_port.in_waiting > 0:
                 response = arduino_port.readline() 
-                print(response.decode("utf-8"))      
+                val1, val2 = response.decode("utf-8").split("-") 
+                if(val1 == "temp"):
+                    temperature = val2
+                    print("temperature: ", temperature)
+                elif(val1 == "humy"):
+                    humidity = val2
+                    print("humidity: ", humidity)
+
                 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
