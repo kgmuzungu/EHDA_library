@@ -23,6 +23,7 @@ def data_acquisition(data_queue,
     temperature = 10
     humidity = 10
     day_measurement = strftime("%a_%d %b %Y", gmtime())
+    arduino_responses = []
 
     com_ports = list(serial.tools.list_ports.comports())
     arduino_port = serial.Serial(
@@ -92,14 +93,9 @@ def data_acquisition(data_queue,
 
         try:
 
-            if arduino_port.is_open:
-                # Fazer algoritmo de checar response
-                response = arduino_port.readline()
-                print(response.decode())
-
-                arduino_port.flushInput()
-                arduino_port.flushOutput()
-                arduino_port.write(bytes('1', 'utf-8'))
+            if arduino_port.in_waiting > 0:
+                response = arduino_port.readline() 
+                print(response.decode("utf-8"))      
                 
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
