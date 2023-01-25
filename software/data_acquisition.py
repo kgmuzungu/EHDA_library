@@ -24,6 +24,13 @@ def data_acquisition(data_queue,
     humidity = 10
     day_measurement = strftime("%a_%d %b %Y", gmtime())
 
+    com_ports = list(serial.tools.list_ports.comports())
+    arduino_port = serial.Serial(
+        port=com_ports[1].device,
+        baudrate=9600,
+        timeout=0.1
+    )
+
     #           OSCILLOSCOPE
     # print_library_info()
     time_step = 1 / sampling_frequency
@@ -82,6 +89,20 @@ def data_acquisition(data_queue,
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
             sys.exit(1)
+
+        try:
+
+            if arduino_port.is_open:
+                # Fazer algoritmo de checar response
+                response = arduino_port.readline()
+                print(response.decode())
+
+                arduino_port.flushInput()
+                arduino_port.flushOutput()
+                arduino_port.write(bytes('1', 'utf-8'))
+                
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
 
         try:
 
