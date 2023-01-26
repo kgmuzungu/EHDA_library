@@ -52,8 +52,11 @@
 
 
 
-\subsection*{3.3 Step Interference in each sample}
+\subsection*{3.3 Capacitance of the system in step response}
 
+    We were discussing if the voltage step implies in a transient state in the current acquired.
+    If yes, the data acquired in this transient should not be used in the classification step. Since we want to analise
+    the spraying in a constant dynamics.
 
     \begin{multicols}{2}
 
@@ -64,15 +67,15 @@
         \end{figure}
 
 
-
-    we were evaluating the interference of each step in the....
-
+        For that I reproccessed all raw data acquired cutting the head of the data window. The new classification map is showed in the figure 10.
 
         \begin{figure}[H]
             \center
             \includegraphics[width=8cm]{images/map3_reproccessed_data_head.png}
             \caption{ map3 reproccessed data head }
         \end{figure}
+
+        Also tested cutting the tail of the data window to see if have improvements in the classification.
 
         \begin{figure}[H]
             \center
@@ -84,34 +87,59 @@
         \begin{figure}[H]
             \center
             \includegraphics[width=8cm]{images/data_samples.png}
-            \caption{ map reproccessed data tail }
+            \caption{ USE ANOTHER IMAGE WITH STABLE SAMPLES OR DELETE THIS ONE }
         \end{figure}
 
     \end{multicols}
 
+    {TRY TO PUT STEP RESPONSE OF THE POWER SUPPLY HERE}
 
 
-% \subsection*{3.4 Experiment 3}
+    CONCLUSION: Does not made much difference. For steps under 250V the system does not show a transition dynamic. 
+    With steps above 250V the capacitance of the system reacts with a capacitance curve.
 
-%     - liquid: ethanol pure
-        
-%     - flow rate min: 1.5 mL/hr
 
-%     - camera to nozzle distance: 16.5 cm
 
-%     - config: nozzle to plate
+\subsection*{3.4 Manual x Automatic Cone Jet stability island maps}
 
-%     - nozzle to plate or ring distance: 1.5 cm
+    Metodology
 
-%     - nozzle diameter: 0.136 mm
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=14cm]{joao_26-01-22/screenshots/stableConeExp.png}
+        \caption{exp 24}
+    \end{figure}
 
-%     - type of measurement: 
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=8cm]{joao_26-01-22/epx_24-01.png}
+        \caption{exp 24}
+    \end{figure}
 
-%         * voltage start: 3000 V
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=8cm]{joao_26-01-22/exp25-01-1.png}
+        \caption{ exp25-01-1 }
+    \end{figure}
 
-%         * voltage stop: 11000 V
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=8cm]{joao_26-01-22/exp-26-01-1.png}
+        \caption{ exp-26-01-1 }
+    \end{figure}
 
-%         * step size: 50 V 
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=8cm]{joao_26-01-22/exp26-01-2.png}
+        \caption{ exp-26-01-2 }
+    \end{figure}
 
-%         * step time: 1 s
+
+
+
+
+\subsection*{3.5 Temperature and Humidity influences}
+
+    - Started collecting temperature and humidity values for each sample using arduino and DHT11 sensor from adafruit.
+    - Closed the system and sprayed pure oxygen O2 to decrease the humidity of the system.
 
