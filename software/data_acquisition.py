@@ -32,6 +32,7 @@ def data_acquisition(data_queue,
         baudrate=9600,
         timeout=0.1
     )
+    arduino_port.write(bytes('1', 'utf-8'))
 
     #           OSCILLOSCOPE
     # print_library_info()
