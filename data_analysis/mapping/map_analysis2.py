@@ -18,33 +18,32 @@ sampling_frequency = 1e5
 
 file_path = "../Data/mapping/"
 
-file_name = "map3"
+
+data = pd.read_feather("map4.feather")
+
+# colormap = []
+# for electro_class in data['spray mode']:
+#     if electro_class == 'Intermittent':
+#         colormap.append('blue')
+#     elif electro_class == 'Cone Jet':
+#         colormap.append('red')
+#     elif electro_class == 'Dripping':
+#         colormap.append('green')
+#     elif electro_class == 'Multi Jet':
+#         colormap.append('purple')
+#     elif electro_class == 'Corona':
+#         colormap.append('cyan')
+#     elif electro_class == 'Undefined':
+#         colormap.append('black')
+#     else:
+#         colormap.append('black')
 
 
-data = pd.read_feather("map3.feather")
-
-colormap = []
-for electro_class in data['spray mode']:
-    if electro_class == 'Intermittent':
-        colormap.append('blue')
-    elif electro_class == 'Cone Jet':
-        colormap.append('red')
-    elif electro_class == 'Dripping':
-        colormap.append('green')
-    elif electro_class == 'Multi Jet':
-        colormap.append('purple')
-    elif electro_class == 'Corona':
-        colormap.append('cyan')
-    elif electro_class == 'Undefined':
-        colormap.append('black')
-    else:
-        colormap.append('black')
-
-
-data.insert(1, 'colormap', colormap)
+# data.insert(1, 'colormap', colormap)
 
 print(data.info())
 print(data.head())
+
 
 
 data['flow rate [m3/s]'] = data['flow rate [m3/s]'].astype(float)
