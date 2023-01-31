@@ -15,15 +15,15 @@
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
-    "save_path": "C:/Users/hvvhl/Desktop/teste",
+    "save_path": "D:/Joao_Pedro/joao_25-01-22",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "map",
-        "voltage_start": 3000,
-        "voltage_stop": 7000,
+        "voltage_start": 4500,
+        "voltage_stop": 7500,
         "slope": 100000,
         "step_size": 100,
-        "step_time": 2,
+        "step_time": 3,
         "flow_rate": 1.5
     }
 }

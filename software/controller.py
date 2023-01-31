@@ -71,10 +71,10 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
         set_pump_direction(obj_pump_com, "INF")
         set_inner_diameter(obj_pump_com, "1.7")
-        get_volume(obj_pump_com)
+        # get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = ["0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7"]
+        flow_rate = ["0.01","0.03", "0.05" ,"0.1", "0.15", "0.2", "0.3", "0.35", "0.5", "0.55", "0.6", "0.7", "0.8", "0.85", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5"]
 
         for fr in flow_rate:
             print("\n Starting experiment with flowrate:", fr)

@@ -16,13 +16,23 @@ def data_acquisition(data_queue,
                      finish_event,
                      typeofmeasurement,
                      liquid,
+                     arduino_COM_port,
                      array_electrospray_measurements
                      ):
 
 
-    temperature = 10
-    humidity = 10
+    temperature = 0
+    humidity = 0
     day_measurement = strftime("%a_%d %b %Y", gmtime())
+    arduino_responses = []
+
+    com_ports = list(serial.tools.list_ports.comports())
+    arduino_port = serial.Serial(
+        port=com_ports[arduino_COM_port].device,
+        baudrate=9600,
+        timeout=0.1
+    )
+    arduino_port.write(bytes('1', 'utf-8'))
 
     #           OSCILLOSCOPE
     # print_library_info()
@@ -82,6 +92,22 @@ def data_acquisition(data_queue,
         except:
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
             sys.exit(1)
+
+        try:
+
+            if arduino_port.in_waiting > 0:
+                response = arduino_port.readline() 
+                val1, val2 = response.decode("utf-8").split("-") 
+                if(val1 == "temp"):
+                    temperature = val2
+                    # print("temperature: ", temperature)
+                elif(val1 == "humy"):
+                    humidity = val2
+                    # print("humidity: ", humidity)
+
+                
+        except:
+            print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
 
         try:
 

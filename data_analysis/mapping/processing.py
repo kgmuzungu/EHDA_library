@@ -158,13 +158,13 @@ print(data.info())
 print(data.head())
 
 fig, axs = plt.subplots(3, 1)
-axs[0].plot(data['data [nA]'][1049])
+axs[0].plot(data['data [nA]'][459])
 axs[0].grid()
 
-axs[1].plot(data['data [nA]'][1050])
+axs[1].plot(data['data [nA]'][460])
 axs[1].grid()
 
-axs[2].plot(data['data [nA]'][1051])
+axs[2].plot(data['data [nA]'][461])
 axs[2].grid()
 plt.show()
 
