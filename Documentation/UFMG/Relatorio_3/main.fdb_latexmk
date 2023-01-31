@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1675079060 "main.bcf" "main.bbl" "main" 1675091861 0
+["biber main"] 1675170759 "main.bcf" "main.bbl" "main" 1675170804 0
   "./refs.bib" 1674046975 5179 437f565498b62d00e9ee3b5b36f5f5b0 ""
-  "main.bcf" 1675091860 107334 381b2fcb98acfb06290ac1fd9f57b64e "pdflatex"
+  "main.bcf" 1675170804 107273 f5c83795895a5947f1ae79deb7ca4aa0 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1675091856 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1675091861 0
+["pdflatex"] 1675170800 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1675170804 0
   "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" 1675077336 778 1fbb387763e40df983703b666e667e87 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -20,8 +20,6 @@
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmr8.tfm" 1136768653 1292 21c1c5bfeaebccffdb478fd231a0997d ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
-  "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1136768653 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
-  "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1248133631 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1248133631 32166 b0c356b15f19587482a9217ce1d8fa67 ""
@@ -33,8 +31,6 @@
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1248133631 37944 359e864bd06cde3b1cf57bb20757fb06 ""
-  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2022/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
   "/usr/local/texlive/2022/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty" 1576625341 40635 c40361e206be584d448876bba8a64a3b ""
@@ -113,7 +109,7 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1673438013 4623329 f1091e81e9901d3293f1b5c335c5506c ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1673438091 7874850 71c0f59ed8572e3f77b2c5c3302d6e42 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "Conclusion/Conclusion.tex" 1675091856 251 cf5e10f15ccc5e6e7bceec7c09c18095 ""
+  "Conclusion/Conclusion.tex" 1675170800 1247 5eb96e803922c3f5e3bd6f629684a5fe ""
   "Development/Development.tex" 1675091586 10229 a9334ca41e23d6289ccafc3ea63076ad ""
   "Summary/Summary.tex" 1675080317 3912 363ca70009140e49938c55720508f8cb ""
   "front_cover/front_cover.tex" 1674047906 1197 d90cf5ddf8b20d4be5e4723fde419903 ""
@@ -137,10 +133,10 @@
   "joao_26-01-22/map-exp-26-01.png" 1674824735 97709 3ea60e48253f59fa1e749c4125ce48ef ""
   "joao_26-01-22/map4-stabilityIsland.png" 1675072639 170850 136cf324a25d5336fe303542a42b7d96 ""
   "joao_26-01-22/screenshots/stableConeExp.png" 1674728232 781046 c907eba391fa86ce7bcb47d835de8ec1 ""
-  "main.aux" 1675091860 21089 74c60f843d6720d989cca19334bcbc7f "pdflatex"
-  "main.bbl" 1675079062 2661 804a369066e1c53c0da8e8997a400258 "biber main"
-  "main.out" 1675091860 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
-  "main.run.xml" 1675091860 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
+  "main.aux" 1675170804 20993 e134d52a9359fff368cfa0edc8146633 "pdflatex"
+  "main.bbl" 1675170763 466 ee04f40f768daeed26442158e95aba61 "biber main"
+  "main.out" 1675170804 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
+  "main.run.xml" 1675170804 2299 f443ecd01b65326db634687f331183db "pdflatex"
   "main.tex" 1675077336 778 1fbb387763e40df983703b666e667e87 ""
   (generated)
   "main.aux"
