@@ -52,7 +52,8 @@ def data_acquisition(data_queue,
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
         # print_device_info(scp)
-    except:
+    except Exception as e:
+            print("ERROR: ", str(e)) 
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
@@ -75,7 +76,8 @@ def data_acquisition(data_queue,
 
             # print('[DATA_ACQUISITION THREAD] got controller_output_queue data')
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to get controller_output_queue!")
             sys.exit(1)
 
@@ -89,7 +91,8 @@ def data_acquisition(data_queue,
             data = scp.get_data()
             # print('[DATA_ACQUISITION THREAD] got tiepie data')
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
             sys.exit(1)
 
@@ -106,7 +109,8 @@ def data_acquisition(data_queue,
                     # print("humidity: ", humidity)
 
                 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
 
         try:
@@ -115,7 +119,8 @@ def data_acquisition(data_queue,
             # 2Mohm default input resistance
             datapoints = np.array(data[0]) * multiplier_for_nA
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to create datapoints!")
             sys.exit(1)
 
@@ -124,7 +129,8 @@ def data_acquisition(data_queue,
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, flow_rate, temperature,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to ElectrosprayMeasurements")
             sys.exit(1)
 
@@ -133,7 +139,8 @@ def data_acquisition(data_queue,
             d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
             array_electrospray_measurements.append(d_electrospray_measurements)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to append array")
             sys.exit(1)
 
@@ -147,7 +154,8 @@ def data_acquisition(data_queue,
             # print(f"[DATA_ACQUISITION THREAD] put data sample \f{sample} in data_queue")
 
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_ACQUISITION THREAD] Failed to put values on data_queue")
             sys.exit(1)
 

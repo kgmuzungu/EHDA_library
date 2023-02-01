@@ -157,7 +157,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                         print("You pressed q")
                         finish_event.set()
 
-            except:
+            except Exception as e:
+            print("ERROR: ", str(e)) 
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
 

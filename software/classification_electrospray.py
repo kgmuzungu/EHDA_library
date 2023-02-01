@@ -102,7 +102,8 @@ class ElectrosprayClassification:
                         classification_txt = "Cone Jet"
                 # print("Sjaak txt do_sjaak = ", classification_txt)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on Sjaaks classification")
 
 
@@ -147,7 +148,8 @@ class ElectrosprayClassification:
             SNR0 = np.where(sd0 == 0, 0, mean_value / sd0)
             return ("Signal to Noise Ratio : %s" % SNR0)"""
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on monica classification")
 
 
@@ -165,7 +167,8 @@ class ElectrosprayClassification:
                 if(classification_txt == "Cone Jet") and (mean >= (1.5 * cone_jet_mean)):
                     classification_txt == "Multi Jet"
             
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on João classification")
 
 
@@ -177,7 +180,8 @@ class ElectrosprayClassification:
                 classification_txt == "Undefined"
 
             
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on correcting classification")
         
 

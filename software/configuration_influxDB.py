@@ -54,7 +54,8 @@ def send_to_influxdb(id, mean, std, voltage_PS, timestamp, classification, tempe
     try:
         write_api.write(bucket='test2', record=json_body)
         print("JSON Sent!")
-    except:
+    except Exception as e:
+            print("ERROR: ", str(e)) 
         print("Package Lost!")  
 
 

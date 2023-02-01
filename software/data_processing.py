@@ -46,7 +46,8 @@ def data_processing(data_queue,
             b, a = butter(6, Wn=cutoff_freq_normalized, btype='low', analog=False)  # first argument is the order of the filter
             datapoints_filtered = lfilter(b, a, electrospray_data.data)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to filter points!")
             sys.exit(1)
 
@@ -64,7 +65,8 @@ def data_processing(data_queue,
 
             max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(electrospray_data.data)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to process data")
             sys.exit(1)
 
@@ -83,7 +85,8 @@ def data_processing(data_queue,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to classify")
             sys.exit(1)
 
@@ -121,7 +124,8 @@ def data_processing(data_queue,
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to finish process")
             sys.exit(1)
 

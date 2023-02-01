@@ -202,8 +202,9 @@ if __name__ == '__main__':
         full_dict = {}
         full_dict['config'] = {}
 
-    except:
+    except Exception as e:
         print("[SAVING] failed creating saving files")
+        print("ERROR: ", str(e))  
         sys.exit(1)
 
     try:
@@ -221,8 +222,9 @@ if __name__ == '__main__':
             if electrospray_config_setup["save_processing"]:
                 full_dict['processing'] = array_electrospray_processing
 
-        except:
+        except Exception as e:
             print("[SAVING] failed saving array_electrospray_processing")
+            print("ERROR: ", str(e))  
             sys.exit(1)
 
         try:
@@ -230,7 +232,8 @@ if __name__ == '__main__':
             if electrospray_config_setup["save_data"]:
                 full_dict['measurements'] = array_electrospray_measurements
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[SAVING] failed saving array_electrospray_measurements")
             sys.exit(1)
 
@@ -251,12 +254,14 @@ if __name__ == '__main__':
 
 
 
-        except:
-            print("[SAVING] Failed to SAVE JSON")
+        except Exception as e:
+            print("[SAVING] Failed to SAVE JSON") 
+            print("ERROR: ", str(e))  
             sys.exit(1)
 
-    except:
+    except Exception as e:
         print("[SAVING] Failed to on saving function")
+        print("ERROR: ", str(e))  
         sys.exit(1)
 
     print("[SAVING] END SAVING")

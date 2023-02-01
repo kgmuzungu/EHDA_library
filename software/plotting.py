@@ -46,7 +46,8 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
             # flush any pending GUI events, re-painting the screen if needed
             fig.canvas.flush_events()
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[PLOTTING] Failed to plot values!")
             sys.exit(1)
 
@@ -116,6 +117,7 @@ def start_plot(plotting_data_queue):
 
         return fig, ax, ln0, ln1, ln2, bg
 
-    except:
+    except Exception as e:
+            print("ERROR: ", str(e)) 
         print("[PLOTTING] Failed make iterable plot")
         return sys.exit(1)
