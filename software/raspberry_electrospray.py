@@ -25,7 +25,6 @@ import os
 import re
 import numpy as np
 import json
-import logging
 import threading
 import numpy as np
 
@@ -35,11 +34,6 @@ event = threading.Event()
 
 from threading import Thread
 # fig = pylab.gcf()
-
-# LOGGING CONFIG
-LOG_FILENAME = r'logging_test.out'
-logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8', format='%(asctime)s %(message)s', level=logging.INFO)
-logging.info('Started')
 
 multiplier_for_nA = 500
 sampling_frequency = 1e5
@@ -390,5 +384,4 @@ if SAVE_CONFIG:
         )
 
 
-logging.info('Finished')
 sys.exit(0)

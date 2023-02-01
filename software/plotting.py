@@ -1,5 +1,4 @@
 import numpy as np
-import logging
 from FUG_functions import *
 import matplotlib.pyplot as plt
 
@@ -11,10 +10,6 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
         message = plotting_data_queue.get()
 
         electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
-        logging.info(
-            "Consumer got message: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
-            )
-        logging.info("Consumer received plotting_data_queue. Exiting")
 
         try:
 
@@ -69,11 +64,6 @@ def start_plot(plotting_data_queue):
 
     plt.style.use('seaborn-colorblind')
     plt.ion()
-
-    logging.info(
-        "Consumer got: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
-    )
-    logging.info("Consumer received event. Exiting")
 
     fig, ax = plt.subplots(3)
 

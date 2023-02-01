@@ -1,4 +1,3 @@
-import logging
 import numpy as np
 import csv
 import json
@@ -320,8 +319,7 @@ class ElectrosprayDataProcessing:
           good smoothed estimate of its power spectral density.
        """
         freqs, self.psd_welch = signal.welch(data)
-        logging.info("[power spectrum] freqs = max: %s, min: %s X; psd = max: %s, mean: %s, min: %s " % (
-            freqs.max(), freqs.min(), self.psd_welch.max(), self.psd_welch.mean(), self.psd_welch.min()))
+        
         return freqs, self.psd_welch
 
     # string representation of this class

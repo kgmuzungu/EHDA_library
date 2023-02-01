@@ -15,7 +15,6 @@ import plotting
 import data_processing
 import os
 import json
-import logging
 
 
 state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
@@ -34,12 +33,6 @@ if __name__ == '__main__':
     current_state = state_machine[0]    
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
-
-    # LOGGING CONFIG
-    LOG_FILENAME = r'logging_test.out'
-    logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8',
-                        format='%(asctime)s %(message)s', level=logging.INFO)
-    logging.info('Started')
 
     sampling_frequency = 1e5  # 100000
     array_electrospray_measurements = []
