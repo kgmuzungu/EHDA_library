@@ -18,7 +18,8 @@ def data_processing(data_queue,
                     array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
-                    feedback_queue
+                    feedback_queue,
+                    save_data_queue
                     ):
 
 
@@ -113,7 +114,12 @@ def data_processing(data_queue,
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
                 array_electrospray_processing.append(d_electrospray_processing)
 
-            # put values in the queue
+
+            # put values in the saving queue
+            save_message = [electrospray_data.get_measurements_dictionary(), electrospray_processing.get_statistics_dictionary()]
+            save_data_queue.put(save_message)
+
+            # put values in the plotting queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
             plotting_data_queue.put(message)
 
