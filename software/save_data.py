@@ -89,7 +89,7 @@ def save_data(
         try:
             if electrospray_config_setup["save_processing"]:
                 json.dump(data_processing, file, indent=4)
-                print("[SAVING] saved electrospray processing sample:", sample)
+                # print("[SAVING] saved electrospray processing sample:", sample)
 
         except:
             print("[SAVING] failed saving electrospray processing sample:", sample)
@@ -99,7 +99,7 @@ def save_data(
 
             if electrospray_config_setup["save_data"]:
                 json.dump(data_measurement, file, indent=4)
-                print("[SAVING] saved electrospray processing sample:", sample)
+                # print("[SAVING] saved electrospray processing sample:", sample)
 
         except:
             print("[SAVING] failed saving electrospray measurements sample:", sample)

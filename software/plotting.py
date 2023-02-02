@@ -52,13 +52,13 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
 def start_plot(plotting_data_queue):
 
     # wait for first value
-    print("[PLOTTING] No values in the plotting_data_queue yet")
+    # print("[PLOTTING] No values in the plotting_data_queue yet")
     while plotting_data_queue.empty():
         time.sleep(0.1)
 
     message = plotting_data_queue.get()
 
-    print("[PLOTTING] got values on plotting_data_queue")
+    # print("[PLOTTING] got values on plotting_data_queue")
 
     electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
 

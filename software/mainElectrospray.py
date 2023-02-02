@@ -14,7 +14,6 @@ import data_acquisition
 import plotting 
 import data_processing
 import save_data
-import logging
 
 
 state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
