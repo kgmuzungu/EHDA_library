@@ -158,7 +158,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                         finish_event.set()
 
             except Exception as e:
-            print("ERROR: ", str(e)) 
+                print("ERROR: ", str(e))
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
 

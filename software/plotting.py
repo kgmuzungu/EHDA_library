@@ -20,8 +20,8 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
             ln1.set_ydata(electrospray_processing.datapoints_filtered)
             ln2.set_ydata(
                 (electrospray_processing.fourier_transform[0:500]))
-            ax[0].legend(bbox_to_anchor=(1.05, 1),
-                         loc='upper left', borderaxespad=0.)
+            # ax[0].legend(bbox_to_anchor=(1.05, 1),
+            #              loc='upper left', borderaxespad=0.)
 
             # re-render the artist, updating the canvas state, but not the screen
             ax[0].draw_artist(ln0)
@@ -108,6 +108,6 @@ def start_plot(plotting_data_queue):
         return fig, ax, ln0, ln1, ln2, bg
 
     except Exception as e:
-            print("ERROR: ", str(e)) 
+        print("ERROR: ", str(e))
         print("[PLOTTING] Failed make iterable plot")
         return sys.exit(1)

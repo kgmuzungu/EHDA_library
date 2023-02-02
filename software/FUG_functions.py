@@ -97,8 +97,8 @@ def get_voltage_from_PS(obj_fug_com):
         # print("[FUG] Voltage from Power supply" + numbers[0])
     except Exception as e:
             print("ERROR: ", str(e)) 
-        numbers = ["0"]
-        print("[FUG] Failed get Voltage from PS")
+            numbers = ["0"]
+            print("[FUG] Failed get Voltage from PS")
     return float(numbers[0])
 
 
@@ -109,6 +109,6 @@ def get_current_from_PS(obj_fug_com):
         # print("[FUG] Current from Power supply" + numbers[0])
     except Exception as e:
             print("ERROR: ", str(e)) 
-        numbers = ["0"]
+            numbers = ["0"]
     return float(numbers[0])
 

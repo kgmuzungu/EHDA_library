@@ -47,13 +47,14 @@ def data_acquisition(data_queue,
         else:
             print('[DATA_ACQUISITION THREAD] No oscilloscope available with block measurement support!')
             sys.exit(1)
+
     print('[DATA_ACQUISITION THREAD] Oscilloscope initialized!')
 
     try:
         scp = configuration_tiepie.config_TiePieScope(scp, sampling_frequency)
         # print_device_info(scp)
     except Exception as e:
-            print("ERROR: ", str(e)) 
+        print("ERROR: ", str(e))
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
