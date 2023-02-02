@@ -184,7 +184,8 @@ if __name__ == '__main__':
             name_liquid,
             save_path,
             finish_event,
-            electrospray_config_liquid_setup_obj
+            electrospray_config_liquid_setup_obj,
+            electrospray_config_setup
         )
     )
     threads.append(save_data_thread)

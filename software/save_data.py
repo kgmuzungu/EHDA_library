@@ -9,7 +9,8 @@ def save_data(
             name_liquid,
             save_path,
             finish_event,
-            electrospray_config_liquid_setup_obj
+            electrospray_config_liquid_setup_obj,
+            electrospray_config_setup
             ):
 
     try:
@@ -32,6 +33,7 @@ def save_data(
 
     except:
         print("[SAVING] Failed to open file")
+        sys.exit(1)
 
 
     try:
@@ -87,6 +89,7 @@ def save_data(
         try:
             if electrospray_config_setup["save_processing"]:
                 json.dump(data_processing, file, indent=4)
+                print("[SAVING] saved electrospray processing sample:", sample)
 
         except:
             print("[SAVING] failed saving electrospray processing sample:", sample)
@@ -96,6 +99,7 @@ def save_data(
 
             if electrospray_config_setup["save_data"]:
                 json.dump(data_measurement, file, indent=4)
+                print("[SAVING] saved electrospray processing sample:", sample)
 
         except:
             print("[SAVING] failed saving electrospray measurements sample:", sample)
