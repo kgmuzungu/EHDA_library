@@ -4,7 +4,7 @@ from PUMP_functions import *
 import keyboard
 
 
-def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM_port, pump_COM_port, feedback_queue):
+def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM_port, pump_COM_port, feedback_queue, syringe_diameter):
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
@@ -70,11 +70,10 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
 
         set_pump_direction(obj_pump_com, "INF")
-        set_inner_diameter(obj_pump_com, "1.7")
+        set_inner_diameter(obj_pump_com, syringe_diameter)
         # get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = ["1.1", "1.2", "1.3", "1.4", "1.5"]
 
         for fr in flow_rate:
             print("\n Starting experiment with flowrate:", fr)

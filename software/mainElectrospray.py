@@ -58,6 +58,7 @@ if __name__ == '__main__':
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     Q = float(typeofmeasurement["flow_rate"])
     save_path = electrospray_config_setup["save_path"]
+    syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
     Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
@@ -101,7 +102,8 @@ if __name__ == '__main__':
                                                 controller_output_queue,
                                                 fug_COM_port,
                                                 pump_COM_port,
-                                                feedback_queue
+                                                feedback_queue,
+                                                syringe_diameter
                                                 ))
     controller_thread.start()
 

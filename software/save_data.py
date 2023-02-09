@@ -79,31 +79,27 @@ def save_data(
     sample = 0
     print("[SAVE DATA THREAD] starting loop")
     while not finish_event.is_set():
-
         # wait for first value
         while save_data_queue.empty():
             time.sleep(0.1)
 
+        sample_dict = {}
         data_measurement, data_processing = save_data_queue.get()
 
         try:
-            if electrospray_config_setup["save_processing"]:
-                json.dump(data_processing, file, indent=4)
-                # print("[SAVING] saved electrospray processing sample:", sample)
-
-        except:
-            print("[SAVING] failed saving electrospray processing sample:", sample)
-            sys.exit(1)
-
-        try:
-
             if electrospray_config_setup["save_data"]:
-                json.dump(data_measurement, file, indent=4)
-                # print("[SAVING] saved electrospray processing sample:", sample)
+                if electrospray_config_setup["save_processing"]:
+                    sample_dict['sample \f{sample}'] = {**data_measurement, **data_processing}
+                    json.dump(sample_dict, file, indent=4)
+                else:
+                    sample_dict['sample \f{sample}'] = data_measurement
+                    json.dump(sample_dict, file, indent=4)
+                # print("[SAVING] saved electrospray sample:", sample)
 
         except:
             print("[SAVING] failed saving electrospray measurements sample:", sample)
             sys.exit(1)
+
 
         sample += 1
 
