@@ -89,10 +89,10 @@ def save_data(
         try:
             if electrospray_config_setup["save_data"]:
                 if electrospray_config_setup["save_processing"]:
-                    sample_dict['sample \f{sample}'] = {**data_measurement, **data_processing}
+                    sample_dict['sample ' + str(sample)] = {**data_measurement, **data_processing}
                     json.dump(sample_dict, file, indent=4)
                 else:
-                    sample_dict['sample \f{sample}'] = data_measurement
+                    sample_dict['sample ' + str(sample)] = data_measurement
                     json.dump(sample_dict, file, indent=4)
                 # print("[SAVING] saved electrospray sample:", sample)
 

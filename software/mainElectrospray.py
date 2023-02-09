@@ -56,14 +56,10 @@ if __name__ == '__main__':
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
-    Q = float(typeofmeasurement["flow_rate"])
     save_path = electrospray_config_setup["save_path"]
     syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
-    Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
-    Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/sq
-    print('flowrate cm3/s: ', Q)
 
     #        PORTS
     arduino_COM_port = 1
