@@ -108,9 +108,9 @@ for i in directory_contents:
                         sjaak_verified_true.append([])
                         electrical_conductivity_array.append([])
 
-                # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow rate']
+                # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow_rate']
 
-                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow rate chen pui']
+                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow_rate chen pui']
                 rho = data_dict['config']['liquid']['density']
                 permitivity = data_dict['config']['liquid']['vacuum permitivity']
                 density = data_dict['config']['liquid']['density']
@@ -129,8 +129,8 @@ for i in directory_contents:
                 for i in range(len(data_dict['processing'])):
                     # voltage_actual = data_dict['measurements'][i]['voltage']
                     print(i)
-                    flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
-                    print("\nflow rate:", flow_rate_actual)
+                    flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
+                    print("\nflow_rate:", flow_rate_actual)
 
                     mean_value = (np.float64(data_dict['processing'][i]['mean']))
                     med_value = (np.float64(data_dict['processing'][i]['median']))
@@ -199,7 +199,7 @@ for i in directory_contents:
 
 
                     flow_rate_actual_array[index].append(flow_rate_actual)
-                    flow_rate_chen_pui[index].append(data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_chen_pui[index].append(data_dict['measurements'][i]['flow_rate'])
                     # I_actual_array.append(voltage_actual * 0.0001)
                     if flow_rate_actual_array[index][i] == 0.0:
                         print("passei aq")
@@ -228,7 +228,7 @@ for i in directory_contents:
                         I_Ig_ganan_calvo[index].append(I_ganan_calvo / Ig_ganan_calvo)
                         x_ganan_calvo[index].append(alphap_ganan_calvo * ((beta_ganan_calvo - 1) ** -1))
 
-                    datapoints = (data_dict['measurements'][i]['data [nA]'])
+                    datapoints = (data_dict['measurements'][i]['current'])
                     data_points_np = np.array(datapoints)
                     time_max = time_step * len(data_points_np)
                     t = np.arange(0.0, time_max, time_step)  # time axes, time steps size is 1 / (sample frequences)

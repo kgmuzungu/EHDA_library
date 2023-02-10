@@ -39,10 +39,10 @@ def save_data(
                 electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
                 electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
                 config_dict['liquid'] = electrospray_config_liquid
-                config_dict['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
+                config_dict['liquid']['flow_rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
                 config_dict['setup'] = electrospray_config_setup
 
-            # Writing config
+            # Writing
             os.mkdir(save_path)
             out_file = open(save_path + "/config.json", "w")
             json.dump(config_dict, out_file, indent = 6)

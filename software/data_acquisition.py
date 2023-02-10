@@ -4,6 +4,7 @@ from FUG_functions import *
 import configuration_tiepie
 from time import gmtime, strftime
 from electrospray import ElectrosprayMeasurements
+from datetime import datetime
 
 # tiepie params
 sampling_frequency = 1e5  # 100 KHz
@@ -23,7 +24,7 @@ def data_acquisition(data_queue,
 
     temperature = 0
     humidity = 0
-    day_measurement = strftime("%a_%d %b %Y", gmtime())
+    day_measurement = datetime.now()
     arduino_responses = []
 
     com_ports = list(serial.tools.list_ports.comports())
@@ -90,6 +91,7 @@ def data_acquisition(data_queue,
                 time.sleep(0.05)  # 50 ms delay, to save CPU time
 
             data = scp.get_data()
+            day_measurement = datetime.now()
             # print('[DATA_ACQUISITION THREAD] got tiepie data')
 
         except Exception as e:
@@ -103,10 +105,10 @@ def data_acquisition(data_queue,
                 response = arduino_port.readline() 
                 val1, val2 = response.decode("utf-8").split("-") 
                 if(val1 == "temp"):
-                    temperature = val2
+                    temperature = float(val2)
                     # print("temperature: ", temperature)
                 elif(val1 == "humy"):
-                    humidity = val2
+                    humidity = float(val2)
                     # print("humidity: ", humidity)
 
                 

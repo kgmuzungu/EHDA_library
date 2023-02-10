@@ -36,13 +36,13 @@ config_dict = {
 
 sample_dict =  {
     "name": "setup/liquid/ethanol",
-    "flow rate [m3/s]": "1.1",
+    "flow_rate": "1.1",
     "voltage": "5001.71",
-    "current PS": "3.06335e-08",
+    "current_PS": "3.06335e-08",
     "temperature": "0",
     "humidity": "0",
-    "date and time": "Thu_09 Feb 2023",
-    "target voltage": 5000,
+    "date_and_time": "Thu_09 Feb 2023",
+    "target_voltage": 5000,
     "mean": 56.754329681396484,
     "variance": 1492.234619140625,
     "deviation": 38.629451751708984,

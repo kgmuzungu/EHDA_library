@@ -61,15 +61,15 @@ plot_lines = []
 def calculate_for_json_with_all_shapes(data_dict):
     # for i in range(10, 60):
     global flow_rate_actual_array
-    flow_rate_actual = (data_dict['measurements'][10]['flow rate [m3/s]'])
+    flow_rate_actual = (data_dict['measurements'][10]['flow_rate'])
     print(flow_rate_actual)
     #flow_rate_actual_array.append(str(round(float(flow_rate_actual), 2)) + "[m3/s]")
     flow_rate_actual_array.append(str(flow_rate_actual)+ "[m3/s]")
 
     for i in range(0, len(data_dict['processing'])):
-        # datapoints = (data_dict['measurements'][i]['data [nA]'])
+        # datapoints = (data_dict['measurements'][i]['current'])
         # data_points_np = np.array(datapoints)
-        current_PS = data_dict['measurements'][i]['current PS']
+        current_PS = data_dict['measurements'][i]['current_PS']
         voltage_PS = data_dict['measurements'][i]['voltage']
         spray_mode = data_dict['measurements'][i]['spray mode']['Sjaak']
         mean = float(data_dict['processing'][i]['mean'])
@@ -79,8 +79,8 @@ def calculate_for_json_with_all_shapes(data_dict):
             if current_PS != '0.0' and voltage_PS != '0.0':  # and spray_mode == 'cone jet ':
                 # if mean_value < 150 and float(voltage_PS) < 7000.0 and float(voltage_PS) > 4000.0:
                 # print(flow_rate_actual)
-                # data = (data_dict['measurements'][i]['data [nA]'])
-                # for each flow rate
+                # data = (data_dict['measurements'][i]['current'])
+                # for each flow_rate
                 voltage_PS_array.append(float(voltage_PS))
                 current_PS_array.append(current_PS)
                 mean_value_array.append(float(mean))

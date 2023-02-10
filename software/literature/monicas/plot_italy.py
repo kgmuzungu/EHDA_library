@@ -72,14 +72,14 @@ def calculate_for_json_with_all_shapes(data_dict, index):
     global flow_rate_actual
     # for i in range(10, 60):
     for i in range(3, len(data_dict['processing'])):
-        # datapoints = (data_dict['measurements'][i]['data [nA]'])
+        # datapoints = (data_dict['measurements'][i]['current'])
         # data_points_np = np.array(datapoints)
-        current_PS = (data_dict['measurements'][i]['current PS'])
+        current_PS = (data_dict['measurements'][i]['current_PS'])
         voltage_PS = data_dict['measurements'][i]['voltage']
         spray_mode = data_dict['measurements'][i]['spray mode']['Sjaak']
 
         if current_PS != 0.0 and voltage_PS != 0.0:
-            flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
+            flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
             mean_value = (np.float64(data_dict['processing'][i]['mean']))
             med_value = (np.float64(data_dict['processing'][i]['median']))
             rms_value = (np.float64(data_dict['processing'][i]['rms']))
@@ -88,7 +88,7 @@ def calculate_for_json_with_all_shapes(data_dict, index):
             maximum_variation_distance = (np.float64(data_dict['processing'][i]['maximum variation distance']))
             mean_div_max_variation_array.append(mean_value / maximum_variation_distance)
 
-            data = (data_dict['measurements'][i]['data [nA]'])
+            data = (data_dict['measurements'][i]['current'])
             # for each liquid
             voltage_PS_array.append(float(voltage_PS))
             current_PS_array.append(float(current_PS))
@@ -143,7 +143,7 @@ color = 'tab:red'
 plt.plot(mean_array, voltage_PS_array, color="red", label="mean")
 plt.tick_params(axis='y', labelcolor=color)
 color = 'tab:blue'
-#plt.plot(voltage_PS_array, X, color=color, label="current PS")
+#plt.plot(voltage_PS_array, X, color=color, label="current_PS")
 #plt.legend(('tab:red', 'tab:blue'), ('mean', 'damped'), loc='upper right', shadow=True)
 
 # plt.scatter(np.arange(0, len(mean) * time_step, time_step), mean)
@@ -174,7 +174,7 @@ ax1.tick_params(axis='y', labelcolor=color)
 
 ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
 color = 'tab:blue'
-ax2.set_ylabel('Current PS [nA]', color=color)  # we already handled the x-label with ax1
+ax2.set_ylabel('current_PS [nA]', color=color)  # we already handled the x-label with ax1
 ax2.plot(voltage_PS_array, X, color=color)
 ax2.tick_params(axis='y', labelcolor=color)
 

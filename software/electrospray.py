@@ -16,7 +16,7 @@ class ElectrosprayConfig:
     def __repr__(self):
         """dictionary = {
             "electrical conductivity": str(self.k_electrical_conductivity),
-            "flow rate": str(self.q_flow_rate),
+            "flow_rate": str(self.q_flow_rate),
             "voltage": str(self.voltage),
             "setup": str(self.json_setup_obj)
         }
@@ -136,14 +136,14 @@ class ElectrosprayMeasurements:
 
     def __repr__(self):
         dictionary = {
-            "data [nA]": str(self.data.tolist()),  # array nA
-            "flow rate": self.flow_rate,
+            "current": str(self.data.tolist()),  # array nA
+            "flow_rate": self.flow_rate,
             "voltage": self.voltage,
-            "current PS": self.current,
+            "current_PS": self.current,
             "temperature": self.temperature,  # graus Celsius
             "humidity": self.humidity,  # percentage
-            "date and time": self.day_measurement,
-            "target voltage": self.target_voltage
+            "date_and_time": self.day_measurement,
+            "target_voltage": self.target_voltage
         }
 
         return (json.dumps(dictionary))
@@ -151,14 +151,14 @@ class ElectrosprayMeasurements:
     def get_measurements_dictionary(self):
         dictionary = {
             "name": self.name,
-            "data [nA]": self.data.tolist(),  # array nA
-            "flow rate [m3/s]": self.flow_rate,
+            "current": self.data.tolist(),  # array nA
+            "flow_rate": self.flow_rate,
             "voltage": str(self.voltage),
-            "current PS": str(self.current),
+            "current_PS": str(self.current),
             "temperature": str(self.temperature),  # graus Celsius
             "humidity": str(self.humidity),  # percentage
-            "date and time": str(self.day_measurement),
-            "target voltage": self.target_voltage
+            "date_and_time": str(self.day_measurement),
+            "target_voltage": self.target_voltage
         }
         # self.json_measurements_obj.write(json.dumps((dictionary), sort_keys=True, indent=4, separators=(". ", " = ")))
         return dictionary

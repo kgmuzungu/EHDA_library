@@ -145,17 +145,17 @@ def calculate_for_every_shape(shape):
         # for i in range(len(data_dict['processing'])):
         # voltage_actual = data_dict['measurements'][i]['voltage']
 
-        datapoints = (data_dict['measurements'][i]['data [nA]'])
+        datapoints = (data_dict['measurements'][i]['current'])
         X.append(datapoints)
         Y = [0., 1., 2., 3.]
         reg = linear_model.BayesianRidge()
         reg.fit(X, Y)
 
     for i in range(1, 2):
-        datapoints = (data_dict['measurements'][i]['data [nA]'])
+        datapoints = (data_dict['measurements'][i]['current'])
         data_points_np = np.array(datapoints)
         print(i)
-        flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
+        flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
         mean_value = (np.float64(data_dict['processing'][i]['mean']))
         med_value = (np.float64(data_dict['processing'][i]['median']))
         variance_value = (np.float64(data_dict['processing'][i]['variance']))
@@ -275,7 +275,7 @@ for i in directory_contents:
 
             electrical_conductivity = data_dict['config']['liquid']['actual measurement'][
                 'electrical conductivity']
-            flow_rate_actual = (data_dict['measurements'][0]['flow rate [m3/s]'])
+            flow_rate_actual = (data_dict['measurements'][0]['flow_rate'])
 
             if res_comment is None and res_liquid is None:
                 continue
@@ -308,7 +308,7 @@ for i in directory_contents:
                             data_each_shape.append([])
                             mean_each_shape.append([])
                             mean_histogram.append([])
-                            # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow rate']
+                            # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow_rate']
 
                             calculate_for_every_shape(manual_shape)
                             index = index_aux - 1
