@@ -27,8 +27,8 @@ def save_data(
             #     electrospray_classification.plot_sjaak_cone_jet()
             #     electrospray_classification.plot_sjaak_classification()
 
-
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e))
             print("[SAVING] failed creating saving files")
             sys.exit(1)
 
@@ -50,7 +50,9 @@ def save_data(
 
             print("[SAVING] saved config file")
 
-        except:
+
+        except Exception as e:
+            print("ERROR: ", str(e))
             print("[SAVING] failed saving configuration values")
             sys.exit(1)
 
@@ -81,7 +83,9 @@ def save_data(
 
                         print("[SAVING] saved electrospray sample:", sample)
 
-                except:
+
+                except Exception as e:
+                    print("ERROR: ", str(e))
                     print("[SAVING] failed saving electrospray measurements sample:", sample)
                     sys.exit(1)
 

@@ -90,7 +90,7 @@ def start_plot(plotting_data_queue):
         # (ln3,) = ax[3].semilogx(freqs_psd, psd)
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()
-        figManager.window.showMaximized()
+        # figManager.window.showMaximized()
 
         # make sure the window is raised, but the script keeps going
         plt.show(block=False)
