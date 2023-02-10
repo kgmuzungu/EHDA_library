@@ -1,7 +1,8 @@
 import os
-import json
 import time
 import sys
+import jsonstreams
+import json
 
 def save_data(
             save_data_queue,
@@ -13,96 +14,83 @@ def save_data(
             electrospray_config_setup
             ):
 
-    try:
-
-        # voltage = str(voltage) + 'V'
-        if electrospray_config_setup["save_json"]:
-            # arbitrary, defined in the header
-            file_name = name_liquid + '_step_size_' + \
-                str(typeofmeasurement['step_size']) + "_step_time_" + \
-                str(typeofmeasurement['step_time']) + ".json"
-            completeName = os.path.join(save_path, file_name)
-
-
-        file = open(completeName, 'w')
-            # with open(completeName, 'w') as file:
-            #     json.dump((full_dict), file, indent=4)
-            # electrospray_validation.open_load_json_data(filename=completeName)
-
-        print("[SAVING] File Opened")
-
-    except:
-        print("[SAVING] Failed to open file")
-        sys.exit(1)
-
-
-    try:
-
-        # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
-        electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
-        aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
-        # if FLAG_PLOT:
-        #     electrospray_classification.plot_sjaak_cone_jet()
-        #     electrospray_classification.plot_sjaak_classification()
-
-        config_dict = {}
-        config_dict['config'] = {}
-
-    except:
-        print("[SAVING] failed creating saving files")
-        sys.exit(1)
-
-    try:
-
-        if electrospray_config_setup["save_config"]:
-            electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
-            electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-            config_dict['config']['liquid'] = electrospray_config_liquid
-            config_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-            config_dict['config']['setup'] = electrospray_config_setup
-
-            json.dump(config_dict, file, indent=4)
-
-
-    except:
-        print("[SAVING] failed saving configuration values")
-        sys.exit(1)
-
-
-
-    #
-    #     THREAD LOOP
-    #
-    
-    sample = 0
-    print("[SAVE DATA THREAD] starting loop")
-    while not finish_event.is_set():
-        # wait for first value
-        while save_data_queue.empty():
-            time.sleep(0.1)
-
-        sample_dict = {}
-        data_measurement, data_processing = save_data_queue.get()
+    if electrospray_config_setup["save_json"]:
 
         try:
-            if electrospray_config_setup["save_data"]:
-                if electrospray_config_setup["save_processing"]:
-                    sample_dict['sample ' + str(sample)] = {**data_measurement, **data_processing}
-                    json.dump(sample_dict, file, indent=4, separators=',')
-                else:
-                    sample_dict['sample ' + str(sample)] = data_measurement
-                    json.dump(sample_dict, file, indent=4, separators=',')
-                # print("[SAVING] saved electrospray sample:", sample)
 
-        except:
-            print("[SAVING] failed saving electrospray measurements sample:", sample)
+            # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
+
+            electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
+            aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
+
+            # if FLAG_PLOT:
+            #     electrospray_classification.plot_sjaak_cone_jet()
+            #     electrospray_classification.plot_sjaak_classification()
+
+        except Exception as e:
+            print("ERROR: ", str(e))
+            print("[SAVING] failed creating saving files")
+            sys.exit(1)
+
+        try:
+            config_dict = {}
+
+            if electrospray_config_setup["save_config"]:
+                electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
+                electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
+                config_dict['liquid'] = electrospray_config_liquid
+                config_dict['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
+                config_dict['setup'] = electrospray_config_setup
+
+            # Writing config
+            os.mkdir(save_path)
+            out_file = open(save_path + "/config.json", "w")
+            json.dump(config_dict, out_file, indent = 6)
+            out_file.close()
+
+            print("[SAVING] saved config file")
+
+
+        except Exception as e:
+            print("ERROR: ", str(e))
+            print("[SAVING] failed saving configuration values")
             sys.exit(1)
 
 
-        sample += 1
+
+        #
+        #     THREAD LOOP
+        #
+
+        with jsonstreams.Stream(jsonstreams.Type.OBJECT, filename=save_path+"/data.json", indent=4, pretty=True) as s:
+            
+            sample = 0
+            print("[SAVE DATA THREAD] starting saving samples")
+
+            while not finish_event.is_set():
+                # wait for first value
+                while save_data_queue.empty():
+                    time.sleep(0.1)
+
+                data_measurement, data_processing = save_data_queue.get()
+
+                try:
+                    if electrospray_config_setup["save_data"]:
+                        if electrospray_config_setup["save_processing"]:
+                            s.write('sample '+str(sample), {**data_measurement, **data_processing})
+                        else:
+                            s.write('sample '+str(sample), data_measurement)
+
+                        print("[SAVING] saved electrospray sample:", sample)
 
 
-    file.close()
-    print("[SAVE DATA THREAD] Finish Processing data")
+                except Exception as e:
+                    print("ERROR: ", str(e))
+                    print("[SAVING] failed saving electrospray measurements sample:", sample)
+                    sys.exit(1)
+
+
+                sample += 1
+
+
+    print("[SAVE DATA THREAD] end of saving data thread")
