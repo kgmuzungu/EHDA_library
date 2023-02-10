@@ -15,7 +15,7 @@
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
-    "save_path": "D:/Joao_Pedro/Joao_10-02-23/exp2",
+    "save_path": "D:/Joao_Pedro/Joao_10-02-23/exp3",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "map",

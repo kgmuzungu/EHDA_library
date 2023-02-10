@@ -79,8 +79,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
             print("\n Starting experiment with flowrate:", fr)
             set_flowrate(obj_pump_com, fr, "UM")
+            time.sleep(1)
             start_pumping(obj_pump_com)
-            beep_command(obj_pump_com)
             voltage = typeofmeasurement['voltage_start']
             responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])) # turn voltage to zero
             time.sleep(5)
@@ -100,6 +100,10 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 if keyboard.is_pressed("q"):
                     print("You pressed q")
                     finish_event.set()
+
+            stop_pumping(obj_pump_com)
+            time.sleep(0.5)
+
 
 
         finish_event.set()
