@@ -37,7 +37,7 @@ class ElectrosprayValidation:
         dictionary = {
             "all data": self.all_data.tolist(),
             "mean_value_array": self.mean_value_array.tolist(),
-            "flow rate chen pui": self.flow_rate_chen_pui.tolist(),
+            "flow_rate chen pui": self.flow_rate_chen_pui.tolist(),
             "alpha_chen_pui": self.alpha_chen_pui.tolist(),
             "I_emitted_chen_pui": self.I_emitted_chen_pui.tolist(),
             "I_hartman": self.I_hartman.tolist()
@@ -63,7 +63,7 @@ class ElectrosprayValidation:
         self.density = dict_liquid['density']
         """
         def validation_data(self, current_comment, manual_shape, electrical_conductivity):
-            self.min_fr_chen_pui = self.data_dict['config']['liquid']['actual measurement']['flow rate chen pui']
+            self.min_fr_chen_pui = self.data_dict['config']['liquid']['actual measurement']['flow_rate chen pui']
             self.data_dict['config']['liquid']['surface tension']
             self.dieletric_const = self.data_dict['config']['liquid']['dielectric const']
             self.electrical_conductivity = electrical_conductivity

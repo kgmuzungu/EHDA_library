@@ -2,7 +2,6 @@ import itertools
 import os
 import re
 from typing import TextIO
-import logging
 import numpy as np
 import json
 import math
@@ -77,7 +76,6 @@ class ElectrosprayClassification:
             if self.sjaak_std_mean > 2.5:
                 classification_txt = "Dripping"
                 if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                    # logging.info("Dripping Sjaak")
                     # print("classification dripping confirmed!")
                     classification_txt = "Dripping"
 
@@ -89,11 +87,6 @@ class ElectrosprayClassification:
                 if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
                     classification_txt = "Intermittent"
 
-                # ToDo: check this value different conditions
-                """if psd_values.any() > 0.2 and psd_values.any() < 0.75:
-                    logging.info("Intermittent psd Sjaak")
-                    #logging.info("************")"""
-
             # classification for cone-jet
             if mean > 10:  # replace absolut value with cone-jet current estimation by laMora/Calvo
                 if self.sjaak_std_mean < 0.3:
@@ -102,7 +95,8 @@ class ElectrosprayClassification:
                         classification_txt = "Cone Jet"
                 # print("Sjaak txt do_sjaak = ", classification_txt)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on Sjaaks classification")
 
 
@@ -147,7 +141,8 @@ class ElectrosprayClassification:
             SNR0 = np.where(sd0 == 0, 0, mean_value / sd0)
             return ("Signal to Noise Ratio : %s" % SNR0)"""
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on monica classification")
 
 
@@ -165,7 +160,8 @@ class ElectrosprayClassification:
                 if(classification_txt == "Cone Jet") and (mean >= (1.5 * cone_jet_mean)):
                     classification_txt == "Multi Jet"
             
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on João classification")
 
 
@@ -177,7 +173,8 @@ class ElectrosprayClassification:
                 classification_txt == "Undefined"
 
             
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Error on correcting classification")
         
 

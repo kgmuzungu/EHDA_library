@@ -70,9 +70,9 @@ plt.rcParams["figure.autolayout"] = True
 def calculate_for_json_with_all_shapes(data_dict):
     # for i in range(10, 60):
     for i in range(0, len(data_dict['processing'])):
-        # datapoints = (data_dict['measurements'][i]['data [nA]'])
+        # datapoints = (data_dict['measurements'][i]['current'])
         # data_points_np = np.array(datapoints)
-        current_PS = data_dict['measurements'][i]['current PS']
+        current_PS = data_dict['measurements'][i]['current_PS']
         voltage_PS = data_dict['measurements'][i]['voltage']
         spray_mode = data_dict['measurements'][i]['spray mode']['Sjaak']
         mean = float(data_dict['processing'][i]['mean'])
@@ -81,12 +81,12 @@ def calculate_for_json_with_all_shapes(data_dict):
         if mean != 0.0 and median != 0.0:
             if current_PS != '0.0' and voltage_PS != '0.0' and spray_mode == 'cone jet ':
                 if mean < 150 and float(voltage_PS) < 7350.0 :
-                    flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
                     # print(flow_rate_actual)
-                    # data = (data_dict['measurements'][i]['data [nA]'])
+                    # data = (data_dict['measurements'][i]['current'])
                     deviation = (np.float64(data_dict['processing'][i]['deviation']))
 
-                    # for each flow rate
+                    # for each flow_rate
                     voltage_PS_array.append(float(voltage_PS))
                     current_PS_array.append(current_PS)
                     flow_rate_actual_array.append(float(flow_rate_actual))
@@ -144,7 +144,7 @@ plt.figure()
 plt.scatter(flow_rate_actual_array, voltage_PS_array, marker="*", color= 'lightseagreen')
 # for i in range(len(ylog[j])):
 # plt.scatter([pt[i] for pt in xlog], [pt[i] for pt in ylog], marker='o', label="liquid %s" % (name[j]), c=j)
-plt.title('Plot Flow Rate x Voltage PS ' + name_liquid, fontsize=15)
+plt.title('Plot flow_rate x Voltage PS ' + name_liquid, fontsize=15)
 plt.show()
 
 

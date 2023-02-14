@@ -18,7 +18,8 @@ def data_processing(data_queue,
                     array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
-                    feedback_queue
+                    feedback_queue,
+                    save_data_queue
                     ):
 
 
@@ -46,7 +47,8 @@ def data_processing(data_queue,
             b, a = butter(6, Wn=cutoff_freq_normalized, btype='low', analog=False)  # first argument is the order of the filter
             datapoints_filtered = lfilter(b, a, electrospray_data.data)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to filter points!")
             sys.exit(1)
 
@@ -64,7 +66,8 @@ def data_processing(data_queue,
 
             max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(electrospray_data.data)
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to process data")
             sys.exit(1)
 
@@ -83,7 +86,8 @@ def data_processing(data_queue,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks
                                                                         )
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to classify")
             sys.exit(1)
 
@@ -110,7 +114,12 @@ def data_processing(data_queue,
                 d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
                 array_electrospray_processing.append(d_electrospray_processing)
 
-            # put values in the queue
+
+            # put values in the saving queue
+            save_message = [electrospray_data.get_measurements_dictionary(), electrospray_processing.get_statistics_dictionary()]
+            save_data_queue.put(save_message)
+
+            # put values in the plotting queue
             message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
             plotting_data_queue.put(message)
 
@@ -121,7 +130,8 @@ def data_processing(data_queue,
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to finish process")
             sys.exit(1)
 

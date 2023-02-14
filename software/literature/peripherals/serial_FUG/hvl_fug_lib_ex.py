@@ -4,13 +4,11 @@
 Example script for the device FuG
 """
 
-import logging
 from time import sleep
 import serial
 from hvl_ccb.dev import FuG, FuGDigitalVal, FuGError
 
 
-logging.basicConfig(level=logging.INFO)
 
 # create device object
 hv = FuG({"port": "COM9"})

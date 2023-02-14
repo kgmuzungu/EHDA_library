@@ -33,9 +33,9 @@ with open(file_path + file_name + ".json", 'r') as data_file:
 print("\ndata_sample\n")
 data_sample = pd.json_normalize(
     data['measurements'], 
-    record_path = ["data [nA]"], 
+    record_path = ["current"], 
     record_prefix ='data-',
-    meta = ["name", "flow rate [m3/s]", "voltage", "current PS", "temperature", "humidity", "target voltage"]
+    meta = ["name", "flow_rate", "voltage", "current_PS", "temperature", "humidity", "target_voltage"]
 )
 print(data_sample.info())
 
@@ -87,7 +87,7 @@ def onpick(event):
     cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
     b, a = butter(6, Wn=cutoff_freq_normalized, btype='low',
                     analog=False)  # first argument is the order of the filter
-    datapoints = np.array(data_window['data [nA]'])[x_value]
+    datapoints = np.array(data_window['current'])[x_value]
     datapoints_filtered = lfilter(b, a,datapoints)
 
     

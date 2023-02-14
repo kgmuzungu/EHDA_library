@@ -124,7 +124,7 @@ for i in listdir:
                 # print(index, value)
                 print(type(value))
 
-                result = re.search("""data": "[ (.*)  ]", "flow rate":""", str(value))
+                result = re.search("""data": "[ (.*)  ]", "flow_rate":""", str(value))
                 print(result)
 
                 print(value)

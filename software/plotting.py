@@ -1,5 +1,4 @@
 import numpy as np
-import logging
 from FUG_functions import *
 import matplotlib.pyplot as plt
 
@@ -11,10 +10,6 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
         message = plotting_data_queue.get()
 
         electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
-        logging.info(
-            "Consumer got message: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
-            )
-        logging.info("Consumer received plotting_data_queue. Exiting")
 
         try:
 
@@ -25,8 +20,8 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
             ln1.set_ydata(electrospray_processing.datapoints_filtered)
             ln2.set_ydata(
                 (electrospray_processing.fourier_transform[0:500]))
-            ax[0].legend(bbox_to_anchor=(1.05, 1),
-                         loc='upper left', borderaxespad=0.)
+            # ax[0].legend(bbox_to_anchor=(1.05, 1),
+            #              loc='upper left', borderaxespad=0.)
 
             # re-render the artist, updating the canvas state, but not the screen
             ax[0].draw_artist(ln0)
@@ -46,7 +41,8 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
             # flush any pending GUI events, re-painting the screen if needed
             fig.canvas.flush_events()
 
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("[PLOTTING] Failed to plot values!")
             sys.exit(1)
 
@@ -56,23 +52,18 @@ def real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg
 def start_plot(plotting_data_queue):
 
     # wait for first value
-    print("[PLOTTING] No values in the plotting_data_queue yet")
+    # print("[PLOTTING] No values in the plotting_data_queue yet")
     while plotting_data_queue.empty():
         time.sleep(0.1)
 
     message = plotting_data_queue.get()
 
-    print("[PLOTTING] got values on plotting_data_queue")
+    # print("[PLOTTING] got values on plotting_data_queue")
 
     electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
 
     plt.style.use('seaborn-colorblind')
     plt.ion()
-
-    logging.info(
-        "Consumer got: %s (plotting_data_queue size=%d)", message, plotting_data_queue.qsize()
-    )
-    logging.info("Consumer received event. Exiting")
 
     fig, ax = plt.subplots(3)
 
@@ -99,7 +90,7 @@ def start_plot(plotting_data_queue):
         # (ln3,) = ax[3].semilogx(freqs_psd, psd)
         # ax[3].set(xlabel='Frequency [Hz]', ylabel='Power', title='power spectral density')
         figManager = plt.get_current_fig_manager()
-        figManager.window.showMaximized()
+        # figManager.window.showMaximized()
 
         # make sure the window is raised, but the script keeps going
         plt.show(block=False)
@@ -116,6 +107,7 @@ def start_plot(plotting_data_queue):
 
         return fig, ax, ln0, ln1, ln2, bg
 
-    except:
+    except Exception as e:
+        print("ERROR: ", str(e))
         print("[PLOTTING] Failed make iterable plot")
         return sys.exit(1)

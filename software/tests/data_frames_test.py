@@ -21,7 +21,7 @@ def read_print_json(liquid):
         surface_tension = data_dict['config']['liquid']['surface tension']
         dieletric_const = data_dict['config']['liquid']['dieletric cons']
         electrical_conductivity = data_dict['config']['liquid']['electrical conductivity']
-        print("\nflow rate:", data_dict['measurements'][0]['flow rate'])
+        print("\nflow_rate:", data_dict['measurements'][0]['flow_rate'])
         print("\nsurface tension:", surface_tension)
         print("\nelectrical conductivity:", electrical_conductivity)
         print("\ndieletric const:", dieletric_const)
@@ -33,7 +33,7 @@ def read_print_json(liquid):
             print(type(mean_value))
 
         for i in range(len(data_dict['measurements'])):
-            flow_rate_chen_pui.append(data_dict['measurements'][i]['flow rate'])
+            flow_rate_chen_pui.append(data_dict['measurements'][i]['flow_rate'])
             if flow_rate_chen_pui[i] == 0.0:
                 print("passei aq")
                 flow_rate_chen_pui[i] = i

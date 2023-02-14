@@ -13,9 +13,7 @@ import cameraTrigger
 import data_acquisition
 import plotting 
 import data_processing
-import os
-import json
-import logging
+import save_data
 
 
 state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
@@ -34,12 +32,6 @@ if __name__ == '__main__':
     current_state = state_machine[0]    
 
     finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
-
-    # LOGGING CONFIG
-    LOG_FILENAME = r'logging_test.out'
-    logging.basicConfig(filename=LOG_FILENAME, encoding='utf-8',
-                        format='%(asctime)s %(message)s', level=logging.INFO)
-    logging.info('Started')
 
     sampling_frequency = 1e5  # 100000
     array_electrospray_measurements = []
@@ -64,28 +56,35 @@ if __name__ == '__main__':
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
-    Q = float(typeofmeasurement["flow_rate"])
     save_path = electrospray_config_setup["save_path"]
+    syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
-    Q = Q * 10e-6  # liter/h   # Q = 0.0110  # ml/h flow rate
-    Q = Q * 2.7778e-7  # m3/s  # Q = Q * 2.7778e-3  # cm3/sq
-    print('flowrate cm3/s: ', Q)
 
     #        PORTS
     arduino_COM_port = 1
     fug_COM_port = 5
     pump_COM_port = 0
 
+
 # # # **************************************
-# # #                THREADS
+# # #                QUEUES
 # # # **************************************
+
 
     threads = list()
     controller_output_queue = queue.Queue(maxsize=100000)
     feedback_queue = queue.Queue(maxsize=100000)
     data_queue = queue.Queue(maxsize=100000)
+    save_data_queue = queue.Queue(maxsize=100000)
     plotting_data_queue = queue.Queue(maxsize=100000)
+
+
+
+
+# # # **************************************
+# # #                THREADS
+# # # **************************************
 
 
     # 
@@ -99,9 +98,11 @@ if __name__ == '__main__':
                                                 controller_output_queue,
                                                 fug_COM_port,
                                                 pump_COM_port,
-                                                feedback_queue
+                                                feedback_queue,
+                                                syringe_diameter
                                                 ))
     controller_thread.start()
+
 
 
     #
@@ -113,6 +114,7 @@ if __name__ == '__main__':
     # makeVideo_thread.start()
 
     
+
     # 
     #          SENSOR  ->   Data acquisition
     #   
@@ -134,6 +136,7 @@ if __name__ == '__main__':
     data_acquisition_thread.start()
 
     
+
     # 
     #          DATA PROCESSING  ->  data proccessing
     #   
@@ -150,11 +153,35 @@ if __name__ == '__main__':
             array_electrospray_processing,
             electrospray_classification,
             electrospray_validation,
-            feedback_queue
+            feedback_queue,
+            save_data_queue
         )
     )
     threads.append(data_processing_thread)
     data_processing_thread.start()
+
+
+
+    # 
+    #          SAVE DATA  ->  save data thread
+    #   
+
+
+    save_data_thread = threading.Thread(
+        target=save_data.save_data,
+        name='Saving Data thread',
+        args=(save_data_queue,
+            typeofmeasurement,
+            name_liquid,
+            save_path,
+            finish_event,
+            electrospray_config_liquid_setup_obj,
+            electrospray_config_setup
+        )
+    )
+    threads.append(save_data_thread)
+    save_data_thread.start()
+
 
 
     # 
@@ -179,84 +206,16 @@ if __name__ == '__main__':
     # makeVideo_thread.join()
     # print('[MAKE VIDEO THREAD] thread CLOSED!')
 
+    data_acquisition_thread.join()
+    print('[DATA ACQUISITION THREAD] thread CLOSED!')
 
-    
-# # # **************************************
-# # #                SAVING
-# # # **************************************
+    data_processing_thread.join()
+    print('[DATA PROCESSING THREAD] thread CLOSED!')
 
-    print("[SAVING] START SAVING")
+    save_data_thread.join()
+    print('[SAVE DATA THREAD] thread CLOSED!')
 
-    try:
-
-        # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
-        electrospray_config_liquid_setup_obj.set_type_of_measurement(
-            typeofmeasurement)
-        aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
-        # if FLAG_PLOT:
-        #     electrospray_classification.plot_sjaak_cone_jet()
-        #     electrospray_classification.plot_sjaak_classification()
-
-        full_dict = {}
-        full_dict['config'] = {}
-
-    except:
-        print("[SAVING] failed creating saving files")
-        sys.exit(1)
-
-    try:
-
-        if electrospray_config_setup["save_config"]:
-            electrospray_config_liquid = electrospray_config_liquid_setup_obj.get_json_liquid()
-            electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-            full_dict['config']['liquid'] = electrospray_config_liquid
-            full_dict['config']['liquid']['flow rate min'] = electrospray_config_liquid_setup_obj.get_flow_rate_min_ian()
-            full_dict['config']['setup'] = electrospray_config_setup
-            full_dict['config']['setup']['comments'] = current_shape_comment
+    print("\n---------- FINISH PROGRAM ----------")
+    sys.exit(0)
 
 
-        try:
-            if electrospray_config_setup["save_processing"]:
-                full_dict['processing'] = array_electrospray_processing
-
-        except:
-            print("[SAVING] failed saving array_electrospray_processing")
-            sys.exit(1)
-
-        try:
-
-            if electrospray_config_setup["save_data"]:
-                full_dict['measurements'] = array_electrospray_measurements
-
-        except:
-            print("[SAVING] failed saving array_electrospray_measurements")
-            sys.exit(1)
-
-        try:
-
-            # voltage = str(voltage) + 'V'
-            if electrospray_config_setup["save_json"]:
-                # arbitrary, defined in the header
-                file_name = name_liquid + '_step_size_' + str(typeofmeasurement['step_size']) + "_step_time_" + str(typeofmeasurement['step_time']) + ".json"
-                completeName = os.path.join(save_path, file_name)
-
-                with open(completeName, 'w') as file:
-                    json.dump((full_dict), file, indent=4)
-                electrospray_validation.open_load_json_data(filename=completeName)
-
-            print("[SAVING] FILE SAVED")
-            sys.exit(0)
-
-
-
-        except:
-            print("[SAVING] Failed to SAVE JSON")
-            sys.exit(1)
-
-    except:
-        print("[SAVING] Failed to on saving function")
-        sys.exit(1)
-
-    print("[SAVING] END SAVING")

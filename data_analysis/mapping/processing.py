@@ -63,7 +63,8 @@ data = pd.read_feather("map3.feather")
 #         b, a = butter(6, Wn=cutoff_freq_normalized, btype='low', analog=False)  # first argument is the order of the filter
 #         datapoints_filtered = lfilter(b, a, electrospray_data)
 
-#     except:
+#     except Exception as e:
+            print("ERROR: ", str(e)) 
 #         print("[DATA_PROCESSING THREAD] Failed to filter points!")
 
 #     try:
@@ -80,7 +81,8 @@ data = pd.read_feather("map3.feather")
 
 #         max_fft_peaks, cont_max_fft_peaks = electrospray_processing.calculate_peaks_fft(electrospray_data)
 
-#     except:
+#     except Exception as e:
+            print("ERROR: ", str(e)) 
 #         print("[DATA_PROCESSING THREAD] Failed to process data")
 
 #     try:
@@ -98,7 +100,8 @@ data = pd.read_feather("map3.feather")
 #                                                                     max_fft_peaks,
 #                                                                     cont_max_fft_peaks
 #                                                                     )
-#     except:
+#     except Exception as e:
+            print("ERROR: ", str(e)) 
 #         print("[DATA_PROCESSING THREAD] Failed to classify")
 
 
@@ -120,7 +123,8 @@ data = pd.read_feather("map3.feather")
 
 
 
-#     except:
+#     except Exception as e:
+            print("ERROR: ", str(e)) 
 #         print("[DATA_PROCESSING THREAD] Failed to finish process")
 
 # print("[DATA_PROCESSING THREAD] Finish Processing data")

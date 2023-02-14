@@ -77,9 +77,9 @@ def calculate_for_json_with_all_shapes(data_dict, index):
     electrical_conductivity_array[index].append(electrical_conductivity)
 
     for i in range(0, len(data_dict['processing'])):
-        # datapoints = (data_dict['measurements'][i]['data [nA]'])
+        # datapoints = (data_dict['measurements'][i]['current'])
         # data_points_np = np.array(datapoints)
-        current_PS = data_dict['measurements'][i]['current PS']
+        current_PS = data_dict['measurements'][i]['current_PS']
         voltage_PS = data_dict['measurements'][i]['voltage']
         spray_mode = data_dict['measurements'][i]['spray mode']['Sjaak']
         mean = float(data_dict['processing'][i]['mean'])
@@ -88,11 +88,11 @@ def calculate_for_json_with_all_shapes(data_dict, index):
         if mean != 0.0 and median != 0.0 and electrical_conductivity != 0.0 and rho != 0.0:
             if current_PS != '0.0' and voltage_PS != '0.0' and spray_mode == 'cone jet ' and mean > 10:
                 if mean < 150 and float(voltage_PS) < 7500.0 and float(voltage_PS) > 4000.0:
-                    flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
                     # print(flow_rate_actual)
-                    # data = (data_dict['measurements'][i]['data [nA]'])
+                    # data = (data_dict['measurements'][i]['current'])
                     deviation = (np.float64(data_dict['processing'][i]['deviation']))
-                    # for each flow rate
+                    # for each flow_rate
                     """
                     voltage_PS_array.append(float(voltage_PS))
                     current_PS_array.append(current_PS)
@@ -103,7 +103,7 @@ def calculate_for_json_with_all_shapes(data_dict, index):
                     sjaak_mean_div_median.append(mean / median)"""
 
                     flow_rate_actual_array[index].append(flow_rate_actual)
-                    flow_rate_chen_pui[index].append(data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_chen_pui[index].append(data_dict['measurements'][i]['flow_rate'])
                     flow_rate_chen_pui[index].append(np.array(
                         float((dielectric_const) ** 0.5) * (permitivity) * (surface_tension) / (
                                 (rho) * (electrical_conductivity))))
@@ -173,7 +173,7 @@ for i in directory_contents:
                 sjaak_verified_false.append([])
                 sjaak_verified_true.append([])
                 electrical_conductivity_array.append([])
-        # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow rate']
+        # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow_rate']
 
         calculate_for_json_with_all_shapes(data_dict , index)
 

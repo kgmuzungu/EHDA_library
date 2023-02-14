@@ -4,7 +4,7 @@ from PUMP_functions import *
 import keyboard
 
 
-def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM_port, pump_COM_port, feedback_queue):
+def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM_port, pump_COM_port, feedback_queue, syringe_diameter):
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
@@ -70,18 +70,25 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
 
         set_pump_direction(obj_pump_com, "INF")
-        set_inner_diameter(obj_pump_com, "1.7")
+        set_inner_diameter(obj_pump_com, syringe_diameter)
         # get_volume(obj_pump_com)
         low_motor_noize(obj_pump_com)
 
-        flow_rate = ["0.01","0.03", "0.05" ,"0.1", "0.15", "0.2", "0.3", "0.35", "0.5", "0.55", "0.6", "0.7", "0.8", "0.85", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4", "1.5"]
 
         for fr in flow_rate:
+
             print("\n Starting experiment with flowrate:", fr)
             set_flowrate(obj_pump_com, fr, "UM")
+            time.sleep(1)
             start_pumping(obj_pump_com)
+            voltage = typeofmeasurement['voltage_start']
+            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])) # turn voltage to zero
+            time.sleep(5)
             beep_command(obj_pump_com)
+
+            # Voltage loop
             while voltage < typeofmeasurement['voltage_stop']:
+
                 responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                 time.sleep(typeofmeasurement['step_time']/2)
                 controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
@@ -89,14 +96,18 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 voltage += typeofmeasurement['step_size']
                 controller_output_queue.put(controller_output)
                 # print("[FUG THREAD] put values in controller_output_queue")
+                # EXIT CONTROL SEQUENCE
+                if keyboard.is_pressed("q"):
+                    print("You pressed q")
+                    finish_event.set()
+
             stop_pumping(obj_pump_com)
-            voltage = typeofmeasurement['voltage_start']
-            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])) # turn voltage to zero
-            beep_command(obj_pump_com)
-            time.sleep(5)
+            time.sleep(0.5)
+
 
 
         finish_event.set()
+        stop_pumping(obj_pump_com)
         time.sleep(typeofmeasurement['step_time'])
         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(0)]))
 
@@ -157,7 +168,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                         print("You pressed q")
                         finish_event.set()
 
-            except:
+            except Exception as e:
+                print("ERROR: ", str(e))
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
 

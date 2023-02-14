@@ -116,9 +116,9 @@ for i in directory_contents:
                         sjaak_std_mean_array.append([])
                         sjaak_mean_median_array.append([])
 
-                    # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow rate']
+                    # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow_rate']
                 index =index_aux -1
-                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow rate chen pui']
+                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow_rate chen pui']
                 rho = data_dict['config']['liquid']['density']
                 permitivity = data_dict['config']['liquid']['vacuum permitivity']
                 density = data_dict['config']['liquid']['density']
@@ -139,7 +139,7 @@ for i in directory_contents:
                 for i in range(len(data_dict['processing'])):
                     # voltage_actual = data_dict['measurements'][i]['voltage']
                     print(i)
-                    flow_rate_actual = (data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_actual = (data_dict['measurements'][i]['flow_rate'])
                     mean_value = (np.float64(data_dict['processing'][i]['mean']))
                     med_value = (np.float64(data_dict['processing'][i]['median']))
                     variance_value = (np.float64(data_dict['processing'][i]['variance']))

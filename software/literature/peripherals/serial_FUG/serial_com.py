@@ -60,7 +60,8 @@ if no_com_ports > 0:
     while True:
         try:
             com_port_idx = int(input("Enter number of COM port to connect to (0 - " + str(no_com_ports - 1) + "): "))
-        except:
+        except Exception as e:
+            print("ERROR: ", str(e)) 
             print("Incorrect value for COM port! Enter a Number (0 - " + str(no_com_ports - 1) + ")")
             continue
         else:

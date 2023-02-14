@@ -58,9 +58,9 @@ for i in directory_contents:
             if res == None:
                 name = data_dict['config']['liquid']['name']
 
-                # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow rate']
+                # flow_rate_actual = data_dict['config']['liquid']['actual measurement']['flow_rate']
                 electrical_conductivity = data_dict['config']['liquid']['actual measurement']['electrical conductivity']*10 # ToDo: take off this *10 for the next measurements
-                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow rate chen pui']
+                min_fr_chen_pui = data_dict['config']['liquid']['actual measurement']['flow_rate chen pui']
                 rho = data_dict['config']['liquid']['density']
                 permitivity = data_dict['config']['liquid']['vacuum permitivity']
 
@@ -76,10 +76,10 @@ for i in directory_contents:
                 fig, axs = plt.subplots(number_subplots)"""
 
                 for i in range(len(data_dict['processing'])):
-                    flow_rate_actual = data_dict['measurements'][i]['flow rate [m3/s]']
+                    flow_rate_actual = data_dict['measurements'][i]['flow_rate']
                     #voltage_actual = data_dict['measurements'][i]['voltage']
                     print(i)
-                    print("\nflow rate:", flow_rate_actual)
+                    print("\nflow_rate:", flow_rate_actual)
 
                     mean_value = np.float64(data_dict['processing'][i]['mean'])
                     med_value = np.float64(data_dict['processing'][i]['median'])
@@ -143,7 +143,7 @@ for i in directory_contents:
 
                     print("**************************************")
                     flow_rate_actual_array.append(flow_rate_actual)
-                    flow_rate_chen_pui.append(data_dict['measurements'][i]['flow rate [m3/s]'])
+                    flow_rate_chen_pui.append(data_dict['measurements'][i]['flow_rate'])
                     #I_actual_array.append(voltage_actual * 0.0001)
 
                     if flow_rate_actual_array[i] == 0.0:
@@ -171,7 +171,7 @@ for i in directory_contents:
                         I_Ig_ganan_calvo.append(I_ganan_calvo/Ig_ganan_calvo)
                         x_ganan_calvo.append(alphap_ganan_calvo * ((beta_ganan_calvo - 1) ** -1))
 
-                    datapoints = (data_dict['measurements'][i]['data [nA]'])
+                    datapoints = (data_dict['measurements'][i]['current)
                     data_points_np = np.array(datapoints)
 
                     time_max = time_step * len(data_points_np)
