@@ -138,3 +138,9 @@ pip install hvl-ccb
 # influx db token:
 30zF8j190P9AesW2fi60lkr_vkfG6vvUYg_OHtGqAJvywL92dTOxgS6y20F2LRvcn8DQZFgXDpgbY23W-44G-Q==
 
+
+# Raspberry pi commands:
+    nmcli
+    sudo systemctl start NetwrokManager
+    sudo systemctl status NetwrokManager
+    nmcli radio 
