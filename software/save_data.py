@@ -43,7 +43,7 @@ def save_data(
                 config_dict['setup'] = electrospray_config_setup
 
             # Writing
-            os.mkdir(save_path)
+            os.makedirs(save_path, exist_ok=True)
             out_file = open(save_path + "/config.json", "w")
             json.dump(config_dict, out_file, indent = 6)
             out_file.close()

@@ -8,13 +8,17 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
-    print("[FUG] obj_fug_com: ", obj_fug_com)
-    get_voltage_from_PS(obj_fug_com)
+    try:
+        get_voltage_from_PS(obj_fug_com)
+    except Exception as e:
+        print("ERROR: ", str(e))
+        print("[CONTROLLER THREAD] FAILED TO COMMUNICATE WITH POWER SUPPLY!")
+        sys.exit(1)
+
     voltage = typeofmeasurement['voltage_start']
 
-    #              FUG INIT
+    #              PUMP INIT
     obj_pump_com = PUMP_initialize(pump_COM_port)  # parameter: COM port idx
-    print("[PUMP] obj_pump_com: ", obj_pump_com)
     flow_rate = typeofmeasurement['flow_rate']
 
 

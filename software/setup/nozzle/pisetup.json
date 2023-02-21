@@ -7,23 +7,24 @@
     "nozzle outside": 0.091,
     "nozzle height": 3.5,
     "high voltage": "HV on the ground",
-    "diameter syringe": 1.7,
+    "diameter syringe": "1.95",
     "units": "cm",
     "coflow gas type": "none",
     "osc_impedance": 2000000,
-    "flow_rate": 1000,
     "save_data": "True",
     "save_processing": "True",
     "save_config": "True",
     "save_json": "True",
-    "save_path": "C:/Users/hvvhl/Desktop/teste",
+    "plot_real_time": "False",
+    "save_path": "D:/Joao_Pedro/Joao_10-02-23/exp3",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
-        "sequence": "step",
-        "voltage_start": 4000,
-        "voltage_stop": 11000,
+        "sequence": "map",
+        "voltage_start": 4500,
+        "voltage_stop": 8000,
         "slope": 100000,
-        "step_size": 500,
-        "step_time": 5
+        "step_size": 200,
+        "step_time": 2,
+        "flow_rate": ["1.0","1.1", "1.2","1.3", "1.4"]
     }
 }

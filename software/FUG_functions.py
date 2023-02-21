@@ -43,7 +43,6 @@ def FUG_initialize(com_port_idx):
         except Exception as e:
             print('[FUG] Error FUG_initialize()')
             print('[FUG] Exception: ' + e.message)
-            return e.message
             sys.exit(1)
 
     else:

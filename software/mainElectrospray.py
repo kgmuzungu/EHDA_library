@@ -37,13 +37,12 @@ if __name__ == '__main__':
     array_electrospray_measurements = []
     array_electrospray_processing = []
 
-    name_setup = "setup3"
+    name_setup = "mapsetup"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
     current_shape_comment = "difficult cone jet stabilization"
    
-    FLAG_PLOT = True
     plt.style.use('seaborn-colorblind')
     plt.ion()
 
@@ -57,14 +56,15 @@ if __name__ == '__main__':
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     save_path = electrospray_config_setup["save_path"]
+    plot_real_time = electrospray_config_setup["plot_real_time"]
     syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
 
     #        PORTS
-    arduino_COM_port = 1
-    fug_COM_port = 5
-    pump_COM_port = 0
+    arduino_COM_port = 2
+    fug_COM_port = 0
+    pump_COM_port = 1
 
 
 # # # **************************************
@@ -188,10 +188,12 @@ if __name__ == '__main__':
     #          PLOTTING LOOP  ->    (注意) It's not a Thread 
     #  
 
-     # plotting is not a thread. It is a function running in a loop in the main.
-    fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue)
+    # plotting is not a thread. It is a function running in a loop in the main.
+    if(plot_real_time):
+        fig, ax, ln0, ln1, ln2, bg = plotting.start_plot(plotting_data_queue)
     while not finish_event.is_set():
-        plotting.real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
+        if(plot_real_time):
+            plotting.real_time_plot(plotting_data_queue, finish_event, fig, ax, ln0, ln1, ln2, bg)
 
 
         
