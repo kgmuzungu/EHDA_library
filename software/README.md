@@ -150,6 +150,7 @@ pip install hvl-ccb
     nmcli connection show
     nmcli device wifi connect <WIFI> password <PWD>
     nmcli d wifi list
+    nmcli c down <WIFI>
     nmcli c up <WIFI> : to connect to a saved Wi-Fi network use
 
     # commands to evaluate threads
