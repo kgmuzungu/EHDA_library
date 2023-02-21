@@ -144,6 +144,7 @@ if __name__ == '__main__':
         name='Data acquisition thread',
         args=(data_queue,
             finish_event,
+            plot_real_time,
             plotting_data_queue,
             electrospray_config_liquid_setup_obj,
             electrospray_processing,

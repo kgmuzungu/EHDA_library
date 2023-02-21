@@ -11,6 +11,7 @@ append_array_processing = True
 
 def data_processing(data_queue,
                     finish_event,
+                    plot_real_time,
                     plotting_data_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
@@ -113,8 +114,9 @@ def data_processing(data_queue,
             save_data_queue.put(save_message)
 
             # put values in the plotting queue
-            message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
-            plotting_data_queue.put(message)
+            if(plot_real_time):
+                message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
+                plotting_data_queue.put(message)
 
             sample += 1
 
