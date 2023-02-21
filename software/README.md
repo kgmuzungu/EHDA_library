@@ -145,10 +145,12 @@ pip install hvl-ccb
 
 
     # commands to connect to tiePie
-    nmcli
     sudo systemctl start NetwrokManager
     sudo systemctl status NetwrokManager
-    nmcli radio 
+    nmcli connection show
+    nmcli device wifi connect <WIFI> password <PWD>
+    nmcli d wifi list
+    nmcli c up <WIFI> : to connect to a saved Wi-Fi network use
 
     # commands to evaluate threads
     ps -L -p <PID> -o pid,psr,command
@@ -156,3 +158,7 @@ pip install hvl-ccb
     lscpu     : list cpu
     ps -en -o pid,psr,command
     kill -g pid
+
+    # mount usb drive
+    lsblk : list devices
+    mount <from> <to>
