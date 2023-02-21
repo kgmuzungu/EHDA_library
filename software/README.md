@@ -140,7 +140,19 @@ pip install hvl-ccb
 
 
 # Raspberry pi commands:
+
+    # commands to mount usb driver
+
+
+    # commands to connect to tiePie
     nmcli
     sudo systemctl start NetwrokManager
     sudo systemctl status NetwrokManager
     nmcli radio 
+
+    # commands to evaluate threads
+    ps -L -p <PID> -o pid,psr,command
+    htop 
+    lscpu     : list cpu
+    ps -en -o pid,psr,command
+    kill -g pid
