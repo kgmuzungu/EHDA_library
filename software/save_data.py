@@ -69,12 +69,12 @@ def save_data(
 
             while not finish_event.is_set():
                 # wait for first value
-                # while save_data_queue.empty():
-                #     time.sleep(0.1)
+                while save_data_queue.empty():
+                    time.sleep(0.1)
 
-                print("[SAVING] before get, queue size:", save_data_queue.qsize())
-                data_measurement, data_processing = save_data_queue.get(block=True, timeout=None)  # expecting a list with two dictionary objects
-                print("[SAVING] after get, queue size:", save_data_queue.qsize())
+                # print("[SAVING] before get, queue size:", save_data_queue.qsize())
+                data_measurement, data_processing = save_data_queue.get() # block=True, timeout=None)  # expecting a list with two dictionary objects
+                # print("[SAVING] after get, queue size:", save_data_queue.qsize())
 
                 try:
                     if electrospray_config_setup["save_data"]:
