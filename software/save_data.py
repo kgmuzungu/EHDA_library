@@ -72,16 +72,19 @@ def save_data(
                 while save_data_queue.empty():
                     time.sleep(0.1)
 
-                data_measurement, data_processing = save_data_queue.get()
+                # print("[SAVING] before get, queue size:", save_data_queue.qsize())
+                data_measurement, data_processing = save_data_queue.get() # block=True, timeout=None)  # expecting a list with two dictionary objects
+                # print("[SAVING] after get, queue size:", save_data_queue.qsize())
 
                 try:
                     if electrospray_config_setup["save_data"]:
                         if electrospray_config_setup["save_processing"]:
-                            s.write('sample '+str(sample), {**data_measurement, **data_processing})
+                            s.write('sample '+str(sample), {**data_measurement, **data_processing})  #taking values inside the two dicts and creating one dict
                         else:
                             s.write('sample '+str(sample), data_measurement)
 
                         print("[SAVING] saved electrospray sample:", sample)
+                        
 
 
                 except Exception as e:

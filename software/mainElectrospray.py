@@ -201,21 +201,24 @@ if __name__ == '__main__':
 
 
     controller_thread.join()
-    print('[CONTROLLER THREAD] thread CLOSED!')
+    print('[MAIN] CONTROLLER THREAD CLOSED!')
 
     # makeVideo_thread.join()
     # print('[MAKE VIDEO THREAD] thread CLOSED!')
 
-    data_acquisition_thread.join()
-    print('[DATA ACQUISITION THREAD] thread CLOSED!')
+    data_acquisition_thread.join() 
+    print('[MAIN] DATA ACQUISITION THREAD CLOSED!')
 
     data_processing_thread.join()
-    print('[DATA PROCESSING THREAD] thread CLOSED!')
+    print('[MAIND] DATA PROCESSING THREAD CLOSED!')
 
     save_data_thread.join()
-    print('[SAVE DATA THREAD] thread CLOSED!')
+    print('[MAIN] SAVE DATA THREAD CLOSED!')
 
     print("\n---------- FINISH PROGRAM ----------")
     sys.exit(0)
+
+
+
 
 

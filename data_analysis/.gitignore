@@ -1,3 +1,5 @@
 *.json
 *.pkl
 *.feather
+/Data
+/videos

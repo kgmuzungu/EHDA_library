@@ -138,3 +138,21 @@ pip install hvl-ccb
 # influx db token:
 30zF8j190P9AesW2fi60lkr_vkfG6vvUYg_OHtGqAJvywL92dTOxgS6y20F2LRvcn8DQZFgXDpgbY23W-44G-Q==
 
+
+# Raspberry pi commands:
+
+    # commands to mount usb driver
+
+
+    # commands to connect to tiePie
+    nmcli
+    sudo systemctl start NetwrokManager
+    sudo systemctl status NetwrokManager
+    nmcli radio 
+
+    # commands to evaluate threads
+    ps -L -p <PID> -o pid,psr,command
+    htop 
+    lscpu     : list cpu
+    ps -en -o pid,psr,command
+    kill -g pid
