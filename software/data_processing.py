@@ -7,7 +7,6 @@ multiplier_for_nA = 500
 
 append_array_data = True
 append_array_processing = True
-FLAG_PLOT = True
 
 
 def data_processing(data_queue,
@@ -105,7 +104,7 @@ def data_processing(data_queue,
             electrospray_processing.calculate_fft_filtered()
             electrospray_processing.calculate_fft_peaks()
 
-            if current_shape == "cone jet" and FLAG_PLOT:
+            if current_shape == "cone jet":
                 electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
 
                 electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)

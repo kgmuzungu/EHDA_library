@@ -1,5 +1,6 @@
 import time
 import serial
+import sys
 
 """
 VER The pump type and software version
@@ -70,12 +71,11 @@ def PUMP_initialize(com_port_idx):
                 com_port.flushInput()
                 com_port.flushOutput()
                 print('[PUMP] PUMP initialized!')
-                print("[PUMP] PUMP Opened Port: " + com_ports[com_port_idx].device)
+                # print("[PUMP] PUMP Opened Port: " + com_ports[com_port_idx].device)
                 return com_port
         except Exception as e:
-            print('[PUMP] Error PUMP_initialize()')
+            print('[PUMP] FAILED TO INITIALIZE PUMP')
             print('[PUMP] Exception: ' + e.message)
-            return e.message
             sys.exit(1)
 
     else:

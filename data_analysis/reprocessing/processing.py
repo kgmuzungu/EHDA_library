@@ -20,8 +20,6 @@ multiplier_for_nA = 500
 
 append_array_data = True
 append_array_processing = True
-FLAG_PLOT = True
-
 
 
 # warnings.filterwarnings('ignore')
