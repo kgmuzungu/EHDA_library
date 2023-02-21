@@ -15,10 +15,6 @@ import plotting
 import data_processing
 import save_data
 
-
-state_machine = ["Dripping", "Intermittent", "Cone Jet", "Multi Jet", "Corona Sparks"] # total 5 states
-
-
 # # # **************************************
 # # #                 MAIN
 # # # **************************************
@@ -29,9 +25,8 @@ if __name__ == '__main__':
 # # #         INITIAL CONFIGURATION
 # # # **************************************
 
-    current_state = state_machine[0]    
 
-    finish_event = threading.Event()  # when Power Supply finish the finish_event will be set
+    finish_event = threading.Event()  # controller thread decide when finish_event must me True
 
     sampling_frequency = 1e5  # 100000
 
@@ -71,11 +66,11 @@ if __name__ == '__main__':
 
 
     threads = list()
-    controller_output_queue = queue.Queue(maxsize=100000)
-    feedback_queue = queue.Queue(maxsize=100000)
-    data_queue = queue.Queue(maxsize=100000)
-    save_data_queue = queue.Queue(maxsize=100000)
-    plotting_data_queue = queue.Queue(maxsize=100000)
+    controller_output_queue = queue.Queue()
+    feedback_queue = queue.Queue()
+    data_queue = queue.Queue()
+    save_data_queue = queue.Queue()
+    plotting_data_queue = queue.Queue()
 
 
 
