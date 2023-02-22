@@ -170,7 +170,7 @@ class ElectrosprayClassification:
         #
         try:
             if(classification_txt == "Dripping") and (self.previous_state == "Cone Jet" or self.previous_state == "Multi Jet"):
-                classification_txt == "Undefined"
+                classification_txt == "Impossible"
 
             
         except Exception as e:

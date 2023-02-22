@@ -158,7 +158,7 @@ pip install hvl-ccb
     htop 
     lscpu     : list cpu
     ps -en -o pid,psr,command
-    kill -g pid
+    kill -9 pid
 
     # mount usb drive
     lsblk : list devices
