@@ -199,7 +199,7 @@ class ElectrosprayDataProcessing:
         self.freq = []
         self.fourier_peaks = []
         self.all_fourier_peaks = []
-        self.shape_current = []
+        self.shape_current = ""
 
 
     # expected are the polinominal coef for denominator and numerator for filter function
@@ -329,7 +329,7 @@ class ElectrosprayDataProcessing:
                 deviation=str(self.stddev),
                 median=str(self.med),
                 rms=str(self.rms),
-                shape_current=str(self.shape_current),
+                shape_current=self.shape_current,
                 #  psd_welch=str(self.psd_welch.tolist()),
                 # fourier_transform=str(self.fourier_transform),
                 # total_variation_distance=str(self.total_variation_distance),
@@ -344,7 +344,7 @@ class ElectrosprayDataProcessing:
             "deviation": np.float64(self.stddev),
             "median": np.float64(self.med),
             "rms": np.float64(self.rms),
-            "spray_mode": str(self.shape_current),
+            "spray_mode": self.shape_current,
             # "psd welch": self.psd_welch.tolist(),
             # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": np.float64(self.total_variation_distance),

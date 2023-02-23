@@ -93,9 +93,9 @@ def data_processing(data_queue,
 
         try:
 
-            current_shape = str(classification_txt),
+            current_shape = classification_txt,
 
-            feedback_queue.put(str(classification_txt))
+            feedback_queue.put(classification_txt)
 
             electrospray_processing.set_shape(current_shape)
 
