@@ -18,7 +18,8 @@ def data_processing(data_queue,
                     electrospray_classification,
                     electrospray_validation,
                     feedback_queue,
-                    save_data_queue
+                    save_data_queue,
+                    cone_jet_mean
                     ):
 
 
@@ -72,7 +73,7 @@ def data_processing(data_queue,
 
         try:
 
-            classification_txt = electrospray_classification.do_classification(
+            classification_txt, cone_jet_mean = electrospray_classification.do_classification(
                                                                         electrospray_processing.mean_value,
                                                                         electrospray_processing.med,
                                                                         electrospray_processing.stddev,
@@ -83,8 +84,10 @@ def data_processing(data_queue,
                                                                         float(percentage_max),
                                                                         electrospray_data.flow_rate,
                                                                         max_fft_peaks,
-                                                                        cont_max_fft_peaks
-                                                                        )
+                                                                        cont_max_fft_peaks,
+                                                                        cone_jet_mean
+
+            )
         except Exception as e:
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to classify")
