@@ -19,7 +19,7 @@ class ElectrosprayClassification:
         self.sjaak_verified = []
         self.sjaak_verified_false = []
         self.sjaak_verified_true = []
-        self.previous_state = "Dripping"
+        self.previous_states = []
 
         self.data_points_list = 0
         self.electrical_conductivity = 0
@@ -151,13 +151,12 @@ class ElectrosprayClassification:
         #
         try:
             # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
-            cone_jet_mean = 0
-            if(classification_txt == "Cone Jet") and (self.previous_state == "Intermittent"):
+            if(classification_txt == "Cone Jet") and (self.previous_states[-5:] == "Cone Jet"):
                 cone_jet_mean = mean
-                print("cone_jet_mean: ", cone_jet_mean)
+                print("cone jet current mean value: ", cone_jet_mean)
 
-            if cone_jet_mean != 0:
-                if(classification_txt == "Cone Jet") and (mean >= (1.5 * cone_jet_mean)):
+            if(classification_txt == "Cone Jet"):
+                if(mean >= (1.5 * cone_jet_mean)):
                     classification_txt == "Multi Jet"
             
         except Exception as e:
@@ -169,7 +168,7 @@ class ElectrosprayClassification:
         #       Correcting some wrongly classified modes by the system knowledge and memory
         #
         try:
-            if(classification_txt == "Dripping") and (self.previous_state == "Cone Jet" or self.previous_state == "Multi Jet"):
+            if(classification_txt == "Dripping") and (self.previous_states[-1] == "Cone Jet" or self.previous_states[-1] == "Multi Jet"):
                 classification_txt == "Impossible"
 
             
@@ -178,10 +177,7 @@ class ElectrosprayClassification:
             print("Error on correcting classification")
         
 
-        
-
-
-        self.previous_state = classification_txt
+        self.previous_states.append(classification_txt)
 
         return classification_txt
 
