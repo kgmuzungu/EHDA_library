@@ -128,7 +128,8 @@ def data_acquisition(data_queue,
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, flow_rate, temperature,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
-            print(f"\n[DATA_ACQUISITION THREAD] Data acquired: \n    temperature:\f{temperature} \n    Humidity:\f{humidity} \n    voltage:\f{voltage_from_PS} \n    Flow Rate:\f{flow_rate} uL/min")
+            print("\n ------------------------------- \n")
+            print(f"    temperature:\f{temperature}    Humidity:\f{humidity}\n    voltage:\f{voltage_from_PS}    Flow Rate:\f{flow_rate} uL/min")
 
         except Exception as e:
             print("ERROR: ", str(e))
