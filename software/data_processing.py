@@ -18,14 +18,14 @@ def data_processing(data_queue,
                     electrospray_classification,
                     electrospray_validation,
                     feedback_queue,
-                    save_data_queue,
-                    cone_jet_mean
+                    save_data_queue
                     ):
 
 
 
     time_step = 1 / sampling_frequency
     sample = 0
+    previous_flowrate = 0
 
     # THREAD LOOP
     print("[DATA_PROCESSING THREAD] starting loop")
@@ -72,6 +72,12 @@ def data_processing(data_queue,
             sys.exit(1)
 
         try:
+
+            # if change flowrate restart conejet mean values
+            if(electrospray_data.flow_rate != previous_flowrate):
+                cone_jet_mean = 0
+                previous_flowrate = electrospray_data.flow_rate
+
 
             classification_txt, cone_jet_mean = electrospray_classification.do_classification(
                                                                         electrospray_processing.mean_value,

@@ -54,7 +54,6 @@ if __name__ == '__main__':
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
 
-    cone_jet_mean = 0
 
     #        PORTS
     arduino_COM_port = 1
@@ -148,8 +147,7 @@ if __name__ == '__main__':
             electrospray_classification,
             electrospray_validation,
             feedback_queue,
-            save_data_queue,
-            cone_jet_mean
+            save_data_queue
         )
     )
     threads.append(data_processing_thread)

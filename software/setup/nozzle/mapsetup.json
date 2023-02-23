@@ -25,6 +25,6 @@
         "slope": 1000000,
         "step_size": 100,
         "step_time": 2,
-        "flow_rate": ["0.6"]
+        "flow_rate": ["0.4","0.6"]
     }
 }
