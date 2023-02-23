@@ -32,7 +32,6 @@ file_name = "map3"
 electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
 electrospray_classification = ElectrosprayClassification("name_liquid")
 
-array_electrospray_processing = []
 array_values = []
 
 
@@ -116,7 +115,6 @@ data = pd.read_feather("map3.feather")
 #         electrospray_processing.calculate_fft_peaks()
 
 #         d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
-#         array_electrospray_processing.append(current_shape)
 #         array_values = electrospray_data
 
 
@@ -128,7 +126,6 @@ data = pd.read_feather("map3.feather")
 # print("[DATA_PROCESSING THREAD] Finish Processing data")
 
 
-# print(array_electrospray_processing)
 
 
 # #

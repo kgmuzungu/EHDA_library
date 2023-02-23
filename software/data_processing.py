@@ -11,10 +11,10 @@ append_array_processing = True
 
 def data_processing(data_queue,
                     finish_event,
+                    plot_real_time,
                     plotting_data_queue,
                     electrospray_config_liquid_setup_obj,
                     electrospray_processing,
-                    array_electrospray_processing,
                     electrospray_classification,
                     electrospray_validation,
                     feedback_queue,
@@ -93,9 +93,9 @@ def data_processing(data_queue,
 
         try:
 
-            current_shape = str(classification_txt),
+            current_shape = classification_txt,
 
-            feedback_queue.put(str(classification_txt))
+            feedback_queue.put(classification_txt)
 
             electrospray_processing.set_shape(current_shape)
 
@@ -109,18 +109,14 @@ def data_processing(data_queue,
 
                 electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
 
-            if append_array_processing:
-                d_electrospray_processing = electrospray_processing.get_statistics_dictionary()
-                array_electrospray_processing.append(d_electrospray_processing)
-
-
             # put values in the saving queue
             save_message = [electrospray_data.get_measurements_dictionary(), electrospray_processing.get_statistics_dictionary()]
             save_data_queue.put(save_message)
 
             # put values in the plotting queue
-            message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
-            plotting_data_queue.put(message)
+            if(plot_real_time):
+                message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
+                plotting_data_queue.put(message)
 
             sample += 1
 

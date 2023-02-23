@@ -16,8 +16,7 @@ def data_acquisition(data_queue,
                      finish_event,
                      typeofmeasurement,
                      liquid,
-                     arduino_COM_port,
-                     array_electrospray_measurements
+                     arduino_COM_port
                      ):
 
     temperature = 0
@@ -129,21 +128,12 @@ def data_acquisition(data_queue,
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, flow_rate, temperature,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
-            print(f"\n[DATA_ACQUISITION THREAD] Data acquired: \n    temperature:\f{temperature} \n    Humidity:\f{humidity} \n    voltage:\f{voltage_from_PS} \n    Flow Rate:\f{flow_rate} uL/min")
+            print("\n ------------------------------- \n")
+            print(f"    temperature:\f{temperature}    Humidity:\f{humidity}\n    voltage:\f{voltage_from_PS}    Flow Rate:\f{flow_rate} uL/min")
 
         except Exception as e:
             print("ERROR: ", str(e))
             print("[DATA_ACQUISITION THREAD] Failed to ElectrosprayMeasurements")
-            sys.exit(1)
-
-        try:
-
-            d_electrospray_measurements = electrospray_data.get_measurements_dictionary()
-            array_electrospray_measurements.append(d_electrospray_measurements)
-
-        except Exception as e:
-            print("ERROR: ", str(e))
-            print("[DATA_ACQUISITION THREAD] Failed to append array")
             sys.exit(1)
 
         try:
