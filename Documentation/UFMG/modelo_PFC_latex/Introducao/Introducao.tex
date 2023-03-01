@@ -1,18 +1,40 @@
 \chapter{Introdução}
 \label{chap:intro} %este label será usado para referenciar este capítulo
 
-As primeiras frases têm a missão de prender a atenção do leitor e por isso são as mais importantes do texto. Diga o quanto antes o que você fez e quais são os resultados alcançados. Ao terminar de ler a introdução o leitor tomará uma nova decisão de se vale a pena ou não continuar lendo o texto. Capte a atenção do leitor bem aqui.
+A atomização eletrohidrodinâmica (EHDA), também conhecida como eletrospray (ES), é uma maneira de desintegrar um líquido
+em gotículas, expondo-o a um forte campo elétrico. 
 
-A comunicação escrita é considerada umas das cinco habilidades mais importantes por profissionais de engenharia e um engenheiro passa em média mais de $25$\% do seu tempo escrevendo \cite{eggert2002response,spretnak1982survey}. Uma quantidade similar de tempo é gasta na escrita de correspondência e de relatórios técnicos \cite{cunningham2012perceptions}. Dessa forma, encare a escrita do seu projeto como um treinamento nessa importante habilidade.
 
-Neste texto você encontrará não apenas uma estrutura para escrever seu trabalho em \LaTeX, mas também um pequeno manual de boas práticas na escrita técnica. Leia com atenção e coloque as sugestões em prática à medida que preenche o texto com o conteúdo do seu próprio projeto. Também será apresentado um número de vícios de escrita comumente encontrados nas monografias de alunos. 
+% As primeiras frases têm a missão de prender a atenção do leitor e por isso são as mais importantes do texto. Diga o quanto antes o que você fez e quais são os resultados alcançados. Ao terminar de ler a introdução o leitor tomará uma nova decisão de se vale a pena ou não continuar lendo o texto. Capte a atenção do leitor bem aqui.
 
-A seguir está a estrutura de organização sugerida pelo colegiado do curso. Note que ela não é necessariamente a melhor para contar a história do seu projeto. Você pode por exemplo preferir usar títulos mais pertinentes ao seu contexto. Contudo, o seu texto deve conter cada um dos pontos a seguir.
+% A comunicação escrita é considerada umas das cinco habilidades mais importantes por profissionais de engenharia e um engenheiro passa em média mais de $25$\% do seu tempo escrevendo \cite{eggert2002response,spretnak1982survey}. Uma quantidade similar de tempo é gasta na escrita de correspondência e de relatórios técnicos \cite{cunningham2012perceptions}. Dessa forma, encare a escrita do seu projeto como um treinamento nessa importante habilidade.
+
+% Neste texto você encontrará não apenas uma estrutura para escrever seu trabalho em \LaTeX, mas também um pequeno manual de boas práticas na escrita técnica. Leia com atenção e coloque as sugestões em prática à medida que preenche o texto com o conteúdo do seu próprio projeto. Também será apresentado um número de vícios de escrita comumente encontrados nas monografias de alunos. 
+
+% A seguir está a estrutura de organização sugerida pelo colegiado do curso. Note que ela não é necessariamente a melhor para contar a história do seu projeto. Você pode por exemplo preferir usar títulos mais pertinentes ao seu contexto. Contudo, o seu texto deve conter cada um dos pontos a seguir.
 
 \section{Motivação e Justificativa}
 \label{sec:motivacao}
+% Argumente sobre a importância do projeto desenvolvido usando uma visão de alto nível, sem entrar em detalhes. Contextualize seu projeto dentro do local de execução ou da literatura e explique como ele é necessário ou inovador. É possível fazer uma breve revisão bibliográfica, confrontando seu trabalho com outras referências bibliográficas para mostrar a sua contribuição. No quesito contribuição, é muito importante deixar claro o tempo todo que partes do projetos foram executadas por outros e que partes foram executadas por você. Caso contrário, corre-se o risco de inadvertidademente tomar crédito pelo trabalho de outrem, o que pode ter implicações legais. 
 
-Argumente sobre a importância do projeto desenvolvido usando uma visão de alto nível, sem entrar em detalhes. Contextualize seu projeto dentro do local de execução ou da literatura e explique como ele é necessário ou inovador. É possível fazer uma breve revisão bibliográfica, confrontando seu trabalho com outras referências bibliográficas para mostrar a sua contribuição. No quesito contribuição, é muito importante deixar claro o tempo todo que partes do projetos foram executadas por outros e que partes foram executadas por você. Caso contrário, corre-se o risco de inadvertidademente tomar crédito pelo trabalho de outrem, o que pode ter implicações legais. 
+As pesquisas de EHDA têm contribuído como uma importante ferramenta para
+o desenvolvimento da tecnologia da água (dessalinização térmica e recuperação de metais), ciências dos materiais (nanofibras e
+fabricação de nanoesferas, recuperação de metal, membranas seletivas e baterias) e aplicação biomédica
+(encapsulamento). Além disso, o projeto está integrado à estratégia de Transição Energética e à Agenda de Inovação
+Agricultura, água e alimentos, tecnologias facilitadoras essenciais (KETs). Embora existam aplicações de EHDA em
+indústria, a estabilização do modo de pulverização de jato cônico é feita empiricamente e com base em medições de corrente média.
+A corrente elétrica que flui transportada pelo spray revela formas características para diferentes modos de atomização.
+Essas formas não podem ser simplesmente resumidas por seu valor médio. Na figura um podemos ver um exemplo de cone-jet
+modo eletrospray.
+
+Figura 1: exemplo de EHDA
+
+As técnicas de processamento de sinal podem permitir uma classificação não visual do modo de pulverização com base no elétrico
+forma atual. O processo de pulverização impõe ruídos e sequências aleatórias no sinal medido tornando-o
+classificação não é uma tarefa trivial.
+Aplicações industriais exigem estabilização automatizada de um modo de pulverização. Isso pode ser obtido por um sistema fechado
+sistema de controle de circuito. A classificação automatizada do modo de pulverização é uma parte crucial de um sistema de controle, assim como
+o desenvolvimento de um algoritmo de controle apropriado.
 
 \section{Objetivos do Projeto}
 \label{sec:objetivos}
@@ -31,8 +53,13 @@ O conteúdo desta seção pode se sobrepor um pouco com o da seção anterior, p
 \section{Local de Realização}
 \label{sec:empresa}
 
-Faça uma breve apresentação da empresa ou laboratório onde o projeto é desenvolvido. Fale um pouco da história da empresa, do mercado em que atua, da sua organização, do departamento em que está inserido o projeto, etc. Descreva também o seu vínculo com a empresa. 
-
+% Faça uma breve apresentação da empresa ou laboratório onde o projeto é desenvolvido. Fale um pouco da história da empresa, do mercado em que atua, da sua organização, do departamento em que está inserido o projeto, etc. Descreva também o seu vínculo com a empresa. 
+Implementações de processamento de sinal de projetos anteriores
+do grupo NHL Stenden Water Technology estão mostrando bons resultados de classificação. Mais pesquisas são
+necessário para melhorar a precisão da classificação e pesquisa e implementação de uma classificação adequada
+algoritmo. Por causa disso, o trabalho será feito pelo Water Technology Group da NHL Stenden University
+de Ciências Aplicadas e em combinação com empresas holandesas para combinar possibilidades de análise com conhecimento
+e disponibilidade de infraestrutura.
 
 \section{Estrutura da Monografia}
 \label{sec:organizacao}

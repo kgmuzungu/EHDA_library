@@ -713,6 +713,11 @@ INPUT Capa/capa.tex
 INPUT ./Capa/capa.tex
 INPUT Capa/capa.tex
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm
+INPUT ./Capa/Figuras/brasao_ufmg.png
+INPUT ./Capa/Figuras/brasao_ufmg.png
+INPUT Capa/Figuras/brasao_ufmg.png
+INPUT ./Capa/Figuras/brasao_ufmg.png
+INPUT ./Capa/Figuras/brasao_ufmg.png
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecbx1728.tfm
 INPUT /usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -753,11 +758,6 @@ INPUT ./Resumo/Resumo.tex
 INPUT Resumo/Resumo.tex
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecrm2488.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecbx2488.tfm
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
-INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
-INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecss1200.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecsl1200.tfm
 INPUT ./Resumo/Abstract.tex
 INPUT ./Resumo/Abstract.tex
@@ -850,6 +850,11 @@ INPUT DescricaoProcesso/Figuras/FiguraProcesso.pdf
 INPUT ./DescricaoProcesso/Figuras/FiguraProcesso.pdf
 INPUT ./DescricaoProcesso/Figuras/FiguraProcesso.pdf
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
+INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/t1cmss.fd
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecss1200.tfm
 INPUT ./Metodologia/Metodologia.tex
 INPUT ./Metodologia/Metodologia.tex
 INPUT ./Metodologia/Metodologia.tex
@@ -906,6 +911,12 @@ INPUT Monografia.bbl
 INPUT ./Monografia.bbl
 INPUT Monografia.bbl
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecti1095.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
 INPUT ./Apendices/ApendiceA.tex
 INPUT ./Apendices/ApendiceA.tex
 INPUT ./Apendices/ApendiceA.tex
@@ -974,6 +985,7 @@ INPUT ./Monografia.out
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb

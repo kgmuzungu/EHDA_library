@@ -5,9 +5,26 @@
 \vspace{2cm}
 \end{center}
 
-Write a version of your ``resumo'' in English. Beware of literal translations and double check the translation of technical terms.
- 
-
+    Electrohydrodynamic Atomization (EHDA), also called electrospray, is a liquid atomization technique that
+    produces micro- and nanometric charged droplets within a narrow size distribution by using high electric fields (kV/cm).
+    According to Cloupeau and Prunet-Foch\cite{prunet} (1994), electrosprays can generate droplets in different ways, which the authors
+    named "electrospray modes". These modes may be adjusted by varying the strength of the electric field and flow rate,
+    but also depend on liquid properties and system geometry. In their work, the authors proposed four possible EHDA
+    modes: dripping, intermittent, cone-jet and multi-jet, which are generally distinguished visually. Verdoold et al.\cite{Sjaaks} (2014)
+    recently suggested a classification approach based on the behavior of the electric current of the electrospray process.
+    
+    This project develops a closed-loop control method for EHDA devices that uses real-time, electric current-based (hence
+    non-visual) spray mode classification.
+    The proposed electrospray system is entirely automatic, where all the peripherals, such as HV power supply and syringe
+    pump, are controlled by a computer which executes their routines.
+    The system classifies spray mode dynamics using real-time current data and changes EHDA operating parameters such
+    as liquid flowrate and applied voltage to achieve and maintain the chosen spray mode. The electrospray modes are
+    validated in real time by using a high-speed camera.
+    As compared to conventional manual approaches, the implemented control algorithm achieves higher
+    accuracy and lower transient time. Therefore, a completely autonomous EHDA system opens the door to potential
+    industrial applications. In addition, the use of the electric current signal will be useful to further study electrospray
+    processes, leading to better control on droplet generation (frequency, size and charge). The incorporation of Machine
+    Learning to improve mode categorization will be a future development.
  
 \clearpage
 \thispagestyle{empty}
