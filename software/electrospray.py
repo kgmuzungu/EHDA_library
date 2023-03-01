@@ -352,42 +352,6 @@ class ElectrosprayDataProcessing:
         }
         return dictionary
 
-    def save_new_json(self, day_measurement):
-        json_file = open("E:/" + self.liquid + "_" + day_measurement + '.json', 'w')
-        # csv_file = open("E:/" + self.liquid + "_" + self.data_measurement + '.csv', 'w')
-        # csv_file.write('Sample')
-        json_file.write("'sample new statistics': ")
-        dictionary = {
-            "mean": self.mean_value,
-            "variance": self.variance,
-            "deviation": self.stddev,
-            "median": self.med,
-            "rms": self.rms,
-            # "psd_welch": self.psd_welch.tolist(),
-            "spray_mode": self.shape_current,
-            # "fourier transform": self.fourier_transform.tolist(),
-            # "fourier peaks": self.fourier_peaks,
-            # "maximum variation distance": self.total_variation_distance,
-            "freq": self.freq.tolist()
-        }
-        self.json_statistics_obj.write(json.dumps(str(dictionary), sort_keys=True, indent=4))
-
-    def append_json_statistics(self, file_statistics):
-        self.json_statistics_obj = open(file_statistics, "a+")
-        self.json_statistics_obj.write("\n'sample statistics': ")
-
-        dictionary = {
-            "mean": self.mean_value,
-            "variance": self.variance,
-            "deviation": self.stddev,
-            "median": self.med,
-            "range": self.rang_confidence,
-            "rms": self.rms,
-            "spray_mode": self.shape_current,
-        }
-        self.json_statistics_obj.write(json.dumps(str(dictionary), sort_keys=True, indent=4))
-        self.json_statistics_obj.close()
-
     def set_electrical_conductivity(self, K):
         self.k_electrical_conductivity = K
 

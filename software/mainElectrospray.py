@@ -54,10 +54,11 @@ if __name__ == '__main__':
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
 
 
+
     #        PORTS
-    arduino_COM_port = 2
-    fug_COM_port = 0
-    pump_COM_port = 1
+    arduino_COM_port = 1
+    fug_COM_port = 2
+    pump_COM_port = 0
 
 
 # # # **************************************

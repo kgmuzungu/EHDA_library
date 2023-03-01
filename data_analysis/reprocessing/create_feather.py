@@ -15,9 +15,9 @@ from scipy.signal import butter, lfilter
 # warnings.filterwarnings('ignore')
 sampling_frequency = 1e5
 
-file_path = "../../Data/"
+file_path = "Data/"
 
-file_name = "exp26-01-1"
+file_name = "data"
 
 
 with open(file_path + file_name + ".json", 'r') as data_file:    

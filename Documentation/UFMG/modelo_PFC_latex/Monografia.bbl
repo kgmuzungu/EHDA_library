@@ -5,23 +5,17 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.7 }
 
-\bibitem{eggert2002response}
-\abntrefinfo{Eggert}{EGGERT}{2002}
-{EGGERT, R.~J. Response tables from industry members of {ASME}’s design
-  engineering division and the manufacturing engineering division -
-  {E}ngineering design education: Surveys of demand and supply.
-\emph{Boise State University}, 2002.}
+\bibitem{prunet}
+\abntrefinfo{Cloupeau e Prunet-Foch}{CLOUPEAU; PRUNET-FOCH}{1994}
+{CLOUPEAU, M.; PRUNET-FOCH, B. Electrohydrodynamic spraying functioning modes:
+  a critical review.
+\emph{Journal of Aerosol Science}, v.~25, n.~6, p. 1021--1036, 1994.}
 
-\bibitem{spretnak1982survey}
-\abntrefinfo{Spretnak}{SPRETNAK}{1982}
-{SPRETNAK, C.~M. A survey of the frequency and importance of technical
-  communication in an engineering career.
-\emph{Technical Writing Teacher}, ERIC, v.~9, n.~3, p. 133--36, 1982.}
-
-\bibitem{cunningham2012perceptions}
-\abntrefinfo{Cunningham e Stewart}{CUNNINGHAM; STEWART}{2012}
-{CUNNINGHAM, D.; STEWART, J. Perceptions and practices: A survey of
-  professional engineers and architects.
-\emph{ISRN Education}, Hindawi Publishing Corporation, v.~2012, 2012.}
+\bibitem{Sjaaks}
+\abntrefinfo{Verdoold et al.}{VERDOOLD et al.}{2014}
+{VERDOOLD, S. et al. A generic electrospray classification.
+\emph{Journal of Aerosol Science}, Elsevier, v.~67, p. 87--103, 2014.
+ISSN 18791964.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1016/j.jaerosci.2013.09.008$>$.}
 
 \end{thebibliography}
