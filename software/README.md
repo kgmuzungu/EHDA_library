@@ -145,8 +145,8 @@ pip install hvl-ccb
 
 
     # commands to connect to tiePie
-    sudo systemctl start NetwrokManager
-    sudo systemctl status NetwrokManager
+    sudo systemctl start NetworkManager
+    sudo systemctl status NetworkManager
     nmcli connection show
     nmcli device wifi connect <WIFI> password <PWD>
     nmcli d wifi list
@@ -163,3 +163,6 @@ pip install hvl-ccb
     # mount usb drive
     lsblk : list devices
     mount <from> <to>
+
+    # change the boot file
+    sudo nano /etc/rc.local

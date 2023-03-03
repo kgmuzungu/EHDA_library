@@ -1,0 +1,30 @@
+{
+    "nozzle color": "brown",
+    "camera to nozzle distance": 16.5,
+    "config": "nozzle to plate",
+    "nozzle to plate or ring distance": 1.6,
+    "nozzle diameter": 0.136,
+    "nozzle outside": 0.091,
+    "nozzle height": 3.5,
+    "high voltage": "HV on the ground",
+    "diameter syringe": "1.95",
+    "units": "cm",
+    "coflow gas type": "none",
+    "osc_impedance": 2000000,
+    "save_data": "True",
+    "save_processing": "True",
+    "save_config": "True",
+    "save_json": "True",
+    "plot_real_time": "True",
+    "save_path": "D:/Joao_Pedro/Joao_2023-02-23/exp1",
+    "number_camera_partitions": 10,
+    "typeofmeasurement": {
+        "sequence": "control",
+        "voltage_start": 4500,
+        "voltage_stop": 9500,
+        "slope": 1000000,
+        "step_size": 100,
+        "step_time": 2,
+        "flow_rate": ["0.4","0.6"]
+    }
+}
