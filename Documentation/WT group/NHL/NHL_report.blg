@@ -3,11 +3,11 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: NHL_report.aux
 A level-1 auxiliary file: Capa/capa.aux
 A level-1 auxiliary file: Resumo/Abstract.aux
-A level-1 auxiliary file: Introducao/Introducao.aux
-A level-1 auxiliary file: DescricaoProcesso/DescricaoProcesso.aux
-A level-1 auxiliary file: Metodologia/Metodologia.aux
-A level-1 auxiliary file: Resultados/Resultados.aux
-A level-1 auxiliary file: Conclusao/Conclusao.aux
+A level-1 auxiliary file: Introduction/Introduction.aux
+A level-1 auxiliary file: systemDescription/systemDescription.aux
+A level-1 auxiliary file: Metodology/Metodology.aux
+A level-1 auxiliary file: Results/Results.aux
+A level-1 auxiliary file: Conclusion/Conclusion.aux
 The style file: abntex2-num.bst
 A level-1 auxiliary file: Apendices/ApendiceA.aux
 A level-1 auxiliary file: Apendices/ApendiceB.aux
@@ -32,7 +32,7 @@ Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 +---------------------------------------------------------+
 You've used 2 entries,
             6714 wiz_defined-function locations,
-            1220 strings with 9875 characters,
+            1220 strings with 9873 characters,
 and the built_in function-call counts, 2507 in all, are:
 = -- 326
 > -- 62

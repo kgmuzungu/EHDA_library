@@ -33,7 +33,7 @@
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=18cm]{images/image_folder_report_4/new_system_design.png}
+        \includegraphics[width=18cm]{images/image_folder_report_4/control_loop.png}
         \caption{Control model implemented in software}
     \end{figure}
 
@@ -59,10 +59,9 @@
     type of file called feather is much faster to work with the data.
 
 
-\subsection*{2.1 Raspberry pi}
 
 
-\subsection*{2.1 Mapping experiments}
+\subsection*{2.3 Mapping experiments}
 
 
 
@@ -85,7 +84,7 @@
     \end{figure}
 
 
-\subsection*{2.1 Manual x Automatic Mapping}
+\subsection*{2.4 Manual x Automatic Mapping}
 
 
     \begin{figure}[H]
@@ -115,4 +114,35 @@
 
 
 
-\subsection*{2.1 Correctly Join threads and qeues}
+\subsection*{2.5 Multi Jet classification by mean value}
+
+    There is not many articles about the multi jet dynamics and classification. This makes sometimes hard to define when
+    is in multi jet mode, if its defined by the meniscus, quantity of jets or stability.
+
+    We therefore know that the multijet current mean value is above of the cone jet mean value.\cite{Ryan}. This current mean value
+    increases for each new jet created. This could also be noticed experimentally in our setup.
+
+    For that, in our automatic classification algorithm, as the current acquired in cone jet and multi jet has the shape (constant) but different DC values. We decided
+    to save the cone jet mean value and multi jet mean values and analyse what is this step.
+
+    Making a statistical analysis in all data collected using the same liquid (ethanol) and setup we found that the Multi jet can be classified when the current is 1.14 the value of the Cone Jet mean.
+    I implemented this logic in the automatic classification and got the following results.
+
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=15cm]{images/image_folder_report_4/map7-automatic.png}
+        \caption{Control model implemented in software}
+    \end{figure}
+
+
+    Comparing this results with the manual results of the same experiment we can see that the algorithm could classify the Multi Jet with a good accuracy.
+
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=18cm]{images/image_folder_report_4/map7-comparison.png}
+        \caption{Control model implemented in software}
+    \end{figure}
+
+
+
+\subsection*{2.1 Raspberry pi}

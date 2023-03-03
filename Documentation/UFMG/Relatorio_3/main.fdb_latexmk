@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1675170759 "main.bcf" "main.bbl" "main" 1675170804 0
-  "./refs.bib" 1674046975 5179 437f565498b62d00e9ee3b5b36f5f5b0 ""
-  "main.bcf" 1675170804 107273 f5c83795895a5947f1ae79deb7ca4aa0 "pdflatex"
+["biber main"] 1675170759 "main.bcf" "main.bbl" "main" 1677851875 0
+  "./refs.bib" 1676038390 5179 437f565498b62d00e9ee3b5b36f5f5b0 ""
+  "main.bcf" 1677851874 107273 f5c83795895a5947f1ae79deb7ca4aa0 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1675170800 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1675170804 0
+["pdflatex"] 1677851870 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" "main.pdf" "main" 1677851875 0
   "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_3/main.tex" 1675077336 778 1fbb387763e40df983703b666e667e87 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -110,7 +110,7 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1673438091 7874850 71c0f59ed8572e3f77b2c5c3302d6e42 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "Conclusion/Conclusion.tex" 1675170800 1247 5eb96e803922c3f5e3bd6f629684a5fe ""
-  "Development/Development.tex" 1675091586 10229 a9334ca41e23d6289ccafc3ea63076ad ""
+  "Development/Development.tex" 1677851872 10227 b345802dfa20faa46ed39687f6a5083a ""
   "Summary/Summary.tex" 1675080317 3912 363ca70009140e49938c55720508f8cb ""
   "front_cover/front_cover.tex" 1674047906 1197 d90cf5ddf8b20d4be5e4723fde419903 ""
   "images/brasao_ufmg.png" 1674046975 9941 338739bbae18cb898c0bf2526869ace0 ""
@@ -133,10 +133,10 @@
   "joao_26-01-22/map-exp-26-01.png" 1674824735 97709 3ea60e48253f59fa1e749c4125ce48ef ""
   "joao_26-01-22/map4-stabilityIsland.png" 1675072639 170850 136cf324a25d5336fe303542a42b7d96 ""
   "joao_26-01-22/screenshots/stableConeExp.png" 1674728232 781046 c907eba391fa86ce7bcb47d835de8ec1 ""
-  "main.aux" 1675170804 20993 e134d52a9359fff368cfa0edc8146633 "pdflatex"
+  "main.aux" 1677851874 20993 e134d52a9359fff368cfa0edc8146633 "pdflatex"
   "main.bbl" 1675170763 466 ee04f40f768daeed26442158e95aba61 "biber main"
-  "main.out" 1675170804 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
-  "main.run.xml" 1675170804 2299 f443ecd01b65326db634687f331183db "pdflatex"
+  "main.out" 1677851874 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
+  "main.run.xml" 1677851874 2299 f443ecd01b65326db634687f331183db "pdflatex"
   "main.tex" 1675077336 778 1fbb387763e40df983703b666e667e87 ""
   (generated)
   "main.aux"
