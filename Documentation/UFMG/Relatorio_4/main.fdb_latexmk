@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber main"] 1677852556 "main.bcf" "main.bbl" "main" 1677852583 0
+["biber main"] 1677852556 "main.bcf" "main.bbl" "main" 1678094936 0
   "./refs.bib" 1677851705 5406 7f0b7095f41fc11606e2915acee073e9 ""
-  "main.bcf" 1677852583 107242 5d09882345a0530e1db4b40dd7be7c0c "pdflatex"
+  "main.bcf" 1678094936 107242 5d09882345a0530e1db4b40dd7be7c0c "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1677852580 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_4/main.tex" "main.pdf" "main" 1677852583 0
+["pdflatex"] 1678094933 "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_4/main.tex" "main.pdf" "main" 1678094936 0
   "/Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_4/main.tex" 1676368223 778 1fbb387763e40df983703b666e667e87 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -96,7 +96,7 @@
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1673438091 7874850 71c0f59ed8572e3f77b2c5c3302d6e42 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "Conclusion/Conclusion.tex" 1677850888 22 d7b6d94cf8c9dfe4c4467258928348ee ""
-  "Development/Development.tex" 1677852579 6023 10cb159d98a47f3de3e0cc952f66efe1 ""
+  "Development/Development.tex" 1678094933 6479 05c5fb5cc85e30b34a3ddfe833eef2b1 ""
   "Summary/Summary.tex" 1677851078 2951 dfdcaa1dc4e84220fd5fb05da167ca58 ""
   "front_cover/front_cover.tex" 1675960466 1197 d0c3efaf4b88a41c9496e4c801404d0e ""
   "images/brasao_ufmg.png" 1675960466 9941 338739bbae18cb898c0bf2526869ace0 ""
@@ -114,10 +114,10 @@
   "images/image_folder_report_4/multi_jet_print.png" 1676636797 769635 4e11e6bde3a3d87a69d7dbec983b75ce ""
   "images/image_folder_report_4/new_system_setup.png" 1677683825 186395 35138a4ab78ff05baf3feeb59df55457 ""
   "images/system_setup.png" 1675960466 137225 9caf83d4284e4c17b948e814d76242b6 ""
-  "main.aux" 1677852583 19950 94a37fc42fbe8cee0760c11431f48c73 "pdflatex"
+  "main.aux" 1678094936 19950 94a37fc42fbe8cee0760c11431f48c73 "pdflatex"
   "main.bbl" 1677852559 1946 6b4c1eaf5022eb2559655485d505ca2a "biber main"
-  "main.out" 1677852583 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
-  "main.run.xml" 1677852583 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
+  "main.out" 1678094936 330 4ae2d43278ecd484af22dea61da642f5 "pdflatex"
+  "main.run.xml" 1678094936 2299 33d8dfeb54dc04cad67f98afaa10639d "pdflatex"
   "main.tex" 1676368223 778 1fbb387763e40df983703b666e667e87 ""
   (generated)
   "main.aux"

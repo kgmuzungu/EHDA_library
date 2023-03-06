@@ -1,8 +1,8 @@
-PWD /Users/jota/Documents/EHDA_library/Documentation/Relatorio_2
+PWD /Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_2
 INPUT /usr/local/texlive/2022/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/jota/Documents/EHDA_library/Documentation/Relatorio_2/main.tex
+INPUT /Users/jota/Documents/EHDA_library/Documentation/UFMG/Relatorio_2/main.tex
 OUTPUT main.log
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
