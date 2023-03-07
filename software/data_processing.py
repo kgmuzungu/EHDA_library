@@ -113,30 +113,42 @@ def data_processing(data_queue,
             electrospray_processing.calculate_fft_filtered()
             electrospray_processing.calculate_fft_peaks()
 
-            if current_shape == "cone jet":
-                electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
-
-                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
-
             # put values in the saving queue
             save_message = [electrospray_data.get_measurements_dictionary(), electrospray_processing.get_statistics_dictionary()]
             save_data_queue.put(save_message)
+
+            sample += 1
+
+            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", classification_txt)
+
+        except Exception as e:
+            print("ERROR: ", str(e)) 
+            print("[DATA_PROCESSING THREAD] Failed to put value in save_data_queue")
+
+        try:    
+
+            if current_shape == "Cone Jet":
+                electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
+
+                # Validation through the Chen_Pui Article
+                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
+
+        except Exception as e:
+            print("ERROR: ", str(e)) 
+            print("[DATA_PROCESSING THREAD] Failed to electrospray_validation")
+
+        try: 
 
             # put values in the plotting queue
             if(plot_real_time):
                 message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
                 plotting_data_queue.put(message)
 
-            sample += 1
-
-            print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", classification_txt)
-
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
-
 
         except Exception as e:
             print("ERROR: ", str(e)) 
-            print("[DATA_PROCESSING THREAD] Failed to finish process")
-            sys.exit(1)
+            print("[DATA_PROCESSING THREAD] Failed to put value in plotting queue")
+
 
     print("[DATA_PROCESSING THREAD] Finish Processing data")
