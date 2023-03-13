@@ -10,20 +10,20 @@
 \contentsline {chapter}{\numberline {3}Metodology}{7}{chapter.3}%
 \contentsline {section}{\numberline {3.1}System Model}{7}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Threading and Queues}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Classification}{7}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{7}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.3}Classification}{8}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{8}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Machine Learning}{9}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Routine Sequences}{9}{section.3.4}%
 \contentsline {subsection}{\numberline {3.4.1}Ramp}{9}{subsection.3.4.1}%
 \contentsline {subsection}{\numberline {3.4.2}Step}{9}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Map}{9}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Control}{10}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Optimizations}{10}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Pump Integration}{11}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.4.3}Map}{10}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Control}{12}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Optimizations}{12}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Pump Integration}{12}{subsection.3.5.1}%
 \contentsline {chapter}{\numberline {4}Results}{13}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Atividades do Projeto}{13}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{13}{section.4.2}%
-\contentsline {chapter}{\numberline {5}Conclusion}{15}{chapter.5}%
-\contentsline {chapter}{Bibliography}{16}{chapter.5}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{19}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{21}{appendix.B}%
+\contentsline {section}{\numberline {4.1}Atividades do Projeto}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos do Sistema}{17}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Conclusion}{19}{chapter.5}%
+\contentsline {chapter}{Bibliography}{20}{chapter.5}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{23}{appendix.A}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{25}{appendix.B}%

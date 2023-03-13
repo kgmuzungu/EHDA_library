@@ -9,13 +9,22 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 
 \begin{figure}[thpb]
   \centering
-  \resizebox{150mm}{!}{\includegraphics{Metodology/Figuras/control_loop.png}}
+  \resizebox{150mm}{!}{\includegraphics{Figuras/control_loop.png}}
   \caption{EHDA automation system setup}
   \label{fig:control_model_fig}
 \end{figure}
 
 \section{Threading and Queues}
 \label{sec:concurrency}
+
+    In order to implement this system model to the software and explore parallel processing each system in the
+    model was developed as a separate Thread. For cuncurrency purpose and the flux of data in the control cicle was used queues structures.
+    
+    \begin{enumerate}[a)]
+        \item Item 1;
+        \item Item 2; 
+        \item Etc.     
+    \end{enumerate}
 
 \section{Classification}
 \label{sec:section_classification}
@@ -80,15 +89,37 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 \section{Routine Sequences}
 \label{sec:routine_sequences}
 
+    The software was previously developed as a electrospray multipurpose library\cite{Monica}. 
+    Continuing this methodology, in the setup json file there is a "sequence" atribute which can chosen beetween "ramp", "step", "map" or "control".
+    The controller thread will manage what the algorithm must do for each sequence.
+
 \subsection{Ramp}
 
+
+
 \subsection{Step}
+
+
+\begin{algorithm}
+    \caption{STEP sequence in controller thread}\label{alg:stepping_algorithm}
+    \begin{algorithmic}
+    \Procedure{STEP}{$voltage\_start,voltage\_stop$} 
+        \State $voltage \gets voltage\_start$
+        \While{$voltage \leq voltage\_stop$} \Comment{scanning voltage range}
+            \State \Call{send\_voltage\_command}{voltage}
+            \State \Call{sleep}{step \_time}
+            \State $voltage \gets voltage + step\_size$
+        \EndWhile
+    \EndProcedure
+
+    \end{algorithmic}
+\end{algorithm}
 
 \subsection{Map}
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=13cm]{Metodology/Figuras/ganan_calvo_map.png}
+        \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
         \caption{Domains of existence (stability) of Taylor cone-jets. \cite{gananCalvo} }
         \label{fig:ganan_calvo_fig}
     \end{figure}
@@ -121,9 +152,17 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=15cm]{Metodology/Figuras/report2/map2Data.png}
-        \caption{Mapping Experiment example 1 }
+        \includegraphics[width=15cm]{Figuras/report2/map2Data.png}
+        \caption{Mapping Experiment example 1}
         \label{fig:map2Data_fig}
+    \end{figure}
+
+
+    \begin{figure}[H]
+        \center
+        \includegraphics[width=15cm]{Figuras/report4/map-2023-03-02.png}
+        \caption{Mapping Experiment example 1}
+        \label{fig:map3Data_fig}
     \end{figure}
 
 
