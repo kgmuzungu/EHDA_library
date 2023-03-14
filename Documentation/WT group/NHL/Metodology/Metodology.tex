@@ -18,13 +18,63 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 \label{sec:concurrency}
 
     In order to implement this system model to the software and explore parallel processing each system in the
-    model was developed as a separate Thread. For cuncurrency purpose and the flux of data in the control cicle was used queues structures.
+    model was developed as a separate Thread.
+    For cuncurrency on flux of data beetween threads was used queues structures.
+    A queue is an abstract data type that holds an ordered, linear sequence of items. You can describe it as a first in, first out (FIFO) structure.
+
+    \subsection{Controller Thread}
+
+        It is responsible of sending the power supply set voltage values and the syringe pump the flow rate set values according to the sequence selected.
+        Also responsible of sending the finish event command that end the routine and trigger the threads to close their routines.
+        As input we have the setup config file and the \emph{feedback\_queue}. As output we have the values in the emph{controller\_output\_queue()}.
+
+    \subsection{Data Acquisition Thread}
+
+        It is responsible for reading the current data from the oscilloscope, humidity and temperature data from the DHT11 sensor, voltage from the powersupply, flowrate from the pump and concatenate into one sample data.
+        As output we have the values in the emph{data\_queue()}.
+
+    \subsection{Data Processing Thread}
+
+        It is responsible for calculating the statistical values from the raw data and classify it in the respective spray mode for that sample.
+        As output we have the values in the emph{save\_data\_queue()}, emph{plotting\_queue()} and emph{feedback\_queue()}.
     
-    \begin{enumerate}[a)]
-        \item Item 1;
-        \item Item 2; 
-        \item Etc.     
-    \end{enumerate}
+        \subsection{Save Data Thread}
+
+        After the processing the data is saved in real time in a json file using \emph{jsonstreams} library to save one sample structure at a time.
+
+        With the new streamming model of saving a new structure of the collected data were created.
+        Instead of having all data measurements values and after all data processing values we now are saving for each sample the measurements and processing values.
+        The structure of the 
+    
+        \begin{figure}[H]
+            \center
+            \includegraphics[width=5cm]{Figuras/report4/json_structure.png}
+            \caption{Output data json structure}
+        \end{figure}
+    
+        To work with this data I'm using pandas Dataframe.
+        With the command:
+        
+        pandas.read\_json('PATH', orient='index').
+    
+        The json file is good to store the data and to read the file. But as it is getting a lot of data working with pandas Dataframe is being way faster. Also saving the dataframe in a compressed
+        type of file called feather is much faster to work with the data.
+    
+    \subsection{Video Thread}
+
+        Normally deactivated, that thread is responsible for triggering the camera in case we want to save a video of that sample.
+    
+    \subsection{Plot}
+
+        The only running function that is not a thread because of the plotting library \emph{matplotlib} incompatibilites of running outside of the main function. 
+        It is responsible of plotting in real time the current sample acquired and it respective fast fourier transform to evaluate the sample frequency spectrum.
+
+
+
+    
+    
+    - plotting data queue
+
 
 \section{Classification}
 \label{sec:section_classification}
@@ -168,6 +218,11 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 
 
 \subsection{Control}
+
+    The control sequence is the only from our list of sequences that actually uses the feedback value. 
+    As it is a closed loop control system the controller must be able to stabilize the system in the desired conditions.
+
+
 
 \section{Optimizations}
 \label{sec:routine_optimization}
