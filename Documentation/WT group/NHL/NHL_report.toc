@@ -9,22 +9,22 @@
 \contentsline {section}{\numberline {2.3}First Experiments}{7}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Metodology}{9}{chapter.3}%
 \contentsline {section}{\numberline {3.1}System Model}{9}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Threading and Queues}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Threading and Queues}{10}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}Controller Thread}{10}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}Data Acquisition Thread}{10}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Data Processing Thread}{10}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Save Data Thread}{10}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.3}Data Processing Thread}{11}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Save Data Thread}{11}{subsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.2.5}Video Thread}{11}{subsection.3.2.5}%
-\contentsline {subsection}{\numberline {3.2.6}Plot}{11}{subsection.3.2.6}%
-\contentsline {section}{\numberline {3.3}Classification}{11}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{11}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.2.6}Plot}{12}{subsection.3.2.6}%
+\contentsline {section}{\numberline {3.3}Classification}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{12}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Machine Learning}{12}{subsection.3.3.2}%
 \contentsline {section}{\numberline {3.4}Routine Sequences}{12}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Ramp}{13}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Step}{13}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Map}{13}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Control}{15}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Optimizations}{15}{section.3.5}%
+\contentsline {subsection}{\numberline {3.4.1}Ramp}{14}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Step}{14}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Map}{14}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Control}{16}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Optimizations}{16}{section.3.5}%
 \contentsline {subsection}{\numberline {3.5.1}Pump Integration}{16}{subsection.3.5.1}%
 \contentsline {chapter}{\numberline {4}Results}{17}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Map Sequence}{17}{section.4.1}%
