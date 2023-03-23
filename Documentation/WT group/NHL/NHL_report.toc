@@ -1,48 +1,49 @@
 \contentsline {chapter}{Abstract}{2}{chapter*.1}%
 \contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}EHDA}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Spraying modes}{4}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Dripping}{4}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Intermittent}{5}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Cone Jet}{5}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Multi Jet}{5}{subsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.2.5}Corona sparks}{5}{subsection.1.2.5}%
-\contentsline {section}{\numberline {1.3}Non-visual classification}{5}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Motivation and Justify}{5}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Project objectives}{6}{section.1.5}%
-\contentsline {section}{\numberline {1.6}People envolved}{6}{section.1.6}%
-\contentsline {chapter}{\numberline {2}System Description}{7}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Instrumentation}{7}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Setup Organization}{7}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Instruments Used}{8}{subsection.2.1.2}%
-\contentsline {section}{\numberline {2.2}First Experiments}{9}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Metodology}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}System Model}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Threading and Queues}{12}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Controller Thread}{12}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Data Acquisition Thread}{12}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Data Processing Thread}{13}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}Save Data Thread}{13}{subsection.3.2.4}%
-\contentsline {subsection}{\numberline {3.2.5}Video Thread}{14}{subsection.3.2.5}%
-\contentsline {subsection}{\numberline {3.2.6}Plot}{14}{subsection.3.2.6}%
-\contentsline {section}{\numberline {3.3}Classification}{14}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{14}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Machine Learning}{14}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Routine Sequences}{14}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Ramp}{15}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Step}{15}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Map}{16}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Control}{17}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Optimizations}{18}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Pump Integration}{18}{subsection.3.5.1}%
-\contentsline {chapter}{\numberline {4}Results}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Map Sequence}{19}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Manual experiments}{19}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Automatic experiments}{20}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Manual x Automatic Cone Jet stability island maps}{21}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Atividades do Projeto}{23}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Requisitos do Sistema}{23}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Conclusion}{25}{chapter.5}%
-\contentsline {chapter}{Bibliography}{26}{chapter.5}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{29}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{31}{appendix.B}%
+\contentsline {section}{\numberline {1.1}Droplet Formation}{3}{section.1.1}%
+\contentsline {section}{\numberline {1.2}EHDA}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Spraying modes}{4}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Dripping}{5}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Intermittent}{5}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Cone Jet}{5}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Multi Jet}{5}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Corona sparks}{5}{subsection.1.3.5}%
+\contentsline {section}{\numberline {1.4}Non-visual classification}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Motivation and Justify}{6}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Project objectives}{7}{section.1.6}%
+\contentsline {section}{\numberline {1.7}People envolved}{7}{section.1.7}%
+\contentsline {chapter}{\numberline {2}System Description}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Instrumentation}{9}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Setup Organization}{9}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Instruments Used}{10}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}First Experiments}{10}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Metodology}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}System Model}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Threading and Queues}{14}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Controller Thread}{14}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Data Acquisition Thread}{14}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Data Processing Thread}{15}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Save Data Thread}{15}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Video Thread}{16}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Plot}{16}{subsection.3.2.6}%
+\contentsline {section}{\numberline {3.3}Classification}{16}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Statistical Analisys}{16}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Machine Learning}{17}{subsection.3.3.2}%
+\contentsline {section}{\numberline {3.4}Routine Sequences}{17}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Ramp}{18}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Step}{18}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Map}{18}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Control}{20}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Optimizations}{20}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Pump Integration}{21}{subsection.3.5.1}%
+\contentsline {chapter}{\numberline {4}Results}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Map Sequence}{23}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Manual experiments}{23}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Automatic experiments}{24}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Manual x Automatic Cone Jet stability island maps}{25}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Atividades do Projeto}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Requisitos do Sistema}{27}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Conclusion}{29}{chapter.5}%
+\contentsline {chapter}{Bibliography}{30}{chapter.5}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{33}{appendix.A}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{35}{appendix.B}%

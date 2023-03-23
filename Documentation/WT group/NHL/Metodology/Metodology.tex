@@ -95,9 +95,14 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 
 \subsection{Statistical Analisys}
 
- According to \cite{Sjaaks} evaluating the current data flowing through the nozzle to the plate we can analyze the signa that represents the spraying dynamics.
- through statistical analysis in this signal such as mean value and standart deviation we can analyze if the signal is stable or not.
+ According to Sjaaks\cite{Sjaaks}, evaluating the current data flowing through the nozzle to the plate can give us valuable information about the spraying behaviour.
+ Together with the current characteristics, visual observations and results from literature it was investigated whether generic trends are present that can be related to the actual spraying modes.
+ It was concluded that factors like geometry, polarity, material properties and occurring discharges are reflected in the system current.
+In this work, the author also exposed some signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time domain and frequency domain analysis.
 
+From those analysis we are appliying in our automatic classification system the relative standard deviation. Which is refered as the sample standart deviation divided by the sample mean values.
+ 
+ through statistical analysis in the signal such as mean value and standart deviation.
  Our classification by statistical analysis was implemented in the automation library made by the previous student \cite{Monica}.
 
  Each current sample is 0.5s of current data in 10kHz sampling frequency.

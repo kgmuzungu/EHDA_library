@@ -10,6 +10,14 @@ Industrial applications demand automated stabilization of a spray mode.
 This can be achieved by a closed-loop control system. 
 This project is about to develop an application that can classify what dynamics the EHDA experiment is current in and control the variables to stabilize in the desired mode. 
 
+\section{Droplet Formation}
+\label{sec:drop_formation}
+
+In the Aerosol reasearch community there is a branch of studies about droplets formation. In the droplet field a very functional for applications is the atomization, which refers to breaking the liquid in small droplets.
+There is many ways of atomizing a liquid. Some using mechanical energy such as ultrassound, rotating disk\cite{Disk_atomization}, pressure or blowing air on the meniscus. But also, some of them using electric forces such as electrospray atomization.
+
+For 
+
 
 \section{EHDA}
 \label{sec:ehda_resume}
@@ -90,10 +98,26 @@ In this mode the droplet size is smaller than the nozzle, phenomena called micro
 \section{Non-visual classification}
 \label{sec:non-visual-classification}
 
+Since the beginning of EHDA until today the researchs are being conducted manually with visual classification of the spraying mode using a camera or even by naked eyes.
+It is recommended to use a high speed (HS) camera because some dripping or intermittent states can be in a high frequency and be wrongly noticed as a stable condition.
+The setup in \ref{fig:ehda_setup} shows the most common setup used for EHDA researchers.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{150mm}{!}{\includegraphics{Figuras/system_setup.png}}
+  \caption{EHDA experiment setup \cite{Luewton}}
+  \label{fig:ehda_setup}
+\end{figure}
+
+
+Therefore some researchs were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. That current signal holds a lot o information 
+about the dynamics that is happening with the liquid. In \ref{fig:microdripping_current_pic} we can see an example of that. It's clear the two droplets generated in this time frame.
+
+
 \begin{figure}[H]
     \centering
     \resizebox{150mm}{!}{\includegraphics{Figuras/report2/img2.png}}
-    \caption{EHDA automation system setup}
+    \caption{Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}
     \label{fig:microdripping_current_pic}
   \end{figure}
 

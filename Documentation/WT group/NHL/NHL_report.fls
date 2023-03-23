@@ -827,6 +827,11 @@ INPUT ./Figuras/multijetexample.png
 INPUT Figuras/multijetexample.png
 INPUT ./Figuras/multijetexample.png
 INPUT ./Figuras/multijetexample.png
+INPUT ./Figuras/system_setup.png
+INPUT ./Figuras/system_setup.png
+INPUT Figuras/system_setup.png
+INPUT ./Figuras/system_setup.png
+INPUT ./Figuras/system_setup.png
 INPUT ./Figuras/report2/img2.png
 INPUT ./Figuras/report2/img2.png
 INPUT Figuras/report2/img2.png
@@ -842,11 +847,6 @@ INPUT ./systemDescription/systemDescription.tex
 INPUT systemDescription/systemDescription.tex
 INPUT ./systemDescription/systemDescription.tex
 INPUT systemDescription/systemDescription.tex
-INPUT ./Figuras/system_setup.png
-INPUT ./Figuras/system_setup.png
-INPUT Figuras/system_setup.png
-INPUT ./Figuras/system_setup.png
-INPUT ./Figuras/system_setup.png
 INPUT ./Figuras/setup_pic.jpg
 INPUT ./Figuras/setup_pic.jpg
 INPUT Figuras/setup_pic.jpg
@@ -1002,6 +1002,11 @@ INPUT ./Apendices/ApendiceB.tex
 INPUT Apendices/ApendiceB.tex
 INPUT ./Apendices/ApendiceB.tex
 INPUT Apendices/ApendiceB.tex
+INPUT ./Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
+INPUT Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
 INPUT NHL_report.aux
 INPUT ./Capa/capa.aux
 INPUT Capa/capa.aux
