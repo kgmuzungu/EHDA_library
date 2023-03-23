@@ -93,6 +93,9 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 \section{Classification}
 \label{sec:section_classification}
 
+The classification is a key step in our routine. For being able to be used in multipurpose applications our classification routine must be able to run in real-time. Which means it must be fast and automatic classification.
+Our goal is to improve and apply in our routine different approachs of non-visual spraying classification using the current data collected from the system.
+
 \subsection{Statistical Analisys}
 
  According to Sjaaks\cite{Sjaaks}, evaluating the current data flowing through the nozzle to the plate can give us valuable information about the spraying behaviour.
@@ -101,6 +104,14 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 In this work, the author also exposed some signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time domain and frequency domain analysis.
 
 From those analysis we are appliying in our automatic classification system the relative standard deviation. Which is refered as the sample standart deviation divided by the sample mean values.
+
+\begin{figure}[H]
+    \centering
+    \resizebox{50mm}{!}{\includegraphics{Figuras/report2/data3_sjaaksgraph2.png}}
+    \caption{EHDA automation system setup}
+    \label{fig:sjaaks_statistical_class}
+\end{figure}
+
  
  through statistical analysis in the signal such as mean value and standart deviation.
  Our classification by statistical analysis was implemented in the automation library made by the previous student \cite{Monica}.
