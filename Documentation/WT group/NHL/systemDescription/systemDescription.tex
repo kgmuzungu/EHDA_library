@@ -2,15 +2,19 @@
 \label{chap:descricaoproblema}
 
 
-
-
-
 \section{Instrumentation}
 \label{sec:instrumentation}
 
+\begin{enumerate}[a]
+  \item High Voltage Power Supply (FUG)
+  \item Oscilloscope TiePie WS6 DIFF 
+  \item Humidity and Temperature sensor (DHT11 + Arduino Uno)
+  \item High Speed Camera - Photron fastcam mini
+  \item Syringe pump
+  \end{enumerate}
+
 \subsection{Setup Organization}
 \label{subsec:setup_organization}
-
 
 
 \begin{figure}[H]
@@ -21,12 +25,8 @@
 \end{figure}
 
 
-\subsection{Instruments Used}
-\label{subsec:instruments}
-
 The peripherals automation routine was already developed by another student. In order to continue the research I took some time to understand the physical concept behind EHDA experiments and the project knowledge.
 I made upgrades in the routine to include the high speed camera with a hardware triggering routine using an arduino microcontroler. This will be usefull to validate the further classification of the spray dynamics.
-
 
 % ilustramos o processo com a Figura \ref{fig:setup}. 
 
@@ -38,20 +38,13 @@ I made upgrades in the routine to include the high speed camera with a hardware 
 \end{figure}
 
 
-\section{First Experiments}
-\label{sec:first_experiments}
+\section{Setup Validation}
+\label{sec:setup_validation}
 
 Initial tests were made to verify the setup assembly and the automation routine integration. In this step I could unterstand in practise how electrospray works.
-I noticed that we need a large set of variables in the range to produce the desired dynamics of electrospray, which most of the time is cone-jet mode. Those variables can be the liquid properties such as surface tension, dielectric constant, viscosity, density, electrical conductivity and vacuum permitivity. And also physical variables such as flowrate, system impedance, system temperature, system humidity, nozzle to plate distance, nozzle dimensions and applied voltage.
-The instruments used in the setup are:
-
-\begin{enumerate}[a]
-  \item High Voltage Power Supply (FUG)
-  \item Oscilloscope TiePie WS6 DIFF 
-  \item Humidity and Temperature sensor (DHT11 + Arduino Uno)
-  \item High Speed Camera - Photron fastcam mini
-  \item Syringe pump
-  \end{enumerate}
+I noticed that we need a large set of variables in the range to produce the desired dynamics of electrospray, which most of the time is cone-jet mode.
+ Those variables can be the liquid properties such as surface tension, dielectric constant, viscosity, density, electrical conductivity and vacuum permitivity. 
+ And also physical variables such as flowrate, system impedance, system temperature, system humidity, nozzle to plate distance, nozzle dimensions and applied voltage.
 
 
 \clearpage

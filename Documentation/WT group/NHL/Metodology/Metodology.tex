@@ -1,23 +1,44 @@
 \chapter{Metodology}
 \label{chap:Metodology}
 
+About the python algorithm to turn the experiment autonomous it was made a study and modelling of the software architecture to optimize it for further control loop application to be implemented. From the changes made until now it highlights:
+
+- Integrate high speed camera to the experiment routine.
+
+- Remodel the software to support threads in order to separate the sensoring and controlling routines.
+
+- Reduce the data collected size.
+
+- Synchronize the power supply step commands and voltage sensoring.
+
+- Reestructure the setup file in order to make it more intuitive to use the experiment.
+
+- Improvements in code organization and readability.
+
+About the setup,integrate was changed the liquid, nozzle diameter and distance to the plate in order to
+make the experiment the most stable and easy to reach cone-jet mode as possible. For example, while doing experiments we discovered that the frequency of the pump machine internal motors was creating an interference in the flowrate. Therefore compromising the stabilization in cone jet mode. A solution for that was to increasethe flowrate wich smooths this pumping noise. For that was also necessary to increase the nozzle diameter to balance with all other variables from the experiment.
+
+\subsection{Pump Integration}
+
+    The pump integration in the automation algorithm bring us a new controllable variable, the Flowrate. Now we can control the spraying mode with the
+    two main variables that afect the system. 
+    It will bring more complexity for the system since now we are dealing with multivariable control.
+    Controlling also the flowrate gives to this project a new dimension in the system giving us freedom to explore the flowrate properties.
+    % Our control model is now a MISO \footcite{MISO: Multiple Inputs Single Output} system. The crossover (couple) between the controlled variables will be evaluated in further reports.
+
+    About the pump interface. As I could not find a good ready-to-use library for this pump I developed an simple and intuitive interface to be our software routine.
+    The communication protocol used is RS-232. In the software routine the communication used is python serial interface. The pump commands list were found in the user manual.
+
+    \begin{figure}[H]
+        \centering
+        \resizebox{150mm}{!}{\includegraphics{Figuras/report4/experiment_print1.png}}
+        \caption{EHDA automation system setup}
+        \label{fig:metodology_example1}
+    \end{figure}
 
 \section{System Model}
 \label{sec:control_model}
 
-\begin{figure}[H]
-    \centering
-    \resizebox{150mm}{!}{\includegraphics{Figuras/report4/experiment_print1.png}}
-    \caption{EHDA automation system setup}
-    \label{fig:metodology_example1}
-\end{figure}
-
-%   \begin{figure}[H]
-%     \centering
-%     \resizebox{150mm}{!}{\includegraphics{Figuras/report4/multi_jet_print.png}}
-%     \caption{EHDA automation system setup}
-%     \label{fig:metodology_example2}
-% \end{figure}
 
 ilustramos o processo com a Figura \ref{fig:control_model_fig}. 
 
@@ -254,36 +275,9 @@ From those analysis we are appliying in our automatic classification system the 
 
 
 
-\section{Optimizations}
-\label{sec:routine_optimization}
+\section{Raspberry Pi}
+\label{sec:raspberry}
 
-About the python algorithm to turn the experiment autonomous it was made a study and modelling of the software architecture to optimize it for further control loop application to be implemented. From the changes made until now it highlights:
-
-- Integrate high speed camera to the experiment routine.
-
-- Remodel the software to support threads in order to separate the sensoring and controlling routines.
-
-- Reduce the data collected size.
-
-- Synchronize the power supply step commands and voltage sensoring.
-
-- Reestructure the setup file in order to make it more intuitive to use the experiment.
-
-- Improvements in code organization and readability.
-
-About the setup,integrate was changed the liquid, nozzle diameter and distance to the plate in order to
-make the experiment the most stable and easy to reach cone-jet mode as possible. For example, while doing experiments we discovered that the frequency of the pump machine internal motors was creating an interference in the flowrate. Therefore compromising the stabilization in cone jet mode. A solution for that was to increasethe flowrate wich smooths this pumping noise. For that was also necessary to increase the nozzle diameter to balance with all other variables from the experiment.
-
-\subsection{Pump Integration}
-
-    The pump integration in the automation algorithm bring us a new controllable variable, the Flowrate. Now we can control the spraying mode with the
-    two main variables that afect the system. 
-    It will bring more complexity for the system since now we are dealing with multivariable control.
-    Controlling also the flowrate gives to this project a new dimension in the system giving us freedom to explore the flowrate properties.
-    % Our control model is now a MISO \footcite{MISO: Multiple Inputs Single Output} system. The crossover (couple) between the controlled variables will be evaluated in further reports.
-
-    About the pump interface. As I could not find a good ready-to-use library for this pump I developed an simple and intuitive interface to be our software routine.
-    The communication protocol used is RS-232. In the software routine the communication used is python serial interface. The pump commands list were found in the user manual.
 
 
 
