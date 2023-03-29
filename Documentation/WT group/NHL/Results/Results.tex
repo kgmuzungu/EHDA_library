@@ -168,11 +168,29 @@ Figures 15 and 16 shows that we could achieve a stable cone jet region map with 
 
 \subsection{Simple Controller}
 
+\begin{algorithm}
+    \caption{simple controller}\label{alg:simple_controller}
+    \begin{algorithmic}
+    \Function{controller}{$spray\_mode$} 
+        
+        \If{$spray\_mode$ = $'Intermittent'$ or $spray\_mode$ = $'Dripping'$}
+            \State \Call{send\_voltage\_command}{$voltage$ + 100}
+        \ElsIf{$spray\_mode$ = $'Multi Jet'$ or $spray\_mode$ = $'Corona'$}
+            \State \Call{send\_voltage\_command}{$voltage$ - 100}
+        \ElsIf{ $spray\_mode$ = $"Cone Jet"$}
+            \Comment{Keep Stable}
+        \EndIf
+
+    \Return $spray\_ mode$
+    \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
 Flowrate perturbation robustness test
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=18cm]{Figuras/19:03/control_first_results.png}
+    \includegraphics[width=15cm]{Figuras/19:03/control_first_results.png}
     \caption{ exp-26-01-2 (V x Q)}
 \end{figure}
 
