@@ -62,6 +62,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
         finish_event.set()
 
+
     #            MAP SEQUENCE
     elif typeofmeasurement['sequence'] == "map":
         """responses = FUG_sendcommands(obj_fug_com, ['F0', '>S1B 0', 'I 600e-6', '>S0B 2', '>S0R ' + str(step_slope),
@@ -118,7 +119,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         # print("[FUG THREAD] Responses from MAP sequence: ", str(responses))
 
 
-    #             CONTROL SEQUENCE
+    #            SIMPLE CONTROL SEQUENCE
     elif typeofmeasurement['sequence'] == "control":
 
 
@@ -143,7 +144,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                         print("[FUG THREAD] Increasing Voltage")
 
-                    elif current_state == "Multi Jet" or current_state == "Corona Sparks":
+                    elif current_state == "Multi Jet" or current_state == "Corona":
                         voltage -= 100
                         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
                         print("[FUG THREAD] Decreasing voltage")
@@ -153,8 +154,6 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
                     else:
                         print("[FUG THREAD] current state not known")
-
-                    previous_state = current_state
 
                     # SAFETY VOLTAGE LIMITS
                     if voltage > typeofmeasurement['voltage_stop']:
@@ -176,6 +175,110 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 print("ERROR: ", str(e))
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
+
+
+    #            ROBUST CONTROL SEQUENCE
+    elif typeofmeasurement['sequence'] == "robust_control":
+
+
+        responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
+        current_state = "Dripping"
+
+        controller_output = controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+        controller_output_queue.put(controller_output)
+
+        previous_state = []
+
+
+        while not finish_event.is_set():
+
+            try:
+                if not feedback_queue.empty():
+
+                    current_state = feedback_queue.get()
+                    print("[FUG THREAD] current state: ", current_state)
+                    previous_state.append(current_state)
+
+                    # CONTROL ALGORITHM
+
+                    if current_state == "Dripping":
+                        voltage += 200
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                        print("[FUG THREAD] Increasing Voltage")
+
+                    elif current_state == "Intermittent":
+                        if previous_state[-1] == "Dripping":
+                            voltage += 200
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Increasing Voltage")
+                        else:
+                            voltage += 100
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Increasing Voltage")
+
+                    elif current_state == "Cone Jet":
+                        if previous_state[-5:].count("Intermittent") > 2:
+                            voltage += 100
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Increasing Voltage")
+
+                        elif previous_state[-5:].count("Intermittent") > 1:
+                            voltage += 50
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Increasing Voltage")
+
+                        elif previous_state[-5:].count("Cone Jet") == 5:
+                            print("[FUG THREAD] Stable in Cone Jet")
+
+                        elif previous_state[-5:].count("Multi Jet") > 1:
+                            voltage -= 50
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Decreasing Voltage")
+
+                        elif previous_state[-5:].count("Multi Jet") > 2:
+                            voltage -= 100
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Decreasing Voltage")
+
+                    elif current_state == "Multi Jet":
+                        if previous_state[-1] == "Corona":
+                            voltage -= 200
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Decreasing Voltage")
+                        else:
+                            voltage -= 100
+                            responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                            print("[FUG THREAD] Decreasing Voltage")
+
+                    elif current_state == "Corona":
+                        voltage -= 200
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                        print("[FUG THREAD] Decreasing Voltage")
+
+                    else:
+                        print("[FUG THREAD] controller will wait more info of the system")
+
+                    # SAFETY VOLTAGE LIMITS
+                    if voltage > typeofmeasurement['voltage_stop']:
+                        voltage = typeofmeasurement['voltage_stop']
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+                    elif voltage < typeofmeasurement['voltage_start']:
+                        voltage = typeofmeasurement['voltage_start']
+                        responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
+
+                    controller_output = controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+                    controller_output_queue.put(controller_output)
+
+                    # EXIT CONTROL SEQUENCE
+                    if keyboard.is_pressed("q"):
+                        print("You pressed q")
+                        finish_event.set()
+
+            except Exception as e:
+                print("ERROR: ", str(e))
+                print("[CONTROLLER THREAD] ERROR!")
+                sys.exit(1)
+
 
     # Closing FUG
     voltage = 0
