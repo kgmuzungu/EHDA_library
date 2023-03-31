@@ -126,9 +126,18 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
         current_state = "Dripping"
 
-        controller_output = controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
-        controller_output_queue.put(controller_output)
+        set_pump_direction(obj_pump_com, "INF")
+        set_inner_diameter(obj_pump_com, syringe_diameter)
+        low_motor_noize(obj_pump_com)
+        time.sleep(0.5)
+        set_flowrate(obj_pump_com, flow_rate, "UM")
+        time.sleep(0.5)
+        start_pumping(obj_pump_com)
+        time.sleep(0.5)
+        beep_command(obj_pump_com)
 
+        controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+        controller_output_queue.put(controller_output)
 
         while not finish_event.is_set():
 
@@ -176,6 +185,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
 
+        stop_pumping(obj_pump_com)
+
 
     #            ROBUST CONTROL SEQUENCE
     elif typeofmeasurement['sequence'] == "robust_control":
@@ -184,7 +195,17 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         responses = FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
         current_state = "Dripping"
 
-        controller_output = controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+        set_pump_direction(obj_pump_com, "INF")
+        set_inner_diameter(obj_pump_com, syringe_diameter)
+        low_motor_noize(obj_pump_com)
+        time.sleep(0.5)
+        set_flowrate(obj_pump_com, flow_rate, "UM")
+        time.sleep(0.5)
+        start_pumping(obj_pump_com)
+        time.sleep(0.5)
+        beep_command(obj_pump_com)
+
+        controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
         controller_output_queue.put(controller_output)
 
         previous_state = []
@@ -266,7 +287,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                         voltage = typeofmeasurement['voltage_start']
                         responses.append(FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)]))
 
-                    controller_output = controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+                    controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
                     controller_output_queue.put(controller_output)
 
                     # EXIT CONTROL SEQUENCE
@@ -278,6 +299,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 print("ERROR: ", str(e))
                 print("[CONTROLLER THREAD] ERROR!")
                 sys.exit(1)
+
+        stop_pumping(obj_pump_com)
 
 
     # Closing FUG

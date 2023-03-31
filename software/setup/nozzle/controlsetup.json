@@ -16,7 +16,7 @@
     "save_config": "True",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/Joao_Pedro/Joao_2023-02-23/exp1",
+    "save_path": "D:/Joao_Pedro/Joao_2023-03-31/exp1",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "control",
@@ -25,6 +25,6 @@
         "slope": 1000000,
         "step_size": 100,
         "step_time": 2,
-        "flow_rate": ["0.4","0.6"]
+        "flow_rate": "0.6"
     }
 }

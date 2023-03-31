@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     sampling_frequency = 1e5  # 100000
 
-    name_setup = "mapsetup"
+    name_setup = "robustcontrolsetup"
     setup = "setup/nozzle/" + name_setup
     name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
     liquid = "setup/liquid/" + name_liquid
