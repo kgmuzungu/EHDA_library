@@ -129,7 +129,8 @@ def data_acquisition(data_queue,
                                                          humidity, day_measurement, current_from_PS, target_voltage)
 
             print("\n ------------------------------- \n")
-            print(f"    temperature:\f{temperature}    Humidity:\f{humidity}\n    voltage:\f{voltage_from_PS}    Flow Rate:\f{flow_rate} uL/min")
+            # print(f"    temperature:\f{temperature}    Humidity:\f{humidity}\n    voltage:\f{voltage_from_PS}    Flow Rate:\f{flow_rate} uL/min")
+            print(f"voltage:\f{voltage_from_PS}    Flow Rate:\f{flow_rate} uL/min")
 
         except Exception as e:
             print("ERROR: ", str(e))
