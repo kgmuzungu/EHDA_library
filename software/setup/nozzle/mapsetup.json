@@ -16,15 +16,15 @@
     "save_config": "True",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/Joao_Pedro/Joao_2023-02-23/exp1",
+    "save_path": "D:/Joao_Pedro/Joao-LPDB_2023-03-30/exp2_bis",
     "number_camera_partitions": 10,
     "typeofmeasurement": {
         "sequence": "map",
-        "voltage_start": 4500,
-        "voltage_stop": 9500,
+        "voltage_start": 5000,
+        "voltage_stop": 7000,
         "slope": 1000000,
-        "step_size": 100,
-        "step_time": 2,
-        "flow_rate": ["0.4","0.6"]
+        "step_size": 50,
+        "step_time": 3,
+        "flow_rate": [ "0.059", "0.056", "0.053", "0.051"]
     }
 }
