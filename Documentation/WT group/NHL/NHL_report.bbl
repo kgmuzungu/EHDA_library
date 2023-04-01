@@ -58,6 +58,11 @@ ISSN 15217388.}
   Electrohydrodynamic Atomization Applications}.
 [S.l.], 2022.}
 
+\bibitem{TiePieLib}
+\abntrefinfo{LibTiePie\ldots}{LIBTIEPIE\ldots}{}
+{LIBTIEPIE SDK Python. \url{https://www.tiepie.com/en/libtiepie-sdk/python}.
+Accessed: 2023-03-31.}
+
 \bibitem{gananCalvo}
 \abntrefinfo{Ga{\~n}{\'a}n-Calvo et al.}{GA{\~N}{\'A}N-CALVO et al.}{2018}
 {GA{\~N}{\'A}N-CALVO, A.~M. et al. Review on the physics of electrospray: From

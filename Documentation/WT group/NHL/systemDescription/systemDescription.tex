@@ -1,17 +1,83 @@
 \chapter[System Description]{System Description}
-\label{chap:descricaoproblema}
+\label{chap:system_description}
 
 
 \section{Instrumentation}
 \label{sec:instrumentation}
 
-\begin{enumerate}[a]
-  \item High Voltage Power Supply (FUG)
-  \item Oscilloscope TiePie WS6 DIFF 
-  \item Humidity and Temperature sensor (DHT11 + Arduino Uno)
-  \item High Speed Camera - Photron fastcam mini
+The main instruments used for this project are listed above:
+
+\begin{enumerate}[a)]
+
+  \item High Voltage Power Supply (HVPS)
+  
+     - brand: FUG
+    
+     - model: HCP35-20kV
+    
+    HVPS provides the electrical potential to the liquid, which can be applied by connecting the HVPS directly to the liquid feeding capillary or needle to a grounded electrode (usually a plate or a ring) located downstream.\cite{Monica}
+    The setup has the USB serial interface for controlling and polling measurements.
+    
+    The software has an interface to integrate the HVPS to our routine. This interface can be found in \emph{FUG\_function.py} file where is located the functions used to control and collect data from this instrument.
+    In case of future change of equipment brand a new interface must be created within this file to match another manufacturer specifications.
+
+  \item Wireless Oscilloscope
+  
+     - Brand: \emph{TiePie engineering}
+
+     - model: TiePie WifiScope WS6 DIFF
+    
+    The signal analysis with an oscilloscope using WiFi technology allows an in-depth case study of the electric current signal.
+    The current is measured via a TiePie WifiScope WS6 from TiePie engineering that is a battery powered oscilloscope capable of transmitting data via a WiFi connection allowing it to be placed in the high voltage or ground path.
+    
+    Wireless communication allows us to make measurements disconnected to an external power supply, which gives us more safety when using high voltage potential references and also reduce the signal noise collected from external power lines.
+    The current is routed directly via the input, hence the oscilloscope measures the voltage dropped via its input resistance (which can be switched between 1 or 2 M%Ω).
+    TiePie WifiScope WS6 has a resolution of up to 16 bit at a minimal input range of 200 mV, sufficient to measure currents down to 1 nA.
+
+    The iterface with the software was made using the TiePie Library\cite{TiePieLib} and can be found in \emph{configuration\_tiepie.py}. Note that is also important to have the \emph{printinfo.py} file in the project folder in order to work.
+
+  \item Humidity and Temperature sensor
+  
+  The stability of the system is aftected by many physical effects. Evidently having the more parameters analysed favours the system control.
+  The surface tension force is dependant of the liquid-gas interface on the meniscus. Hence, the gas around it must be constantly the same and so its humidity.
+  Also, temperature is a variable that interfere in many phenomenas in the system. Specially the liquid properties such as viscosity.
+
+  For that, a standart microcontroler development board (\emph{Arduino Uno}) with a temperature and humidity sensor (DHT11) was configured to add that data in real time in the routine.
+  The Arduino code can be found in the \emph{/peripherals} folder.
+  
+
+  \item High Speed Camera 
+  
+  - Brand: \emph{Photron}
+
+  - model: Photron fastcam mini
+
+
+  
   \item Syringe pump
+  
+  - Brand: \emph{Master dual}
+
+  - model: WPI AL-1000
+
+  The pump integration in the automation algorithm bring us a new controllable variable, the Flowrate. Now we can control the spraying mode with the
+    two main variables that afect the system. 
+    It will bring more complexity for the system since now we are dealing with multivariable control.
+    Controlling also the flowrate gives to this project a new dimension in the system giving us freedom to explore the flowrate properties.
+    % Our control model is now a MISO \footcite{MISO: Multiple Inputs Single Output} system. The crossover (couple) between the controlled variables will be evaluated in further reports.
+
+    About the pump interface. As I could not find a good ready-to-use library for this pump I developed an simple and intuitive interface to be our software routine.
+    The communication protocol used is RS-232. In the software routine the communication used is python serial interface. The pump commands list were found in the user manual.
+
+  
+  Also, the supply of constant pressure can also 
+    \cite{prunet}
+  The supply at constant pressure sometimes favours the stability of the spray. However, the flow rate depends on the applied pressure and pressure losses between the tank and the end of the capillary, which themselves are dependent on the liquid chosen and on its temperature. This volume flow rate may also depend on the applied voltage, since the electrostatic pressure on the meniscus produces a suction effect.
+
+
   \end{enumerate}
+
+
 
 \subsection{Setup Organization}
 \label{subsec:setup_organization}
@@ -45,6 +111,10 @@ Initial tests were made to verify the setup assembly and the automation routine 
 I noticed that we need a large set of variables in the range to produce the desired dynamics of electrospray, which most of the time is cone-jet mode.
  Those variables can be the liquid properties such as surface tension, dielectric constant, viscosity, density, electrical conductivity and vacuum permitivity. 
  And also physical variables such as flowrate, system impedance, system temperature, system humidity, nozzle to plate distance, nozzle dimensions and applied voltage.
+
+
+ About the setup,integrate was changed the liquid, nozzle diameter and distance to the plate in order to
+make the experiment the most stable and easy to reach cone-jet mode as possible. For example, while doing experiments we discovered that the frequency of the pump machine internal motors was creating an interference in the flowrate. Therefore compromising the stabilization in cone jet mode. A solution for that was to increasethe flowrate wich smooths this pumping noise. For that was also necessary to increase the nozzle diameter to balance with all other variables from the experiment.
 
 
 \clearpage

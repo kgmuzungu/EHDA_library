@@ -1,7 +1,11 @@
 \chapter{Metodology}
 \label{chap:Metodology}
 
-About the python algorithm to turn the experiment autonomous it was made a study and modelling of the software architecture to optimize it for further control loop application to be implemented. From the changes made until now it highlights:
+This chapter is about describing the metodology and developments to achieve the project goals. 
+The python routine which this project is about was developed by the previous student working on it.\cite{Monica}
+The works therefore presented here are a continuation and optimization of the routine to make it more precise and applicable to industries application or research.
+
+From the optimizations made, it highlights the following:
 
 - Integrate high speed camera to the experiment routine.
 
@@ -15,20 +19,7 @@ About the python algorithm to turn the experiment autonomous it was made a study
 
 - Improvements in code organization and readability.
 
-About the setup,integrate was changed the liquid, nozzle diameter and distance to the plate in order to
-make the experiment the most stable and easy to reach cone-jet mode as possible. For example, while doing experiments we discovered that the frequency of the pump machine internal motors was creating an interference in the flowrate. Therefore compromising the stabilization in cone jet mode. A solution for that was to increasethe flowrate wich smooths this pumping noise. For that was also necessary to increase the nozzle diameter to balance with all other variables from the experiment.
-
-\subsection{Pump Integration}
-
-    The pump integration in the automation algorithm bring us a new controllable variable, the Flowrate. Now we can control the spraying mode with the
-    two main variables that afect the system. 
-    It will bring more complexity for the system since now we are dealing with multivariable control.
-    Controlling also the flowrate gives to this project a new dimension in the system giving us freedom to explore the flowrate properties.
-    % Our control model is now a MISO \footcite{MISO: Multiple Inputs Single Output} system. The crossover (couple) between the controlled variables will be evaluated in further reports.
-
-    About the pump interface. As I could not find a good ready-to-use library for this pump I developed an simple and intuitive interface to be our software routine.
-    The communication protocol used is RS-232. In the software routine the communication used is python serial interface. The pump commands list were found in the user manual.
-
+    
     \begin{figure}[H]
         \centering
         \resizebox{150mm}{!}{\includegraphics{Figuras/report4/experiment_print1.png}}
@@ -39,7 +30,6 @@ make the experiment the most stable and easy to reach cone-jet mode as possible.
 \section{System Model}
 \label{sec:control_model}
 
-
 ilustramos o processo com a Figura \ref{fig:control_model_fig}. 
 
 \begin{figure}[H]
@@ -49,14 +39,15 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
   \label{fig:control_model_fig}
 \end{figure}
 
-\section{Threading and Queues}
-\label{sec:concurrency}
+\subsection{Threading and Queues}
+\label{subsec:concurrency}
 
     In order to implement this system model to the software and explore parallel processing each system in the
     model was developed as a separate Thread.
     For cuncurrency on flux of data beetween threads was used queues structures.
     A queue is an abstract data type that holds an ordered, linear sequence of items. You can describe it as a first in, first out (FIFO) structure.
 
+    
     \subsection{Controller Thread}
 
         It is responsible of sending the power supply set voltage values and the syringe pump the flow rate set values according to the sequence selected.
