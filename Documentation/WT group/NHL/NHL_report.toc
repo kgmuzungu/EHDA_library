@@ -37,9 +37,9 @@
 \contentsline {section}{\numberline {4.4}System Portability}{21}{section.4.4}%
 \contentsline {chapter}{\numberline {5}Results}{23}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Classification}{23}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Map Sequence}{24}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Manual experiments}{24}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Manual x Automatic Cone Jet stability island maps}{25}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.2}Map Sequence}{25}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Manual experiments}{25}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Manual x Automatic Cone Jet stability island maps}{26}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Non-dimensional axis}{28}{subsection.5.2.3}%
 \contentsline {section}{\numberline {5.3}Controller}{28}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Simple Controller}{28}{subsection.5.3.1}%

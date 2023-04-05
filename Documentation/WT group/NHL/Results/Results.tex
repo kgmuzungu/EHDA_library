@@ -1,10 +1,12 @@
 \chapter{Results}
 \label{chap:Results}
 
+
+
 \begin{figure}[H]
     \centering
     \resizebox{170mm}{!}{\includegraphics{Figuras/19:03/axs2.png}}
-    \caption{Cone Jet Classification}
+    \caption{Printscreen during an experiment. At this moment we are in Multi Jet spraying mode. At the left we can see the current signal has a smoth and constant curve. We can also see the automatic classification at the right side.}
     \label{fig:multi_class_exp}
 \end{figure}
 
@@ -12,27 +14,32 @@
 \section{Classification}
 \label{sec:classification_results}
 
-The results of the classification with statistical values and current comparison
+The results of the classification using the statistical values are illustrated in figures \ref{fig:step_voltage}, \ref{fig:raw_data} and \ref{fig:class_step_data}.
 
 
 \begin{figure}[H]
     \center
     \includegraphics[width=12cm]{Figuras/19:03/voltage_step.png}
-    \caption{ exp-26-01-2 (V x Q)}
+    \caption{Input voltage step graph. The range is beetween 3K-10K Volts. Step size of 50V and steo time of 5 seconds.}
+    \label{fig:step_voltage}
 \end{figure}
 
 
 \begin{figure}[H]
     \center
     \includegraphics[width=12cm]{Figuras/19:03/raw-data-example.png}
-    \caption{ exp-26-01-2 (V x Q)}
+    \caption{Output raw data collected in the voltage range experiment showed in \ref{fig:step_voltage}. The sampling rate of the oscilloscope is 10KHz. This graph has 1.5 Million data points.}
+    \label{fig:raw_data}
 \end{figure}
+
+Notice that is even possible to a visual classification. The Dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the thickness of the graph. The Cone jet is a thiner graph because the signal is more constant. The Multi Jet is the same as Cone jet graph but with a higher mean value than cone Jet.
 
 
 \begin{figure}[H]
     \center
     \includegraphics[width=12cm]{Figuras/19:03/classified-data-example.png}
-    \caption{ exp-26-01-2 (V x Q)}
+    \caption{The same graph as \ref{fig:raw_data} but after the classification procedure. The colours are green: Dripping, Blue: Intermittent, Red: Cone Jet, Purple: Multi Jet and Black: Undefined.}
+    \label{fig:class_step_data}
 \end{figure}
 
 
