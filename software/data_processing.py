@@ -27,6 +27,8 @@ def data_processing(data_queue,
     sample = 0
     previous_flowrate = 0
 
+    electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
+
     # THREAD LOOP
     print("[DATA_PROCESSING THREAD] starting loop")
     while not finish_event.is_set():
@@ -125,13 +127,10 @@ def data_processing(data_queue,
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to put value in save_data_queue")
 
-        try:    
+        try:
 
-            if current_shape == "Cone Jet":
-                electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
-
-                # Validation through the Chen_Pui Article
-                electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
+            # Validation through the Chen_Pui Article
+            electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
 
         except Exception as e:
             print("ERROR: ", str(e)) 

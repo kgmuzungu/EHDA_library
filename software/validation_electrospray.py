@@ -8,14 +8,6 @@ class ElectrosprayValidation:
     def __init__(self, name_liquid):
         self.name_liquid = name_liquid
 
-        self.flow_rate_chen_pui
-        self.alpha_chen_pui
-        self.I_emitted_chen_pui
-        self.I_hartman
-        self.sjaak_std_mean_array = []
-        self.sjaak_mean_median_array = []
-        self.med_value_array = []
-        self.mean_value_array
         self.sjaak_verified = []
         self.sjaak_verified_false = []
         self.sjaak_verified_true = []
@@ -70,22 +62,22 @@ class ElectrosprayValidation:
     def calculate_scaling_laws_cone_jet(self, data, mean, flow_rate):
         ki = 6.46
 
-        print("\nprocessing_mean:", mean)
-        self.data_points_list = data.tolist()
-        print("\nmeasurements list:", self.data_points_list)
+        # print("\nprocessing_mean:", mean)
         self.mean_value_array = mean
-
-        self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui[i] / self.dieletric_const) ** (.5)
-
-        self.I_emitted_chen_pui = ki * self.dieletric_const ** (.25) * self.alpha_chen_pui[i] ** (.5)
-        i_actual = data
-
-        b_hartman = i_actual / ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
-        self.I_hartman = b_hartman * ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
 
         if self.electrical_conductivity == 0.0 or self.rho == 0.0:
             self.flow_rate_chen_pui = 0.0
         else:
             self.flow_rate_chen_pui =  (self.dieletric_const ** 0.5) * self.permitivity * self.surface_tension / (self.rho * self.electrical_conductivity)
+
+        self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui / self.dieletric_const) ** (.5)
+
+        self.I_emitted_chen_pui = ki * self.dieletric_const ** (.25) * self.alpha_chen_pui ** (.5)
+        # i_actual = data
+        #
+        # b_hartman = i_actual / ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
+        # self.I_hartman = b_hartman * ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
+
+        self.I_hartman = "Unknown"
 
 

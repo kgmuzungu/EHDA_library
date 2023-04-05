@@ -39,7 +39,8 @@ if __name__ == '__main__':
     electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_setup()
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-    electrospray_config_liquid_setup_obj.load_json_config_liquid(electrospray_config_setup["name_liquid"] + ".json")
+    liquid = "setup/liquid/" + electrospray_config_setup["name_liquid"]
+    electrospray_config_liquid_setup_obj.load_json_config_liquid(liquid + ".json")
     electrospray_validation = ElectrosprayValidation(electrospray_config_setup["name_liquid"])
     electrospray_classification = classification_electrospray.ElectrosprayClassification(electrospray_config_setup["name_liquid"])
     electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
@@ -51,7 +52,7 @@ if __name__ == '__main__':
     plot_real_time = electrospray_config_setup["plot_real_time"]
     syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
-    liquid = "setup/liquid/" + electrospray_config_setup["name_liquid"]
+
 
     #        PORTS
     arduino_COM_port = electrospray_config_setup["arduino_com_port"]

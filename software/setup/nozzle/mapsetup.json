@@ -16,7 +16,7 @@
     "save_config": "True",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/Joao_Pedro/Joao_2023-03-31/exp1",
+    "save_path": "D:/Joao_Pedro/Joao_2023-04-05/test1",
     "number_camera_partitions": 10,
     "name_liquid" : "ethanol",
     "arduino_com_port" : 1,
