@@ -18,6 +18,10 @@
     "plot_real_time": "True",
     "save_path": "D:/Joao_Pedro/Joao_2023-03-31/exp1",
     "number_camera_partitions": 10,
+    "name_liquid" : "ethanol",
+    "arduino_com_port" : 1,
+    "fug_com_port" : 2,
+    "pump_com_port" : 0,
     "typeofmeasurement": {
         "sequence": "map",
         "voltage_start": 5000,

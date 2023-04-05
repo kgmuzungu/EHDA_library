@@ -7,9 +7,9 @@ import json
 def save_data(
             save_data_queue,
             typeofmeasurement,
-            name_liquid,
             save_path,
             finish_event,
+            electrospray_validation,
             electrospray_config_liquid_setup_obj,
             electrospray_config_setup
             ):
@@ -84,6 +84,8 @@ def save_data(
                             s.write('sample '+str(sample), data_measurement)
 
                         print("[SAVING] saved electrospray sample:", sample)
+
+                        print(electrospray_validation.get_validation_dictionary())
                         
 
 

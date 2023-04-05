@@ -8,9 +8,8 @@ from scipy.signal import butter, lfilter
 
 
 class ElectrosprayConfig:
-    def __init__(self, file_setup, file_liquid):
+    def __init__(self, file_setup):
         self.file_setup = file_setup
-        self.file_liquid = file_liquid
         self.ki = 6.46  # no units
 
     def __repr__(self):
@@ -39,15 +38,14 @@ class ElectrosprayConfig:
         """with open(self.file_setup) as json_file:
             self.json_setup_obj = json.load(json_file)"""
 
-    def load_json_config_liquid(self):
+    def load_json_config_liquid(self, file_liquid):
 
         print("load_json_config_liquid")
-        # print(self.file_liquid)
 
-        with open(self.file_liquid, 'r') as file:
+        with open(file_liquid, 'r') as file:
             # First we load existing data into a dict.
             self.json_liquid_obj = json.load(file)
-            # print(type(self.json_liquid_obj))
+            print(self.json_liquid_obj)
 
         """with open(self.file_liquid) as json_file:
             self.json_liquid_obj = json.load(json_file) # dictionary"""

@@ -20,7 +20,6 @@ import save_data
 # # # **************************************
 if __name__ == '__main__':
 
-
 # # # **************************************
 # # #         INITIAL CONFIGURATION
 # # # **************************************
@@ -32,33 +31,32 @@ if __name__ == '__main__':
 
     name_setup = "mapsetup"
     setup = "setup/nozzle/" + name_setup
-    name_liquid = "ethanol" # ["ethyleneglycolHNO3", "ethanol", water60alcohol40, 2propanol]
-    liquid = "setup/liquid/" + name_liquid
-    current_shape_comment = "difficult cone jet stabilization"
    
     plt.style.use('seaborn-colorblind')
     plt.ion()
 
-    electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json", liquid + ".json")
-    electrospray_config_liquid_setup_obj.load_json_config_liquid()
+    # Starting Class Objects
+    electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_setup()
-    electrospray_validation = ElectrosprayValidation(name_liquid)
-    electrospray_classification = classification_electrospray.ElectrosprayClassification(name_liquid)
-    electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
+    electrospray_config_liquid_setup_obj.load_json_config_liquid(electrospray_config_setup["name_liquid"] + ".json")
+    electrospray_validation = ElectrosprayValidation(electrospray_config_setup["name_liquid"])
+    electrospray_classification = classification_electrospray.ElectrosprayClassification(electrospray_config_setup["name_liquid"])
+    electrospray_processing = ElectrosprayDataProcessing(sampling_frequency)
+
+    # Program variables
     impedance = electrospray_config_setup["osc_impedance"]
     typeofmeasurement = electrospray_config_setup["typeofmeasurement"]
     save_path = electrospray_config_setup["save_path"]
     plot_real_time = electrospray_config_setup["plot_real_time"]
     syringe_diameter = electrospray_config_setup["diameter syringe"]
     number_camera_partitions = electrospray_config_setup["number_camera_partitions"]
-
-
+    liquid = "setup/liquid/" + electrospray_config_setup["name_liquid"]
 
     #        PORTS
-    arduino_COM_port = 1
-    fug_COM_port = 2
-    pump_COM_port = 0
+    arduino_COM_port = electrospray_config_setup["arduino_com_port"]
+    fug_COM_port = electrospray_config_setup["fug_com_port"]
+    pump_COM_port = electrospray_config_setup["pump_com_port"]
 
 
 # # # **************************************
@@ -72,8 +70,6 @@ if __name__ == '__main__':
     data_queue = queue.Queue()
     save_data_queue = queue.Queue()
     plotting_data_queue = queue.Queue()
-
-
 
 
 # # # **************************************
@@ -165,9 +161,9 @@ if __name__ == '__main__':
         name='Saving Data thread',
         args=(save_data_queue,
             typeofmeasurement,
-            name_liquid,
             save_path,
             finish_event,
+            electrospray_validation,
             electrospray_config_liquid_setup_obj,
             electrospray_config_setup
         )
