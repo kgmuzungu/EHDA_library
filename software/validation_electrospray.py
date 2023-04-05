@@ -8,15 +8,14 @@ class ElectrosprayValidation:
     def __init__(self, name_liquid):
         self.name_liquid = name_liquid
 
-        self.all_data = []
-        self.flow_rate_chen_pui = []
-        self.alpha_chen_pui = []
-        self.I_emitted_chen_pui = []
-        self.I_hartman = []
+        self.flow_rate_chen_pui
+        self.alpha_chen_pui
+        self.I_emitted_chen_pui
+        self.I_hartman
         self.sjaak_std_mean_array = []
         self.sjaak_mean_median_array = []
         self.med_value_array = []
-        self.mean_value_array = []
+        self.mean_value_array
         self.sjaak_verified = []
         self.sjaak_verified_false = []
         self.sjaak_verified_true = []
@@ -34,12 +33,11 @@ class ElectrosprayValidation:
 
     def get_validation_dictionary(self):
         dictionary = {
-            "all data": self.all_data.tolist(),
-            "mean_value_array": self.mean_value_array.tolist(),
-            "flow_rate chen pui": self.flow_rate_chen_pui.tolist(),
-            "alpha_chen_pui": self.alpha_chen_pui.tolist(),
-            "I_emitted_chen_pui": self.I_emitted_chen_pui.tolist(),
-            "I_hartman": self.I_hartman.tolist()
+            "mean_value_array": self.mean_value_array,
+            "flow_rate chen pui": self.flow_rate_chen_pui,
+            "alpha_chen_pui": self.alpha_chen_pui,
+            "I_emitted_chen_pui": self.I_emitted_chen_pui,
+            "I_hartman": self.I_hartman
         }
         return dictionary
 
@@ -73,31 +71,21 @@ class ElectrosprayValidation:
         ki = 6.46
 
         print("\nprocessing_mean:", mean)
-        data_points_np = np.array(data)
         self.data_points_list = data.tolist()
         print("\nmeasurements list:", self.data_points_list)
-        self.mean_value_array.append(mean)
+        self.mean_value_array = mean
 
+        self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui[i] / self.dieletric_const) ** (.5)
 
-        for i in range(len(self.data_points_list)):
-            self.flow_rate_chen_pui.append(flow_rate)
-            flow_rate_aux = self.flow_rate_chen_pui[i]
-            if flow_rate_aux == 0.0:
-                flow_rate_aux = i + 1
+        self.I_emitted_chen_pui = ki * self.dieletric_const ** (.25) * self.alpha_chen_pui[i] ** (.5)
+        i_actual = data
 
-            self.alpha_chen_pui.append(
-                (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui[i] / self.dieletric_const) ** (.5))
+        b_hartman = i_actual / ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
+        self.I_hartman = b_hartman * ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
 
-            self.I_emitted_chen_pui.append(ki * self.dieletric_const ** (.25) * self.alpha_chen_pui[i] ** (.5))
-            i_actual = data[i]
-
-            b_hartman = i_actual / ((self.surface_tension * self.electrical_conductivity * flow_rate_aux) ** .5)
-            self.I_hartman.append(b_hartman * ((self.surface_tension * self.electrical_conductivity * flow_rate_aux) ** .5))
-
-            if self.electrical_conductivity == 0.0 or self.rho == 0.0:
-                self.flow_rate_chen_pui.append(0.0)
-            else:
-                self.flow_rate_chen_pui.append(
-                    (self.dieletric_const ** 0.5) * self.permitivity * self.surface_tension / (self.rho * self.electrical_conductivity))
+        if self.electrical_conductivity == 0.0 or self.rho == 0.0:
+            self.flow_rate_chen_pui = 0.0
+        else:
+            self.flow_rate_chen_pui =  (self.dieletric_const ** 0.5) * self.permitivity * self.surface_tension / (self.rho * self.electrical_conductivity)
 
 
