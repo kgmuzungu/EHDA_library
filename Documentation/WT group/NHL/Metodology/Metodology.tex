@@ -2,23 +2,24 @@
 \label{chap:Metodology}
 
 This chapter is about describing the metodology and developments to achieve the project goals. 
-The python routine which this project is about was developed by the previous student working on it.\cite{Monica}
-The works therefore presented here are a continuation and optimization of the routine to make it more precise and applicable to industries application or research.
+The python routine which this project is about was developed by the previous student that worked on it.\cite{Monica}
+The works therefore presented here are a continuation and optimization of the routine to make it more precise and applicable to both industrial and research approaches.
 
-From the optimizations made, it highlights the following:
+About the activities made to reach our goals, it highlights the following:
 
-- Integrate high speed camera to the experiment routine.
+- Integrate high speed camera and liquid pump to the peripherals connected to the software.
 
-- Remodel the software to support threads in order to separate the sensoring and controlling routines.
+- Develop of a control model to automatic stabilize the electrospraying mode.
 
-- Reduce the data collected size.
+- Remodel the software to support threads in order to separate each subsystem and exchange data beetween them with use of queues data structures.
 
-- Synchronize the power supply step commands and voltage sensoring.
+- Reduce the data collected size and optimize the saving to a real time streamming.
 
-- Reestructure the setup file in order to make it more intuitive to use the experiment.
+- Develop new automatic experiment routines such as mapping and control routines.
 
-- Improvements in code organization and readability.
+- Reestructure the setup file and the algorithm usability in order to make it more intuitive.
 
+- Integration with many computer architectures to be able to run in a portable computer such as a \emph{Raspberry Pi}.
     
     \begin{figure}[H]
         \centering
@@ -206,10 +207,12 @@ From those analysis we are appliying in our automatic classification system the 
 
 \subsection{Map}
 
+During the cone-jet, multiple parameters and variables influence the current, flow rate and voltage operational window. The operational window, seen in Figure \ref{fig:ganan_calvo_fig} can be defined where the cone jet spraying mode can be stabilized based on the flow rate, voltage and the setup configuration\cite{gananCalvo}.
+
     \begin{figure}[H]
         \center
         \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
-        \caption{Domains of existence (stability) of Taylor cone-jets. \cite{gananCalvo} }
+        \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
         \label{fig:ganan_calvo_fig}
     \end{figure}
 
@@ -232,25 +235,25 @@ From those analysis we are appliying in our automatic classification system the 
         \end{algorithmic}
     \end{algorithm}
 
-    In the figures 5 and 6 we can see the results of this mapping experiments. The liquid used is pure ethanol. 
-    Each figure has 3 graphs with shared x axis representing the samples collected. The first is the current values collected through all the experiment.
-    The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined by our routine.
-    The third graph shows the current mean value of each data sample.
+    In Figure \ref{fig:map2Data_fig} we can see the data acquired in this mapping experiments. The liquid used is pure ethanol. 
     Note that the experiment is composed of loops that increase voltage, change flowrate and repeat.
 
 
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report2/map2Data.png}
-        \caption{Mapping Experiment example 1}
+        \caption{Mapping Experiment data collected. The figure has 3 graphs with shared x axis representing the samples collected. The first is the current values collected through all the experiment.
+        The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined by our routine.
+        The third graph shows the current mean value of each data sample.}
         \label{fig:map2Data_fig}
     \end{figure}
 
+    With all the data collected, classified and saved in real time, we can do further analysis and studies. For example, Figure \ref{fig:map3Data_fig} illustrate the data classified by our algorithm and displayed in a Voltage X FlowRate range of spraying modes with a specific liquid setup so that we can compare the automatic results with previous researchs, such as showed in figure \ref{fig:ganan_calvo_fig} and validate the algorithm.
 
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report4/map-2023-03-02.png}
-        \caption{Mapping Experiment example 1}
+        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capilary setup. The map shows the stability region of each electrospraying mode in the voltage and flowrate range.}
         \label{fig:map3Data_fig}
     \end{figure}
 
