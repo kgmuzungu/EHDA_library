@@ -148,27 +148,27 @@ class ElectrosprayClassification:
             print("Error on monica classification")
 
 
-        #
-        #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
-        #
+        # #
+        # #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
+        # #
 
-        try:
-            # print(self.previous_states[-5:])
-            # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
-            if(classification_txt == "Cone Jet") and cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
-                cone_jet_mean = mean
+        # try:
+        #     # print(self.previous_states[-5:])
+        #     # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
+        #     if(classification_txt == "Cone Jet") and cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
+        #         cone_jet_mean = mean
 
-            if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
-                if(mean > 1.14 * cone_jet_mean):
-                    classification_txt = "Multi Jet"
+        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
+        #         if(mean > 1.14 * cone_jet_mean):
+        #             classification_txt = "Multi Jet"
 
-            print("current mean: ", mean)
-            print("current std deviation:", stddeviation)
-            print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
+        #     print("current mean [nA]: ", mean)
+        #     print("current std deviation [nA]:", stddeviation)
+        #     # print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
             
-        except Exception as e:
-            print("ERROR: ", str(e)) 
-            print("Error on João classification")
+        # except Exception as e:
+        #     print("ERROR: ", str(e)) 
+        #     print("Error on João classification")
 
 
         #
