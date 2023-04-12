@@ -150,7 +150,9 @@ class ElectrosprayClassification:
 
         # #
         # #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
-        # #
+
+        print("current mean [nA]: ", mean)
+        print("current std deviation [nA]:", stddeviation)
 
         # try:
         #     # print(self.previous_states[-5:])
@@ -162,8 +164,7 @@ class ElectrosprayClassification:
         #         if(mean > 1.14 * cone_jet_mean):
         #             classification_txt = "Multi Jet"
 
-        #     print("current mean [nA]: ", mean)
-        #     print("current std deviation [nA]:", stddeviation)
+
         #     # print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
             
         # except Exception as e:
