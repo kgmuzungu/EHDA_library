@@ -1,0 +1,80 @@
+This is BibTeX, Version 0.99d (TeX Live 2022)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: PFCII.aux
+A level-1 auxiliary file: Capa/capa.aux
+A level-1 auxiliary file: Abstract/Abstract.aux
+A level-1 auxiliary file: acknowledgment/acknowledgment.aux
+A level-1 auxiliary file: TabelaConteudo/TabelaConteudo.aux
+A level-1 auxiliary file: ListaFiguras/ListaFiguras.aux
+A level-1 auxiliary file: ListaTabelas/ListaTabelas.aux
+A level-1 auxiliary file: Introduction/Introduction.aux
+A level-1 auxiliary file: LiteratureReview/LiteratureReview.aux
+A level-1 auxiliary file: systemDescription/systemDescription.aux
+A level-1 auxiliary file: Metodology/Metodology.aux
+A level-1 auxiliary file: Results/Results.aux
+A level-1 auxiliary file: Conclusion/Conclusion.aux
+The style file: abntex2-num.bst
+A level-1 auxiliary file: Apendices/ApendiceA.aux
+A level-1 auxiliary file: Apendices/ApendiceB.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Database file #1: ListadeReferencias.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Warning--campo year vazio ou faltando em TiePieLib
++---------------------------------------------------------+
+| Estilo bibliográfico abntex2-num.bst versão v-1.9.7           |
+| Em caso de dúvidas ou problemas com este estilo procure |
+| http://www.abntex.net.br/                               |
++---------------------------------------------------------+
+You've used 10 entries,
+            6714 wiz_defined-function locations,
+            1282 strings with 11503 characters,
+and the built_in function-call counts, 8630 in all, are:
+= -- 858
+> -- 223
+< -- 26
++ -- 152
+- -- 66
+* -- 581
+:= -- 1161
+add.period$ -- 35
+call.type$ -- 10
+change.case$ -- 101
+chr.to.int$ -- 31
+cite$ -- 11
+duplicate$ -- 413
+empty$ -- 554
+format.name$ -- 348
+if$ -- 2078
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 171
+newline$ -- 64
+num.names$ -- 36
+pop$ -- 231
+preamble$ -- 1
+purify$ -- 39
+quote$ -- 0
+skip$ -- 556
+stack$ -- 1
+substring$ -- 411
+swap$ -- 225
+text.length$ -- 19
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 12
+warning$ -- 1
+while$ -- 62
+width$ -- 0
+write$ -- 153
+(There was 1 warning)
