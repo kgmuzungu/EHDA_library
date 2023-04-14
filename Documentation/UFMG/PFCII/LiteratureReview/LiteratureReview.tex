@@ -19,14 +19,6 @@ For this reason with a controlled enviroment we can reach a certain stable spray
 \end{figure}
 
 
-\section{Droplet Formation}
-\label{sec:drop_formation}
-
-In the Aerosol reasearch community there is a branch of studies about droplets formation. In the droplet field a very functional for applications is the atomization, which refers to breaking the liquid in small droplets.
-There is many ways of atomizing a liquid. Some using mechanical energy such as ultrassound, rotating disk\cite{Disk_atomization}, pressure or blowing air on the meniscus. But also, some of them using electric forces such as electrospray atomization.
-
-For 
-
 \section{Spraying modes}
 \label{sec:spraying_modes_subsec}
 
@@ -34,7 +26,7 @@ Since 1915 with his pioneering work in EHDA, Zeleny observed several functioning
 Years later the same phenomena was noticed by other scientists but the classification of these modes were still not well defined by the community.
 For that Cloupeau and Prunet-Foch proposed spray mode classifications based in what they have seen experimentally and it's still being used as basis for EHDA researchs.\cite{prunet}
 
-The Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}, \ref{fig:multi_camera_jet_example} shows the 3 spraying dynamics that we are most intersted in this project. 
+The Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}, \ref{fig:multi_camera_jet_example} shows 3 spraying dynamics that we are most interesting in this project. 
 
 \begin{multicols}{3}
 
@@ -63,13 +55,21 @@ The Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}
 
 \end{multicols}
 
-Through the various classifications defined we are going to work aggregating some of them and separating beetween 5 modes as shown above:
+
+Through the various classifications and subclassifications of spraying defined in literature we are going to aggregate some of them and separate beetween 5 modes as shown above in order of growing electric potential:
 
 \subsection{Dripping}
 \label{subsec:dripping}
 
-In Dripping mode the eletric field applied is not enough to change the meniscus shape, phenomena called field enhanced dripping.
+Dripping mode happens when the eletric field applied is not enough to change the meniscus shape, phenomena called field enhanced dripping.
 In that situation the liquid droplet has, in general, size bigger than the capilary and low frequency intervals between each drop.
+
+\begin{figure}[H]
+  \center
+  \includegraphics[width=3cm]{Figuras/19:03/drip_example.png}
+  \label{fig:drip_example}
+  \caption{Dripping}
+\end{figure}
 
 \subsection{Intermittent}
 \label{subsec:Intermittent}
@@ -77,8 +77,37 @@ In that situation the liquid droplet has, in general, size bigger than the capil
 Intermittent mode is defined when the eletric field forces starts to have a considerable effect in the meniscus and droplet formation. 
 In this mode the droplet size is smaller than the nozzle, phenomena called microdripping, and the dripping frequency increases with the increasing of the field applied.
 
+\begin{multicols}{3}
+
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=3cm]{Figuras/19:03/intermittent_example.png}
+      \label{fig:intermittent_example}
+      \caption{Intermittent}
+  \end{figure}
+
+
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=2cm]{Figuras/19:03/intermittent2_example.png}
+      \label{fig:intermittent2_example}
+      \caption{Intermittent}
+  \end{figure}
+
+
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=2cm]{Figuras/19:03/microdripping_example.png}
+      \label{fig:microdripping_example}
+      \caption{Microdripping}
+  \end{figure}
+
+\end{multicols}
+
 \subsection{Cone Jet}
 \label{subsec:Cone Jet}
+
+Taylor (1964) was the first to demonstrate that electrostatic pressure and capillary pressure can be balanced at any point on the surface of a liquid cone. 
 
 \subsection{Multi Jet}
 \label{subsec:Multi Jet}
