@@ -64,7 +64,7 @@ class ElectrosprayValidation:
 
         # print("\nprocessing_mean:", mean)
         self.mean_value_array = mean
-        self.flow_rate_chen_pui = flow_rate * 16e-12 # converting uL/min to m^3/s
+        self.flow_rate_chen_pui = float(flow_rate) * 16e-12 # converting uL/min to m^3/s
 
         self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui / self.dieletric_const) ** (.5)
 
