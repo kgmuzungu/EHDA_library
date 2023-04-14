@@ -64,11 +64,7 @@ class ElectrosprayValidation:
 
         # print("\nprocessing_mean:", mean)
         self.mean_value_array = mean
-
-        if self.electrical_conductivity == 0.0 or self.rho == 0.0:
-            self.flow_rate_chen_pui = 0.0
-        else:
-            self.flow_rate_chen_pui =  (self.dieletric_const ** 0.5) * self.permitivity * self.surface_tension / (self.rho * self.electrical_conductivity)
+        self.flow_rate_chen_pui = flow_rate * 16e-12 # converting uL/min to m^3/s
 
         self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui / self.dieletric_const) ** (.5)
 
