@@ -131,6 +131,7 @@ def data_processing(data_queue,
 
             # Validation through the Chen_Pui Article
             electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
+            print(electrospray_validation.get_validation_dictionary())
 
         except Exception as e:
             print("ERROR: ", str(e)) 
