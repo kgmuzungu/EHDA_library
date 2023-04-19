@@ -11,7 +11,7 @@ About the activities made to reach our goals, it highlights the following:
 
 - Develop of a control model to automatic stabilize the electrospraying mode.
 
-- Remodel the software to support threads in order to separate each subsystem and exchange data beetween them with use of queues data structures.
+- Remodel the software to support threads in order to separate each subsystem and exchange data between them with use of queues data structures.
 
 - Reduce the data collected size and optimize the saving to a real time streamming.
 
@@ -45,7 +45,7 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
 
     In order to implement this system model to the software and explore parallel processing each system in the
     model was developed as a separate Thread.
-    For cuncurrency on flux of data beetween threads was used queues structures.
+    For cuncurrency on flux of data between threads was used queues structures.
     A queue is an abstract data type that holds an ordered, linear sequence of items. You can describe it as a first in, first out (FIFO) structure.
 
     
@@ -180,7 +180,7 @@ From those analysis we are appliying in our automatic classification system the 
 \label{sec:routine_sequences}
 
     The software was previously developed as a electrospray multipurpose library\cite{Monica}. 
-    Continuing this methodology, in the setup json file there is a "sequence" atribute which can chosen beetween "ramp", "step", "map" or "control".
+    Continuing this methodology, in the setup json file there is a "sequence" atribute which can chosen between "ramp", "step", "map" or "control".
     The controller thread will manage what the algorithm must do for each sequence.
 
 \subsection{Ramp}
@@ -253,7 +253,7 @@ During the cone-jet, multiple parameters and variables influence the current, fl
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report4/map-2023-03-02.png}
-        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capilary setup. The map shows the stability region of each electrospraying mode in the voltage and flowrate range.}
+        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capillary setup. The map shows the stability region of each electrospraying mode in the voltage and flowrate range.}
         \label{fig:map3Data_fig}
     \end{figure}
 
