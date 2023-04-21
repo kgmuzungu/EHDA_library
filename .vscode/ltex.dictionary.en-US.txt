@@ -2,3 +2,4 @@ fuzzyfied
 Mônica
 Stenden
 UFMG
+json

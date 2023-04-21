@@ -3,6 +3,8 @@
 
 This chapter is about describing the metodology and developments to achieve the project goals. 
 The python routine which this project is about was developed by the previous student that worked on it.\cite{Monica}
+The software was previously developed as a electrospray multipurpose library\cite{Monica}. 
+
 The works therefore presented here are a continuation and optimization of the routine to make it more precise and applicable to both industrial and research approaches.
 
 About the activities made to reach our goals, it highlights the following:
@@ -56,6 +58,7 @@ ilustramos o processo com a Figura \ref{fig:control_model_fig}.
         As input we have the setup config file and the \emph{feedback\_queue}. As output we have the values in the emph{controller\_output\_queue()}.
 
     \subsection{Data Acquisition Thread}
+    \label{subsec:data_aquisition}
 
         It is responsible for reading the current data from the oscilloscope, humidity and temperature data from the DHT11 sensor, voltage from the powersupply, flowrate from the pump and concatenate into one sample data.
         As output we have the values in the emph{data\_queue()}.
@@ -179,9 +182,12 @@ From those analysis we are appliying in our automatic classification system the 
 \section{Routine Sequences}
 \label{sec:routine_sequences}
 
-    The software was previously developed as a electrospray multipurpose library\cite{Monica}. 
-    Continuing this methodology, in the setup json file there is a "sequence" atribute which can chosen between "ramp", "step", "map" or "control".
+    The program developed is capable of running different types of routines. The code is also easy to implement new routines.
+    Continuing the methodology, in the setup json file there is a "sequence" attribute which can be chosen between "ramp", "step", "map" or "control".
     The controller thread will manage what the algorithm must do for each sequence.
+    Following our control model\ref{fig:control_model_fig}, the controller outputs are the actuators signal.
+    The sampling rate is fixed to 0.5 seconds for all the experiments, and it's managed by the data\_acquisiton thread\ref{subsec:data_aquisition}.
+
 
 \subsection{Ramp}
 
@@ -208,7 +214,8 @@ From those analysis we are appliying in our automatic classification system the 
 
 \subsection{Map}
 
-During the cone-jet, multiple parameters and variables influence the current, flow rate and voltage operational window. The operational window, seen in Figure \ref{fig:ganan_calvo_fig} can be defined where the cone jet spraying mode can be stabilized based on the flow rate, voltage and the setup configuration\cite{gananCalvo}.
+The map that will be explained bellow is the most relevant sequence in this work. This type of experiment saves human work and time, create a precise analysis and can be compared with previous works for validation of methodology.
+The purpose is to map the operational window, seen in Figure \ref{fig:ganan_calvo_fig}, that can be defined where the cone jet spraying mode can be stabilized based on the flow rate, voltage and the setup configuration\cite{gananCalvo}.
 
     \begin{figure}[H]
         \center
@@ -216,6 +223,10 @@ During the cone-jet, multiple parameters and variables influence the current, fl
         \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
         \label{fig:ganan_calvo_fig}
     \end{figure}
+
+To reach certain map it is necessary to traverse flow rate and voltage values acquiring samples.
+The flow rate (X axis) and voltage (Y axis) values for each experiment can be configured in the setup.json file.
+The algorithm for this sequence is a copy of the step sequence\ref{subsec:step_routine} for each flow rate chosen. It is illustrated in the algorithm \ref{alg:mapping_algorithm}.
 
 
     \begin{algorithm}
@@ -267,10 +278,7 @@ During the cone-jet, multiple parameters and variables influence the current, fl
 
 
 
-\section{System Portability}
-\label{sec:portability}
 
-    Raspberry Pi
 
 
 \clearpage
