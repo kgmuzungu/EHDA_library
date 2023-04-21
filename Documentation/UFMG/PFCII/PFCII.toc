@@ -5,7 +5,7 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation and Justify}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Project Goals}{2}{section.1.2}%
-\contentsline {section}{\numberline {1.3}People envolved}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.3}People involved}{2}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Document Structure}{2}{section.1.4}%
 \contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.2}%
 \contentsline {section}{\numberline {2.1}EHDA}{3}{section.2.1}%
@@ -41,17 +41,16 @@
 \contentsline {section}{\numberline {4.4}System Portability}{21}{section.4.4}%
 \contentsline {chapter}{\numberline {5}Results}{23}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Automation routine}{23}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Classification}{24}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Map Sequence}{25}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Manual experiments}{25}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Manual x Automatic Cone Jet stability island maps}{26}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Non-dimensional axis}{27}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Controller}{28}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Simple Controller}{28}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}Robust Controller}{29}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Fuzzy Controller}{29}{subsection.5.4.3}%
-\contentsline {chapter}{\numberline {6}Conclusion}{31}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Proposal for continuing}{31}{section.6.1}%
-\contentsline {chapter}{Bibliography}{32}{section.6.1}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{35}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{37}{appendix.B}%
+\contentsline {section}{\numberline {5.2}Classification}{25}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Step Sequence}{25}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Map Sequence}{27}{subsection.5.2.2}%
+\contentsline {subsubsection}{Non-dimensional axis}{28}{section*.4}%
+\contentsline {section}{\numberline {5.3}Controller}{29}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Simple Controller}{29}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Robust Controller}{30}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Fuzzy Controller}{30}{subsection.5.3.3}%
+\contentsline {chapter}{\numberline {6}Conclusion}{33}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Proposal for continuing}{33}{section.6.1}%
+\contentsline {chapter}{Bibliography}{34}{section.6.1}%
+\contentsline {chapter}{\numberline {A}O que ficou para depois}{37}{appendix.A}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{39}{appendix.B}%
