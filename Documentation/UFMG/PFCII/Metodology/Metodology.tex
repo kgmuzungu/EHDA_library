@@ -2,42 +2,40 @@
 \label{chap:Metodology}
 
 This chapter is about describing the metodology and developments to achieve the project goals. 
-The python routine which this project is about was developed by the previous student that worked on it.\cite{Monica}
-The software was previously developed as a electrospray multipurpose library\cite{Monica}. 
 
 
 \section{Classification}
 \label{sec:section_classification}
 
 The classification is a key step in our routine. For being able to be used in multipurpose applications our classification routine must be able to run in real-time. Which means it must be fast and automatic classification.
-Our goal is to improve and apply in our routine different approachs of non-visual spraying classification using the current data collected from the system.
+Our goal is to improve and apply in our routine different approaches of non-visual spraying classification using the current data collected from the system.
 
-\subsection{Statistical Analisys}
-
- According to Sjaaks\cite{Sjaaks}, evaluating the current data flowing through the nozzle to the plate can give us valuable information about the spraying behaviour.
- Together with the current characteristics, visual observations and results from literature it was investigated whether generic trends are present that can be related to the actual spraying modes.
- It was concluded that factors like geometry, polarity, material properties and occurring discharges are reflected in the system current.
-In this work, the author also exposed some signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time domain and frequency domain analysis.
-
-From those analysis we are appliying in our automatic classification system the relative standard deviation. Which is refered as the sample standart deviation divided by the sample mean values.
+\subsection{Statistical Analysis}
+In Sjaaks\cite{Sjaaks} work, the author exposed some signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time domain and frequency domain analysis.
+We acquire the current data frame of 0.5s and through statistical analysis in the signal such as mean value and standard deviation we apply in our automatic classification the relative standard deviation. Which is referred as the sample standard deviation divided by the sample mean values. Figure \ref{fig:sjaaks_statistical_class} illustrate data samples being classified using Sjaaks method.
 
 \begin{figure}[H]
     \centering
-    \resizebox{50mm}{!}{\includegraphics{Figuras/report2/data3_sjaaksgraph2.png}}
-    \caption{EHDA automation system setup}
+    \resizebox{80mm}{!}{\includegraphics{Figuras/report2/data3_sjaaksgraph2.png}}
+    \caption{Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet}
     \label{fig:sjaaks_statistical_class}
 \end{figure}
 
  
- through statistical analysis in the signal such as mean value and standart deviation.
- Our classification by statistical analysis was implemented in the automation library made by the previous student \cite{Monica}.
 
- Each current sample is 0.5s of current data in 10kHz sampling frequency.
- By the processing thread we take this sample and evaluate the followings statistical values.
+This classification by statistical analysis was already implemented in the software library made by the previous student \cite{Monica}.
+This method was capable of only classifying dripping, intermittent and cone jet modes. Also in her work, Monica extended the classification to corona or discharge detection.
+My contribution was to integrate her work on my control loop model and extend the classification for the multi jet.
 
-To classify the multijet I searched \cite{Ryan} The data thus obtained shows that in all cases the relationship between current and flow rate observed in single cone-jet mode is maintained in multi-jet mode when the current and flow rate is normalized by the number of jets. 
+To classify the multi jet, after running many steps experiments as shown in figure \ref{fig:raw_data} I noticed that the multi jet signal has a similar shape as the cone jet but with a step in its current mean. 
+I also noticed that the cone jet current was almost fixed all its spectrum. 
+This effect was cited by Ryan\cite{Ryan}. In his work he defines the relation between current per jet in both cone jet and multi jet modes.
 
-        
+With that, I implemented the classification of the multi jet when the current mean is 1.14 above the expected cone jet current mean. 
+The cone jet current can be calculated by the scaling laws\ref{sec:scalling-laws} formula.
+The value 1.14 was found by repeating a lot of experiments with the same liquid, but varying the flowrate and the voltage. This means this value is just defined for pure ethanol, the liquid used in all those experiments.
+The classification in the algorithm was divided in three steps as shown bellow. The algorithm is shown in \ref{alg:statistical_class}.
+
         - Sjaak Classification -> Classifies Dripping, Intermittent and Cone Jet
         
         - Monica Classification -> Classifies Corona Sparks
@@ -81,10 +79,6 @@ To classify the multijet I searched \cite{Ryan} The data thus obtained shows tha
         \end{algorithmic}
     \end{algorithm}
 
-
-\subsection{Machine Learning}
-
-For the machine learning 
 
 
 \section{Routine Sequences}

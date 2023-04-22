@@ -5,16 +5,16 @@
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}}{4}{figure.2.3}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Dripping}}{5}{figure.2.4}%
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Cone Jet}}{5}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Multi Jet}}{5}{figure.2.6}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Multi Jet}}{6}{figure.2.6}%
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Dripping}}{6}{figure.2.7}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Intermittent}}{6}{figure.2.8}%
 \contentsline {figure}{\numberline {2.9}{\ignorespaces Intermittent}}{6}{figure.2.9}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Microdripping}}{6}{figure.2.10}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Microdripping}}{7}{figure.2.10}%
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Cone Jet}}{7}{figure.2.11}%
 \contentsline {figure}{\numberline {2.12}{\ignorespaces Cone Jet}}{7}{figure.2.12}%
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Cone Jet}}{7}{figure.2.13}%
-\contentsline {figure}{\numberline {2.14}{\ignorespaces Multi Jet - double jet}}{7}{figure.2.14}%
-\contentsline {figure}{\numberline {2.15}{\ignorespaces Multi Jet - low number of jets}}{7}{figure.2.15}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Multi Jet - double jet}}{8}{figure.2.14}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Multi Jet - low number of jets}}{8}{figure.2.15}%
 \contentsline {figure}{\numberline {2.16}{\ignorespaces Multi Jet - rim spraying mode}}{8}{figure.2.16}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces EHDA automation system setup}}{12}{figure.3.1}%
@@ -23,7 +23,7 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces EHDA automation system setup}}{14}{figure.3.4}%
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Output data json structure}}{16}{figure.3.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces EHDA automation system setup}}{18}{figure.4.1}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet}}{18}{figure.4.1}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Domains of existence (stability) of Taylor Cone Jets. \cite {gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}}{20}{figure.4.2}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Mapping Experiment data collected. The figure has 3 graphs with shared x axis representing the samples collected. The first is the current values collected through all the experiment. The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined by our routine. The third graph shows the current mean value of each data sample.}}{21}{figure.4.3}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Mapping Experiment for pure ethanol in ambient conditions with our capillary setup. The map shows the stability region of each electrospraying mode in the voltage and flowrate range.}}{22}{figure.4.4}%
@@ -47,5 +47,6 @@
 \contentsline {figure}{\numberline {6.4}{\ignorespaces Test 1: fuzzy controller}}{33}{figure.6.4}%
 \contentsline {figure}{\numberline {6.5}{\ignorespaces Test 2: fuzzy controller}}{33}{figure.6.5}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Dripping}}{37}{figure.A.1}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {B.1}{\ignorespaces EHDA physical concept }}{40}{figure.B.1}%

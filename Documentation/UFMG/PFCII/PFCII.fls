@@ -1160,6 +1160,11 @@ INPUT ./Apendices/ApendiceA.tex
 INPUT Apendices/ApendiceA.tex
 INPUT ./Apendices/ApendiceA.tex
 INPUT Apendices/ApendiceA.tex
+INPUT ./Figuras/spectogram/5_Dripping.png
+INPUT ./Figuras/spectogram/5_Dripping.png
+INPUT Figuras/spectogram/5_Dripping.png
+INPUT ./Figuras/spectogram/5_Dripping.png
+INPUT ./Figuras/spectogram/5_Dripping.png
 INPUT ./Apendices/ApendiceB.tex
 INPUT ./Apendices/ApendiceB.tex
 INPUT ./Apendices/ApendiceB.tex
