@@ -1,7 +1,7 @@
 \contentsline {chapter}{Abstract}{i}{Doc-Start}%
 \contentsline {chapter}{Acknowledgment}{ii}{Doc-Start}%
-\contentsline {chapter}{Lista de Figuras}{vii}{chapter*.2}%
-\contentsline {chapter}{Lista de Tabelas}{ix}{chapter*.3}%
+\contentsline {chapter}{Lista de Figuras}{ix}{chapter*.2}%
+\contentsline {chapter}{Lista de Tabelas}{xi}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation and Justify}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Project Goals}{2}{section.1.2}%
@@ -18,26 +18,27 @@
 \contentsline {subsection}{\numberline {2.4.4}Multi Jet}{7}{subsection.2.4.4}%
 \contentsline {subsection}{\numberline {2.4.5}Corona}{8}{subsection.2.4.5}%
 \contentsline {chapter}{\numberline {3}System Description}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Instrumentation}{9}{section.3.1}%
-\contentsline {subsection}{\numberline {3.1.1}Setup Organization}{11}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Setup Validation}{12}{section.3.2}%
-\contentsline {chapter}{\numberline {4}Metodology}{13}{chapter.4}%
-\contentsline {section}{\numberline {4.1}System Model}{14}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Threading and Queues}{14}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Controller Thread}{15}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Data Acquisition Thread}{15}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Data Processing Thread}{15}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Save Data Thread}{15}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Video Thread}{16}{subsection.4.1.6}%
-\contentsline {subsection}{\numberline {4.1.7}Plot}{16}{subsection.4.1.7}%
-\contentsline {section}{\numberline {4.2}Classification}{17}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Statistical Analisys}{17}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Machine Learning}{18}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Routine Sequences}{18}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Ramp}{19}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Step}{19}{subsection.4.3.2}%
-\contentsline {subsection}{\numberline {4.3.3}Map}{19}{subsection.4.3.3}%
-\contentsline {subsection}{\numberline {4.3.4}Control}{22}{subsection.4.3.4}%
+\contentsline {section}{\numberline {3.1}System Description}{9}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Instrumentation}{9}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Setup Organization}{12}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Setup Validation}{13}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}System Model}{14}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Threading and Queues}{14}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Controller Thread}{15}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Data Acquisition Thread}{15}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}Data Processing Thread}{15}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.5}Save Data Thread}{15}{subsection.3.2.5}%
+\contentsline {subsection}{\numberline {3.2.6}Video Thread}{16}{subsection.3.2.6}%
+\contentsline {subsection}{\numberline {3.2.7}Plot}{16}{subsection.3.2.7}%
+\contentsline {chapter}{\numberline {4}Metodology}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Classification}{17}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Statistical Analisys}{17}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Machine Learning}{18}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Routine Sequences}{18}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Ramp}{19}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Step}{19}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Map}{19}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Control}{22}{subsection.4.2.4}%
 \contentsline {chapter}{\numberline {5}Results}{23}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Automation routine}{23}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Classification}{25}{section.5.2}%
@@ -49,8 +50,10 @@
 \contentsline {subsection}{\numberline {5.3.2}Robust Controller}{30}{subsection.5.3.2}%
 \contentsline {section}{\numberline {5.4}System Portability}{30}{section.5.4}%
 \contentsline {chapter}{\numberline {6}Conclusion}{31}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Proposal for continuing}{31}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Fuzzy Controller}{31}{subsection.6.1.1}%
-\contentsline {chapter}{Bibliography}{33}{figure.6.5}%
-\contentsline {chapter}{\numberline {A}O que ficou para depois}{35}{appendix.A}%
-\contentsline {chapter}{\numberline {B}O que mais faltou}{37}{appendix.B}%
+\contentsline {section}{\numberline {6.1}Proposal for continuing}{32}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Fuzzy Controller}{32}{subsection.6.1.1}%
+\contentsline {chapter}{Bibliography}{34}{figure.6.5}%
+\contentsline {chapter}{\numberline {A}Trials and failures}{37}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Machine Learn}{37}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Spectogram analysis}{37}{subsection.A.1.1}%
+\contentsline {chapter}{\numberline {B}O que mais faltou}{39}{appendix.B}%
