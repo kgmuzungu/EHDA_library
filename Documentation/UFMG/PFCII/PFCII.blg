@@ -36,45 +36,45 @@ Warning--campo year vazio ou faltando em TiePieLib
 | Em caso de dúvidas ou problemas com este estilo procure |
 | http://www.abntex.net.br/                               |
 +---------------------------------------------------------+
-You've used 9 entries,
+You've used 12 entries,
             6714 wiz_defined-function locations,
-            1274 strings with 11374 characters,
-and the built_in function-call counts, 7894 in all, are:
-= -- 801
-> -- 210
-< -- 22
-+ -- 148
-- -- 62
-* -- 540
-:= -- 1075
-add.period$ -- 32
-call.type$ -- 9
-change.case$ -- 94
-chr.to.int$ -- 27
-cite$ -- 10
-duplicate$ -- 358
-empty$ -- 498
-format.name$ -- 328
-if$ -- 1896
+            1296 strings with 11855 characters,
+and the built_in function-call counts, 10298 in all, are:
+= -- 978
+> -- 278
+< -- 32
++ -- 172
+- -- 82
+* -- 711
+:= -- 1369
+add.period$ -- 43
+call.type$ -- 12
+change.case$ -- 123
+chr.to.int$ -- 39
+cite$ -- 13
+duplicate$ -- 495
+empty$ -- 691
+format.name$ -- 429
+if$ -- 2475
 int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 154
-newline$ -- 59
-num.names$ -- 32
-pop$ -- 213
+missing$ -- 208
+newline$ -- 73
+num.names$ -- 44
+pop$ -- 282
 preamble$ -- 1
-purify$ -- 36
+purify$ -- 47
 quote$ -- 0
-skip$ -- 502
+skip$ -- 632
 stack$ -- 1
-substring$ -- 375
-swap$ -- 189
-text.length$ -- 16
+substring$ -- 505
+swap$ -- 265
+text.length$ -- 23
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
+type$ -- 13
 warning$ -- 1
-while$ -- 56
+while$ -- 79
 width$ -- 0
-write$ -- 137
+write$ -- 182
 (There was 1 warning)

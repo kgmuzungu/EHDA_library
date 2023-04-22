@@ -1,18 +1,21 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces EHDA physical concept \cite {Gabriel}}}{3}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Dripping}}{4}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Cone Jet}}{4}{figure.2.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Multi Jet}}{4}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Dripping}}{4}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Intermittent}}{5}{figure.2.6}%
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Intermittent}}{5}{figure.2.7}%
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Microdripping}}{5}{figure.2.8}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Cone Jet}}{5}{figure.2.9}%
-\contentsline {figure}{\numberline {2.10}{\ignorespaces Cone Jet}}{5}{figure.2.10}%
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Cone Jet}}{5}{figure.2.11}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces EHDA experiment setup \cite {Luewton}}}{6}{figure.2.12}%
-\contentsline {figure}{\numberline {2.13}{\ignorespaces Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}}{7}{figure.2.13}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces EHDA experiment setup \cite {Luewton}}}{4}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}}{4}{figure.2.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Dripping}}{5}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Cone Jet}}{5}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Multi Jet}}{5}{figure.2.6}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Dripping}}{6}{figure.2.7}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Intermittent}}{6}{figure.2.8}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Intermittent}}{6}{figure.2.9}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Microdripping}}{6}{figure.2.10}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Cone Jet}}{6}{figure.2.11}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Cone Jet}}{7}{figure.2.12}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Cone Jet}}{7}{figure.2.13}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Multi Jet - double jet}}{7}{figure.2.14}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Multi Jet - low number of jets}}{7}{figure.2.15}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Multi Jet - rim spraying mode}}{7}{figure.2.16}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces EHDA automation system setup}}{11}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces EHDA automation system setup}}{12}{figure.3.2}%
@@ -37,12 +40,12 @@
 \contentsline {figure}{\numberline {5.10}{\ignorespaces exp-26-01 automatic classification}}{28}{figure.5.10}%
 \contentsline {figure}{\numberline {5.11}{\ignorespaces exp-26-01-2 (V x Q)}}{29}{figure.5.11}%
 \contentsline {figure}{\numberline {5.12}{\ignorespaces exp-26-01-2 (V x Q)}}{30}{figure.5.12}%
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Fuzzyfication}}{30}{figure.5.13}%
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Defuzzyfication}}{31}{figure.5.14}%
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Fuzzy Rules}}{31}{figure.5.15}%
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Test 1: fuzzy controller}}{31}{figure.5.16}%
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Test 2: fuzzy controller}}{31}{figure.5.17}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Fuzzyfication}}{32}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Defuzzyfication}}{32}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Fuzzy Rules}}{32}{figure.6.3}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Test 1: fuzzy controller}}{32}{figure.6.4}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Test 2: fuzzy controller}}{32}{figure.6.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces EHDA physical concept }}{40}{figure.B.1}%
+\contentsline {figure}{\numberline {B.1}{\ignorespaces EHDA physical concept }}{38}{figure.B.1}%

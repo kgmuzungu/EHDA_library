@@ -173,56 +173,7 @@ For validation purposes and also to expose the benefits of the automated routine
 
     \subsection{Robust Controller}
 
-    \subsection{Fuzzy Controller}
-
-        The fuzzy approach of controller was explored and simulated but not used in the final version of the project.
-        This because for this fuzzy approach we need to have the input variables for the fuzzy machine to be fuzzyfied.
-        Which means that to use a fuzzy logic in our controller loop the classification must be fuzzyfied and our classification algorithm was not developed in order to give a classification and its current membership function.
-
-        For that, I tried to fuzzyfy the controller input by the data acquired in the step routine. With the data I mapped the area of each spraying mode according to its potential and fuzzyfied this as shown in the Figure X.
-
-        \begin{multicols}{2}
-
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/fuzzyfy_input.png}}
-                \caption{Fuzzyfication}
-                \label{fig:fuzzy_input}
-            \end{figure}
-
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/defuzzyfy.png}}
-                \caption{Defuzzyfication}
-                \label{fig:fuzzy_output}
-            \end{figure}
-
-        \end{multicols}
-
-        \begin{figure}[H]
-            \centering
-            \resizebox{80mm}{!}{\includegraphics{Figuras/fuzzy/rules.png}}
-            \caption{Fuzzy Rules}
-            \label{fig:fuzzy_rules}
-        \end{figure}
-
-        \begin{multicols}{2}
-
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/test1.png}}
-                \caption{Test 1: fuzzy controller}
-                \label{fig:fuzzy_test1}
-            \end{figure}
-
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/test2.png}}
-                \caption{Test 2: fuzzy controller}
-                \label{fig:fuzzy_test2}
-            \end{figure}
-
-        \end{multicols}
+    
 
 
     \section{System Portability}

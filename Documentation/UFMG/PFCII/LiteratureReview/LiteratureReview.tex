@@ -19,6 +19,40 @@ For this reason with a controlled enviroment we can reach a certain stable spray
 \end{figure}
 
 
+\section{Non-visual classification}
+\label{sec:non-visual-classification}
+
+From the inception of EHDA until the present day, research has been carried out through manual means, involving the use of visual classification to determine the spraying mode either through cameras or by direct observation. It is advisable to employ a high-speed camera (HS) to accurately capture the spraying process as certain intermittent or dripping states may occur at a high frequency and be erroneously perceived as a stable condition.
+The setup in figure \ref{fig:ehda_setup} shows the most common setup used for EHDA researchers.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{90mm}{!}{\includegraphics{Figuras/system_setup.png}}
+  \caption{EHDA experiment setup \cite{Luewton}}
+  \label{fig:ehda_setup}
+\end{figure}
+
+
+Therefore some researchs were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. That current signal holds a lot o information 
+about the dynamics that is happening with the liquid. Figure \ref{fig:microdripping_current_pic} illustrate an example of that. It can be seen the signal of two droplets of charged liquid generated in this time frame.
+
+
+\begin{figure}[H]
+    \centering
+    \resizebox{150mm}{!}{\includegraphics{Figuras/report2/img2.png}}
+    \caption{Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}
+    \label{fig:microdripping_current_pic}
+  \end{figure}
+
+  The existing signal contains valuable data not only about dripping but also other modes of spraying, thus it can serve as a non-visual classifier.
+  This report draws significant inspiration from Sjaak's\cite{Sjaaks} work, which identifies distinct statistical characteristics of electrical current for various spraying modes.
+
+
+
+\section{Scaling Laws}
+\label{sec:scalling-laws}
+
+
 \section{Spraying modes}
 \label{sec:spraying_modes_subsec}
 
@@ -107,7 +141,7 @@ In this mode the droplet size is smaller than the nozzle, phenomena called micro
 \subsection{Cone Jet}
 \label{subsec:Cone Jet}
 
-Taylor (1964) was the first to demonstrate that electrostatic pressure and capillary pressure can be balanced at any point on the surface of a liquid cone.
+Taylor (1964)\cite{taylor} was the first to demonstrate that electrostatic pressure and capillary pressure can be balanced at any point on the surface of a liquid cone.
 Taylor cone-jets naturally occurs under relatively limited circumstances: when the applied field and flow rate are in the appropriate range, and the electrosprayed liquid exhibits the adequate physical properties.
 
 During the cone-jet, multiple parameters and variables influence the current, flow rate and voltage operational window.
@@ -142,40 +176,56 @@ During the cone-jet, multiple parameters and variables influence the current, fl
 \subsection{Multi Jet}
 \label{subsec:Multi Jet}
 
-\subsection{Corona sparks}
-\label{subsec:Corona sparks}
+Zeleny's (1915)\cite{zeleny} paper was the first reference to multi-jet phenomena. In his experiments was observed:
+\emph{"for voltages well above that for which the steady conical surface changed into a blurred agitated one, the appearance became a number of fine points with their attendant dark streaks arranged along the circumference of the raised edge".}
+
+In recent times, researchers have made significant advancements in understanding multi-jet technology and have identified various profiles with distinct characteristics. Because of that, some authors can divide what we call multi jet in more classifications.
+The multi jet mode is considered in this work when two or more spraying jets can be visualized in the HS camera and the current shows a stable profile. Figures \ref{fig:multijt1}, \ref{fig:multijt2} and \ref{fig:multijt3} shows three different variations of multi jet spraying mode.
+
+C.N. Ryan (2012)\cite{Ryan} focused his work in multi jet spraying mode, and its current properties. 
+For this work it highlights the detection that for a low number of jets emitted, seen in figure \ref{fig:multijt1} and \ref{fig:multijt2}, the meniscus is not bound to the rim of the capillary. 
+This mode is seen to be less stable, in that each jet in multi-jet mode is unable to support the same volumetric flow as in the single jet mode.
+
+As the number of jets increases the mode becomes what Ryan refers at rim-mode electrospray, seen in figure \ref{fig:multijt3}. In this work it will also be classified as multi jet.
 
 
-\section{Non-visual classification}
-\label{sec:non-visual-classification}
 
-From the inception of EHDA until the present day, research has been carried out through manual means, involving the use of visual classification to determine the spraying mode either through cameras or by direct observation. It is advisable to employ a high-speed camera (HS) to accurately capture the spraying process as certain intermittent or dripping states may occur at a high frequency and be erroneously perceived as a stable condition.
-The setup in figure \ref{fig:ehda_setup} shows the most common setup used for EHDA researchers.
+\begin{multicols}{3}
 
-\begin{figure}[H]
-  \centering
-  \resizebox{90mm}{!}{\includegraphics{Figuras/system_setup.png}}
-  \caption{EHDA experiment setup \cite{Luewton}}
-  \label{fig:ehda_setup}
-\end{figure}
-
-
-Therefore some researchs were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. That current signal holds a lot o information 
-about the dynamics that is happening with the liquid. Figure \ref{fig:microdripping_current_pic} illustrate an example of that. It can be seen the signal of two droplets of charged liquid generated in this time frame.
-
-
-\begin{figure}[H]
-    \centering
-    \resizebox{150mm}{!}{\includegraphics{Figuras/report2/img2.png}}
-    \caption{Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}
-    \label{fig:microdripping_current_pic}
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=3cm]{Figuras/april/multi2.png}
+      \label{fig:multijt1}
+      \caption{Multi Jet - double jet}
   \end{figure}
 
-  The existing signal contains valuable data not only about dripping but also other modes of spraying, thus it can serve as a non-visual classifier.
-  This report draws significant inspiration from Sjaak's\cite{Sjaaks} work, which identifies distinct statistical characteristics of electrical current for various spraying modes.
 
-\section{Scalling Laws}
-\label{sec:scalling-laws}
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=3cm]{Figuras/april/multi1.png}
+      \label{fig:multijt2}
+      \caption{Multi Jet - low number of jets}
+  \end{figure}
+
+
+  \begin{figure}[H]
+      \center
+      \includegraphics[width=3cm]{Figuras/april/multi3.png}
+      \label{fig:multijt3}
+      \caption{Multi Jet - rim spraying mode}
+  \end{figure}
+
+\end{multicols}
+
+
+\subsection{Corona}
+\label{subsec:Corona}
+
+At even higher electric potentials, above of multi jet, the insulation between the electrodes start to breakdown and we achieve a phenomenon of discharge.
+Those can be easily classified because of its high current value. 
+
+This mode is also divided by other classes such as streamer corona or transient sparks discharges, but it's not in the scope of this work. 
+Mônicas\cite{Monica} work was focused on how to predict that mode with the current analysis for safety in industrial applications.
 
 
 

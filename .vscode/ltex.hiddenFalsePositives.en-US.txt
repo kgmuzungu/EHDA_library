@@ -1,0 +1,1 @@
+{"rule":"SENT_START_CONJUNCTIVE_LINKING_ADVERB_COMMA","sentence":"^\\QHowever as the number of jets increases the mode becomes the so-called rim-mode electrospray.\\E$"}

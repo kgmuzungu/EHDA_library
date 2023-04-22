@@ -59,6 +59,25 @@ ISSN 15393755.}
 \emph{Aerosol Science and Technology}, v.~27, n.~3, p. 367--380, 1997.
 ISSN 15217388.}
 
+\bibitem{taylor}
+\abntrefinfo{Taylor}{TAYLOR}{1964}
+{TAYLOR, G.~I. Disintegration of water drops in an electric field.
+\emph{Proceedings of the Royal Society of London. Series A. Mathematical and
+  Physical Sciences}, The Royal Society London, v.~280, n.~1382, p. 383--397,
+  1964.}
+
+\bibitem{zeleny}
+\abntrefinfo{Zeleny}{ZELENY}{1915}
+{ZELENY, J. On the conditions of instability of liquid drops, with applications
+  to the electrical discharge from liquid point. In:  \emph{Proc. Camb. Phil.
+  Soc.} [S.l.: s.n.], 1915. v.~18, p. 71--83.}
+
+\bibitem{Ryan}
+\abntrefinfo{Ryan, Smith e Stark}{RYAN; SMITH; STARK}{2012}
+{RYAN, C.; SMITH, K.; STARK, J. Characterization of multi-jet electrospray
+  systems.
+\emph{Journal of Aerosol Science}, v.~51, p. 35--48, 2012.}
+
 \bibitem{TiePieLib}
 \abntrefinfo{LibTiePie\ldots}{LIBTIEPIE\ldots}{}
 {LIBTIEPIE SDK Python. \url{https://www.tiepie.com/en/libtiepie-sdk/python}.
