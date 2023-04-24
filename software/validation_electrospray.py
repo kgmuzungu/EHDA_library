@@ -60,7 +60,8 @@ class ElectrosprayValidation:
             self.rho = self.data_dict['config']['liquid']['rho density']
         """
     def calculate_scaling_laws_cone_jet(self, data, mean, flow_rate):
-        ki = 6.46
+        # ki = 6.46
+        ki = 1
 
         # print("\nprocessing_mean:", mean)
         self.mean_value_array = mean

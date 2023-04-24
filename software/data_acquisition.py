@@ -94,7 +94,6 @@ def data_acquisition(data_queue,
         except Exception as e:
             print("ERROR: ", str(e))
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
-            sys.exit(1)
 
         try:
 
@@ -151,4 +150,4 @@ def data_acquisition(data_queue,
             print("[DATA_ACQUISITION THREAD] Failed to put values on data_queue")
             sys.exit(1)
 
-    print("[DATA_ACQUISITION THREAD] Finish acquirind data")
+    print("[DATA_ACQUISITION THREAD] Finish acquiring data")

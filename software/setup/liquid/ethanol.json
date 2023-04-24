@@ -1,12 +1,12 @@
 {
     "name": "ethanol pure",
-    "surface tension": 0.0219,
-    "dielectric const": 24.55,
-    "viscosity": 0.00137,
-    "density": 547.11,
-    "electrical conductivity": 0.000462,
+    "surface tension": 0.02239,
+    "dielectric const": 24.3,
+    "viscosity": 1231.8,
+    "density": 789,
+    "electrical conductivity": 0.000048,
     "unit system": "SI",
     "vacuum permitivity": 8.85e-12,
-    "rho density": 123,
+    "rho density": 789,
     "slope": 10.0
 }

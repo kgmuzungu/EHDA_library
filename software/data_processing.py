@@ -75,6 +75,24 @@ def data_processing(data_queue,
 
         try:
 
+            # Validation through the Chen_Pui Article
+            electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
+                                                                    electrospray_processing.mean_value,
+                                                                    electrospray_data.flow_rate)
+            print("I:", electrospray_validation.I_emitted_chen_pui * 10e5)
+            print("alpha:", electrospray_validation.alpha_chen_pui * 10e10)
+            cone_jet_mean = electrospray_validation.I_emitted_chen_pui  * 10e5
+
+        except Exception as e:
+            print("ERROR: ", str(e))
+            print("[DATA_PROCESSING THREAD] Failed to electrospray_validation")
+            cone_jet_mean = 1000 # just if fail doesnt mess the classification of cone jet
+
+
+
+
+        try:
+
             # if change flowrate restart conejet mean values
             if(electrospray_data.flow_rate != previous_flowrate):
                 cone_jet_mean = 0
@@ -127,15 +145,6 @@ def data_processing(data_queue,
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to put value in save_data_queue")
 
-        try:
-
-            # Validation through the Chen_Pui Article
-            electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data, electrospray_processing.mean_value, electrospray_data.flow_rate)
-            print(electrospray_validation.get_validation_dictionary())
-
-        except Exception as e:
-            print("ERROR: ", str(e)) 
-            print("[DATA_PROCESSING THREAD] Failed to electrospray_validation")
 
         try: 
 

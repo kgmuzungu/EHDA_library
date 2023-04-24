@@ -171,6 +171,16 @@ class ElectrosprayClassification:
         #     print("ERROR: ", str(e)) 
         #     print("Error on João classification")
 
+        try:
+            if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
+                if(mean > 1.14 * cone_jet_mean):
+                    classification_txt = "Multi Jet"
+
+            print("Multi jet treshold mean value: ", cone_jet_mean * 1.14)
+
+        except Exception as e:
+            print("ERROR: ", str(e))
+            print("Error on João classification")
 
         #
         #       Correcting some wrongly classified modes by the system knowledge and memory

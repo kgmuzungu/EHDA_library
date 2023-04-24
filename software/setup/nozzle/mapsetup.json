@@ -14,10 +14,10 @@
     "save_data": "True",
     "save_processing": "True",
     "save_config": "True",
-    "save_validation": "True",
+    "save_validation": "False",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/Joao_Pedro/Joao_2023-04-14/test1",
+    "save_path": "D:/Joao_Pedro/Joao-LPDB_2023-04-24/exp1",
     "number_camera_partitions": 10,
     "name_liquid" : "ethanol",
     "arduino_com_port" : 1,
@@ -25,11 +25,11 @@
     "pump_com_port" : 0,
     "typeofmeasurement": {
         "sequence": "map",
-        "voltage_start": 5000,
-        "voltage_stop": 7000,
+        "voltage_start": 3000,
+        "voltage_stop": 8000,
         "slope": 1000000,
         "step_size": 50,
         "step_time": 3,
-        "flow_rate": [ "0.5", "0.6"]
+        "flow_rate": ["0.5", "0.6"]
     }
 }

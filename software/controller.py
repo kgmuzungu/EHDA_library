@@ -101,6 +101,7 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
                 controller_output_queue.put(controller_output)
                 # print("[FUG THREAD] put values in controller_output_queue")
                 # EXIT CONTROL SEQUENCE
+
                 if keyboard.is_pressed("q"):
                     print("You pressed q")
                     finish_event.set()
@@ -123,7 +124,6 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
 
         FUG_sendcommands(obj_fug_com, ['>S1B 0', 'I 600e-6', '>S0B 0', '>S0R ' + str(typeofmeasurement['slope']), 'U ' + str(typeofmeasurement['voltage_start']), 'F1'])
-        current_state = "Dripping"
 
         set_pump_direction(obj_pump_com, "INF")
         set_inner_diameter(obj_pump_com, syringe_diameter)
@@ -137,6 +137,8 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
 
         controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
         controller_output_queue.put(controller_output)
+
+        current_state = "Dripping"
 
         while not finish_event.is_set():
 
