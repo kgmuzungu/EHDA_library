@@ -180,6 +180,24 @@ The algorithm for this sequence is a copy of the step sequence\ref{subsec:step_r
     As it is a closed loop control system the controller must be able to stabilize the system in the desired conditions.
 
 
+    \subsection{Simple Controller}
+
+        \begin{algorithm}
+            \caption{simple controller}\label{alg:simple_controller}
+            \begin{algorithmic}
+            \Function{controller}{$spray\_mode$} 
+                
+                \If{$spray\_mode$ = $'Intermittent'$ or $spray\_mode$ = $'Dripping'$}
+                    \State \Call{send\_voltage\_command}{$voltage$ + 100}
+                \ElsIf{$spray\_mode$ = $'Multi Jet'$ or $spray\_mode$ = $'Corona'$}
+                    \State \Call{send\_voltage\_command}{$voltage$ - 100}
+                \ElsIf{ $spray\_mode$ = $"Cone Jet"$}
+                    \Comment{Keep Stable}
+                \EndIf
+
+            \EndFunction
+            \end{algorithmic}
+        \end{algorithm}
 
 
 

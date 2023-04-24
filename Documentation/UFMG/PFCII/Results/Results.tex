@@ -99,13 +99,30 @@ For validation purposes and also to expose the benefits of the automated routine
 
         \begin{figure}[H]
             \center
-            \includegraphics[width=8cm]{Figuras/report3/manual-mapping.png}
+            \includegraphics[width=8cm]{Figuras/april/manual_stability.png}
             \caption{ exp-26-01 manual classification}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=9cm]{Figuras/report3/map-exp-26-01.png}
+            \caption{ exp-26-01 automatic classification}
+        \end{figure}
+
+    \end{multicols}
+
+    \begin{multicols}{2}
+
+
+        \begin{figure}[H]
+            \center
+            \includegraphics[width=8cm]{Figuras/april/results_map_1.png}
+            \caption{ exp-26-01 manual classification}
+        \end{figure}
+
+        \begin{figure}[H]
+            \center
+            \includegraphics[width=9cm]{Figuras/april/results_map_2.png}
             \caption{ exp-26-01 automatic classification}
         \end{figure}
 
@@ -136,42 +153,33 @@ For validation purposes and also to expose the benefits of the automated routine
 
     To compare with the literature and validate the algorithm we decided to display the data using the non-dimensional numbers used in figure \ref{fig:ganan_calvo_fig}.
 
+    \begin{multicols}{2}
+
         \begin{figure}[H]
             \center
-            \includegraphics[width=12cm]{Figuras/19:03/non-dimensional-1.png}
+            \includegraphics[width=7cm]{Figuras/april/manual_non_dim_exp.png}
+            \caption{ exp-qw-01-2 (V x Q)}
+        \end{figure}
+
+        \begin{figure}[H]
+            \center
+            \includegraphics[width=10cm]{Figuras/19:03/non-dimensional-1.png}
             \caption{ exp-26-01-2 (V x Q)}
         \end{figure}
+
+
+    \end{multicols}
 
 \section{Controller}
 \label{sec:controller_results}
 
     Of particular interest in applications is the cone-jet mode, where the meniscus emits a steady microscopic jet, resulting in uniformly sized droplets. 
 
-
-    \subsection{Simple Controller}
-
-        \begin{algorithm}
-            \caption{simple controller}\label{alg:simple_controller}
-            \begin{algorithmic}
-            \Function{controller}{$spray\_mode$} 
-                
-                \If{$spray\_mode$ = $'Intermittent'$ or $spray\_mode$ = $'Dripping'$}
-                    \State \Call{send\_voltage\_command}{$voltage$ + 100}
-                \ElsIf{$spray\_mode$ = $'Multi Jet'$ or $spray\_mode$ = $'Corona'$}
-                    \State \Call{send\_voltage\_command}{$voltage$ - 100}
-                \ElsIf{ $spray\_mode$ = $"Cone Jet"$}
-                    \Comment{Keep Stable}
-                \EndIf
-
-            \EndFunction
-            \end{algorithmic}
-        \end{algorithm}
-
         Flow rate perturbation robustness test
 
         \begin{figure}[H]
             \center
-            \includegraphics[width=15cm]{Figuras/19:03/control_first_results.png}
+            \includegraphics[width=17cm]{Figuras/19:03/control_first_results.png}
             \caption{ exp-26-01-2 (V x Q)}
         \end{figure}
 

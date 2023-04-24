@@ -1,0 +1,92 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem{prunet}
+\abntrefinfo{Cloupeau e Prunet-Foch}{CLOUPEAU; PRUNET-FOCH}{1994}
+{CLOUPEAU, M.; PRUNET-FOCH, B. Electrohydrodynamic spraying functioning modes:
+  a critical review.
+\emph{Journal of Aerosol Science}, v.~25, n.~6, p. 1021--1036, 1994.}
+
+\bibitem{Sjaaks}
+\abntrefinfo{Verdoold et al.}{VERDOOLD et al.}{2014}
+{VERDOOLD, S. et al. A generic electrospray classification.
+\emph{Journal of Aerosol Science}, Elsevier, v.~67, p. 87--103, 2014.
+ISSN 18791964.
+Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1016/j.jaerosci.2013.09.008$>$.}
+
+\bibitem{Gabriel}
+\abntrefinfo{Meesters}{MEESTERS}{1992}
+{MEESTERS, G.
+\emph{Mechanisms of droplet formation}.
+Tese (Doutorado) --- TU Delft Faculty of Applied Sciences, Netherlands, 1992.
+Dispon{\'\i}vel em:
+  $<$http://resolver.tudelft.nl/uuid:b6a2a7ad-8332-4e46-a65e-c15561037a26$>$.}
+
+\bibitem{Luewton}
+\abntrefinfo{Agostinho et al.}{AGOSTINHO et al.}{2012}
+{AGOSTINHO, L.~L. et al. Morphology of water electrosprays in the simple-jet
+  mode.
+\emph{Physical Review E - Statistical, Nonlinear, and Soft Matter Physics},
+  v.~86, n.~6, p.~1--9, 2012.
+ISSN 15393755.}
+
+\bibitem{gananCalvo}
+\abntrefinfo{Ga{\~n}{\'a}n-Calvo et al.}{GA{\~N}{\'A}N-CALVO et al.}{2018}
+{GA{\~N}{\'A}N-CALVO, A.~M. et al. Review on the physics of electrospray: From
+  electrokinetics to the operating conditions of single and coaxial taylor
+  cone-jets, and ac electrospray.
+\emph{Journal of Aerosol Science}, v.~125, p. 32--56, 2018.}
+
+\bibitem{Monica}
+\abntrefinfo{Emediato}{EMEDIATO}{2022}
+{EMEDIATO, M. \emph{Spark Detection And Prevention Device For
+  Electrohydrodynamic Atomization Applications}.
+[S.l.], 2022.}
+
+\bibitem{Grace}
+\abntrefinfo{Grace e Marijnissen}{GRACE; MARIJNISSEN}{1994}
+{GRACE, J.; MARIJNISSEN, J. A review of liquid atomization by electrical means.
+\emph{Journal of Aerosol Science}, v.~25, n.~6, p. 1005--1019, 1994.}
+
+\bibitem{Chen_Pui}
+\abntrefinfo{Chen e Pui}{CHEN; PUI}{1997}
+{CHEN, D.~R.; PUI, D.~Y. Experimental investigation of scaling laws for
+  electrospraying: Dielectric constant effect.
+\emph{Aerosol Science and Technology}, v.~27, n.~3, p. 367--380, 1997.
+ISSN 15217388.}
+
+\bibitem{zeleny14}
+\abntrefinfo{Zeleny}{ZELENY}{1914}
+{ZELENY, J. The electrical discharge from liquid points, and a hydrostatic
+  method of measuring the electric intensity at their surfaces.
+\emph{Physical Review}, APS, v.~3, n.~2, p.~69, 1914.}
+
+\bibitem{taylor}
+\abntrefinfo{Taylor}{TAYLOR}{1964}
+{TAYLOR, G.~I. Disintegration of water drops in an electric field.
+\emph{Proceedings of the Royal Society of London. Series A. Mathematical and
+  Physical Sciences}, The Royal Society London, v.~280, n.~1382, p. 383--397,
+  1964.}
+
+\bibitem{zeleny}
+\abntrefinfo{Zeleny}{ZELENY}{1915}
+{ZELENY, J. On the conditions of instability of liquid drops, with applications
+  to the electrical discharge from liquid point. In:  \emph{Proc. Camb. Phil.
+  Soc.} [S.l.: s.n.], 1915. v.~18, p. 71--83.}
+
+\bibitem{Ryan}
+\abntrefinfo{Ryan, Smith e Stark}{RYAN; SMITH; STARK}{2012}
+{RYAN, C.; SMITH, K.; STARK, J. Characterization of multi-jet electrospray
+  systems.
+\emph{Journal of Aerosol Science}, v.~51, p. 35--48, 2012.}
+
+\bibitem{TiePieLib}
+\abntrefinfo{LibTiePie\ldots}{LIBTIEPIE\ldots}{}
+{LIBTIEPIE SDK Python. \url{https://www.tiepie.com/en/libtiepie-sdk/python}.
+Accessed: 2023-03-31.}
+
+\end{thebibliography}
