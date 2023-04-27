@@ -1,6 +1,6 @@
 \contentsline {chapter}{Abstract}{i}{Doc-Start}%
 \contentsline {chapter}{Acknowledgment}{ii}{Doc-Start}%
-\contentsline {chapter}{Lista de Figuras}{ix}{chapter*.2}%
+\contentsline {chapter}{Lista de Figuras}{x}{chapter*.2}%
 \contentsline {chapter}{Lista de Tabelas}{xi}{chapter*.3}%
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Motivation and Justify}{1}{section.1.1}%
@@ -33,29 +33,29 @@
 \contentsline {section}{\numberline {4.1}Classification}{21}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Statistical Analysis}{21}{subsection.4.1.1}%
 \contentsline {section}{\numberline {4.2}Routine Sequences}{23}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Ramp}{24}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.1}Ramp}{23}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Step}{24}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Map}{24}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Control}{27}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Simple Controller}{27}{subsection.4.2.5}%
-\contentsline {chapter}{\numberline {5}Results}{29}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Automation routine}{29}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Classification}{31}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Step Sequence}{31}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Map Sequence}{32}{subsection.5.2.2}%
-\contentsline {subsubsection}{Non-dimensional axis}{34}{section*.4}%
-\contentsline {section}{\numberline {5.3}Controller}{35}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Robust Controller}{35}{subsection.5.3.1}%
-\contentsline {chapter}{\numberline {6}Conclusion}{37}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Proposal for continuing}{37}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Machine Learning}{38}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Fuzzy Controller}{38}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}System Portability}{39}{subsection.6.1.3}%
-\contentsline {section}{\numberline {6.2}Final Discussions}{40}{section.6.2}%
-\contentsline {chapter}{Bibliography}{41}{section.6.2}%
-\contentsline {chapter}{\numberline {A}Trials and failures}{43}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Machine Learning}{43}{section.A.1}%
-\contentsline {subsection}{\numberline {A.1.1}Neural Network with raw data}{43}{subsection.A.1.1}%
-\contentsline {subsection}{\numberline {A.1.2}Spectogram analysis}{43}{subsection.A.1.2}%
-\contentsline {chapter}{\numberline {B}Details}{45}{appendix.B}%
-\contentsline {section}{\numberline {B.1}Setup Validation}{47}{section.B.1}%
+\contentsline {subsection}{\numberline {4.2.4}Control}{26}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Simple Controller}{26}{subsection.4.2.5}%
+\contentsline {chapter}{\numberline {5}Results}{27}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Automation routine}{27}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Classification}{29}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Step Sequence}{29}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Map Sequence}{30}{subsection.5.2.2}%
+\contentsline {subsubsection}{Non-dimensional axis}{33}{section*.4}%
+\contentsline {section}{\numberline {5.3}Controller}{34}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Robust Controller}{34}{subsection.5.3.1}%
+\contentsline {chapter}{\numberline {6}Conclusion}{35}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Proposal for continuing}{35}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Machine Learning}{36}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Fuzzy Controller}{36}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}System Portability}{37}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Final Discussions}{38}{section.6.2}%
+\contentsline {chapter}{Bibliography}{39}{section.6.2}%
+\contentsline {chapter}{\numberline {A}Trials and failures}{41}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Machine Learning}{41}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Neural Network with raw data}{41}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Spectogram analysis}{41}{subsection.A.1.2}%
+\contentsline {chapter}{\numberline {B}Details}{43}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Setup Validation}{45}{section.B.1}%

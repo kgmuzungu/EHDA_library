@@ -10,7 +10,7 @@ A level-1 auxiliary file: ListaTabelas/ListaTabelas.aux
 A level-1 auxiliary file: Introduction/Introduction.aux
 A level-1 auxiliary file: LiteratureReview/LiteratureReview.aux
 A level-1 auxiliary file: systemDescription/systemDescription.aux
-A level-1 auxiliary file: Metodology/Metodology.aux
+A level-1 auxiliary file: Methodology/Methodology.aux
 A level-1 auxiliary file: Results/Results.aux
 A level-1 auxiliary file: Conclusion/Conclusion.aux
 The style file: abntex2-num.bst
@@ -38,7 +38,7 @@ Warning--campo year vazio ou faltando em TiePieLib
 +---------------------------------------------------------+
 You've used 13 entries,
             6714 wiz_defined-function locations,
-            1302 strings with 12010 characters,
+            1302 strings with 12012 characters,
 and the built_in function-call counts, 10896 in all, are:
 = -- 1014
 > -- 291
