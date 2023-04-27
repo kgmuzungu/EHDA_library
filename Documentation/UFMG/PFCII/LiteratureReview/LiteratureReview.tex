@@ -7,9 +7,11 @@
 
 The electrospraying of liquids herein is referred to as electrohydrodynamic atomization (EHDA). The atomization by primarily electrical (electro) forces of a liquid (hydro) that is moving (dynamic) during the atomization captures the essence of the phenomena.\cite{Grace}
 That motion applies to the liquid certain velocity that is not enough to create the spray alone. Therefore, the electric field itself is the responsible for the spraying dynamics.\cite{prunet}
-
-The stable balance between the capillary and field forces on the liquid suggest a \emph{quasi static} dynamics.
-For this reason with a controlled enviroment we can reach a certain stable spraying mode as can be seen in the Figure \ref{fig:ehda_setup_ex2}.
+A stable balance between the capillary and field forces on the liquid suggest a \emph{quasi static} dynamics.
+The feeding liquid is pulled through a small orifice by means of the applied voltage.
+The droplets are accelerated towards the grounded electrode by the electric field.
+The resulting spray is electrically charged, and the droplets repel one another.
+For this reason, with a controlled environment we can reach a certain stable spraying mode as can be seen in the Figure \ref{fig:ehda_setup_ex2}.
 
 \begin{figure}[H]
   \centering
@@ -33,24 +35,24 @@ The setup in figure \ref{fig:ehda_setup} shows the most common setup used for EH
 \end{figure}
 
 
-Therefore some researchs were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. That current signal holds a lot o information 
-about the dynamics that is happening with the liquid. Figure \ref{fig:microdripping_current_pic} illustrate an example of that. It can be seen the signal of two droplets of charged liquid generated in this time frame.
+Therefore, researches were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. 
+Evaluating the current data can give us valuable information about the spraying behavior.
+Figure \ref{fig:microdripping_current_pic} illustrate a sample of current measured in our system during a dripping of a charged liquid. 
+We can visually identify the signal of two droplets generated in this time frame.
 
 
 \begin{figure}[H]
     \centering
     \resizebox{150mm}{!}{\includegraphics{Figuras/report2/img2.png}}
-    \caption{Current measurement sample of a micro-dripping spraying mode. This graph represents 0.5s sample. The sampling frequency is 100kHz. Hence we have 50000 current values.}
+    \caption{Current measurement sample of dripping spraying mode. This graph represents 0.5s sample.}
     \label{fig:microdripping_current_pic}
   \end{figure}
 
   The existing signal contains valuable data not only about dripping but also other modes of spraying, thus it can serve as a non-visual classifier.
   This report draws significant inspiration from Sjaak's\cite{Sjaaks} work, which identifies distinct statistical characteristics of electrical current for various spraying modes.
-
-  According to Sjaaks\cite{Sjaaks}, evaluating the current data flowing through the nozzle to the plate can give us valuable information about the spraying behaviour.
+  A profound use of his method will be explained in section \ref{sec:section_classification}.
   Together with the current characteristics, visual observations and results from literature it was investigated whether generic trends are present that can be related to the actual spraying modes.
-  It was concluded that factors like geometry, polarity, material properties and occurring discharges are reflected in the system current.
- 
+
 
 \section{Scaling Laws}
 \label{sec:scalling-laws}
@@ -58,8 +60,11 @@ about the dynamics that is happening with the liquid. Figure \ref{fig:microdripp
 The electric spray current is a critical variable that has been extensively researched by multiple authors\cite{prunet}\cite{Chen_Pui}\cite{gananCalvo}, resulting in scaling laws that express the relationship between liquid flow rate, conductivity, surface tension, density, and droplet diameter. 
 These scaling laws can predict the size and charge of emitted droplets, making them useful tools for electrospraying practitioners. 
 Obtaining scaling laws is necessary for characterizing an electrospraying system and gaining a better understanding of the process mechanisms. 
+In equation \ref{eq:i_chenpui} we have the current flowing through the charged liquid.
 
-\[ I = (\frac{\gamma K Q}{\kappa})^{1/2}\]
+\begin{equation}\label{eq:i_chenpui}
+	I = (\frac{\gamma K Q}{\kappa})^{1/2}
+\end{equation}
 
 \section{Spraying modes}
 \label{sec:spraying_modes_subsec}
@@ -68,7 +73,7 @@ Since 1915 with his pioneering work in EHDA, Zeleny\cite{zeleny14} observed seve
 Years later the same phenomena was noticed by other scientists, but the classification of these modes were still not well-defined by the community.
 For that Cloupeau and Prunet-Foch\cite{prunet} proposed spray mode classifications based in what they have seen experimentally, and it's still being used as basis for EHDA researches.
 
-The Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}, \ref{fig:multi_camera_jet_example} shows 3 spraying dynamics that we are most interesting in this project. 
+Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}, \ref{fig:multi_camera_jet_example} shows 3 spraying dynamics that we are most interesting in this project. 
 
 \begin{multicols}{3}
 
@@ -98,7 +103,7 @@ The Figures \ref{fig:dripping_camera_example}, \ref{fig:cone_camera_jet_example}
 \end{multicols}
 
 
-Through the various classifications and subclassifications of spraying defined in literature we are going to aggregate some of them and separate between 5 modes as shown above in order of growing electric potential:
+Through the various classifications and subclassifications of spraying defined in literature we are going to aggregate some of them and separate between 5 modes as reffered below in order of growing electric potential:
 
 \subsection{Dripping}
 \label{subsec:dripping}
@@ -116,8 +121,10 @@ In that situation the liquid droplet has, in general, size bigger than the capil
 \subsection{Intermittent}
 \label{subsec:Intermittent}
 
-Intermittent mode is defined when the electric field forces starts to have a considerable effect in the meniscus and droplet formation. 
+Intermittent mode is defined when the electric field forces start to have a considerable effect in the meniscus and droplet formation. 
+This mode can be identified by its pulsating manner.
 In this mode the droplet size is smaller than the nozzle, phenomena called microdripping, and the dripping frequency increases with the increasing of the field applied.
+Figures \ref{fig:intermittent_example}, \ref{fig:intermittent2_example} and \ref{fig:microdripping_example} illustrates 3 different dynamics herein considered as intermittent.
 
 \begin{multicols}{3}
 
@@ -149,13 +156,15 @@ In this mode the droplet size is smaller than the nozzle, phenomena called micro
 \subsection{Cone Jet}
 \label{subsec:Cone Jet}
 
-The electrified meniscus can take on a conical shape within a certain range of applied voltage and injected liquid flow rate. 
 
 
 Taylor (1964)\cite{taylor} was the first to demonstrate that electrostatic pressure and capillary pressure can be balanced at any point on the surface of a liquid cone.
-Taylor cone-jets naturally occurs under relatively limited circumstances: when the applied field and flow rate are in the appropriate range, and the electrosprayed liquid exhibits the adequate physical properties.
+The electrified meniscus can take on a conical shape within a certain range of applied voltage and injected liquid flow rate. 
 
-During the cone-jet, multiple parameters and variables influence the current, flow rate and voltage operational window.
+In Taylor cone, here referred as Cone Jet, the direction of the cone apex also varies depending on the balance of forces. 
+With a fixed flow of liquid it is noticeable that the pointing direction curves and the meniscus reduce volume as we increase the electric potential until the moment the jet breaks into two or more jets going to the next classification. 
+
+Figures \ref{fig:conjt1}, \ref{fig:conjt2} and \ref{fig:conjt3} shows three cone jets in different circunstances.
 
 \begin{multicols}{3}
 
@@ -194,12 +203,11 @@ In recent times, researchers have made significant advancements in understanding
 The multi jet mode is considered in this work when two or more spraying jets can be visualized in the HS camera and the current shows a stable profile. Figures \ref{fig:multijt1}, \ref{fig:multijt2} and \ref{fig:multijt3} shows three different variations of multi jet spraying mode.
 
 C.N. Ryan (2012)\cite{Ryan} focused his work in multi jet spraying mode, and its current properties. 
-For this work it highlights the detection that for a low number of jets emitted, seen in figure \ref{fig:multijt1} and \ref{fig:multijt2}, the meniscus is not bound to the rim of the capillary. 
+He detected that for a low number of jets emitted, seen in figure \ref{fig:multijt1} and \ref{fig:multijt2}, the meniscus is not bound to the rim of the capillary. 
 This mode is seen to be less stable, in that each jet in multi-jet mode is unable to support the same volumetric flow as in the single jet mode.
 
-As the number of jets increases the mode becomes what Ryan refers at rim-mode electrospray, seen in figure \ref{fig:multijt3}. In this work it will also be classified as multi jet.
-
-
+As the number of jets increases the mode becomes what Ryan refers at rim-mode electrospray, seen in figure \ref{fig:multijt3}. 
+In this work, all modes with more than one stable jet will be classified as multi jet.
 
 \begin{multicols}{3}
 
@@ -232,7 +240,7 @@ As the number of jets increases the mode becomes what Ryan refers at rim-mode el
 \subsection{Corona}
 \label{subsec:Corona}
 
-At even higher electric potentials, above of multi jet, the insulation between the electrodes start to breakdown and we achieve a phenomenon of discharge.
+At even higher electric potentials, above of multi jet, the insulation between the electrodes start to breakdown, and we achieve a phenomenon of discharge.
 Those can be easily classified because of its high current value. 
 
 This mode is also divided by other classes such as streamer corona or transient sparks discharges, but it's not in the scope of this work. 
