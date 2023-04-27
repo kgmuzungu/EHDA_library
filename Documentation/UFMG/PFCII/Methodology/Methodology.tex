@@ -149,7 +149,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
     \end{algorithm}
 
     In Figure \ref{fig:map2Data_fig} we can see the data acquired in this mapping experiments. The liquid used is pure ethanol. 
-    Note that the experiment is composed of loops that increase voltage, change flowrate and repeat.
+    Note that the experiment is composed of loops that increase voltage, change flow rate and repeat.
 
     \begin{figure}[H]
         \center
@@ -160,7 +160,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
         \label{fig:map2Data_fig}
     \end{figure}
 
-    With all the data collected, classified and saved in real time, we can do further analysis and studies. For example, Figure \ref{fig:map3Data_fig} illustrate the data classified by our algorithm and displayed in a Voltage X FlowRate range of spraying modes with a specific liquid setup so that we can compare the automatic results with previous researchs, such as showed in figure \ref{fig:ganan_calvo_fig} and validate the algorithm.
+    With all the data collected, classified and saved in real time, we can do further analysis and studies. For example, Figure \ref{fig:map3Data_fig} illustrate the data classified by our algorithm and displayed in a Voltage X Flow rate range of spraying modes with a specific liquid setup so that we can compare the automatic results with previous researches, such as showed in figure \ref{fig:ganan_calvo_fig} and validate the algorithm.
 
     \begin{figure}[H]
         \center
@@ -173,9 +173,9 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
 
 \subsection{Control}
 
-    The control sequence is the only from our list of sequences that actually uses the feedback value. 
+    The control sequence is the only from our list of sequences that actually uses the feedback classification value. 
     As it is a closed loop control system the controller must be able to stabilize the system in the desired conditions.
-
+    A simple controller algorithm is represented in \ref{alg:simple_controller}, and it was used as a proof of concept.
 
     \subsection{Simple Controller}
 
@@ -195,6 +195,10 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
             \EndFunction
             \end{algorithmic}
         \end{algorithm}
+
+
+        
+    \section{Chapter conclusion}
 
 
 
