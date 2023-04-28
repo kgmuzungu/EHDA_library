@@ -125,6 +125,15 @@ By waiting a certain defined \emph{step\_time} and repeating the command in a lo
 The map that will be explained below is the most relevant sequence in this work. This type of experiment saves human work and time, create a precise analysis and can be compared with previous works for validation of methodology.
 The purpose is to map the operational window, seen in Figure \ref{fig:map3Data_fig}, that can be defined where the spraying mode can be stabilized based on the flow rate, voltage and the setup configuration.
 
+The map was inspired in Gañan-Calvo\cite{gananCalvo} work where he points how liquid conductivity influences the cone jet stability island. 
+
+\begin{figure}[H]
+    \center
+    \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
+    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
+    \label{fig:ganan_calvo_fig}
+\end{figure}
+
 To reach certain map it is necessary to traverse flow rate and voltage values acquiring samples.
 The flow rate (X axis) and voltage (Y axis) values for each experiment can be configured in the setup.json file.
 The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_routine} for each flow rate chosen. It is represented in the algorithm \ref{alg:mapping_algorithm}.
@@ -197,7 +206,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
         \end{algorithm}
 
 
-        
+
     \section{Chapter conclusion}
 
 

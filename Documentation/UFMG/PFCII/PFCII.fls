@@ -1008,6 +1008,11 @@ INPUT ./Figuras/report2/data3_sjaaksgraph2.png
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/eccc1200.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecrm0800.tfm
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/ecrm0600.tfm
+INPUT ./Figuras/ganan_calvo_map.png
+INPUT ./Figuras/ganan_calvo_map.png
+INPUT Figuras/ganan_calvo_map.png
+INPUT ./Figuras/ganan_calvo_map.png
+INPUT ./Figuras/ganan_calvo_map.png
 INPUT ./Figuras/report2/map2Data.png
 INPUT ./Figuras/report2/map2Data.png
 INPUT Figuras/report2/map2Data.png
@@ -1053,11 +1058,6 @@ INPUT ./Figuras/19:03/classified-data-example.png
 INPUT Figuras/19:03/classified-data-example.png
 INPUT ./Figuras/19:03/classified-data-example.png
 INPUT ./Figuras/19:03/classified-data-example.png
-INPUT ./Figuras/ganan_calvo_map.png
-INPUT ./Figuras/ganan_calvo_map.png
-INPUT Figuras/ganan_calvo_map.png
-INPUT ./Figuras/ganan_calvo_map.png
-INPUT ./Figuras/ganan_calvo_map.png
 INPUT ./Figuras/regions.png
 INPUT ./Figuras/regions.png
 INPUT Figuras/regions.png

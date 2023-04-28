@@ -40,13 +40,18 @@ The visual interface for the user, seen in figures \ref{fig:multi_class_exp1} an
 \section{Classification}
 \label{sec:classification_results}
 
-The results of the classification 
+The classification results in our algorithm implemented as described in section \ref{sec:section_classification} showed good accuracy for all the classifications described in section \ref{sec:spraying_modes_subsec}.
+Nevertheless, the multi jet classification made by a current value factor of 1.14 above the cone jet is just effective for pure ethanol, liquid used in all this project.
+
+Even if the multi jet classification just works for pure ethanol, the data saved with correct classification in ethanol can be used to extract any other signal information about the multi jet or to train a black box classification algorithm.
 
 \subsection{Step Sequence}
 \label{subsec:step_results}
 
-Our first classification results were made exploring just the voltage ranges. For that we tried to stabilize all the other parameters such as humidity, temperature and external noise.
-First, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. The figure \ref{fig:step_voltage} shows the step voltages during the experiment and figure \ref{fig:raw_data} illustrates the raw data acquired with it. In figure \ref{fig:class_step_data} we see the same experiment data classified by spraying mode and separated by color.
+Our first classification results were made exploring just the voltage ranges. For that stabilized all the other parameters such as humidity, temperature and external noise.
+First, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
+The figure \ref{fig:step_voltage} shows the step voltages during the experiment and figure \ref{fig:raw_data} illustrates the raw data acquired with it. 
+In figure \ref{fig:class_step_data} we see the same experiment data classified by spraying mode and separated by color.
 
 
 \begin{figure}[H]
@@ -79,14 +84,8 @@ Dripping mode has a current mean of 0V. The Intermittent state has a high variat
 \subsection{Map Sequence}
 \label{subsec:map_results}
 
-For validation purposes and also to expose the benefits of the automated routine and classification the map sequence proof itself the best result of this work.
+For validation with literature and also to expose the benefits of the automated routine and classification the map sequence proof itself the best result of this work.
 
-\begin{figure}[H]
-    \center
-    \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
-    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
-    \label{fig:ganan_calvo_fig}
-\end{figure}
 
 
     Firstly, for better understand the spraying dynamics, manual experiments were done.
@@ -94,14 +93,14 @@ For validation purposes and also to expose the benefits of the automated routine
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=12cm]{Figuras/regions.png}
+        \includegraphics[width=8cm]{Figuras/regions.png}
         \label{fig:stability_1}
         \caption{Spraying modes regions of pure ethanol}
     \end{figure}
 
 
     For validation of the automatic classification experiments were made comparing both manual and automatic classification.
-    In figures \ref{fig:stability_2} and \ref{fig:stability_3} we can see that the cone jet stability island has a similar shape in both manual (fig. \ref{fig:stability_2}) and automatic (fig. \ref{fig:stability_3}). This 
+    In figures \ref{fig:stability_2} and \ref{fig:stability_3} we can see that the cone jet stability island has a similar shape in both manual (fig. \ref{fig:stability_2}) and automatic (fig. \ref{fig:stability_3}) data collected in the same experiment.
 
     \begin{multicols}{2}
 
@@ -109,18 +108,20 @@ For validation purposes and also to expose the benefits of the automated routine
         \begin{figure}[H]
             \center
             \includegraphics[width=8cm]{Figuras/april/manual_stability.png}
-            \caption{ exp-26-01 manual classification}
+            \caption{Cone jet island manual experiment 1}
             \label{fig:stability_2}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=9cm]{Figuras/report3/map-exp-26-01.png}
-            \caption{ exp-26-01 automatic classification}
+            \caption{Cone jet island automatic experiment 1}
             \label{fig:stability_3}
         \end{figure}
 
     \end{multicols}
+
+    We can see in figures \ref{fig:stability_4} and \ref{fig:stability_5} another experiment with the same liquid and a comparison on manual (visually by the high speed camera) and automatic classification.
 
     \begin{multicols}{2}
 
@@ -128,19 +129,20 @@ For validation purposes and also to expose the benefits of the automated routine
         \begin{figure}[H]
             \center
             \includegraphics[width=8cm]{Figuras/april/results_map_1.png}
-            \caption{ exp-26-01 manual classification}
+            \caption{Cone jet island manual experiment 2}
+            \label{fig:stability_4}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=9cm]{Figuras/april/results_map_2.png}
-            \caption{ exp-26-01 automatic classification}
+            \caption{Cone jet island automatic experiment 2}
+            \label{fig:stability_5}
         \end{figure}
 
     \end{multicols}
 
-    Figures 15 and 16 shows that we could achieve a stable cone jet region map with similar shape and values in both manual and automatic classification of the same experiment.
-
+    We can see in figures \ref{fig:stability_6} and \ref{fig:stability_7} the same experiment and results as above, but with the Multi Jet classification that was a new feature in the software.
 
     \begin{multicols}{2}
 
@@ -148,13 +150,15 @@ For validation purposes and also to expose the benefits of the automated routine
         \begin{figure}[H]
             \center
             \includegraphics[width=8cm]{Figuras/april/map5.png}
-            \caption{ exp-26-01 manual classification}
+            \caption{Cone jet island manual experiment 3}
+            \label{fig:stability_6}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=10cm]{Figuras/april/map2.png}
-            \caption{ exp-26-01 automatic classification}
+            \caption{Cone jet island automatic experiment 3}
+            \label{fig:stability_7}
         \end{figure}
 
 
@@ -169,13 +173,13 @@ For validation purposes and also to expose the benefits of the automated routine
         \begin{figure}[H]
             \center
             \includegraphics[width=7cm]{Figuras/april/manual_non_dim_exp.png}
-            \caption{ exp-qw-01-2 (V x Q)}
+            \caption{Cone jet island manual experiment 4}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=10cm]{Figuras/19:03/non-dimensional-1.png}
-            \caption{ exp-26-01-2 (V x Q)}
+            \caption{Cone jet island automatic experiment 4}
         \end{figure}
 
 
