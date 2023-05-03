@@ -41,3 +41,13 @@ Also, liquid properties such as surface tension, dielectric constant, viscosity,
 
  About the setup, integrate was changed the liquid, nozzle diameter and distance to the plate in order to
 make the experiment the most stable and easy to reach cone-jet mode as possible. For example, while doing experiments we discovered that the frequency of the pump machine internal motors was creating an interference in the flowrate. Therefore compromising the stabilization in cone jet mode. A solution for that was to increasethe flowrate wich smooths this pumping noise. For that was also necessary to increase the nozzle diameter to balance with all other variables from the experiment.
+
+
+\section{Oscilloscope Impedance}
+\label{sec:osc_impedance}
+
+The current is being measured by the Oscilloscope using its internal impedance. 
+This oscilloscope model has two impedance options, 1Mohm or 2Mohms. 
+Selecting one or other can multiply or divide your current measurement by 2. 
+By default we are using the 2Mohm differential input. But it was noticed that using the 1Mohm resistance might reduce the noise. 
+A proposal of optimization is to configure the 1Mohm resistance in the \emph{configuration\_tiepie.py} file and evaluate its performance.

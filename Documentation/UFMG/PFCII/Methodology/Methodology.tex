@@ -185,29 +185,31 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
     The control sequence is the only from our list of sequences that actually uses the feedback classification value. 
     As it is a closed loop control system the controller must be able to stabilize the system in the desired conditions.
     A simple controller algorithm is represented in \ref{alg:simple_controller}, and it was used as a proof of concept.
+    Its results can be seen in results section \ref{sec:controller_results}.
 
-    \subsection{Simple Controller}
+    \begin{algorithm}
+        \caption{simple controller}\label{alg:simple_controller}
+        \begin{algorithmic}
+        \Function{controller}{$spray\_mode$} 
+            
+            \If{$spray\_mode$ = $'Intermittent'$ or $spray\_mode$ = $'Dripping'$}
+                \State \Call{send\_voltage\_command}{$voltage$ + 100}
+            \ElsIf{$spray\_mode$ = $'Multi Jet'$ or $spray\_mode$ = $'Corona'$}
+                \State \Call{send\_voltage\_command}{$voltage$ - 100}
+            \ElsIf{ $spray\_mode$ = $"Cone Jet"$}
+                \Comment{Keep Stable}
+            \EndIf
 
-        \begin{algorithm}
-            \caption{simple controller}\label{alg:simple_controller}
-            \begin{algorithmic}
-            \Function{controller}{$spray\_mode$} 
-                
-                \If{$spray\_mode$ = $'Intermittent'$ or $spray\_mode$ = $'Dripping'$}
-                    \State \Call{send\_voltage\_command}{$voltage$ + 100}
-                \ElsIf{$spray\_mode$ = $'Multi Jet'$ or $spray\_mode$ = $'Corona'$}
-                    \State \Call{send\_voltage\_command}{$voltage$ - 100}
-                \ElsIf{ $spray\_mode$ = $"Cone Jet"$}
-                    \Comment{Keep Stable}
-                \EndIf
-
-            \EndFunction
-            \end{algorithmic}
-        \end{algorithm}
-
+        \EndFunction
+        \end{algorithmic}
+    \end{algorithm}
 
 
-    \section{Chapter conclusion}
+
+\section{Chapter conclusion}
+
+This chapter \ref{chap:Methodology} exhibits how the knowledge from chapter \ref{chap:lit_review} was applied with a control and automation engineering approach in order to achieve our goals. 
+Next chapter \ref{chap:Results}, we will discuss the results reached.
 
 
 
