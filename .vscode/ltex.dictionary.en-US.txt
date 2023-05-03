@@ -12,3 +12,5 @@ electrospray
 nanometric
 electrosprays
 Cloupeau
+Fuzzyfication
+Defuzzyfication

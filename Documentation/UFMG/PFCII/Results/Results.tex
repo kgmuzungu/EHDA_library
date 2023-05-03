@@ -50,34 +50,46 @@ Even if the multi jet classification just works for pure ethanol, the data saved
 
 Our first classification results were made exploring just the voltage ranges. For that stabilized all the other parameters such as humidity, temperature and external noise.
 First, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
-The figure \ref{fig:step_voltage} shows the step voltages during the experiment and figure \ref{fig:raw_data} illustrates the raw data acquired with it. 
-In figure \ref{fig:class_step_data} we see the same experiment data classified by spraying mode and separated by color.
+The figure \ref{fig:step_class} shows three graphs. 
 
+The first is the input voltage step graph. The range is between 3K-10K Volts. Step size of 50V and step time of 5 seconds.
+
+The second is the output raw data collected in the voltage range. The sampling rate of the oscilloscope is 10KHz. Therefore, this graph has 1.5 Million data points.
+
+The Third graph is the same the second but after the classification procedure.
+
+% \begin{figure}[H]
+%     \center
+%     \includegraphics[width=12cm]{Figuras/19:03/voltage_step.png}
+%     \caption{Input voltage step graph. The range is between 3K-10K Volts. Step size of 50V and step time of 5 seconds.}
+%     \label{fig:step_voltage}
+% \end{figure}
+
+
+% \begin{figure}[H]
+%     \center
+%     \includegraphics[width=12cm]{Figuras/19:03/raw-data-example.png}
+%     \caption{Output raw data collected in the voltage range experiment showed in \ref{fig:step_voltage}. The sampling rate of the oscilloscope is 10KHz. This graph has 1.5 Million data points.}
+%     \label{fig:raw_data}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \center
+%     \includegraphics[width=12cm]{Figuras/19:03/classified-data-example.png}
+%     \caption{The same graph as \ref{fig:raw_data} but after the classification procedure. The colors are green: Dripping, Blue: Intermittent, Red: Cone Jet, Purple: Multi Jet and Black: Undefined.}
+%     \label{fig:class_step_data}
+% \end{figure}
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=12cm]{Figuras/19:03/voltage_step.png}
-    \caption{Input voltage step graph. The range is between 3K-10K Volts. Step size of 50V and step time of 5 seconds.}
-    \label{fig:step_voltage}
+    \includegraphics[width=18cm]{Figuras/may/step_class.png}
+    \caption{Automatic electrospray classification through the step routine.}
+    \label{fig:step_class}
 \end{figure}
 
+The graph of voltage scan has a common shape for different liquids and parameters. After having familiarity with it is even possible to classify the spraying modes by visual analysis. 
 
-\begin{figure}[H]
-    \center
-    \includegraphics[width=12cm]{Figuras/19:03/raw-data-example.png}
-    \caption{Output raw data collected in the voltage range experiment showed in \ref{fig:step_voltage}. The sampling rate of the oscilloscope is 10KHz. This graph has 1.5 Million data points.}
-    \label{fig:raw_data}
-\end{figure}
-
-\begin{figure}[H]
-    \center
-    \includegraphics[width=12cm]{Figuras/19:03/classified-data-example.png}
-    \caption{The same graph as \ref{fig:raw_data} but after the classification procedure. The colors are green: Dripping, Blue: Intermittent, Red: Cone Jet, Purple: Multi Jet and Black: Undefined.}
-    \label{fig:class_step_data}
-\end{figure}
-
-The graph of voltage scan as showed in \ref{fig:raw_data} has a common shape for different liquids and parameters. After having familiarity with it is even possible to classify the spraying modes by visual analysis. For example: 
-Dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the thickness of the graph. The Cone jet is a thinner graph because the signal is more constant. The Multi Jet is the same as Cone jet graph but with a higher mean value than cone Jet. Corona sparks are not showed in the graph because the discharges has a high current value and will be above the axis limits.
+For example, dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the thickness of the graph. The Cone jet is a thinner graph because the signal is more constant. The Multi Jet is the same as Cone jet graph but with a higher mean value than cone Jet. Corona sparks are not showed in the graph because the discharges has a high current value and will be above the axis limits.
 
 
 
@@ -99,7 +111,7 @@ For validation with literature and also to expose the benefits of the automated 
     \end{figure}
 
 
-    For validation of the automatic classification experiments were made comparing both manual and automatic classification.
+    For validation of the automatic classification, experiments were made comparing both manual and automatic classification.
     In figures \ref{fig:stability_2} and \ref{fig:stability_3} we can see that the cone jet stability island has a similar shape in both manual (fig. \ref{fig:stability_2}) and automatic (fig. \ref{fig:stability_3}) data collected in the same experiment.
 
     \begin{multicols}{2}
@@ -123,6 +135,7 @@ For validation with literature and also to expose the benefits of the automated 
 
     We can see in figures \ref{fig:stability_4} and \ref{fig:stability_5} another experiment with the same liquid and a comparison on manual (visually by the high speed camera) and automatic classification.
 
+    \vspace{2cm}
     \begin{multicols}{2}
 
 
@@ -168,7 +181,8 @@ For validation with literature and also to expose the benefits of the automated 
     \subsubsection{Non-dimensional axis}
 
 
-    To compare with the literature and validate the algorithm we decided to display the data using the non-dimensional numbers used in figure \ref{fig:ganan_calvo_fig}.
+    To compare with the literature, specifically the Gañán-Calvo\cite{gananCalvo} stability islands showed in figure \ref{fig:ganan_calvo_fig}, and validate the algorithm, we displayed the data using the non-dimensional numbers.
+    Figures \ref{fig:stability_8} and \ref{fig:stability_9} shows the same data from experiment in figures above with the axis adjusted.
 
     \begin{multicols}{2}
 
@@ -176,12 +190,14 @@ For validation with literature and also to expose the benefits of the automated 
             \center
             \includegraphics[width=7cm]{Figuras/april/manual_non_dim_exp.png}
             \caption{Cone jet island manual experiment 4}
+            \label{fig:stability_8}
         \end{figure}
 
         \begin{figure}[H]
             \center
             \includegraphics[width=10cm]{Figuras/19:03/non-dimensional-1.png}
             \caption{Cone jet island automatic experiment 4}
+            \label{fig:stability_9}
         \end{figure}
 
 
@@ -205,6 +221,8 @@ For validation with literature and also to expose the benefits of the automated 
 
 
 \section{Chapter conclusion}
+
+In this chapter we exposed the results of this project. The automatic routine, real time classification and control were all achieved and implemented. However, they can all be improved. In the next Chapter I will conclude this document with discussions about the results and proposal of continuation.
 
 
 \clearpage
