@@ -27,25 +27,16 @@ To finish, I would propose a final investment in the system portability so that 
         The fuzzy approach is an attempt to quantify the classification and fit different control models.
 
         For that, I fuzzyfied the controller input with the data acquired in an experiment of step routine\ref{subsec:step_routine}. With the data, I mapped the area of each spraying mode according to its potential as shown in the Figure \ref{fig:fuzzy_input}.
-        Figures \ref{fig:Fuzzyfication} and \ref{fig:defuzzyfication} shows the steps of fuzzyfication and defuzzyfication between the input and output of the controller.
+        Figure \ref{fig:fuzzyy} shows the steps of fuzzyfication and defuzzyfication between the input and output of the controller.
 
-        \begin{multicols}{2}
-
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/fuzzyfy_input.png}}
-                \caption{Fuzzyfication of the voltage input}
-                \label{fig:fuzzy_input}
-            \end{figure}
 
             \begin{figure}[H]
                 \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/defuzzyfy.png}}
-                \caption{Defuzzyfication of output}
-                \label{fig:fuzzy_output}
+                \includegraphics[width=17cm]{Figuras/fuzzy/Fuzzyy.png}
+                \caption{fuzzyfication of input and defuzzyfication of output}
+                \label{fig:fuzzyy}
             \end{figure}
 
-        \end{multicols}
 
 
         Our controller is a machine that calculate the output with a geometrical calculus on the membership functions of the input and output according to our rules.
@@ -64,32 +55,12 @@ To finish, I would propose a final investment in the system portability so that 
         -> IF corona THEN decrease
 
 
-        % \begin{figure}[H]
-        %     \centering
-        %     \resizebox{80mm}{!}{\includegraphics{Figuras/fuzzy/rules.png}}
-        %     \caption{Fuzzy Rules}
-        %     \label{fig:fuzzy_rules}
-        % \end{figure}
-
-        For testing the concept I've showed two possible states where the voltage is below the necessary to stabilize in cone jet and when is above that voltage. We can see in figures \ref{fig:fuzzy_test1} and \ref{fig:fuzzy_test2} that each test the output was either increase or decrease the actuator signal.
-        
-        \begin{multicols}{2}
-            
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/test2.png}}
-                \caption{Test 1: fuzzy controller. Input voltage 4000 V the controller output to increase the voltage.}
-                \label{fig:fuzzy_test2}
-            \end{figure}
-            
-            \begin{figure}[H]
-                \centering
-                \resizebox{90mm}{!}{\includegraphics{Figuras/fuzzy/test1.png}}
-                \caption{Test 2: fuzzy controller. Input voltage 7000 V the controller output to decrease the voltage.}
-                \label{fig:fuzzy_test1}
-            \end{figure}
-            
-        \end{multicols}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=17cm]{Figuras/fuzzy/test3.png}
+        \caption{fuzzyfication of input and defuzzyfication of output}
+        \label{fig:fuzzyy1}
+    \end{figure}
         
         Note that, for this method to work it is needed to run a step sequence to scan the cone jet stability island. With that data, create the input membership function. Then, run the controller routine in fuzzy mode.
 

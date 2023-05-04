@@ -58,143 +58,90 @@ The Third graph is the same data as the second after the classification procedur
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=15cm]{Figuras/may/step_class.png}
+    \includegraphics[width=16cm]{Figuras/may/step_class.png}
     \caption{Automatic electrospray classification through the step routine.}
     \label{fig:step_class}
 \end{figure}
 
-The graph of voltage scan has a common shape for different liquids and parameters. After having familiarity with it is even possible to classify the spraying modes by visual analysis. 
+The graph of voltage scan has a common shape for different liquids and parameters. After having familiarity with it, is even possible to classify the spraying modes by visual analysis. 
 
-For example, dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the thickness of the graph. The Cone jet is a thinner graph because the signal is more constant. The Multi Jet is the same as Cone jet graph but with a higher mean value than cone Jet. Corona sparks are not showed in the graph because the discharges has a high current value and will be above the axis limits.
+For example, dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the increased thickness on the graph. The Cone jet is a thinner graph because of its constant signal. Multi Jet  has the same shape as Cone jet but with a higher mean value. Corona sparks are not showed in the graph because its discharges has a high current value above the axis limits.
 
 
 
 \subsection{Map Sequence}
 \label{subsec:map_results}
 
-For validation with literature and also to expose the benefits of the automated routine and classification the map sequence proof itself the best result of this work.
+For validation with literature and also to expose the benefits of the automated routine and classification, the map sequence proof itself the best result of this work.
 
-
-
-    Firstly, for better understand the spraying dynamics, manual experiments were done.
-    Figure \ref{fig:stability_1} shows the stability region of different spraying mode for pure ethanol in the range of voltage and flow rate.
+    Initially, for better understand pure ethanol classification regions through voltage and flow rate ranges, I made a manual map seen in figure \ref{fig:stability_1}.
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=8cm]{Figuras/regions.png}
+        \includegraphics[width=12cm]{Figuras/regions.png}
         \label{fig:stability_1}
         \caption{Experimental spraying modes regions of pure ethanol}
     \end{figure}
 
 
-    For validation of the automatic classification, experiments were made comparing both manual and automatic classification.
-    In figures \ref{fig:stability_2} and \ref{fig:stability_3} we can see that the cone jet stability island has a similar shape in both manual (fig. \ref{fig:stability_2}) and automatic (fig. \ref{fig:stability_3}) data collected in the same experiment.
-
-    \begin{multicols}{2}
-
+    In order to validate our automatic classification, experiments were made comparing both visual and automatic stability island on the same experiment.
+    Figure \ref{fig:stability_2} shows that automatic stable cone jet region could be identified in the same region as visually seen by the high speed camera (data acquired manually).
 
         \begin{figure}[H]
             \center
-            \includegraphics[width=8cm]{Figuras/april/manual_stability.png}
-            \caption{Cone jet island manual experiment 1}
+            \includegraphics[width=16cm]{Figuras/april/manual_stability_island.png}
+            \caption{Cone jet stability region for pure ethanol experiment 1}
             \label{fig:stability_2}
         \end{figure}
 
-        \begin{figure}[H]
-            \center
-            \includegraphics[width=9cm]{Figuras/report3/map-exp-26-01.png}
-            \caption{Cone jet island automatic experiment 1}
-            \label{fig:stability_3}
-        \end{figure}
 
-    \end{multicols}
-
-    We can see in figures \ref{fig:stability_4} and \ref{fig:stability_5} another experiment with the same liquid and a comparison on manual (visually by the high speed camera) and automatic classification.
-
-    \vspace{2cm}
-    \begin{multicols}{2}
+    With the development of a Multi Jet classification using the logic explained in section \ref{sec:section_classification}, I repeated the same experiment as shown in Figure \ref{fig:stability_6}.
 
 
         \begin{figure}[H]
             \center
-            \includegraphics[width=8cm]{Figuras/april/results_map_1.png}
-            \caption{Cone jet island manual experiment 2}
-            \label{fig:stability_4}
-        \end{figure}
-
-        \begin{figure}[H]
-            \center
-            \includegraphics[width=9cm]{Figuras/april/results_map_2.png}
-            \caption{Cone jet island automatic experiment 2}
-            \label{fig:stability_5}
-        \end{figure}
-
-    \end{multicols}
-
-    We can see in figures \ref{fig:stability_6} and \ref{fig:stability_7} the same experiment and results as above, but with the Multi Jet classification that was a new feature in the software.
-
-    \begin{multicols}{2}
-
-
-        \begin{figure}[H]
-            \center
-            \includegraphics[width=8cm]{Figuras/april/map5.png}
-            \caption{Cone jet island manual experiment 3}
+            \includegraphics[width=18cm]{Figuras/april/map_third.png}
+            \caption{Cone jet stability region for pure ethanol experiment 2}
             \label{fig:stability_6}
         \end{figure}
 
-        \begin{figure}[H]
-            \center
-            \includegraphics[width=10cm]{Figuras/april/map2.png}
-            \caption{Cone jet island automatic experiment 3}
-            \label{fig:stability_7}
-        \end{figure}
 
-
-    \end{multicols}
-
-    \vspace{2cm}
     \subsubsection{Non-dimensional axis}
 
-
-    To compare with the literature, specifically the Gañán-Calvo\cite{gananCalvo} stability islands showed in figure \ref{fig:ganan_calvo_fig}, and validate the algorithm, we displayed the data using the non-dimensional numbers.
-    Figures \ref{fig:stability_8} and \ref{fig:stability_9} shows the same data from experiment in figures above with the axis adjusted.
-
-    \begin{multicols}{2}
+    To have a better comparison with literature, specifically the Gañán-Calvo\cite{gananCalvo} stability islands showed in figure \ref{fig:ganan_calvo_fig}, with a visual juxtaposition of the shapes, we displayed in figure \ref{fig:stability_8} the data using the non-dimensional numbers used in his work\cite{gananCalvo}.
 
         \begin{figure}[H]
             \center
-            \includegraphics[width=7cm]{Figuras/april/manual_non_dim_exp.png}
+            \includegraphics[width=18cm]{Figuras/april/manual_au_1.png}
             \caption{Cone jet island manual experiment 4}
             \label{fig:stability_8}
         \end{figure}
 
-        \begin{figure}[H]
-            \center
-            \includegraphics[width=10cm]{Figuras/19:03/non-dimensional-1.png}
-            \caption{Cone jet island automatic experiment 4}
-            \label{fig:stability_9}
-        \end{figure}
+    The results of mapping experiment corresponded visual, literature and automatic regions of classification, giving authentication to our method.
 
-
-    \end{multicols}
 
 \section{Controller}
 \label{sec:controller_results}
 
-    The results of the classification process were favorable for experiment automation, however, they may not be as effective for optimal performance of the controller.
-    The inaccuracy of the classification by statistical method in addition with the amount of variables that need to be syntonized for stabilize in cone jet or multi jet makes it hard to control this process.
+    The results of the classification process were favorable for experiment automation, however, the inaccuracy of the classification by statistical methods, specially the Multi Jet\ref{subsec:Multi Jet}, limited the development of a complete control project.
+    Together with the amount of variables that need to be syntonized makes it hard to stabilize in a desired mode.
 
-    Of particular interest in applications is the cone-jet mode, where the meniscus emits a steady microscopic jet, resulting in uniformly sized droplets. 
-
-        Flow rate perturbation robustness test
-
+    Even with all those problems we could implement a simple controller project, described in \ref{sec:control_model}, that validated the efforts of remodeling all software into a closed loop control model.
+    
+    The controller not only stabilized in Cone Jet mode, but also could reject perturbation, as seen in Figure \ref{fig:control_results}, where I manually changed the flow rate.
+    First graph shows current acquired. It starts as intermittent state, with an oscillating signal. We can validate this with the blue colored sample on the third graph representing its automatic classification. 
+    The second graph shows the controller actuating increasing the voltage to achieve a stable cone jet mode.
+    After a period of time in cone jet, I manually increased the flow rate, serving as a perturbation of the system, and we can see that the effect of that was to return to intermittent state with the oscillating signal. The controller again, actuate increasing the voltage to reach the cone jet stability island. 
+    This procedure was repeated after some seconds of stabilization in cone jet, increasing again the flow rate manually, and we can see the system automatically adjusting the voltage.
         \begin{figure}[H]
             \center
-            \includegraphics[width=17cm]{Figuras/19:03/control_first_results.png}
-            \caption{Simple controller validation experiment. For this experiment we waited the system to stabilize in the desired spraying mode. After that we made a perturbation robustness test changing the flow rate.}
+            \includegraphics[width=16cm]{Figuras/19:03/control_first_results.png}
+            \caption{Simple controller validation experiment. For this experiment we waited the system to stabilize in the desired spraying mode. After that we made a perturbation test changing the flow rate. The classification legend follows the same color reference in all project.}
             \label{fig:control_results}
         \end{figure}
+
+    After 200s of experiment we had some breaks up of the cone jet into a droplet and stabilized again. This is represented by the peak values in current signal. The classification correctly identified as intermittent, seen as blue dots in the third graph, and the controller reacted increasing the voltage, in a situation that can be considered as noise. A filter can be applied in a more complex controller project to avoid this.
+    
 
 
 \section{Chapter conclusion}
