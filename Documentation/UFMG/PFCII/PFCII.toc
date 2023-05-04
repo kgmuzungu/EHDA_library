@@ -27,8 +27,7 @@
 \contentsline {subsection}{\numberline {3.2.3}Data Acquisition Thread}{17}{subsection.3.2.3}%
 \contentsline {subsection}{\numberline {3.2.4}Data Processing Thread}{17}{subsection.3.2.4}%
 \contentsline {subsection}{\numberline {3.2.5}Save Data Thread}{17}{subsection.3.2.5}%
-\contentsline {subsection}{\numberline {3.2.6}Video Thread}{18}{subsection.3.2.6}%
-\contentsline {subsection}{\numberline {3.2.7}Plot}{18}{subsection.3.2.7}%
+\contentsline {subsection}{\numberline {3.2.6}Plotting}{18}{subsection.3.2.6}%
 \contentsline {section}{\numberline {3.3}Chapter conclusion}{18}{section.3.3}%
 \contentsline {chapter}{\numberline {4}Methodology}{21}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Classification}{21}{section.4.1}%
@@ -41,12 +40,12 @@
 \contentsline {section}{\numberline {4.3}Chapter conclusion}{28}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Results}{29}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Automation routine}{29}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Classification}{31}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Classification}{30}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Step Sequence}{31}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Map Sequence}{32}{subsection.5.2.2}%
 \contentsline {subsubsection}{Non-dimensional axis}{34}{section*.4}%
 \contentsline {section}{\numberline {5.3}Controller}{35}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Chapter conclusion}{36}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Chapter conclusion}{35}{section.5.4}%
 \contentsline {chapter}{\numberline {6}Conclusion}{37}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Proposal for continuation}{37}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}Machine Learning}{38}{subsection.6.1.1}%

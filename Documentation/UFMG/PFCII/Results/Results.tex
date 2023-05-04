@@ -10,13 +10,13 @@ Finally, we will showcase the performance of the implemented controller algorith
 \label{sec:automation_routine}
 
 The automated experiment routine is capable of acquiring a significantly more precise and extensive amount of data than what can be achieved by a human. 
-With the save data by streaming in saving thread\ref{subsec:save_thread}, we achieved less program memory during the experiment and, specially, safety for not losing the data in case the program fail during an experiment.
+With the save data by streaming in saving thread \ref{subsec:save_thread}, we achieved less program memory during the experiment and, specially, safety for not losing the data in case the program fail during an experiment.
 
-Also, most power supplies rely on manual potentiometer adjustment to select the set point, which results in imprecise potential selection by a person. 
-Moreover, manual adjustment takes some time to achieve the desired voltage. 
+Also, most power supplies rely on manual potentiometer adjustment to select the set point, which results in imprecise potential selection by a person and takes some time to achieve the desired voltage.
+Moreover, the electrospray phenomena has a known hysteresis, that can be seen in figure \ref{fig:ganan_calvo_fig}, and can perform different results depending on the previous electric potential.
 By running a computer routine that automatically sends commands to the power supply and pump machine we can achieve faster and more reliable experiment data points.
 
-The visual interface for the user, seen in figures \ref{fig:multi_class_exp1} and \ref{fig:multi_class_exp}, shows all the important sensor data and signal analysis that can be interesting to the operator in real time.
+The visual interface for the user, seen in figure \ref{fig:multi_class_exp1}, shows all the important sensor data and signal analysis that can be interesting to the operator in real time, serving as a supervisory system.
 
 \begin{figure}[H]
     \center
@@ -29,14 +29,6 @@ The visual interface for the user, seen in figures \ref{fig:multi_class_exp1} an
 \end{figure}
 
 
-\begin{figure}[H]
-    \center
-    {\includegraphics[width=16cm]{Figuras/19:03/axs2.png}}
-    \caption{Print screen during an experiment. At this moment we are in Multi Jet spraying mode. At the left we can see the current signal has a smooth and constant curve. We can also see the automatic classification on the right side.}
-    \label{fig:multi_class_exp}
-\end{figure}
-
-
 \section{Classification}
 \label{sec:classification_results}
 
@@ -45,44 +37,28 @@ Nevertheless, the multi jet classification made by a current value factor of 1.1
 
 Even if the multi jet classification just works for pure ethanol, the data saved with correct classification in ethanol can be used to extract any other signal information about the multi jet or to train a black box classification algorithm.
 
+We will categorize our classification results into two main groups - the step routine and the map routine. These two routines have showed valuable insights and comprehensible results of the electrospraying process.
+
+
 \subsection{Step Sequence}
 \label{subsec:step_results}
 
-Our first classification results were made exploring just the voltage ranges. For that stabilized all the other parameters such as humidity, temperature and external noise.
-First, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
+Our first classification results were made exploring the voltage ranges. 
+For that, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
 The figure \ref{fig:step_class} shows three graphs. 
 
-The first is the input voltage step graph. The range is between 3K-10K Volts. Step size of 50V and step time of 5 seconds.
+The first shows the controller output signal as an input voltage of the process. As it is a step routine we implemented a increasing voltage with steps of sizes 50V and time between each step of 5 seconds. The voltage range is between 3K~10K Volts.
 
-The second is the output raw data collected in the voltage range. The sampling rate of the oscilloscope is 10KHz. Therefore, this graph has 1.5 Million data points.
+The second is the raw output data collected by the oscilloscope in \emph{data\_acquisition\_thread()}. 
+The sampling rate is 10KHz. Therefore, this experiment of 700s has 7 Million data points just of current data. 
+This is an example of how scalable the data collected can be depending on the experiment time. This will be even more noticeable in mapping experiments.
 
-The Third graph is the same the second but after the classification procedure.
+The Third graph is the same data as the second after the classification procedure done by \emph{data\_processing\_thread()}. 
 
-% \begin{figure}[H]
-%     \center
-%     \includegraphics[width=12cm]{Figuras/19:03/voltage_step.png}
-%     \caption{Input voltage step graph. The range is between 3K-10K Volts. Step size of 50V and step time of 5 seconds.}
-%     \label{fig:step_voltage}
-% \end{figure}
-
-
-% \begin{figure}[H]
-%     \center
-%     \includegraphics[width=12cm]{Figuras/19:03/raw-data-example.png}
-%     \caption{Output raw data collected in the voltage range experiment showed in \ref{fig:step_voltage}. The sampling rate of the oscilloscope is 10KHz. This graph has 1.5 Million data points.}
-%     \label{fig:raw_data}
-% \end{figure}
-
-% \begin{figure}[H]
-%     \center
-%     \includegraphics[width=12cm]{Figuras/19:03/classified-data-example.png}
-%     \caption{The same graph as \ref{fig:raw_data} but after the classification procedure. The colors are green: Dripping, Blue: Intermittent, Red: Cone Jet, Purple: Multi Jet and Black: Undefined.}
-%     \label{fig:class_step_data}
-% \end{figure}
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=18cm]{Figuras/may/step_class.png}
+    \includegraphics[width=15cm]{Figuras/may/step_class.png}
     \caption{Automatic electrospray classification through the step routine.}
     \label{fig:step_class}
 \end{figure}
@@ -107,7 +83,7 @@ For validation with literature and also to expose the benefits of the automated 
         \center
         \includegraphics[width=8cm]{Figuras/regions.png}
         \label{fig:stability_1}
-        \caption{Spraying modes regions of pure ethanol}
+        \caption{Experimental spraying modes regions of pure ethanol}
     \end{figure}
 
 
@@ -217,6 +193,7 @@ For validation with literature and also to expose the benefits of the automated 
             \center
             \includegraphics[width=17cm]{Figuras/19:03/control_first_results.png}
             \caption{Simple controller validation experiment. For this experiment we waited the system to stabilize in the desired spraying mode. After that we made a perturbation robustness test changing the flow rate.}
+            \label{fig:control_results}
         \end{figure}
 
 

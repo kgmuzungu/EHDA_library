@@ -155,13 +155,10 @@ Each other subsystem in the control loop is a separate thread that will be expla
     
         To conclude, json files are good as a system output because of its human readability. But as the database gets bigger json becomes to be a slow to read and heavy way to store the data. For that, saving the data frame in a compressed type of file called feather is much faster to work with the data.
     
-    \subsection{Video Thread}
 
-        Normally deactivated, that thread is responsible for triggering the camera in case we want to save a video of that sample.
-    
-    \subsection{Plot}
+    \subsection{Plotting}
 
-        The only running function that is not a thread because of the plotting library \emph{matplotlib} incompatibilities of running outside the main function. 
+        The only running function that should run in the main thread because the plotting library \emph{matplotlib} incompatibilities of running outside the main function. 
         It is responsible for plotting in real time the current sample acquired, and its respective fast Fourier transform to evaluate the sample frequency spectrum.
         It takes as input the \emph{plot\_data\_queue} from the \emph{processing\_thread()} and displays three graphs updated in real time on the screen during the experiment.
 
