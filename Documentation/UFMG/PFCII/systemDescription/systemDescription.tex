@@ -2,7 +2,7 @@
 \label{chap:system_description}
 
 In this chapter, we will discuss the equipment used in detail, including its integration and how it was modeled and implemented in both hardware and software. 
-The python automation routine that is the focus of this project was started by a previous student\cite{Monica}, and the software itself was originally created as an electrospray multipurpose library \cite{Monica}.
+The python automation routine that is the focus of this project was started by a previous student\cite{Monica}, and the software itself was originally created as an electrospray multipurpose library.
 
 \section{Hardware model}
 \label{sec:hardware_model}
@@ -35,7 +35,7 @@ The main instruments used for this project are listed below:
     The signal analysis with an oscilloscope using WiFi technology allows an in-depth case study of the electric current signal.
     The current is measured via a TiePie WifiScope WS6 from TiePie engineering that is a battery powered oscilloscope capable of transmitting data via a WiFi connection allowing it to be placed in the high voltage or ground path.
     
-    Wireless communication allows us to make measurements disconnected to an external power supply, which gives us more safety when using high voltage potential references and also reduce the signal noise collected from external power lines.
+    Wireless communication allows us to make measurements disconnected to an external power supply, which increase safety when using high voltage potential references and also reduce the signal noise collected from external power lines.
     The current is routed directly via the input, hence the oscilloscope measures the voltage dropped via its input resistance (which can be switched between 1 or 2 Mohms).
     TiePie WifiScope WS6 has a resolution of up to 16 bit at a minimal input range of 200 mV, sufficient to measure currents down to 1 nA.
 
@@ -65,16 +65,15 @@ The main instruments used for this project are listed below:
 
   - model: WPI AL-1000
 
-  The pump integration in the automation algorithm brings us a new controllable variable, the Flow rate. Now we can control the spraying mode with the
+  The pump integration in the automation algorithm was done in this work, bringing us a new controllable variable, the flow rate. We can control the spraying mode with the
   two main variables that affect the system. 
-  It will bring more complexity for the system since now we are dealing with multivariable control.
+  It brings more complexity for the system since now we are dealing with multivariable control.
   Controlling also the flow rate gives to this project a new dimension in the system giving us freedom to explore the flow rate properties.
   With this new input variable our control is a MISO (Multiple Inputs Single Output) system.
 
-  About the pump interface. As I could not find a good ready-to-use library for this pump I developed a simple and intuitive interface to be our software routine.
-  The communication protocol used is RS-232. In the software routine the communication used is python serial interface. The pump commands list were found in the user manual.
+  About the pump interface, as there was no good ready-to-use library, I developed a simple and intuitive interface to be used in our software routine.
+  The communication protocol used is RS-232 and the pump commands list were found in the user manual.
 
-  % The supply at constant pressure can also favor the stability of the spray\cite{prunet}. However, the flow rate depends on the applied pressure and pressure losses between the tank and the end of the capillary, which themselves are dependent on the liquid chosen and on its temperature. This volume flow rate may also depend on the applied voltage, since the electrostatic pressure on the meniscus produces a suction effect.
 
   \end{enumerate}
 
@@ -153,7 +152,7 @@ Each other subsystem in the control loop is a separate thread that will be expla
 
         It will construct a Data frame with all data organized by samples.
     
-        To conclude, json files are good as a system output because of its human readability. But as the database gets bigger json becomes to be a slow to read and heavy way to store the data. For that, saving the data frame in a compressed type of file called feather is much faster to work with the data.
+        To conclude, json files are good as a system output because of its human readability. But as the database gets bigger json becomes to be a slow to read and heavy to store data. For that, saving the data frame in a compressed type of file called feather is much faster to work with it.
     
 
     \subsection{Plotting}
