@@ -12,7 +12,7 @@ The picture in figure \ref{fig:setup_pic} shows the setup used in all this proje
 \begin{figure}[H]
   \centering
   \resizebox{150mm}{!}{\includegraphics{Figuras/setup_pic.jpg}}
-  \caption{EHDA automation system setup}
+  \caption{EHDA automation system setup used for experiments.}
   \label{fig:setup_pic}
 \end{figure}
 
@@ -40,6 +40,6 @@ And also physical variables such as flow rate, system impedance, system temperat
 
 The current being measured by the Oscilloscope use its internal impedance. 
 The \emph{TiePie} oscilloscope model has two impedance options, 1Mohm or 2Mohms. 
-Selecting one or other can multiply or divide your current measurement by 2. 
+Selecting one or other will multiply or divide your current measurement by 2. 
 By default, we are using the 2Mohm differential input, however it was noticed that using the 1Mohm resistance might reduce noise. 
 A proposal is to configure the 1Mohm resistance in the \emph{configuration\_tiepie.py} file and evaluate its performance.

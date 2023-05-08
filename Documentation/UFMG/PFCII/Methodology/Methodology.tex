@@ -13,13 +13,13 @@ The goal is to improve and apply approaches of non-visual spraying classificatio
 
 \subsection{Statistical Analysis}
 In Sjaaks\cite{Sjaaks} work, the author exposed signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time and frequency domain analysis.
-We acquire the current data frame of 0.5s with 100 KHz as sampling frequency, with each current sample as 50 thousand current values. Through statistical analysis in these values such as mean and standard deviation we apply in our automatic classification the relative standard deviation. Which is referred as the sample standard deviation divided by the sample mean values. 
+We acquire the current data frame of 0.5s with 100 kHz as sampling frequency, with each current sample as 50 thousand current values. Through statistical analysis in these values such as mean and standard deviation we apply in our automatic classification the relative standard deviation. Which is referred as the sample standard deviation divided by the sample mean values. 
 Figure \ref{fig:sjaaks_statistical_class} illustrate data samples being classified using Sjaaks method.
 
 \begin{figure}[H]
     \centering
     \resizebox{80mm}{!}{\includegraphics{Figuras/report2/data3_sjaaksgraph2.png}}
-    \caption{Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet}
+    \caption{Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet.}
     \label{fig:sjaaks_statistical_class}
 \end{figure}
 
@@ -130,7 +130,7 @@ The map was inspired in Gañan-Calvo\cite{gananCalvo} work where he points how l
 \begin{figure}[H]
     \center
     \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
-    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend of the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
+    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend on the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
     \label{fig:ganan_calvo_fig}
 \end{figure}
 
@@ -163,7 +163,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report2/map2Data.png}
-        \caption{Mapping Experiment data collected. The figure has 3 graphs with shared x axis representing the samples collected. The first is the current values collected through all the experiment.
+        \caption{Mapping Experiment data collected. The figure has 3 graphs with shared x-axis representing the samples collected. The first is the current values collected through all the experiment.
         The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined by our routine.
         The third graph shows the current mean value of each data sample.}
         \label{fig:map2Data_fig}
@@ -174,7 +174,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report4/map-2023-03-02.png}
-        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capillary setup. The map shows the stability region of each electrospraying mode in the voltage and flowrate range.}
+        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capillary setup. The map shows the stability region of each electrospraying mode in the voltage and flow rate range.}
         \label{fig:map3Data_fig}
     \end{figure}
 
