@@ -8,13 +8,13 @@ Firstly, by elaborating on the workings of classification process in the process
 \section{Classification}
 \label{sec:section_classification}
 
-The classification is a key step in our routine and for being able to be used in multipurpose applications our classification must be able to run in real-time, which means it must be fast and automatic.
+The classification is a key step in this routine and for being able to be used in multipurpose applications the classification must be able to run in real-time, which means it must be fast and automatic.
 The goal is to improve and apply approaches of non-visual spraying classification using the current data collected from the system.
 
 \subsection{Statistical Analysis}
 In Sjaaks\cite{Sjaaks} work, the author exposed signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time and frequency domain analysis.
-We acquire the current data frame of 0.5s with 100 kHz as sampling frequency, with each current sample as 50 thousand current values. Through statistical analysis in these values such as mean and standard deviation we apply in our automatic classification the relative standard deviation. Which is referred as the sample standard deviation divided by the sample mean values. 
-Figure \ref{fig:sjaaks_statistical_class} illustrate data samples being classified using Sjaaks method.
+It is acquired the current data frame of 0.5s with 100 kHz as sampling frequency, with each current sample as 50 thousand current values. Through statistical analysis in these values such as mean, median and standard deviation the classification is done. 
+Figure \ref{fig:sjaaks_statistical_class} illustrate data samples being classified using Sjaaks\cite{Sjaaks} method.
 
 \begin{figure}[H]
     \centering
@@ -29,10 +29,10 @@ This classification by statistical analysis was already implemented in the softw
 This method was capable of only classifying dripping, intermittent and cone jet modes. Also in her work, Monica extended the classification to corona or discharge detection.
 My contribution was to integrate her work on my control loop model and extend the classification for the multi jet.
 
-To classify the multi jet, after running many steps experiments I noticed that the multi jet signal has a similar shape as the cone jet but with a step in its current mean, also the cone jet current was almost fixed in all its voltage range. 
+To classify the multi jet, after running many steps experiments it was noticed that the multi jet signal has a similar shape as the cone jet but with a step in its current mean, also the cone jet current was almost fixed in all its voltage range. 
 These effects were exposed by Ryan\cite{Ryan}. In his work he defines the relation between current per jet in both cone jet and multi jet modes.
 
-With that, I implemented the classification of the multi jet when the current mean is 1.14 above the expected cone jet current mean. 
+With that, it was implemented the classification of the multi jet when the current mean is 1.14 above the expected cone jet current mean. 
 The cone jet current can be calculated by the scaling laws \ref{sec:scalling-laws} formula.
 The factor value of 1.14 was found by repeating a lot of experiments with the same liquid (pure ethanol), but varying the flow rate and the voltage. This factor value is just applied for pure ethanol, the liquid used in all experiments in this work.
 The classification in the algorithm was divided in three steps as shown below.
@@ -89,7 +89,7 @@ The classification in the algorithm was divided in three steps as shown below.
     The program developed is capable of running different types of routines and with an easy way to implement new strategies.
     Continuing the methodology, in the setup json file there is a "sequence" attribute which can be chosen between "ramp", "step", "map" or "control".
     The controller thread will manage what the algorithm must do for each sequence.
-    Following our control model\ref{fig:control_model_fig}, the controller outputs (voltage and flow rate) are the actuators signal.
+    Following the control model in Figure\ref{fig:control_model_fig}, the controller outputs (voltage and flow rate) are the actuators signal.
     The sampling rate is fixed to 0.5 seconds for all the experiments, and it's managed by the data\_acquisiton\_thread\ref{subsec:data_aquisition}.
 
 
@@ -157,24 +157,24 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
         \end{algorithmic}
     \end{algorithm}
 
-    In Figure \ref{fig:map2Data_fig} we can see the data acquired in this mapping experiments. The liquid used is pure ethanol. 
+    In Figure \ref{fig:map2Data_fig} it can be seen the data acquired in this mapping experiments. The liquid used is pure ethanol. 
     Note that the experiment is composed of loops that increase voltage, change flow rate and repeat.
 
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report2/map2Data.png}
-        \caption{Mapping Experiment data collected. The figure has 3 graphs with shared x-axis representing the samples collected. The first is the current values collected through all the experiment.
-        The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined by our routine.
+        \caption{Mapping Experiment data collected. The Figure has 3 graphs with shared x-axis representing the samples collected. The first is the current values collected through all the experiment.
+        The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined in the routine.
         The third graph shows the current mean value of each data sample.}
         \label{fig:map2Data_fig}
     \end{figure}
 
-    With all the data collected, classified and saved in real time, we can do further analysis and studies. For example, Figure \ref{fig:map3Data_fig} illustrate the data classified by our algorithm and displayed in a Voltage X Flow rate range of spraying modes with a specific liquid setup so that we can compare the automatic results with previous researches, such as showed in figure \ref{fig:ganan_calvo_fig} and validate the algorithm.
+    With all the data collected, classified and saved in real time, further analysis and studies can be done. For example, Figure \ref{fig:map3Data_fig} illustrate the data automatically classified and displayed in a Voltage X Flow rate range of spraying modes with a specific liquid setup so that a comparison on automatic results with previous researches can be done, such as showed in Figure \ref{fig:ganan_calvo_fig}, validating the algorithm.
 
     \begin{figure}[H]
         \center
         \includegraphics[width=15cm]{Figuras/report4/map-2023-03-02.png}
-        \caption{Mapping Experiment for pure ethanol in ambient conditions with our capillary setup. The map shows the stability region of each electrospraying mode in the voltage and flow rate range.}
+        \caption{Mapping Experiment for pure ethanol in ambient conditions. The map shows the stability region of each electrospraying mode in the voltage and flow rate range.}
         \label{fig:map3Data_fig}
     \end{figure}
 
@@ -182,7 +182,7 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
 
 \subsection{Control}
 
-    The control sequence is the only from our list of sequences that actually uses the feedback classification value. 
+    The control sequence is the only from the list of sequences that actually uses the feedback classification value. 
     As it is a closed loop control, the controller must be able to stabilize the system in the desired conditions.
     A simple controller algorithm is represented in algorithm \ref{alg:simple_controller}, and it was used as a proof of concept.
     Its results can be seen in results section \ref{sec:controller_results}.
@@ -208,8 +208,8 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
 
 \section{Chapter conclusion}
 
-This chapter \ref{chap:Methodology} exhibits how the knowledge from chapter \ref{chap:lit_review} was implemented with a control and automation engineering approach in order to achieve our goals. 
-Next chapter \ref{chap:Results}, we will discuss the results reached.
+This chapter \ref{chap:Methodology} exhibits how the knowledge from chapter \ref{chap:lit_review} was implemented with a control and automation engineering approach in order to achieve the project goals. 
+Next chapter \ref{chap:Results}, it will be discussed the results reached.
 
 
 

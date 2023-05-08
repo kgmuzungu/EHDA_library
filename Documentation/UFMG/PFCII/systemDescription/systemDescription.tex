@@ -1,7 +1,7 @@
 \chapter{System Description}
 \label{chap:system_description}
 
-In this chapter, we will discuss the equipment used in detail, including its integration and how it was modeled and implemented in both hardware and software. 
+In this chapter, will be discussed the equipment used in detail, including its integration and how it was modeled and implemented in both hardware and software. 
 The python automation routine that is the focus of this project was started by a previous student\cite{Monica}, and the software itself was originally created as an electrospray multipurpose library.
 
 \section{Hardware model}
@@ -23,7 +23,7 @@ The main instruments used for this project are listed below:
     The HVPS provides the electrical potential to the liquid, which can be applied by connecting the HVPS directly to the liquid feeding capillary or needle to a grounded electrode (usually a plate or a ring) located downstream.\cite{Monica}
     The setup has the USB serial interface for controlling and polling measurements.
     
-    The software has an interface to integrate the HVPS to our routine. This interface can be found in \emph{FUG\_function.py} file where is located the functions used to control and collect data from this instrument.
+    The software has an interface to integrate the HVPS to the routine. This interface can be found in \emph{FUG\_function.py} file where is located the functions used to control and collect data from this instrument.
     In case of change of equipment, a new interface must be created within this file to match another manufacturer specifications.
 
   \item Wireless Oscilloscope
@@ -35,7 +35,7 @@ The main instruments used for this project are listed below:
     The signal analysis with an oscilloscope using Wi-Fi technology allows an in-depth case study of the electric current signal.
     The current is measured via a TiePie WifiScope WS6 from TiePie engineering that is a battery powered oscilloscope capable of transmitting data via a Wi-Fi connection allowing it to be placed in the high voltage or ground path.
     
-    Wireless communication allows us to make measurements disconnected to an external power supply, which increase safety when using high voltage potential references and also reduce the signal noise collected from external power lines.
+    Wireless communication allows measurements disconnected to an external power supply, which increase safety when using high voltage potential references and also reduce the signal noise collected from external power lines.
     The current is routed directly via the input, hence the oscilloscope measures the voltage dropped via its input resistance (which can be switched between 1 or 2 Mohms).
     TiePie WifiScope WS6 has a resolution of up to 16 bit at a minimal input range of 200 mV, sufficient to measure currents down to 1 nA.
 
@@ -65,21 +65,20 @@ The main instruments used for this project are listed below:
 
   - model: WPI AL-1000
 
-  The pump integration in the automation algorithm was done in this work, bringing us a new controllable variable, the flow rate. We can control the spraying mode with the
-  two main variables that affect the system. 
-  It brings more complexity for the system since now we are dealing with multivariable control.
-  Controlling also the flow rate gives to this project a new dimension in the system giving us freedom to explore the flow rate properties.
-  With this new input variable our control is a MISO (Multiple Inputs Single Output) system.
+  The pump integration in the automation algorithm was done in this work, bringing a new controllable variable, the flow rate. The spraying mode can be controlled using the two main variables that affect the system. 
+  It brings more complexity for the system since now it is a multivariable control.
+  Controlling also the flow rate provide this project a new dimension in the system giving freedom to explore the flow rate properties.
+  With this new input variable the control system is MISO (Multiple Inputs Single Output).
 
-  About the pump interface, as there was no good ready-to-use library, I developed a simple and intuitive interface to be used in our software routine.
+  About the pump interface, as there was no good ready-to-use library, it was developed a simple and intuitive interface to be used in the software routine.
   The communication protocol used is RS-232 and the pump commands list were found in the user manual.
 
 
   \end{enumerate}
 
 
-In figure \ref{fig:setup} we illustrate a diagram with all the key components of our system. The peripherals are connected to a computer running the software routine via serial communication. 
-This diagram encapsulates our process system and will be used as a sub-system in our control model. The input of our process system are power supply voltage and pump machine flow rate, referred here as the controller values. The output is the oscilloscope current sample.
+Figure \ref{fig:setup} illustrate a diagram with all the key components in the system. The peripherals are connected to a computer running the software routine via serial communication. 
+This diagram encapsulates the process system and will be used as a sub-system of the control model. The input in the process are power supply voltage and pump machine flow rate, referred here as the controller values. The output is the oscilloscope current sample.
 
 \begin{figure}[H]
   \centering
@@ -94,7 +93,7 @@ There are also many minor variables that affects the experiment stability. More 
 \section{Software Model}
 \label{sec:control_model}
 
-The software was reformulated on top of the control model represented in figure \ref{fig:control_model_fig}. The process of the control loop is the same as represented in figure \ref{fig:setup}. 
+The software was reformulated on top of the control model represented in Figure \ref{fig:control_model_fig}. The process of the control loop is the same as represented in Figure \ref{fig:setup}. 
 Each other subsystem in the control loop is a separate thread that will be explained bellow.
 
 \begin{figure}[H]
@@ -107,35 +106,34 @@ Each other subsystem in the control loop is a separate thread that will be expla
 \subsection{Threading and Queues}
 \label{subsec:concurrency}
 
-    In order to implement this closed loop control model to the software and explore parallel processing, each sub-system was implemented as a separate Thread.
+    In order to implement this closed loop control model to the software and explore parallel processing, each sub-system was implemented as a separate thread.
     For concurrency on flux of data between threads was used queues structures.
     A queue is an abstract data type that holds an ordered, linear sequence of items. You can describe it as a first in, first out (FIFO) structure.
 
     
     \subsection{Controller Thread}
 
-        It is responsible for sending the power supply set voltage values and the syringe pump the flow rate set values according to the sequence selected.
+        The controller thread is responsible for sending the power supply set voltage values and the syringe pump the flow rate set values according to the sequence selected.
         Also, responsible for sending the finish event command that end the routine and trigger the threads to close their routines.
-        As input, we have the setup config file and the \emph{feedback\_queue}. As output, we have the values in the \emph{controller\_output\_queue()}.
+        As input, there is the setup config file and the \emph{feedback\_queue}. As output, the values in the \emph{controller\_output\_queue()}.
 
     \subsection{Data Acquisition Thread}
     \label{subsec:data_aquisition}
 
-        It is responsible for reading the current data from the oscilloscope, humidity and temperature data from the DHT11 sensor, voltage from the power supply, flow rate from the pump and concatenate into one sample data.
-        As output, we have the values in the \emph{data\_queue()}.
+        The data acquisition thread is responsible for reading the current data from the oscilloscope, humidity and temperature data from the DHT11 sensor, voltage from the power supply, flow rate from the pump and concatenate into one sample data.
+        As output, the values in the \emph{data\_queue()}.
 
     \subsection{Data Processing Thread}
 
-        It is responsible for calculating the statistical values from the raw data and classify it in the respective spray mode for that sample.
-        As output, we have the values in the \emph{save\_data\_queue()}, \emph{plotting\_queue()} and \emph{feedback\_queue()}.
+        The data processing is responsible for calculating the statistical values from the raw data and classify it in the respective spray mode for that sample.
+        As output, the values in the \emph{save\_data\_queue()}, \emph{plotting\_queue()} and \emph{feedback\_queue()}.
     
     \subsection{Save Data Thread}
     \label{subsec:save_thread}
 
         After processing, the data is saved in real time in a json file using \emph{jsonstreams} library to save one sample structure at a time.
-        With the new streaming model of saving a new structure of the collected data were created.
-        Instead of having all data measurements values and after all data processing values we now are saving for each sample the measurements and processing values.
-        The data acquired in each sample of 0.5s is shown in figure \ref{fig:data_sample}.
+        With the new streaming model of saving, instead of having all data together in program memory to be saved in the end, it is saving each sample in real time during the experiment.
+        The data acquired in each sample of 0.5s is shown in Figure \ref{fig:data_sample}.
     
         \begin{figure}[H]
             \center
@@ -145,7 +143,7 @@ Each other subsystem in the control loop is a separate thread that will be expla
         \end{figure}
     
         This new way of saving the measurement and processing data altogether separate by enumerated samples prevents loss of data in case of error during experiments and, specially improve in the usability of the data for further deep analysis. One experiment of around 1 hour collects around 6 GB of data. Organizing that amount of data to make it fast and easy to use was an important improvement in the software.
-        To work and analyze the data we can use  pandas Data frame. A python widely used framework for data analysis.
+        To work and analyze the data it can be used pandas Data frame. A python widely used framework for data analysis.
         With the command:
         
         pandas.read\_json('PATH', orient='index').
@@ -158,12 +156,12 @@ Each other subsystem in the control loop is a separate thread that will be expla
     \subsection{Plotting}
 
         The only running function that should run in the main thread because the plotting library \emph{matplotlib} incompatibilities of running outside the main function. 
-        It is responsible for plotting in real time the current sample acquired, and its respective fast Fourier transform to evaluate the sample frequency spectrum.
+        The plotting function is responsible for plotting in real time the current sample acquired, and its respective fast Fourier transform to evaluate the sample frequency spectrum.
         It takes as input the \emph{plot\_data\_queue} from the \emph{processing\_thread()} and displays three graphs updated in real time on the screen during the experiment.
 
   \section{Chapter conclusion}
 
-    In this chapter we described the system description detailing the hardware instruments, how it was modelled and its implementation in the software. 
+    In this chapter it is described the system description detailing the hardware instruments, how it was modelled and its implementation in the software. 
 
 
 \clearpage

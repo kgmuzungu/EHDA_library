@@ -8,22 +8,22 @@ Furthermore, the classification methods and system control implemented in this p
 
 \section{Proposal for continuation}
 
-To continue, my proposal would be to prioritize the improvement of the classification step. 
-Ideally, we could use machine learning or another algorithm to ensure accurate classification with a broad range of liquids.
-By achieving a reliable classification, we can then implement more effective controller logic or approaches. 
-In this regard, I would like to present the concept of a fuzzy controller as a potential solution.
+To continue, a proposal is to prioritize the improvement of the classification step. 
+Ideally using machine learning or another algorithm to ensure accurate classification with a broad range of liquids.
+By achieving a reliable classification, a more effective controller logic or approaches can be implemented. 
+In this regard, a concept of a fuzzy controller will be presented as a potential solution.
 
 \subsection{Machine Learning}
 
     When it comes to classifying spraying modes, machine learning represents a sophisticated and trendy approach.
-    This project was designed in order to substitute our statistical classifier for a more general and accurate algorithm.
+    This project was designed in order to substitute the statistical classifier for a more general and accurate algorithm.
     
     The data collected in this project was saved in 0.5s samples together with its classification allowing it to be used for supervised learning.
     Experimental trials were conducted to explore machine learning algorithms to classify the data. Unfortunately, despite efforts, an accurate method of distinguishing between classifications could not be identified.
 
 \subsection{Fuzzy Controller}
 
-        One challenge in implementing the controller in this project is that we don't have a real value as feedback, instead, the feedback from the controller loop is a classification, which makes it difficult to apply many of the principles of control theory that are designed for continuous control. 
+        One challenge in implementing the controller in this project is that it does not have a real value as feedback, instead, the feedback from the controller loop is a classification, which makes it difficult to apply many of the principles of control theory that are designed for continuous control. 
         As this project involves logical control, it requires a different approach. 
         
         The controller project that will be presented is an attempt to quantify the classification and fit it in a fuzzy control model.
@@ -42,7 +42,7 @@ In this regard, I would like to present the concept of a fuzzy controller as a p
 
 
 
-        Our controller is an algorithm that calculate the output with a geometrical calculus on the membership functions of the input and output according to our rules listed below.
+        The controller is an algorithm that calculate the output with a geometrical calculus on the membership functions of the input and output according to the rules listed below.
 
         Fuzzy Rules:
 
@@ -74,6 +74,7 @@ In this regard, I would like to present the concept of a fuzzy controller as a p
         The previous student work focused on predicting corona streamers or spark discharges\cite{Monica} and her automation routine provided a valuable proof-of-concept. 
         
         The current project builds on this foundation and highlights several key results, including the integration of a liquid pump into the software and the development of a routine that can be easily modeled to fit a control model, making it straightforward to implement new control algorithms or experiment routines. 
+        
         The software was also remodeled to support threads, allowing for the separation of each subsystem and the exchange of data between them using queue data structures. A classification for multi-jet spraying mode was developed, along with a simple controller to demonstrate proof of concept. 
         Additionally, the saving of data was optimized to a real-time streaming format and expanded to include more sensor data. Finally, the algorithm usability was restructured to make it more intuitive for users through the use of a setup file.
 
