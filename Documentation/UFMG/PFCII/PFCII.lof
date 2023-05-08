@@ -10,7 +10,7 @@
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Multi Jet}}{11}{figure.2.8}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces EHDA automation system setup}}{15}{figure.3.1}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces EHDA automation system setup}}{16}{figure.3.2}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces EHDA automation closed loop control system model implemented.}}{16}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Output data json structure}}{17}{figure.3.3}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet}}{20}{figure.4.1}%
@@ -27,7 +27,7 @@
 \contentsline {figure}{\numberline {5.7}{\ignorespaces Simple controller validation experiment. For this experiment we waited the system to stabilize in the desired spraying mode. After that we made a perturbation test changing the flow rate. The classification legend follows the same color reference in all project.}}{33}{figure.5.7}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces fuzzyfication of input and defuzzyfication of output}}{36}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces fuzzyfication of input and defuzzyfication of output}}{37}{figure.6.2}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Test implemented to validate the concept of fuzzy controller in this project.}}{37}{figure.6.2}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {A.1}{\ignorespaces EHDA automation system setup}}{42}{figure.A.1}%
-\contentsline {figure}{\numberline {A.2}{\ignorespaces EHDA picture of the electrified syringe.}}{43}{figure.A.2}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces EHDA picture of the electrified syringe.}}{42}{figure.A.2}%

@@ -54,4 +54,4 @@
 \contentsline {chapter}{Bibliography}{39}{section.6.2}%
 \contentsline {chapter}{\numberline {A}System Details}{41}{appendix.A}%
 \contentsline {section}{\numberline {A.1}Setup Validation}{43}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Oscilloscope Impedance}{44}{section.A.2}%
+\contentsline {section}{\numberline {A.2}Oscilloscope Impedance}{43}{section.A.2}%
