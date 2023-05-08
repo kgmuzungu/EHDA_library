@@ -712,9 +712,6 @@ INPUT Conclusion/Conclusion.aux
 INPUT ./Apendices/ApendiceA.aux
 INPUT Apendices/ApendiceA.aux
 INPUT Apendices/ApendiceA.aux
-INPUT ./Apendices/ApendiceB.aux
-INPUT Apendices/ApendiceB.aux
-INPUT Apendices/ApendiceB.aux
 OUTPUT PFCII.aux
 INPUT /usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 INPUT /usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1070,51 +1067,16 @@ INPUT ./Apendices/ApendiceA.tex
 INPUT Apendices/ApendiceA.tex
 INPUT ./Apendices/ApendiceA.tex
 INPUT Apendices/ApendiceA.tex
-INPUT ./Figuras/spectogram/308_Dripping.png
-INPUT ./Figuras/spectogram/308_Dripping.png
-INPUT Figuras/spectogram/308_Dripping.png
-INPUT ./Figuras/spectogram/308_Dripping.png
-INPUT ./Figuras/spectogram/308_Dripping.png
-INPUT ./Figuras/spectogram/486_Intermittent.png
-INPUT ./Figuras/spectogram/486_Intermittent.png
-INPUT Figuras/spectogram/486_Intermittent.png
-INPUT ./Figuras/spectogram/486_Intermittent.png
-INPUT ./Figuras/spectogram/486_Intermittent.png
-INPUT ./Figuras/spectogram/94_Cone Jet.png
-INPUT ./Figuras/spectogram/94_Cone Jet.png
-INPUT Figuras/spectogram/94_Cone Jet.png
-INPUT ./Figuras/spectogram/94_Cone Jet.png
-INPUT ./Figuras/spectogram/94_Cone Jet.png
-INPUT ./Figuras/spectogram/166_Multi Jet.png
-INPUT ./Figuras/spectogram/166_Multi Jet.png
-INPUT Figuras/spectogram/166_Multi Jet.png
-INPUT ./Figuras/spectogram/166_Multi Jet.png
-INPUT ./Figuras/spectogram/166_Multi Jet.png
-INPUT ./Figuras/spectogram/276_Corona.png
-INPUT ./Figuras/spectogram/276_Corona.png
-INPUT Figuras/spectogram/276_Corona.png
-INPUT ./Figuras/spectogram/276_Corona.png
-INPUT ./Figuras/spectogram/276_Corona.png
-INPUT ./Apendices/ApendiceB.tex
-INPUT ./Apendices/ApendiceB.tex
-INPUT ./Apendices/ApendiceB.tex
-OUTPUT Apendices/ApendiceB.aux
-INPUT ./Apendices/ApendiceB.tex
-INPUT ./Apendices/ApendiceB.tex
-INPUT ./Apendices/ApendiceB.tex
-INPUT Apendices/ApendiceB.tex
-INPUT ./Apendices/ApendiceB.tex
-INPUT Apendices/ApendiceB.tex
-INPUT ./Figuras/naked_eyes.png
-INPUT ./Figuras/naked_eyes.png
-INPUT Figuras/naked_eyes.png
-INPUT ./Figuras/naked_eyes.png
-INPUT ./Figuras/naked_eyes.png
 INPUT ./Figuras/setup_pic.jpg
 INPUT ./Figuras/setup_pic.jpg
 INPUT Figuras/setup_pic.jpg
 INPUT ./Figuras/setup_pic.jpg
 INPUT ./Figuras/setup_pic.jpg
+INPUT ./Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
+INPUT Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
+INPUT ./Figuras/naked_eyes.png
 INPUT PFCII.aux
 INPUT ./Capa/capa.aux
 INPUT Capa/capa.aux
@@ -1155,9 +1117,6 @@ INPUT Conclusion/Conclusion.aux
 INPUT ./Apendices/ApendiceA.aux
 INPUT Apendices/ApendiceA.aux
 INPUT Apendices/ApendiceA.aux
-INPUT ./Apendices/ApendiceB.aux
-INPUT Apendices/ApendiceB.aux
-INPUT Apendices/ApendiceB.aux
 INPUT ./PFCII.out
 INPUT ./PFCII.out
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc

@@ -15,7 +15,6 @@ A level-1 auxiliary file: Results/Results.aux
 A level-1 auxiliary file: Conclusion/Conclusion.aux
 The style file: abntex2-num.bst
 A level-1 auxiliary file: Apendices/ApendiceA.aux
-A level-1 auxiliary file: Apendices/ApendiceB.aux
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -38,7 +37,7 @@ Warning--campo year vazio ou faltando em TiePieLib
 +---------------------------------------------------------+
 You've used 13 entries,
             6714 wiz_defined-function locations,
-            1302 strings with 12012 characters,
+            1301 strings with 11989 characters,
 and the built_in function-call counts, 10896 in all, are:
 = -- 1014
 > -- 291
