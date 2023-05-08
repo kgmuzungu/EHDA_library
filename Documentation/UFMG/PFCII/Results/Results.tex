@@ -47,10 +47,10 @@ Our first classification results were made exploring the voltage ranges.
 For that, we fixed a flow rate to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
 The figure \ref{fig:step_class} shows three graphs. 
 
-The first shows the controller output signal as an input voltage of the process. As it is a step routine we implemented a increasing voltage with steps of sizes 50V and time between each step of 5 seconds. The voltage range is between 3K~10K Volts.
+The first shows the controller output signal as an input voltage of the process. As it is a step routine we implemented a increasing voltage with steps of sizes 50V and time between each step of 5 seconds. The voltage range is between 3k-10k Volts.
 
 The second is the raw output data collected by the oscilloscope in \emph{data\_acquisition\_thread()}. 
-The sampling rate is 10KHz. Therefore, this experiment of 700s has 7 Million data points just of current data. 
+The sampling rate is 100kHz. Therefore, this experiment of 700s has 70 Million data points just of current data. 
 This is an example of how scalable the data collected can be depending on the experiment time. This will be even more noticeable in mapping experiments.
 
 The Third graph is the same data as the second after the classification procedure done by \emph{data\_processing\_thread()}. 
