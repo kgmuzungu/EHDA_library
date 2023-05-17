@@ -71,7 +71,6 @@ def data_processing(data_queue,
         except Exception as e:
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to process data")
-            sys.exit(1)
 
         try:
 
@@ -79,8 +78,8 @@ def data_processing(data_queue,
             electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
                                                                     electrospray_processing.mean_value,
                                                                     electrospray_data.flow_rate)
-            print("I:", electrospray_validation.I_emitted_chen_pui * 10e5)
-            print("alpha:", electrospray_validation.alpha_chen_pui * 10e10)
+            # print("I:", electrospray_validation.I_emitted_chen_pui * 10e5)
+            # print("alpha:", electrospray_validation.alpha_chen_pui * 10e10)
             cone_jet_mean = electrospray_validation.I_emitted_chen_pui  * 10e5
 
         except Exception as e:

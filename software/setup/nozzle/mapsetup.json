@@ -17,7 +17,7 @@
     "save_validation": "False",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/Joao_Pedro/Joao-LPDB_2023-04-24/exp1",
+    "save_path": "D:/Joao_Pedro/Joao-LPDB_2023-05-8/exp1_PartIbis",
     "number_camera_partitions": 10,
     "name_liquid" : "ethanol",
     "arduino_com_port" : 1,
@@ -30,6 +30,7 @@
         "slope": 1000000,
         "step_size": 50,
         "step_time": 3,
-        "flow_rate": ["0.5", "0.6"]
+        "flow_rate": ["0.590", "0.012"]
+
     }
 }
