@@ -46,7 +46,7 @@ class ElectrosprayClassification:
             flow_rate,
             fft_max_peaks_array,
             cont_fft_max_peaks,
-            cone_jet_mean):
+            I_chen_pui):
 
         self.med_value_array.append(median)
         classification_txt = "Undefined"
@@ -73,26 +73,26 @@ class ElectrosprayClassification:
             self.sjaak_mean_median_array.append(self.sjaak_mean_median)
 
             # classification for dripping
-            # if mean <= 5:
-            if self.sjaak_std_mean > 2.5:
-                classification_txt = "Dripping"
-                if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                    # print("classification dripping confirmed!")
-                    classification_txt = "Dripping"
+            if mean <= 5:
+                if self.sjaak_std_mean > 2.5:
+                    #classification_txt = "Dripping"
+                    if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
+                        # print("classification dripping confirmed!")
+                        classification_txt = "Dripping"
 
             # classification for intermittent
-            # if mean > 5:
-            if (self.sjaak_std_mean) < 2.5 and self.sjaak_std_mean > 0.5:
-                # print("intermittent Sjaak!")
-                classification_txt = "Intermittent"
-                if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
-                    classification_txt = "Intermittent"
+            if mean > 5:
+                if (self.sjaak_std_mean) < 2.5 and self.sjaak_std_mean > 0.5:
+                    # print("intermittent Sjaak!")
+                    #classification_txt = "Intermittent"
+                    if (self.sjaak_mean_median) < 0.9 or (self.sjaak_mean_median) > 1.1:
+                        classification_txt = "Intermittent"
 
             # classification for cone-jet
-            if mean > 10:  # replace absolut value with cone-jet current estimation by laMora/Calvo
-                if self.sjaak_std_mean < 0.3:
-                    classification_txt = "Cone Jet"
-                    if (self.sjaak_mean_median) > 0.9 or (self.sjaak_mean_median) < 1.1:
+            if mean > 5:  # replace absolut value with cone-jet current estimation by laMora/Calvo
+                if self.sjaak_std_mean < 0.5:
+                    #classification_txt = "Cone Jet"
+                    if (self.sjaak_mean_median) > 0.9 and (self.sjaak_mean_median) < 1.1:
                         classification_txt = "Cone Jet"
                 # print("Sjaak txt do_sjaak = ", classification_txt)
 
@@ -155,49 +155,25 @@ class ElectrosprayClassification:
         print("current std deviation [nA]:", stddeviation)
 
         # try:
-        #     # print(self.previous_states[-5:])
-        #     # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
-        #         cone_jet_mean = mean
-
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
-        #         if(mean > 1.14 * cone_jet_mean):
-        #             classification_txt = "Multi Jet"
-
-
-        #     # print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
-            
-        # except Exception as e:
-        #     print("ERROR: ", str(e)) 
-        #     print("Error on João classification")
-
-        # try:
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
-        #         if(mean > 1.14 * cone_jet_mean):
+        #     print("I chen pui:", I_chen_pui)  # Cone Jet mean current calculated by Chen&Pui Scaling Laws (See the formula in validation_electrospray file)
+        #     if(classification_txt == "Cone Jet"):
+        #         if(mean > 1.14 * I_chen_pui):   # 1.14 above was calculated experimentally for pure ethanol
         #             classification_txt = "Multi Jet"
         #
-        #     print("Multi jet treshold mean value: ", cone_jet_mean * 1.14)
         #
         # except Exception as e:
         #     print("ERROR: ", str(e))
         #     print("Error on João classification")
 
-        #
-        #       Correcting some wrongly classified modes by the system knowledge and memory
-        #
-        try:
-            if(classification_txt == "Dripping") and (self.previous_states[-1] == "Cone Jet" or self.previous_states[-1] == "Multi Jet"):
-                classification_txt = "Undefined"
 
-            
-        except Exception as e:
-            print("ERROR: ", str(e)) 
-            print("Error on correcting classification")
-        
+
+
+
+
 
         self.previous_states.append(classification_txt)
 
-        return classification_txt, cone_jet_mean
+        return classification_txt
 
 
 
@@ -242,97 +218,3 @@ class ElectrosprayClassification:
         var = (sum_aux / (len(data) - 1))
         return round(math.sqrt(var), 4)
 
-    """
-    def plot_sjaak_cone_jet(self):
-        values = ["sjaak_std_mean_array ]2.5", "sjaak_mean_median_array ]0.9,1.1[", "mean_value_array ]1",
-                  "med_value_array ]0"]
-        fig, axs = plt.subplots(6)
-        data = [self.sjaak_std_mean_array, self.sjaak_mean_median_array, self.mean_value_array,
-                self.sjaak_std_mean_array]
-        axs[0].set(xlabel=values)
-        axs[0].set_title(self.name_liquid)
-        axs[0].boxplot(data)
-
-        x0 = []
-        for i in range(len(self.sjaak_std_mean_array)):
-            x0.append(i)
-        colors = 'black'
-        axs[1].scatter(x0, self.sjaak_std_mean_array, c=colors, marker='^',
-                       label="sjaak_std_mean_array %s" % self.name_liquid)
-        axs[1].axhline(2.5, color=colors, lw=2, alpha=0.5)
-        axs[1].legend(loc='best')
-
-        colors = 'green'
-        axs[2].scatter(x0, self.sjaak_mean_median_array, c=colors, marker="s",
-                       label="sjaak_mean_median_array %s" % (self.name_liquid))
-        # sjaak_mean_median cone jet values
-        axs[2].axhline(0.9, color=colors, lw=2, alpha=0.5)
-        axs[2].axhline(1.1, color=colors, lw=2, alpha=0.5)
-        axs[2].legend(loc='best')
-
-        x0 = []
-        for i in range(len(self.mean_value_array)):
-            x0.append(i)
-        colors = 'blue'
-        axs[3].scatter(x0, self.mean_value_array, c=colors, marker=">", label="mean_value_array %s" % self.name_liquid)
-        axs[3].axhline(1, color=colors, lw=2, alpha=0.5)
-        axs[3].legend(loc='best')
-
-        x0 = []
-        for i in range(len(self.med_value_array)):
-            x0.append(i)
-        colors = 'yellow'
-        # for i in range(len(med_value_array[j])):
-        axs[4].scatter(x0, self.med_value_array, c=colors, marker="<", label="med_value_array %s" % (self.name_liquid))
-        axs[4].axhline(0, color=colors, lw=2, alpha=0.5)
-        axs[4].legend(loc='best')
-
-        x0 = []
-        for i in range(len(self.med_value_array)):
-            x0.append(i)
-        axs[5].scatter(x0, self.med_value_array, c=colors, marker="<", label="med_value_array %s" % (self.name_liquid))
-        # plt.scatter([pt[i] for pt in x0[j]], [pt[i] for pt in med_value_array[j]], c=colors, marker="<")
-        # med_value
-        axs[5].axhline(0, color=colors, lw=2, alpha=0.5)
-        x0.append([])
-        axs[5].legend(loc='best')
-
-    def plot_sjaak_classification(self):
-        values = ["sjaak_std_mean_array", "sjaak_mean_median_array", "mean_value_array",
-                  "med_value_array"]
-        fig, axs = plt.subplots(2)
-        # for j in range(1):
-        data_1 = np.array(self.sjaak_std_mean_array)
-        data_2 = np.array(self.sjaak_mean_median_array)  # , 0.99, 0.9, 1.1))
-        data_3 = np.array(self.mean_value_array)  # , stddev_value_array[j])
-        data_4 = np.array(self.med_value_array)
-        data = [data_1, data_2, data_3, data_4]
-        axs[0].set(xlabel=values)
-        axs[0].set_title(self.name_liquid)
-        axs[0].boxplot(data, vert=True)
-
-        nbins = [0, 1]
-        colors = ['Red', 'Lime']
-        labels = ['Sjaak classified false', 'Sjaak classified true']
-        bars = ["0/False" + self.name_liquid, "1/True" + self.name_liquid]
-        sjaak_verified_true_aux = (np.ones(len(self.sjaak_verified_true)))
-        sjaak_verified_false_aux = (np.zeros(len(self.sjaak_verified_false)))
-        x = [sjaak_verified_false_aux, sjaak_verified_true_aux]
-        axs[1].hist(x, nbins, density=True, histtype='bar', color=colors, label=labels)
-        axs[1].grid(axis='y', alpha=0.75)
-        axs[1].set(xlabel=bars, ylabel=nbins, title='%s' % self.name_liquid)
-        plt.hold(True)
-
-        axs[2].set(xlabel=values[2])
-        axs[2].boxplot(data_2, vert=True)
-        axs[3].set(xlabel=values[3])
-        axs[3].boxplot(data_3, vert=True)
-        plt.show()
-        
-    def plot_mean(self, mean_value, datapoints):
-        # Display mean_value
-        # mean_value_plotrealtime = np.full(datapoints, mean_value)  # create a mean value line
-        # plt.plot(mean_value_plotrealtime)
-        plt.text(0.01, 0.01, 'mean = ' + str(np.round("mean_value_plotrealtime", 1)), fontsize=16, color='C1')
-
-"""

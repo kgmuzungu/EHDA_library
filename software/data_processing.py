@@ -78,7 +78,6 @@ def data_processing(data_queue,
             electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
                                                                     electrospray_processing.mean_value,
                                                                     electrospray_data.flow_rate)
-            # print("I:", electrospray_validation.I_emitted_chen_pui * 10e5)
             # print("alpha:", electrospray_validation.alpha_chen_pui * 10e10)
             cone_jet_mean = electrospray_validation.I_emitted_chen_pui  * 10e5
 
@@ -98,7 +97,7 @@ def data_processing(data_queue,
                 previous_flowrate = electrospray_data.flow_rate
 
 
-            classification_txt, cone_jet_mean = electrospray_classification.do_classification(
+            classification_txt = electrospray_classification.do_classification(
                                                                         electrospray_processing.mean_value,
                                                                         electrospray_processing.med,
                                                                         electrospray_processing.stddev,
@@ -110,7 +109,7 @@ def data_processing(data_queue,
                                                                         electrospray_data.flow_rate,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks,
-                                                                        cone_jet_mean
+                                                                        electrospray_validation.I_emitted_chen_pui
 
             )
         except Exception as e:

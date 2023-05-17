@@ -70,6 +70,7 @@ class ElectrosprayValidation:
         self.alpha_chen_pui =  (self.surface_tension * self.electrical_conductivity * self.flow_rate_chen_pui / self.dieletric_const) ** (.5)
 
         self.I_emitted_chen_pui = ki * self.dieletric_const ** (.25) * self.alpha_chen_pui ** (.5)
+        self.I_emitted_chen_pui = self.I_emitted_chen_pui*10e5 / 2  # divided by two because of oscilloscope internal impedance
         # i_actual = data
         #
         # b_hartman = i_actual / ((self.surface_tension * self.electrical_conductivity * flow_rate) ** .5)
