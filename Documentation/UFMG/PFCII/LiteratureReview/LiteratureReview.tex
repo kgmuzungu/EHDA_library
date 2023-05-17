@@ -7,11 +7,11 @@
 
 The electrospraying of liquids herein is referred to as electrohydrodynamic atomization (EHDA). The atomization by primarily electrical (electro) forces of a liquid (hydro) that is moving (dynamic) during the atomization captures the essence of the phenomenon.\cite{Grace}
 That motion applies to the liquid certain velocity that is not enough to create the spray alone. Therefore, the electric field itself is the responsible for the spraying dynamics.\cite{prunet}
-A stable balance between the capillary and field forces on the liquid suggest a \emph{quasi static} dynamics.
+A stable balance between the capillary and field forces on the liquid suggests a \emph{quasi static} dynamics.
 The feeding liquid is pulled through a small orifice by means of the applied voltage.
 The droplets are accelerated towards the grounded electrode by the electric field.
 The resulting spray is electrically charged, and the droplets repel one another.
-For this reason, with a controlled environment a certain stable spraying mode can be reached as seen in the Figure \ref{fig:ehda_setup_ex2}.
+For this reason, with a controlled environment a certain stable spraying mode can be reached, as seen in the Figure \ref{fig:ehda_setup_ex2}.
 
 \begin{figure}[H]
   \centering
@@ -38,7 +38,7 @@ The setup in Figure \ref{fig:ehda_setup} shows the most common setup used for EH
 Therefore, many researches were made about the classification of the spraying mode measuring the current flowing through the nozzle to plate\cite{Sjaaks}\cite{Chen_Pui}. 
 Evaluating the current data gives valuable information about the spraying behavior.
 Figure \ref{fig:microdripping_current_pic} illustrate a sample of current measured in the system during a dripping of a charged liquid. 
-It can be visually identified the signal of two droplets generated in this time frame.
+The signal of two droplets generated in this time frame can be visually identified by the perturbation.
 
 
 \begin{figure}[H]
@@ -50,8 +50,8 @@ It can be visually identified the signal of two droplets generated in this time 
 
   The existing signal contains valuable data not only about dripping but also other modes of spraying, thus it can serve as a non-visual classifier.
   This project draws significant inspiration from Sjaak's\cite{Sjaaks} work, which identifies distinct statistical characteristics of electrical current for various spraying modes.
-  A profound use of his method will be explained in section \ref{sec:section_classification}.
-  Together with the current characteristics, visual observations and results from literature it was investigated whether generic trends are present that can be related to the actual spraying modes.
+  A profound of his method will be explained in section \ref{sec:section_classification}.
+  Together with the current characteristics, visual observations and results from literature, it was investigated whether generic trends are present that can be related to the actual spraying modes.
 
 
 \section{Scaling Laws}
@@ -66,11 +66,18 @@ Equation \ref{eq:i_chenpui} calculates the current flowing through the charged l
 	I = (\frac{\gamma K Q}{\kappa})^{1/2}
 \end{equation}
 
+Where,
+\[I : current \: emitted \: [A] \] 
+\[Q : flow \: rate \: [m^3/s] \]    
+\[ \gamma : surface \: tension \: [N/m]  \]   
+\[\kappa : relative \: dieletric \: constant \] 
+\[K : electric \: conductivity \: [S/m] \] 
+
 
 \section{Spraying modes}
 \label{sec:spraying_modes_subsec}
 
-Since 1915 with his pioneering work in EHDA, Zeleny\cite{zeleny14} observed several functioning modes with very different characteristics.
+Since 1915, with his pioneering work in EHDA, Zeleny\cite{zeleny14} observed several functioning modes with very different characteristics.
 Years later the same circumstance was noticed by other scientists, but the classification of these modes were still not well-defined by the community.
 For that Cloupeau and Prunet-Foch\cite{prunet} proposed spray mode classifications based on what they have seen experimentally, and it is still being used as basis for EHDA researches.
 
