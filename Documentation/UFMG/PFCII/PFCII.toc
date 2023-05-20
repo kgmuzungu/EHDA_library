@@ -15,8 +15,8 @@
 \contentsline {subsection}{\numberline {2.4.1}Dripping}{9}{subsection.2.4.1}%
 \contentsline {subsection}{\numberline {2.4.2}Intermittent}{9}{subsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.4.3}Cone Jet}{10}{subsection.2.4.3}%
-\contentsline {subsection}{\numberline {2.4.4}Multi Jet}{11}{subsection.2.4.4}%
-\contentsline {subsection}{\numberline {2.4.5}Corona}{12}{subsection.2.4.5}%
+\contentsline {subsection}{\numberline {2.4.4}Multi Jet}{10}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Corona}{11}{subsection.2.4.5}%
 \contentsline {section}{\numberline {2.5}Chapter conclusion}{12}{section.2.5}%
 \contentsline {chapter}{\numberline {3}System Description}{13}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Hardware model}{13}{section.3.1}%
