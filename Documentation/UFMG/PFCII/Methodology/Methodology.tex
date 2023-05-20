@@ -13,8 +13,10 @@ The goal is to improve and apply approaches of non-visual spraying classificatio
 
 \subsection{Statistical Analysis}
 In Sjaaks\cite{Sjaaks} work, the author exposed signal characteristics that can be used to classify the actual spraying mode with a sample of measured current using both time and frequency domain analysis.
-It is acquired the current data frame of 0.5s with 100 kHz as sampling frequency, with each current sample as 50 thousand current values. Through statistical analysis in these values such as mean, median and standard deviation the classification is done. 
-Figure \ref{fig:sjaaks_statistical_class} illustrate data samples being classified using Sjaaks\cite{Sjaaks} method.
+A current data frame of 0.5s is acquired with 100 kHz as sampling frequency. Therefore, each current sample holds 50 thousand current values. 
+
+Through statistical analysis in these signal such as mean, median and standard deviation the classification is done. 
+Figure \ref{fig:sjaaks_statistical_class} illustrates data samples being classified using Sjaaks\cite{Sjaaks} method.
 
 \begin{figure}[H]
     \centering
@@ -90,7 +92,7 @@ The classification in the algorithm was divided in three steps as shown below.
     Continuing the methodology, in the setup json file there is a "sequence" attribute which can be chosen between "ramp", "step", "map" or "control".
     The controller thread will manage what the algorithm must do for each sequence.
     Following the control model in Figure\ref{fig:control_model_fig}, the controller outputs (voltage and flow rate) are the actuators signal.
-    The sampling rate is fixed to 0.5 seconds for all the experiments, and it's managed by the data\_acquisiton\_thread\ref{subsec:data_aquisition}.
+    The sampling rate is fixed to 0.5 seconds for all the experiments, and it's managed by the data\_acquisiton\_thread.
 
 
 \subsection{Ramp}
