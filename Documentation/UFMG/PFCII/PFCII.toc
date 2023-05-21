@@ -27,8 +27,8 @@
 \contentsline {chapter}{\numberline {4}Methodology}{19}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Classification}{19}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Statistical Analysis}{19}{subsection.4.1.1}%
-\contentsline {section}{\numberline {4.2}Routine Sequences}{21}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Ramp}{21}{subsection.4.2.1}%
+\contentsline {section}{\numberline {4.2}Routine Sequences}{22}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Ramp}{22}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Step}{22}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Map}{22}{subsection.4.2.3}%
 \contentsline {subsection}{\numberline {4.2.4}Control}{25}{subsection.4.2.4}%

@@ -16,11 +16,11 @@ In Sjaaks\cite{Sjaaks} work, the author exposed signal characteristics that can 
 A current data frame of 0.5s is acquired with 100 kHz as sampling frequency. Therefore, each current sample holds 50 thousand current values. 
 
 Through statistical analysis in these signal such as mean, median and standard deviation the classification is done. 
-Figure \ref{fig:sjaaks_statistical_class} illustrates data samples being classified using Sjaaks\cite{Sjaaks} method.
+Figure \ref{fig:sjaaks_statistical_class} illustrates data samples separated by statistical method, depending on the range in mean, mean/median and deviation/mean.
 
 \begin{figure}[H]
     \centering
-    \resizebox{80mm}{!}{\includegraphics{Figuras/report2/data3_sjaaksgraph2.png}}
+    \resizebox{150mm}{!}{\includegraphics{Figuras/may/classificators.png}}
     \caption{Sample classification using statistical values. Colors: Green = Dripping; Blue = Intermittent; Red = Cone Jet.}
     \label{fig:sjaaks_statistical_class}
 \end{figure}
@@ -34,7 +34,7 @@ My contribution was to integrate her work on my control loop model and extend th
 To classify the multi jet, after running many steps experiments it was noticed that the multi jet signal has a similar shape as the cone jet but with a step in its current mean, also the cone jet current was almost fixed in all its voltage range. 
 These effects were exposed by Ryan\cite{Ryan}. In his work he defines the relation between current per jet in both cone jet and multi jet modes.
 
-With that, it was implemented the classification of the multi jet when the current mean is 1.14 above the expected cone jet current mean. 
+With that, the classification of the multi jet was implemented  when the current mean is 14\% above the expected cone jet current mean. 
 The cone jet current can be calculated by the scaling laws \ref{sec:scalling-laws} formula.
 The factor value of 1.14 was found by repeating a lot of experiments with the same liquid (pure ethanol), but varying the flow rate and the voltage. This factor value is just applied for pure ethanol, the liquid used in all experiments in this work.
 The classification in the algorithm was divided in three steps as shown below.
@@ -54,14 +54,15 @@ The classification in the algorithm was divided in three steps as shown below.
 
             \State $spray\_mode \gets "Undefined"$;
             \State $mean \gets sample.mean$; 
-            \State $std\_deviation \gets sample.std\_deviation$;
-            \State $median \gets sample.median$;
+            \State $deviation\_mean \gets sample.std\_deviation / sample.mean$;
+            \State $mean\_median \gets sample.mean / sample.median$;
             
-            \If{ $mean / std\_deviation$ > 2.5}
+            \If{ $mean > 5$}
                 \Comment{Sjaak classification \cite{Sjaaks}} 
                 \State $spray\_mode \gets "Dripping"$;
-            \ElsIf{$ 2.5 < mean / std\_deviation < 2.5 \And mean / std\_deviation > 0.3 $}
+                \If{$ 2.5 < mean / std\_deviation < 2.5 \And mean / std\_deviation > 0.3 $}
                 \State $spray\_ mode \gets "Intermittent"$;
+                \EndIf
             \ElsIf{ $mean / std\_deviation$ < 0.3}
                 \State $spray\_ mode \gets "Cone Jet"$;
                 \State $cone\_jet\_mean \gets mean$;
