@@ -102,20 +102,6 @@ The flow rate for this sequence is constant, and the experiment consists in a vo
 The step sequence is done by the same command sent to the power supply but with the maximum slope value in order to proximate of a step signal.
 By waiting a certain defined \emph{step\_time} and repeating the command in a loop until it gets into the final voltage.
 
-% \begin{algorithm}
-%     \caption{STEP sequence in controller thread}\label{alg:stepping_algorithm}
-%     \begin{algorithmic}
-%     \Procedure{STEP}{$voltage\_start,voltage\_stop$} 
-%         \State $voltage \gets voltage\_start$
-%         \While{$voltage \leq voltage\_stop$} \Comment{scanning voltage range}
-%             \State \Call{send\_voltage\_command}{voltage}
-%             \State \Call{sleep}{step \_time}
-%             \State $voltage \gets voltage + step\_size$
-%         \EndWhile
-%     \EndProcedure
-
-%     \end{algorithmic}
-% \end{algorithm}
 
 \subsection{Map}
 
@@ -127,11 +113,12 @@ The window formed by these points is where the system operated in the stable con
 
 \begin{figure}[H]
     \center
-    \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
+    \includegraphics[width=15cm]{Figuras/ganan_calvo_map.png}
     \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} .}
     \label{fig:ganan_calvo_fig}
 \end{figure}
 
+    \vspace{2cm}
     To reach certain map it is necessary to traverse flow rate (X axis) and voltage (Y axis) values acquiring samples.
     In Figure \ref{fig:map2Data_fig} it can be seen how the mapping procedure works. The liquid used is pure ethanol. 
     Note that the experiment is composed of loops that increase voltage, change flow rate and repeat.
