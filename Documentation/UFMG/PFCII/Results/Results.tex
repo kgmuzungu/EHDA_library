@@ -10,9 +10,9 @@ Finally, a showcase of performance on the implemented controller algorithms.
 \label{sec:automation_routine}
 
 The automated experiment routine is capable of acquiring a significantly more precise and extensive amount of data than what can be achieved by a human. 
-With the save data by streaming in saving thread, it was achieved less program memory during the experiment and, specially, safety for not losing the data in case the program fail during an experiment.
+It was achieved less program memory during the experiment and, specially, safety for not losing data in case the program fail during an experiment with the usage of json streams in the saving thread.
 
-Also, most power supplies rely on manual potentiometer adjustment to select the set point, which results in imprecise potential selection by a person and takes some time to achieve the desired voltage.
+Also, most power supplies rely on manual potentiometer adjustment to select the set point, which results in imprecise potential selection by a person, and it takes some time to achieve the desired voltage.
 Moreover, the electrospray phenomena has a known hysteresis, that can be seen in figure \ref{fig:ganan_calvo_fig}, and can perform different results depending on the previous electric potential.
 Running a computer routine that automatically sends commands to the power supply and pump machine allowed obtaining faster and more reliable experiment data points.
 
@@ -32,10 +32,10 @@ The visual interface for the user, seen in figure \ref{fig:multi_class_exp1}, sh
 \section{Classification}
 \label{sec:classification_results}
 
-The classification results in the algorithm implemented as described in section \ref{sec:section_classification} showed good accuracy for all the classifications described in section \ref{sec:spraying_modes_subsec}.
+The classification results in the algorithm implemented as described in section \ref{sec:section_classification} showed high accuracy for all the classifications described in section \ref{sec:spraying_modes_subsec}.
 Nevertheless, the multi jet classification made by a current value factor of 1.14 above the cone jet is just effective for pure ethanol, liquid used in all this project.
 
-Even if the multi jet classification just works for pure ethanol, the data saved with correct classification in ethanol can be used to extract any other signal information about the multi jet or to train a black box classification algorithm.
+Even if the multi jet classification just works for pure ethanol, the data saved with correct classification for ethanol can be used to extract any other signal information about the multi jet or to train a black box classification algorithm.
 
 The classification result will be categorized into two main groups - the step routine and the map routine. These two routines have showed valuable insights and comprehensible results of the electrospraying process.
 
@@ -44,10 +44,10 @@ The classification result will be categorized into two main groups - the step ro
 \label{subsec:step_results}
 
 The first classification results were made exploring the voltage ranges. 
-For that, a flow rate was fixed to 0.7 uL/min. and ran a step routine as defined in \ref{subsec:step_routine}. 
-The figure \ref{fig:step_class} shows three graphs. 
+For that the setup file was configured to run a step routine with a fixed flow rate of 0.7 uL/min., as defined in \ref{subsec:step_routine}. 
 
-The first shows the controller output signal as an input voltage of the process. As it is a step routine, an increasing voltage with steps of sizes 50V and time between each step of 5 seconds was implemented. The voltage range is between 3k-10k Volts.
+The figure \ref{fig:step_class} shows three graphs. 
+The first is about the controller output signal as an input voltage of the process. As it is a step routine, an increasing voltage with steps sizes of 50V and time between each step of 5 seconds was implemented. The voltage range is between 3k-10k Volts.
 
 The second is the raw output data collected by the oscilloscope in \emph{data\_acquisition\_thread()}. 
 The sampling rate is 100kHz. Therefore, this experiment of 700s has 70 Million data points just of current data. 
@@ -65,7 +65,7 @@ The Third graph is the same data as the second after the classification procedur
 
 The graph of voltage scan has a common shape for different liquids and parameters. After having familiarity with it, is even possible to classify the spraying modes by visual analysis. 
 
-For example, dripping mode has a current mean of 0V. The Intermittent state has a high variation of values that can be seen by the increased thickness on the graph. The cone jet is a thinner graph because of its constant signal. Multi Jet  has the same shape as cone jet but with a higher mean value. Corona sparks are not showed in the graph because its discharges has a high current value above the axis limits.
+For example, dripping mode has a current mean of 0V. The Intermittent state have a high variation of values that can be seen by the increased thickness on the graph. The cone jet is a thinner graph because of its constant signal. Multi Jet  has the same shape as cone jet but with a higher mean value. Corona sparks are not showed in the graph because its discharges has a high current value above the axis limits.
 
 
 
@@ -73,7 +73,7 @@ For example, dripping mode has a current mean of 0V. The Intermittent state has 
 \label{subsec:map_results}
 
 For validation with literature and also to expose the benefits of the automated routine and classification, the map sequence proof itself the best result of this work. 
-Initially, for better understand pure ethanol classification regions through voltage and flow rate ranges, it was made a manual map seen in figure \ref{fig:stability_1}.
+Initially, for better understanding of pure ethanol classification regions through voltage and flow rate ranges, a manual map was made, as seen in figure \ref{fig:stability_1}.
 
     \begin{figure}[H]
         \center
@@ -84,7 +84,7 @@ Initially, for better understand pure ethanol classification regions through vol
 
 
     In order to validate the automatic classification, experiments were made comparing both visual and automatic stability island on the same experiment.
-    Figure \ref{fig:stability_2} shows that automatic stable cone jet region could be identified in the same region as visually seen by the high speed camera (data acquired manually).
+    figure \ref{fig:stability_2} shows that automatic stable cone jet region could be identified in the same region as visually seen by the high speed camera (data acquired manually).
 
         \begin{figure}[H]
             \center
@@ -94,8 +94,7 @@ Initially, for better understand pure ethanol classification regions through vol
         \end{figure}
 
 
-    With the development of a multi jet classification using the logic explained in section \ref{sec:section_classification}, the same experiment was repeated, as shown in Figure \ref{fig:stability_6}.
-
+    With the development of a multi jet classification using the logic explained in section \ref{sec:section_classification}, the same experiment was repeated, as shown in figure \ref{fig:stability_6}.
 
         \begin{figure}[H]
             \center
@@ -104,10 +103,7 @@ Initially, for better understand pure ethanol classification regions through vol
             \label{fig:stability_6}
         \end{figure}
 
-
-    \subsubsection{Non-dimensional axis}
-
-    To have a better comparison with literature, specifically the Gañán-Calvo\cite{gananCalvo} stability islands showed in figure \ref{fig:ganan_calvo_fig}, with a visual juxtaposition of the shapes, the data displayed in Figure \ref{fig:stability_8} using the non-dimensional numbers used in his work\cite{gananCalvo}.
+    For a better comparison with literature, specifically the Gañán-Calvo\cite{gananCalvo} stability islands shapes showed in figure \ref{fig:ganan_calvo_fig}, a visual juxtaposition of the same data in figure \ref{fig:stability_6} was displayed in figure \ref{fig:stability_8} using the non-dimensional numbers of potential and flow rate on the axis.
 
         \begin{figure}[H]
             \center
@@ -116,29 +112,50 @@ Initially, for better understand pure ethanol classification regions through vol
             \label{fig:stability_8}
         \end{figure}
 
-    The results of mapping experiment corresponded visual, literature and automatic regions of classification, giving authentication to the method.
+        The holes of data in figure \ref{fig:stability_8} is because of the logarithmic scale in the x-axis. 
+        To fill the graph and compare with literature the behavior of the cone jet island while increasing the conductivity, other 3 experiments with different conductivities solutions of ethanol were done with help of a PhD in chemical engineering, L. P. Di Bonito.
+        Each graph in figure \ref{fig:conductivity_test} took around 5 hours of experiment and 20 GB of data stored. 
+        
+        While increasing conductivity, the cone jet stability region changes its shape and slightly moves to the right, as demonstrated by Gañán-Calvo in figure \ref{fig:ganan_calvo_fig}.
+        The multi jet classification was not considered in these experiments and were classified as 'Undefined' because the classification rule defined in this project works just for pure ethanol.
+
+        \begin{figure}[H]
+            \center
+            \includegraphics[width=18cm]{Figuras/may/conductivity_test.png}
+            \caption{Mapping experiment for different conductivities of ethanol solution.}
+            \label{fig:conductivity_test}
+        \end{figure}
+
+
+    The results of automatic mapping experiment corresponded manually and with literature the regions of classification, validating the method.
 
 
 \section{Controller}
 \label{sec:controller_results}
 
-    The results of the classification process were favorable for experiment automation, however, the inaccuracy of the classification by statistical methods, specially the Multi Jet\ref{subsec:Multi Jet}, limited the development of a complete control project.
-    Together with the amount of variables that need to be syntonized makes it hard to stabilize in a desired mode.
+    The results of the classification process were favorable for experiment automation, however, the inaccuracy of the classification by statistical methods, specially the Multi Jet \ref{subsec:Multi Jet}, limited the development of a complete control project.
+    Together with the amount of variables that need to be adjusted it is hard to stabilize in a desired mode.
     Even with all those problems, a simple controller project could be implemented, as described in section \ref{sec:control_model}, that validated the efforts of remodeling all software into a closed loop control model.
     
-    The controller not only stabilized in cone jet mode, but also could reject perturbation, as seen in Figure \ref{fig:control_results}, where the flow rate was manually changed.
-    First graph shows current acquired. It starts as intermittent state, with an oscillating signal. This can be validated with the blue colored sample on the third graph representing its automatic classification. 
-    The second graph shows the controller actuating increasing the voltage to achieve a stable cone jet mode.
-    After a period of time in cone jet, a manual increase in the flow rate was done, serving as a perturbation of the system, and it can be seen that the effect of that was to return to intermittent state with the oscillating signal. The controller again, actuate increasing the voltage to reach the cone jet stability island. 
-    This procedure was repeated after some seconds of stabilization in cone jet, increasing once more the flow rate manually, and again the system automatically adjusting the voltage.
-        \begin{figure}[H]
+    The controller not only stabilized in cone jet mode, but also could reject perturbation, as seen in figure \ref{fig:control_results}, where the flow rate was manually changed.
+    First graph shows the raw current acquired during this experiment.
+    The second graph shows a voltage graph where it can be seen the controller actuating increasing the voltage to achieve a stable cone jet mode.
+    The third graph shows the mean value of each sample colored representing its automatic classification.
+    
+    At the beginning, the system starts up with initial voltage of 4500 V, being classified as intermittent state, defined by an oscillating signal in first graph and blue samples in third graph. 
+    The controller then, automatically actuates increasing the voltage to reach the stable cone jet. 
+    After a period of stability, it was done a manual increase in the flow rate, serving as a perturbation of the system, and it can be seen that the effect of that was to return to intermittent state with the oscillating signal. 
+    The controller again, actuates by increasing the voltage to reach the cone jet stability island. 
+    This procedure was repeated after some seconds of stabilization in cone jet, increasing once more the flow rate manually, and again the system automatically adjusted the voltage.
+    
+    \begin{figure}[H]
             \center
             \includegraphics[width=16cm]{Figuras/19:03/control_first_results.png}
-            \caption{Simple controller validation experiment. For this experiment, after waiting the system to stabilize in the desired spraying mode it was made a perturbation test changing the flow rate. The classification legend follows the same color reference in all project.}
+            \caption{Simple controller validation with manual perturbations in flow rate.}
             \label{fig:control_results}
         \end{figure}
 
-    After 200s of experiment the system had some breaks up of the cone jet into a droplet and stabilized again. This is represented by the peak values in current signal. The classification correctly identified as intermittent, seen as blue dots in the third graph, and the controller reacted increasing the voltage, in a situation that can be considered as noise. A filter can be applied in a more complex controller project to avoid this.
+    After 200 seconds of experiment the system had some breaks up of the cone jet into a droplet and stabilized again, represented by the peak values in current signal. In this case the classification correctly identified as intermittent because of its signal shape, seen as blue dots in the third graph, but the controller reacted increasing the voltage in a situation that can be considered as noise because it was a small period of instability inside the stability region that could be a result of other external perturbation such as a bubble in the liquid line. A filter can be applied in a more complex controller project to avoid this.
     
 
 

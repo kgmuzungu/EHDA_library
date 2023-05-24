@@ -9,8 +9,8 @@ Furthermore, the classification methods and system control implemented in this p
 \section{Proposal for continuation}
 
 To continue, a proposal is to prioritize the improvement of the classification step. 
-Ideally using machine learning or another algorithm to ensure accurate classification with a broad range of liquids.
-By achieving a reliable classification, a more effective controller logic or approaches can be implemented. 
+Ideally, using machine learning or another classification algorithm to improve accuracy with a broad range of liquids.
+By achieving a reliable classification, a more effective controller logic can be implemented. 
 In this regard, a concept of a fuzzy controller will be presented as a potential solution.
 
 \subsection{Machine Learning}
@@ -23,13 +23,13 @@ In this regard, a concept of a fuzzy controller will be presented as a potential
 
 \subsection{Fuzzy Controller}
 
-        One challenge in implementing the controller in this project is that it does not have a real value as feedback, instead, the feedback from the controller loop is a classification, which makes it difficult to apply many of the principles of control theory that are designed for continuous control. 
+        One challenge in implementing the controller in this project is that it does not have a real value as feedback. Instead, the feedback from the controller loop is a classification, which makes it difficult to apply many of the principles of control theory that are designed for continuous control. 
         As this project involves logical control, it requires a different approach. 
         
         The controller project that will be presented is an attempt to quantify the classification and fit it in a fuzzy control model.
         That approach is for an open loop control system and the input and outputs of the controller must be fuzzyfied.
 
-        Firstly, the fuzzyfication and defuzzyfication machines were implemented using the data acquired in the experiment of step routine\ref{subsec:step_routine}, mapping the area of each spraying mode according to its potential.
+        Firstly, the fuzzyfication and defuzzyfication machines were implemented using the data acquired in the experiment of step routine \ref{subsec:step_routine}, mapping the area of each spraying mode according to its potential.
         Figure \ref{fig:fuzzyy} shows the steps of fuzzyfication and defuzzyfication within the input and output of the controller.
 
 
@@ -42,7 +42,7 @@ In this regard, a concept of a fuzzy controller will be presented as a potential
 
 
 
-        The controller is an algorithm that calculate the output with a geometrical calculus on the membership functions of the input and output according to the rules listed below.
+        The controller is an algorithm that calculates the output with a geometrical calculus on the membership functions of the input and output according to the rules listed below.
 
         Fuzzy Rules:
 
@@ -69,7 +69,7 @@ In this regard, a concept of a fuzzy controller will be presented as a potential
 
     \section{Final Discussions}
 
-        The works presented in this report represent a continuation and refinement of previous efforts to develop a more precise and versatile automation routine that can be effectively applied in both industrial and research applications. 
+        The works presented in this project represent a continuation and refinement of previous efforts to develop a more precise and versatile automation routine that can be effectively applied in both industrial and research applications. 
         
         The previous student work focused on predicting corona streamers or spark discharges\cite{Monica} and her automation routine provided a valuable proof-of-concept. 
         

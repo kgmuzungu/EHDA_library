@@ -28,11 +28,19 @@ Figure \ref{fig:sjaaks_statistical_class} illustrates data samples separated by 
  
 
 This classification by statistical analysis was already implemented in the software library made by the previous student \cite{Monica}.
-This method was capable of only classifying dripping, intermittent and cone jet modes. Also in her work, Monica extended the classification to corona or discharge detection.
-My contribution was to integrate her work on my control loop model and extend the classification for the multi jet.
+This method was capable of only classifying dripping, intermittent and cone jet modes using the rules defined in figure \ref{fig:statis_ranges}. 
+\begin{figure}[H]
+    \centering
+    \resizebox{150mm}{!}{\includegraphics{Figuras/may/statistical_analysis.png}}
+    \caption{Statistical classification modes ranges.}
+    \label{fig:statis_ranges}
+\end{figure}
+
+Also in her work, Monica extended the classification to corona or discharge detection.
+My contribution was to integrate her work on a classic closed loop control model using parallel computing and extend the classification for the multi jet.
 
 To classify the multi jet, after running many steps experiments it was noticed that the multi jet signal has a similar shape as the cone jet but with a step in its current mean, also the cone jet current was almost fixed in all its voltage range. 
-These effects were exposed by Ryan\cite{Ryan}. In his work he defines the relation between current per jet in both cone jet and multi jet modes.
+These effects were exposed by Ryan\cite{Ryan}. In his work the relation between current per jet is defined in both cone jet and multi jet modes.
 
 With that, the classification of the multi jet was implemented  when the current mean is 14\% above the expected cone jet current mean. 
 The cone jet current can be calculated by the scaling laws \ref{sec:scalling-laws} formula.
@@ -53,28 +61,17 @@ The classification in the algorithm was divided in three steps as shown below.
         \Function{statistical\_classification}{$sample$} 
 
             \State $spray\_mode \gets "Undefined"$;
-            \State $mean \gets sample.mean$; 
-            \State $deviation\_mean \gets sample.std\_deviation / sample.mean$;
-            \State $mean\_median \gets sample.mean / sample.median$;
-            
-            \If{ $mean > 5$}
-                \Comment{Sjaak classification \cite{Sjaaks}} 
-                \State $spray\_mode \gets "Dripping"$;
-                \If{$ 2.5 < mean / std\_deviation < 2.5 \And mean / std\_deviation > 0.3 $}
-                \State $spray\_ mode \gets "Intermittent"$;
-                \EndIf
-            \ElsIf{ $mean / std\_deviation$ < 0.3}
-                \State $spray\_ mode \gets "Cone Jet"$;
-                \State $cone\_jet\_mean \gets mean$;
-            \EndIf
 
-            \If{ $mean / std\_deviation$ > 2.5}
-                \Comment{Monica classification \cite{Monica}} 
+            \State $spray\_mode$ = \Call{sjaaks\_classification}{$sample$} \Comment{Sjaak classification \cite{Sjaaks}}
+            
+            \If{ $mean > 1000$}
+            \Comment{Monica classification \cite{Monica}} 
+                \State $spray\_mode \gets "Corona"$;
             \EndIf
 
             \If{ $spray\_mode == "Cone Jet"$}
-                \Comment{João classification} 
-                \If{ $cone\_jet\_mean > 1.14 \times mean$}
+            \Comment{João classification} 
+                \If{ $mean > 1.14  \times cone\_jet\_mean$}
                     \State $spray\_ mode \gets "Multi Jet"$;
                 \EndIf
             \EndIf
@@ -92,36 +89,33 @@ The classification in the algorithm was divided in three steps as shown below.
     The program developed is capable of running different types of routines and with an easy way to implement new strategies.
     Continuing the methodology, in the setup json file there is a "sequence" attribute which can be chosen between "ramp", "step", "map" or "control".
     The controller thread will manage what the algorithm must do for each sequence.
-    Following the control model in Figure\ref{fig:control_model_fig}, the controller outputs (voltage and flow rate) are the actuators signal.
+    Following the control model in Figure \ref{fig:control_model_fig}, the controller outputs (voltage and flow rate) are the actuators signal.
     The sampling rate is fixed to 0.5 seconds for all the experiments, and it's managed by the data\_acquisiton\_thread.
 
 
-\subsection{Ramp}
+\subsection{Ramp or Step}
+\label{subsec:step_routine}
 
 The ramp sequence is simply done by sending one command to the power supply to perform a ramp in the voltage with initial, final and slope values.
 The flow rate for this sequence is constant, and the experiment consists in a voltage range scan.
 
-\subsection{Step}
-\label{subsec:step_routine}
+The step sequence is done by the same command sent to the power supply but with the maximum slope value in order to proximate of a step signal.
+By waiting a certain defined \emph{step\_time} and repeating the command in a loop until it gets into the final voltage.
 
-The step sequence is done by the same command send to the power supply but with the maximum slope value in order to proximate of a step signal.
-By waiting a certain defined \emph{step\_time} and repeating the command in a loop until it gets into the final voltage, as represented in algorithm \ref{alg:stepping_algorithm}.
+% \begin{algorithm}
+%     \caption{STEP sequence in controller thread}\label{alg:stepping_algorithm}
+%     \begin{algorithmic}
+%     \Procedure{STEP}{$voltage\_start,voltage\_stop$} 
+%         \State $voltage \gets voltage\_start$
+%         \While{$voltage \leq voltage\_stop$} \Comment{scanning voltage range}
+%             \State \Call{send\_voltage\_command}{voltage}
+%             \State \Call{sleep}{step \_time}
+%             \State $voltage \gets voltage + step\_size$
+%         \EndWhile
+%     \EndProcedure
 
-
-\begin{algorithm}
-    \caption{STEP sequence in controller thread}\label{alg:stepping_algorithm}
-    \begin{algorithmic}
-    \Procedure{STEP}{$voltage\_start,voltage\_stop$} 
-        \State $voltage \gets voltage\_start$
-        \While{$voltage \leq voltage\_stop$} \Comment{scanning voltage range}
-            \State \Call{send\_voltage\_command}{voltage}
-            \State \Call{sleep}{step \_time}
-            \State $voltage \gets voltage + step\_size$
-        \EndWhile
-    \EndProcedure
-
-    \end{algorithmic}
-\end{algorithm}
+%     \end{algorithmic}
+% \end{algorithm}
 
 \subsection{Map}
 
@@ -129,50 +123,30 @@ The map that will be explained below is the most relevant sequence in this work.
 The purpose is to map the operational window, seen in Figure \ref{fig:map3Data_fig}, that can be defined where the cone jet spraying mode can be stabilized based on the flow rate, voltage and the setup configuration.
 
 The map was inspired in Gañan-Calvo\cite{gananCalvo} work where he points how liquid conductivity influences the cone jet stability island. 
+The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend on the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.
 
 \begin{figure}[H]
     \center
     \includegraphics[width=13cm]{Figuras/ganan_calvo_map.png}
-    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} . The window formed by these points is where the system operated in the stable cone-jet. Operational windows depend on the liquid and configuration setup. Different windows are represented for different liquid conductivity. The X and Y axis are non-dimensional representation of electric potential and liquid flow rate, respectively.}
+    \caption{Domains of existence (stability) of Taylor Cone Jets. \cite{gananCalvo} .}
     \label{fig:ganan_calvo_fig}
 \end{figure}
 
-To reach certain map it is necessary to traverse flow rate and voltage values acquiring samples.
-The flow rate (X axis) and voltage (Y axis) values for each experiment can be configured in the setup.json file.
-The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_routine} for each flow rate chosen, and it is represented in the algorithm \ref{alg:mapping_algorithm}.
-
-
-    \begin{algorithm}
-        \caption{MAP sequence in controller thread}\label{alg:mapping_algorithm}
-        \begin{algorithmic}
-        \Procedure{MAP}{$flowrate\_values$} 
-            \ForAll{flowrate\_values}  \Comment{scanning in the flowrate range}
-                \State \Call{send\_flowrate\_command}{flowrate}
-                \State $voltage \gets voltage\_start$
-                \While{$voltage \leq voltage\_stop$} \Comment{scanning in the voltage range}
-                    \State \Call{send\_voltage\_command}{voltage}
-                    \State \Call{sleep}{step \_time}
-                    \State $voltage \gets voltage + step\_size$
-                \EndWhile
-            \EndFor
-        \EndProcedure
-
-        \end{algorithmic}
-    \end{algorithm}
-
-    In Figure \ref{fig:map2Data_fig} it can be seen the data acquired in this mapping experiments. The liquid used is pure ethanol. 
+    To reach certain map it is necessary to traverse flow rate (X axis) and voltage (Y axis) values acquiring samples.
+    In Figure \ref{fig:map2Data_fig} it can be seen how the mapping procedure works. The liquid used is pure ethanol. 
     Note that the experiment is composed of loops that increase voltage, change flow rate and repeat.
 
     \begin{figure}[H]
         \center
-        \includegraphics[width=15cm]{Figuras/report2/map2Data.png}
+        \includegraphics[width=16cm]{Figuras/report2/map2Data.png}
         \caption{Mapping Experiment data collected. The Figure has 3 graphs with shared x-axis representing the samples collected. The first is the current values collected through all the experiment.
         The second is the voltage values applied in each window of data collected. The colors represent the spraying classification defined in the routine.
         The third graph shows the current mean value of each data sample.}
         \label{fig:map2Data_fig}
     \end{figure}
 
-    With all the data collected, classified and saved in real time, further analysis and studies can be done. For example, Figure \ref{fig:map3Data_fig} illustrate the data automatically classified and displayed in a Voltage X Flow rate range of spraying modes with a specific liquid setup so that a comparison on automatic results with previous researches can be done, such as showed in Figure \ref{fig:ganan_calvo_fig}, validating the algorithm.
+    With all the data collected, classified and saved in real time, further analysis and studies can be done. 
+    For example, Figure \ref{fig:map3Data_fig} illustrates the data automatically classified and displayed in a Voltage X Flow rate range of spraying modes with a specific liquid setup so that a comparison between manual and automatic results can be done, validating the algorithm, as will be shown in section \ref{subsec:map_results}.
 
     \begin{figure}[H]
         \center
@@ -212,9 +186,6 @@ The algorithm for this sequence is a loop of the step sequence\ref{subsec:step_r
 \section{Chapter conclusion}
 
 This chapter \ref{chap:Methodology} exhibits how the knowledge from chapter \ref{chap:lit_review} was implemented with a control and automation engineering approach in order to achieve the project goals. 
-Next chapter \ref{chap:Results}, it will be discussed the results reached.
-
-
-
+Next chapter \ref{chap:Results}, the results reached will be discussed.
 
 \clearpage
