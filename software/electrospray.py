@@ -97,6 +97,24 @@ class ElectrosprayConfig:
         self.flow_rate_chen_pui = (
                 (dieletric_const ** 0.5) * permitivity * surface_tension / (rho * electrical_conductivity))
 
+    def get_flow_rate_min_est_chen_pui(self): 
+        return self.flow_rate_chen_pui 
+ 
+    def get_dict_flow_rate_min_est_chen_pui(self): 
+        dictionary = { 
+            "flow_rate_chen_pui": self.flow_rate_chen_pui 
+        } 
+        return dictionary 
+ 
+    def get_cone_jet_current_est_hartman(self, i_actual): 
+        b = i_actual / ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
+        # b = I_actual/pow((y * K * Q), (1/2)) 
+        I_hartman = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
+        b = 0.5 
+        I_hartman_05 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
+        b = 2 
+        I_hartman_2 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
+        return I_hartman, I_hartman_05, I_hartman_2 
 
 
 # *****************************************

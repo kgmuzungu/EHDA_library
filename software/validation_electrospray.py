@@ -36,7 +36,34 @@ class ElectrosprayValidation:
             "I_hartman": self.I_hartman
         }
         return dictionary
+    
+    def open_load_json_data(self, filename): 
+        with open(filename) as json_file: 
+            self.data_dict = json.load(json_file) 
+            print("\nconfig liquid:", self.data_dict['config']['liquid']) 
 
+
+    def open_load_cone_jet(self, filename): 
+        with open(filename) as json_file: 
+            self.data_dict = json.load(json_file) 
+            print("\nconfig liquid coned jet:", self.data_dict['config']['liquid']) 
+ 
+    def set_data_from_dict_liquid(self, dict_liquid): 
+        self.surface_tension = dict_liquid['surface tension'] 
+        self.dieletric_const = dict_liquid['dielectric const'] 
+        self.electrical_conductivity = dict_liquid['electrical conductivity'] 
+        self.permitivity = dict_liquid['vacuum permitivity'] 
+        self.rho = dict_liquid['density'] 
+        self.density = dict_liquid['density'] 
+        """ 
+        def validation_data(self, current_comment, manual_shape, electrical_conductivity): 
+            self.min_fr_chen_pui = self.data_dict['config']['liquid']['actual measurement']['flow_rate chen pui'] 
+            self.data_dict['config']['liquid']['surface tension'] 
+            self.dieletric_const = self.data_dict['config']['liquid']['dielectric const'] 
+            self.electrical_conductivity = electrical_conductivity 
+            self.permitivity = self.data_dict['vacuum permitivity'] 
+            self.rho = self.data_dict['config']['liquid']['rho density'] 
+        """ 
 
     def calculate_scaling_laws_cone_jet(self, data, mean, flow_rate):
         # ki = 6.46
