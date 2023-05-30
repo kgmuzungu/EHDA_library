@@ -105,27 +105,27 @@ class ElectrosprayClassification:
         #       MONICA   -> Is capable of classifiying Corona Discharges
         #
 
-        try:
+        # try:
             # use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
             # PEAKS SIGNAL
             # print("****************** MAX = " + str(max_value_of_the_data))
 
-            if float(max_value_of_the_data) >= 900.0:
-                if (float(flow_rate) / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
-                    if float(max_value_of_the_data) >= 2000.0:
-                        classification_txt =  "Corona"
-                    if percentage_max >= 0.0001:
-                        classification_txt =  "Corona"
-                    if quantity_max_data >= 5.0:
-                        classification_txt =  "Corona"
+            # if float(max_value_of_the_data) >= 900.0:
+            #     if (float(flow_rate) / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
+            #         if float(max_value_of_the_data) >= 2000.0:
+            #             classification_txt =  "Corona"
+            #         if percentage_max >= 0.0001:
+            #             classification_txt =  "Corona"
+            #         if quantity_max_data >= 5.0:
+            #             classification_txt =  "Corona"
 
-                if (float(flow_rate) / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
-                    if float(max_value_of_the_data) >= 2000.0:
-                        classification_txt =  "Corona"
-                    if percentage_max >= 0.5:
-                        classification_txt =  "Corona"
-                    if quantity_max_data >= 10.0:
-                        classification_txt =  "Corona"
+            #     if (float(flow_rate) / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
+            #         if float(max_value_of_the_data) >= 2000.0:
+            #             classification_txt =  "Corona"
+            #         if percentage_max >= 0.5:
+            #             classification_txt =  "Corona"
+            #         if quantity_max_data >= 10.0:
+            #             classification_txt =  "Corona"
 
             # PEAKS FFT
             # fft_max_peaks_array has info about the frequency and amplitude
