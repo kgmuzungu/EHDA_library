@@ -1,8 +1,7 @@
 # printinfo.py
 #
-# This file is part of the LibTiePie programming examples.
-#
-# Find more information on http://www.tiepie.com/LibTiePie .
+# This file is necessary for configuration of the oscilloscope. 
+# Do not make changes on this file.
 
 from __future__ import print_function
 from libtiepie import *

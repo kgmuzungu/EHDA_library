@@ -1,3 +1,10 @@
+
+"""
+TITLE: data acquisistion thread function
+AUTHOR: 乔昂  @jueta
+DATE: 21/10/2022
+"""
+
 import numpy as np
 import libtiepie
 from FUG_functions import *
@@ -18,7 +25,12 @@ def data_acquisition(data_queue,
                      liquid,
                      arduino_COM_port
                      ):
+    
+    #  *************************************
+    # 	Initiate sensors
+    #  *************************************
 
+    #           TEMPERATURE AND HUMIDITY
     temperature = 0
     humidity = 0
     day_measurement = datetime.now()
@@ -64,10 +76,15 @@ def data_acquisition(data_queue,
     flow_rate = typeofmeasurement['flow_rate']
     sample = 0
 
-    #  THREAD LOOP
+
+    #  *************************************
+    #  thread main loop
+    #  *************************************
+
     print("[DATA_ACQUISITION THREAD] Starting Saving loop")
     while not finish_event.is_set():
 
+        # try to get values from queue
         try:
             if not controller_output_queue.empty():
                 controller_output = controller_output_queue.get()
@@ -80,6 +97,7 @@ def data_acquisition(data_queue,
             print("[DATA_ACQUISITION THREAD] Failed to get controller_output_queue!")
             sys.exit(1)
 
+        # try to get values from oscilloscope
         try:
 
             scp.start()
@@ -95,6 +113,7 @@ def data_acquisition(data_queue,
             print("ERROR: ", str(e))
             print("[DATA_ACQUISITION THREAD] Failed to get tiePie values!")
 
+        # try to get values from temperature and humidity sensors (arduino code is in software/literature/peripherals/Arduino_DHT11)
         try:
 
             if arduino_port.in_waiting > 0:
@@ -111,6 +130,7 @@ def data_acquisition(data_queue,
             print("ERROR: ", str(e))
             print("[DATA_ACQUISITION THREAD] Failed to get Humidity and Temperature!")
 
+        # adjust gain of input depending on the oscilloscope internal impedance being used
         try:
 
             #  1Mohm input resistance when in single ended input mode
@@ -122,6 +142,7 @@ def data_acquisition(data_queue,
             print("[DATA_ACQUISITION THREAD] Failed to create datapoints!")
             sys.exit(1)
 
+        # Set all the measurements in the object electrospray_data
         try:
 
             electrospray_data = ElectrosprayMeasurements(liquid, datapoints, voltage_from_PS, flow_rate, temperature,
@@ -136,6 +157,7 @@ def data_acquisition(data_queue,
             print("[DATA_ACQUISITION THREAD] Failed to ElectrosprayMeasurements")
             sys.exit(1)
 
+        # put values on the next queue
         try:
 
             # put values in the queue

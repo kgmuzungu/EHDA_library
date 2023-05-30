@@ -4,60 +4,69 @@
 # Main code Tutorial: (mainElectrospray.py)
 
 
-#### 1. Open the file: mainElectrospray.py
+In order to properly use the software the following steps should be followed:
 
-#### 2. Verify the file that is indicated in the variable "name_setup" in the url indicated in the variable "setup". 
+### 1
+Turn on all the devices (HS camera, FUG power supply, Wifi Oscilloscope, Back-light, Air flow and Syringe pump).
 
-    2.1. The "setup" indicates the url of where the file is located. 
+### 2
+Turn on the computer, open the high speed camera software (PHOTRON). Click on update button on top-right in order to connect to the camera. Adjust the camera zoom and focus.
+
+### 3
+Open pycharm software with the code installed. (Or any IDE of preference).
+
+### 4
+Turn on the Wifi Oscilloscope and connect to it in the wifi of the computer. {(ATTENTION: Disconnect the oscilloscope Charger in order the avoid power line noise. Noise in oscilloscope measurement can block the classification to work.)}
+
+### 5
+Change the {save_path} attribute in file {/setup/nozzle/mapsetup.json} with the directory and filename where the program output should be saved.
+
+### 6
+Change the necessary attributes in file {/setup/nozzle/mapsetup.json} with the setup being used.
+
+### 7
+In case of running a control experiment. Change in file {/setup/nozzle/controlsetup.json} and in file {mainElectrospray.py} around line 32 change the variable {name_setup} to controlsetup.
+
+### 8
+Go to file {mainElectrospray.py}, click with right button and click the option {"run mainElectrospray.py"}
+{(ATTENTION: The syringe pump must not be pumping when the software turns on, otherwise the commands sent to the syringe pump will be ignored by the pump.)}
+
+### 9
+Wait until the program finishes and the message "SAVE DATA THREAD FINISHED" to close it properly. In case of emergency the button "Q" can be pressed and hold for 5 seconds and the code will try to close all threads. The finishing process can take up to 1 minute to all be closed.
+
+
+# Most Common Errors
+
+### Failed connect to TiePie
+
+    This error happens when the software could not connect to TiePie Wireless Oscilloscope.
     
-    2.2. Open this file.
+    For that: 
 
-#### 3. Verify if the properties of the setup like "nozzle color", "camera to nozzle distance", "config", "nozzle to plate or ring distance", "nozzle diameter", "nozzle outside", "nozzle height", "high voltage", "diameter syringe", "units", "coflow gas type" is the same as yours in the 2.1.
-
-    3.1. If not, create a json file in the "setup" folder with all the information and change the assignment string of the variable "name_setup" with the file created.
-
-#### 4. Verify the file that is indicated in the variable "name_liquid" in the url indicated in the variable "liquid" url. 
-
-    4.1. The "liquid" indicates the url of where the file is located. Open this file.
-    4.2. You need to know which liquid you are dealing.
-
-#### 5. If you would like to save all the information, the boolean assignment of the "VAR_BIN_CONFIG" should be = TRUE. If not, = FALSE.
-
-#### 6. If you would like to have a voltage regime of RAMP, the boolean assignment of the "MODERAMP" should be = TRUE. 
-
-    6.1. The RAMP mode is combined with the arbitrary assigment " number_measurements = 50 " because I saw that it is a good size for saving.
-    6.2. The line from 221 until 226 indicates the information about txt_mode, slope, voltage_start, voltage_stop, step_size=0 and step_time=0. 
-        6.2.1. Step_size and step_time = 0 because it is in the ramp mode. 
-    6.3. Be sure that there is only one variable "number_measurments" assigment.
- 
-#### 7. If you would like to have a voltage regime of STEP, the boolean assignment of the "MODERAMP" should be = FALSE.
-
-    7.1. The STEP mode is combined with the arbitrary assigment " number_measurements = 100 " because I saw that it is a good size for saving.
-    7.2. The line from 208 until 213 indicates the information about txt_mode, slope, [](plot_generated)voltage_start, voltage_stop, step_size and step_time. Very intuitive what this means.
-
-#### 8. To set the flow rate you can do in the software SyringePumpPro or manually in the pump.
+## 1
+ Check if the oscilloscope is connected to the wifi of the computer.
+## 2
+ Try to re-run the code.
     
-    8.1. Verify if the flow rate (in the same file as 1) in the float variable assigment " Q = " is the one that you set. Make sure it is uL/h.
-    8.2. Useful commands for pump, check the manual of the SeryngePumpPro : 
+
+### Failed connect to Fug - Power Supply
+
+    This error happens when the software could not connect to fug High Voltage Power Supply.
+
+    Normally this happens because the usb port that is connected on the computer is different than the one the software is trying to read.
     
-    *ADR0 
-    RAT 5.0 [uL/h] 
-    *BUZ5
-    *VER \
-    
-    8.3. Do not format the PC or you will lose the license of this software.
+    For that: 
 
-#### 9. Verify if the path is the one that you would like to save in the variable "save_path".
+## 1 
+Try to run the code. Initially the code scan the ports available in the computer and shows which device is connected to each USB port.
+## 2
+Go to the file {mainElectrospray.py} around line 58 where is commented { PORTS} you should corretly input the port which is connected each device.
 
-#### 10. Camera configuration
 
-    10.1  Open FPV4 photron camera software.
-    10.2  Press update button to recognize camera.
-    10.3  Load "EHDA_camera_setup.pcsx" file in camera software. This file has all pre setted confiuration to make this trigger work.
-    10.4  If necessary change camera partitions, framerate speed and saving location.
-    10.5  Verify if variable arduino_com_port is correct. 
+### Syringe Pump is not pumping in desired flow rates
 
-#### 11. Run the mainElectrospray.py file.
+    The software probably started with the pump in state {pumping}. In Order to work you can press the button "Start/Stop pump" in the syringe pump and the next command sent to the pump should work.
+
 
 
 
@@ -98,7 +107,6 @@ grafana:
 TiePie-WS6D-37426
 
 TiePie-WS6D-37427
-
 
 
 # wpa_supplicant.conf 

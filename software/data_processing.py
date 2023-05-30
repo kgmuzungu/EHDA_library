@@ -1,3 +1,7 @@
+"""
+TITLE: data processing thread function
+"""
+
 from FUG_functions import *
 from scipy.signal import butter, lfilter
 
@@ -29,22 +33,20 @@ def data_processing(data_queue,
 
     electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
 
-    # THREAD LOOP
+    #  *************************************
+    # 	thread main loop
+    #  *************************************
     print("[DATA_PROCESSING THREAD] starting loop")
     while not finish_event.is_set():
 
-        # wait for first value
+        # get value from the queue
         while data_queue.empty():
             time.sleep(0.1)
-
         electrospray_data  = data_queue.get()
-
-
         # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
+        # low pass filter to flatten out noise
         try:
-
-            # low pass filter to flatten out noise
             cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
             b, a = butter(6, Wn=cutoff_freq_normalized, btype='low', analog=False)  # first argument is the order of the filter
             datapoints_filtered = lfilter(b, a, electrospray_data.data)
@@ -54,6 +56,7 @@ def data_processing(data_queue,
             print("[DATA_PROCESSING THREAD] Failed to filter points!")
             sys.exit(1)
 
+        # calculate statistics
         try:
 
             electrospray_processing.calculate_filter(a, b, electrospray_data.data)
@@ -72,28 +75,25 @@ def data_processing(data_queue,
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to process data")
 
-        try:
 
-            # Validation through the Chen_Pui Article
+        # Validation through the Chen_Pui Article
+        try:
             electrospray_validation.calculate_scaling_laws_cone_jet(electrospray_data.data,
                                                                     electrospray_processing.mean_value,
                                                                     electrospray_data.flow_rate)
             # print("alpha:", electrospray_validation.alpha_chen_pui * 10e10)
-            cone_jet_mean = electrospray_validation.I_emitted_chen_pui  * 10e5
 
         except Exception as e:
             print("ERROR: ", str(e))
             print("[DATA_PROCESSING THREAD] Failed to electrospray_validation")
-            cone_jet_mean = 1000 # just if fail doesnt mess the classification of cone jet
 
 
 
-
+        # call automatic classification function
         try:
 
             # if change flowrate restart conejet mean values
             if(electrospray_data.flow_rate != previous_flowrate):
-                cone_jet_mean = 0
                 previous_flowrate = electrospray_data.flow_rate
 
 
@@ -118,6 +118,7 @@ def data_processing(data_queue,
             sys.exit(1)
 
 
+        # update current classification and put values on the saving and controller feedback queues
         try:
 
             current_shape = classification_txt,
@@ -144,13 +145,11 @@ def data_processing(data_queue,
             print("[DATA_PROCESSING THREAD] Failed to put value in save_data_queue")
 
 
+        # put values in the plotting queue
         try: 
-
-            # put values in the plotting queue
             if(plot_real_time):
                 message = [electrospray_data, datapoints_filtered, time_step, electrospray_processing, classification_txt, txt_max_peaks]
                 plotting_data_queue.put(message)
-
             # print(f"[DATA_PROCESSING THREAD] put data sample \f{sample} in plotting_data_queue")
 
         except Exception as e:

@@ -1,3 +1,6 @@
+"""
+TITLE: Configuration file and functions for the High Voltage Power Supply
+"""
 
 # package needed to list available COM ports
 import serial.tools.list_ports

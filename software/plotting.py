@@ -1,3 +1,8 @@
+"""
+TITLE:PLOTTING FUNCTION
+WARNING: THIS IS NOT A THREAD -> MATPLOTLIB JUST WORKS ON THE MAIN THREAD
+"""
+
 import numpy as np
 from FUG_functions import *
 import matplotlib.pyplot as plt

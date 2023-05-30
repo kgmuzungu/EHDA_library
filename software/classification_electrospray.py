@@ -1,3 +1,7 @@
+#  *************************************
+# 	Class classification
+#  *************************************
+
 import itertools
 import os
 import re
@@ -177,13 +181,6 @@ class ElectrosprayClassification:
 
 
 
-
-
-
-    def open_load_json_data(self, filename):
-        with open(filename) as json_file:
-            self.data_dict = json.load(json_file)
-            print("\nconfig liquid:", self.data_dict['config']['liquid'])
 
     def read_print_json(liquid):
         f = open(liquid + ".json")

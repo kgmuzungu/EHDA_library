@@ -1,3 +1,7 @@
+"""
+TITLE: Configuration file and functions for the syringe Pump
+"""
+
 import time
 import serial
 import sys

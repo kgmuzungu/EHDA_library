@@ -1,3 +1,8 @@
+"""
+TITLE: Controller thread function
+AUTHOR: 乔昂  @jueta
+DATE: 21/10/2022
+"""
 
 from FUG_functions import *
 from PUMP_functions import *
@@ -5,6 +10,10 @@ import keyboard
 
 
 def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM_port, pump_COM_port, feedback_queue, syringe_diameter):
+
+    #  *************************************
+    # 	Initiate actuators
+    #  *************************************
 
     #              FUG INIT
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
@@ -14,12 +23,17 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         print("ERROR: ", str(e))
         print("[CONTROLLER THREAD] FAILED TO COMMUNICATE WITH POWER SUPPLY!")
         sys.exit(1)
-
     voltage = typeofmeasurement['voltage_start']
+
 
     #              PUMP INIT
     obj_pump_com = PUMP_initialize(pump_COM_port)  # parameter: COM port idx
     flow_rate = typeofmeasurement['flow_rate']
+
+
+    #  *************************************
+    # 	Routine Sequences
+    #  *************************************
 
 
     #           STEP SEQUENCE

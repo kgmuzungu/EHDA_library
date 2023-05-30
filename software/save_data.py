@@ -1,3 +1,8 @@
+"""
+TITLE: saving data thread function
+"""
+
+
 import os
 import time
 import sys
@@ -13,16 +18,15 @@ def save_data(
             electrospray_config_liquid_setup_obj,
             electrospray_config_setup
             ):
+    
 
+    # if config file is configured to save the data
     if electrospray_config_setup["save_json"]:
 
         try:
-
             # electrospray_config_liquid_setup_obj.set_comment_current(current_shape_comment)
-
             electrospray_config_liquid_setup_obj.set_type_of_measurement(typeofmeasurement)
             aux_obj = electrospray_config_liquid_setup_obj.get_dict_config()
-
             # if FLAG_PLOT:
             #     electrospray_classification.plot_sjaak_cone_jet()
             #     electrospray_classification.plot_sjaak_classification()
@@ -58,20 +62,21 @@ def save_data(
 
 
 
-        #
-        #     THREAD LOOP
-        #
+
+        #  *************************************
+        # 	thread main loop
+        #  *************************************
 
         with jsonstreams.Stream(jsonstreams.Type.OBJECT, filename=save_path+"/data.json", indent=4, pretty=True) as s:
             
             sample = 0
             print("[SAVE DATA THREAD] starting saving samples")
 
+
             while not finish_event.is_set():
-                # wait for first value
+                # get values from the queue
                 while save_data_queue.empty():
                     time.sleep(0.1)
-
                 # print("[SAVING] before get, queue size:", save_data_queue.qsize())
                 data_measurement, data_processing = save_data_queue.get() # block=True, timeout=None)  # expecting a list with two dictionary objects
                 # print("[SAVING] after get, queue size:", save_data_queue.qsize())

@@ -1,5 +1,5 @@
 #  *************************************
-# 	Camera trigger send code for arduino
+# 	Code for connect to arduino and send a analog signal trigger to make camera start reccording
 # 	AUTHOR: 乔昂
 # 	DATE: 26/10/2022
 #  *************************************
