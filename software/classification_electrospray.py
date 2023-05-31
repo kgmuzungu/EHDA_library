@@ -157,6 +157,43 @@ class ElectrosprayClassification:
         #     print("ERROR: ", str(e))
         #     print("Error on João classification")
 
+        #second thing
+
+        # try:
+        #     # print(self.previous_states[-5:])
+        #     # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
+        #     if(classification_txt == "Cone Jet") and cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
+        #         cone_jet_mean = mean
+
+        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
+        #         if(mean > 1.14 * cone_jet_mean):
+        #             classification_txt = "Multi Jet"
+        #     # print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
+            
+        # except Exception as e:
+        #     print("ERROR: ", str(e)) 
+        #     print("Error on João classification")
+
+        # try:
+        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
+        #         if(mean > 1.14 * cone_jet_mean):
+        #             classification_txt = "Multi Jet"
+        #
+        #     print("Multi jet treshold mean value: ", cone_jet_mean * 1.14)
+        #
+        # except Exception as e:
+        #     print("ERROR: ", str(e))
+        #     print("Error on João classification")
+
+        #
+        #       Correcting some wrongly classified modes by the system knowledge and memory
+        #
+        # try:
+        #     if(classification_txt == "Dripping") and (self.previous_states[-1] == "Cone Jet" or self.previous_states[-1] == "Multi Jet"):
+        #         classification_txt = "Undefined"       
+        # except Exception as e:
+        #     print("ERROR: ", str(e)) 
+        #     print("Error on correcting classification")
 
 
         self.previous_states.append(classification_txt)
