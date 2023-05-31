@@ -33,8 +33,10 @@ class ElectrosprayClassification:
         self.permitivity = 0
         self.rho = 0
         self.density = 0
+        self.cone_jet_mean = 0
 
 
+        
 
 
     def do_classification(
@@ -145,45 +147,37 @@ class ElectrosprayClassification:
         # #
         # #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
 
-        # print("current mean [nA]: ", mean)
-        # print("current std deviation [nA]:", stddeviation)
-        #
-        # try:
-        #     print("I chen pui:", I_chen_pui)  # Cone Jet mean current calculated by Chen&Pui Scaling Laws (See the formula in validation_electrospray file)
-        #     if(classification_txt == "Cone Jet"):
-        #         if(mean > 1.14 * I_chen_pui):   # 1.14 above was calculated experimentally for pure ethanol
-        #             classification_txt = "Multi Jet"
-        # except Exception as e:
-        #     print("ERROR: ", str(e))
-        #     print("Error on João classification")
+        print("current mean [nA]: ", mean)
+        print("current std deviation [nA]:", stddeviation)
 
-        #second thing
+        if False:
+            try:
+                print("I chen pui:", I_chen_pui)  # Cone Jet mean current calculated by Chen&Pui Scaling Laws (See the formula in validation_electrospray file)
+                if(classification_txt == "Cone Jet"):
+                    if(mean > 1.14 * I_chen_pui):   # 1.14 above was calculated experimentally for pure ethanol
+                        classification_txt = "Multi Jet"
+            except Exception as e:
+                print("ERROR: ", str(e))
+                print("Error on João classification")
 
-        # try:
-        #     # print(self.previous_states[-5:])
-        #     # if it happens a step sized of 1.5x or higher to the mean value of cone jet is probably because achieved Multi jet
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
-        #         cone_jet_mean = mean
 
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
-        #         if(mean > 1.14 * cone_jet_mean):
-        #             classification_txt = "Multi Jet"
-        #     # print("Multi jet minimum mean value: ", cone_jet_mean * 1.14)
-            
-        # except Exception as e:
-        #     print("ERROR: ", str(e)) 
-        #     print("Error on João classification")
+        if True: # classifiying Multi jet by cone jet mean of previous classifications
+            try:
+                print(self.previous_states[-5:])
+                if(classification_txt == "Cone Jet") and self.cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
+                    self.cone_jet_mean = mean
 
-        # try:
-        #     if(classification_txt == "Cone Jet") and cone_jet_mean != 0:
-        #         if(mean > 1.14 * cone_jet_mean):
-        #             classification_txt = "Multi Jet"
-        #
-        #     print("Multi jet treshold mean value: ", cone_jet_mean * 1.14)
-        #
-        # except Exception as e:
-        #     print("ERROR: ", str(e))
-        #     print("Error on João classification")
+                if(classification_txt == "Cone Jet") and self.cone_jet_mean != 0:
+                    if(mean > 1.14 * self.cone_jet_mean):
+                        classification_txt = "Multi Jet"
+
+
+            except Exception as e:
+                print("ERROR: ", str(e))
+                print("Error on João classification")
+
+
+
 
         #
         #       Correcting some wrongly classified modes by the system knowledge and memory
@@ -194,6 +188,7 @@ class ElectrosprayClassification:
         # except Exception as e:
         #     print("ERROR: ", str(e)) 
         #     print("Error on correcting classification")
+
 
 
         self.previous_states.append(classification_txt)
