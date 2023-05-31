@@ -285,10 +285,12 @@ class ElectrosprayDataProcessing:
 
     def calculate_peaks_signal(self, data):
         quantity_max_data = 0
-        max_data = max(data)
-        for i in range(0, int(len(data))):
-            if data[i] == max_data:
-                quantity_max_data = quantity_max_data + 1
+        # max_data = max(data)
+        max_data = 2000.0
+        # for i in range(0, int(len(data))):
+        #     if data[i] >= max_data:
+        #         quantity_max_data = quantity_max_data + 1
+        quantity_max_data = np.count_nonzero(data == max_data)
         percentage_max = (quantity_max_data / 50000) * 100
         # print(max_data)
         # print(quantity_max_data)

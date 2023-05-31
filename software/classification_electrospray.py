@@ -109,27 +109,17 @@ class ElectrosprayClassification:
         #       MONICA   -> Is capable of classifiying Corona Discharges
         #
 
-        # try:
+        try:
             # use of fft_max_peaks_array (defined in the function calculate_peaks_fft of electrospray.py)
             # PEAKS SIGNAL
             # print("****************** MAX = " + str(max_value_of_the_data))
 
-            # if float(max_value_of_the_data) >= 900.0:
-            #     if (float(flow_rate) / (2.7778e-7 * 10e-6)) <= 200.0:  # uL/h
-            #         if float(max_value_of_the_data) >= 2000.0:
-            #             classification_txt =  "Corona"
-            #         if percentage_max >= 0.0001:
-            #             classification_txt =  "Corona"
-            #         if quantity_max_data >= 5.0:
-            #             classification_txt =  "Corona"
-
-            #     if (float(flow_rate) / (2.7778e-7 * 10e-6)) >= 200.0:  # uL/h
-            #         if float(max_value_of_the_data) >= 2000.0:
-            #             classification_txt =  "Corona"
-            #         if percentage_max >= 0.5:
-            #             classification_txt =  "Corona"
-            #         if quantity_max_data >= 10.0:
-            #             classification_txt =  "Corona"
+            # if float(max_value_of_the_data) >= 2000.0:  # if a single data point is equal or greater than 2microAmp = 2000
+                # classification_txt =  "Corona"
+            if percentage_max >= .5:  # percentage of values >= 2000.0nA in one data set of 50kpts, like 10.4 for 10.4%
+                classification_txt = "Corona"
+            # if quantity_max_data >= 5.0:
+                # classification_txt =  "Corona"
 
             # PEAKS FFT
             # fft_max_peaks_array has info about the frequency and amplitude
@@ -155,23 +145,17 @@ class ElectrosprayClassification:
         # #
         # #       JOAO 乔昂   -> Is capable of classifiying Multi Jet
 
-        print("current mean [nA]: ", mean)
-        print("current std deviation [nA]:", stddeviation)
-
+        # print("current mean [nA]: ", mean)
+        # print("current std deviation [nA]:", stddeviation)
+        #
         # try:
         #     print("I chen pui:", I_chen_pui)  # Cone Jet mean current calculated by Chen&Pui Scaling Laws (See the formula in validation_electrospray file)
         #     if(classification_txt == "Cone Jet"):
         #         if(mean > 1.14 * I_chen_pui):   # 1.14 above was calculated experimentally for pure ethanol
         #             classification_txt = "Multi Jet"
-        #
-        #
         # except Exception as e:
         #     print("ERROR: ", str(e))
         #     print("Error on João classification")
-
-
-
-
 
 
 
