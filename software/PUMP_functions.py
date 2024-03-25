@@ -56,26 +56,28 @@ def PUMP_initialize(com_port_idx):
     # print out user information
     # get available COM ports and store as list
     com_ports = list(serial.tools.list_ports.comports())
+    print(f'[PUMP] in pump initializing on port index {com_port_idx} port name {com_ports[com_port_idx].device}')
     # get number of available COM ports
     no_com_ports = len(com_ports)
 
     if no_com_ports > 0:
 
-        # configure the COM port to talk to. Default values: 115200,8,N,1
-        com_port = serial.Serial(
-            port=com_ports[com_port_idx].device,  # chosen COM port
-            baudrate=19200,  #
-            bytesize=serial.EIGHTBITS,  # 8
-            parity=serial.PARITY_NONE,  # N
-            stopbits=serial.STOPBITS_ONE,  # 1
-            timeout = 1
-        )
+
         try:
+            # configure the COM port to talk to. Default values: 115200,8,N,1
+            com_port = serial.Serial(
+                port=com_ports[com_port_idx].device,  # chosen COM port
+                baudrate=19200,  #
+                bytesize=serial.EIGHTBITS,  # 8
+                parity=serial.PARITY_NONE,  # N
+                stopbits=serial.STOPBITS_ONE,  # 1
+                timeout=1
+            )
             if com_port.is_open:
                 com_port.flushInput()
                 com_port.flushOutput()
-                print('[PUMP] PUMP initialized!')
-                # print("[PUMP] PUMP Opened Port: " + com_ports[com_port_idx].device)
+                print(f'[PUMP] PUMP initialized!')
+                print("[PUMP] PUMP Opened Port: " + com_ports[com_port_idx].device)
                 return com_port
         except Exception as e:
             print('[PUMP] FAILED TO INITIALIZE PUMP')

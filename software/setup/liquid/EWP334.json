@@ -1,0 +1,12 @@
+{
+    "name": "Ethanol 30% Water 30% PEG 40%",
+    "surface tension": 0.0319,
+    "dielectric const": 24.3,
+    "viscosity": 1412.8,
+    "density": 886,
+    "electrical conductivity": 0.0000506,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+    "rho density": 789,
+    "slope": 10.0
+}

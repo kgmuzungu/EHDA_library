@@ -16,7 +16,7 @@ from FUG_functions import *
 from controller import *
 import cameraTrigger
 import data_acquisition
-import plotting 
+import plotting
 import data_processing
 import save_data
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 # # # **************************************
 
 
-    finish_event = threading.Event()  # controller thread decide when finish_event must me True
+    finish_event = threading.Event()  # controller thread decide when finish_event must me True 
 
     sampling_frequency = 1e5  # 100000
 
@@ -63,6 +63,7 @@ if __name__ == '__main__':
     arduino_COM_port = electrospray_config_setup["arduino_com_port"]
     fug_COM_port = electrospray_config_setup["fug_com_port"]
     pump_COM_port = electrospray_config_setup["pump_com_port"]
+    print(f"[MAIN ELECTROSPRAY] fug com port {fug_COM_port}")
 
 
 # # # **************************************

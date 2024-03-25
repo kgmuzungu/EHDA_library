@@ -81,17 +81,17 @@ if scp:
         scp.pre_sample_ratio = 0  # 0 %
 
         # For 1 channel:
-        scp.channels[0].enabled = True
-        scp.channels[0].range = 8  # in V
-        scp.channels[0].coupling = libtiepie.CK_DCV # DC Volt
-        scp.channels[0].trigger.enabled = True
-        scp.channels[0].trigger.kind = libtiepie.TK_RISINGEDGE
-        scp.channels[1].enabled = False
+        scp.channels[1].enabled = True
+        scp.channels[1].range = 8  # in V
+        scp.channels[1].coupling = libtiepie.CK_DCV # DC Volt
+        scp.channels[1].trigger.enabled = True
+        scp.channels[1].trigger.kind = libtiepie.TK_RISINGEDGE
+        scp.channels[0].enabled = False
         scp.channels[2].enabled = False
         scp.channels[3].enabled = False
 
         # Setup channel trigger:
-        ch = scp.channels[0]  # Ch 1
+        ch = scp.channels[1]  # Ch 1
         # Enable trigger source:
         ch.trigger.enabled = True
 
@@ -99,10 +99,10 @@ if scp:
         ch.trigger.kind = libtiepie.TK_RISINGEDGE  # Rising edge
 
         # Level:
-        ch.trigger.levels[0] = 0.5  # 50 %
+        ch.trigger.levels[1] = 0.5  # 50 %
 
         # Hysteresis:
-        ch.trigger.hystereses[0] = 0.05  # 5 %
+        ch.trigger.hystereses[1] = 0.05  # 5 %
         # Set trigger timeout:
         scp.trigger_time_out = 100e-3  # 100 ms
 
@@ -125,7 +125,7 @@ if scp:
         # Get data:
         data = scp.get_data()
         time_now = _datetime.date.today()
-        datapoints = np.array(data[0]) * 1000
+        datapoints = np.array(data[1]) * 1000
         possible_class = ['dripping', 'cone-jet', 'multi-jet']
         host = 'localhost'  # Change this as necessary
         # port = 25826
@@ -159,7 +159,7 @@ if scp:
             # for i in range(len(data)):
             csv_file.write(';Ch' + str(1))
             csv_file.write(os.linesep)
-            for i in range(len(data[0])):
+            for i in range(len(data[1])):
                 csv_file.write(str(i))
                 # for j in range(len(data)):
                 csv_file.write(';' + str(datapoints[i]))

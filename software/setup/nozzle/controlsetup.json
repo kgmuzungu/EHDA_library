@@ -22,14 +22,14 @@
     "name_liquid" : "ethanol",
     "arduino_com_port" : 1,
     "fug_com_port" : 2,
-    "pump_com_port" : 0,
+    "pump_com_port" : 6,
     "typeofmeasurement": {
         "sequence": "robust_control",
         "voltage_start": 0,
         "voltage_stop": 8000,
         "slope": 1000000,
         "step_size": 50,
-        "step_time": 3,
+        "step_time": 1,
         "flow_rate": "0.5"
     }
 }

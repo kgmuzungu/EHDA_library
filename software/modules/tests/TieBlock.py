@@ -19,9 +19,7 @@ from scipy.signal import butter, lfilter
 from threading import Thread
 from threading import Condition, Lock
 import json
-import statistics
-import networkx as nx
-from matplotlib.animation import FuncAnimation, PillowWriter
+
 
 # matplotlib.use('Qt5Agg')
 
@@ -109,19 +107,21 @@ if __name__ == "__main__":
                 scp.pre_sample_ratio = 0  # 0 %
 
                 # For 1 channel:
-                scp.channels[0].enabled = True
-                scp.channels[0].range = 8  # in V
-                scp.channels[0].coupling = libtiepie.CK_DCV
-                scp.channels[0].trigger.enabled = True
-                scp.channels[0].trigger.kind = libtiepie.TK_RISINGEDGE
-                scp.channels[1].enabled = False
+                scp.channels[1].enabled = True
+                scp.channels[1].range = 8  # in V
+                scp.channels[1].coupling = libtiepie.CK_DCV
+                scp.channels[1].trigger.enabled = True
+                scp.channels[1].trigger.kind = libtiepie.TK_RISINGEDGE
+                scp.channels[0].enabled = False
                 scp.channels[2].enabled = False
                 scp.channels[3].enabled = False
 
                 # Setup channel trigger:
-                ch = scp.channels[0]  # Ch 1
+                ch = scp.channels[1]  # Ch 1
                 # Enable trigger source:
                 ch.trigger.enabled = True
+
+                ch.safe_ground_enabled = True
 
                 # Kind:
                 ch.trigger.kind = libtiepie.TK_RISINGEDGE  # Rising edge
@@ -146,9 +146,10 @@ if __name__ == "__main__":
                     time.sleep(0.050)  # 50 ms delay, to save CPU time
 
                 # Get data:
+                print(f"SAFEGROUNDS: {ch.safe_ground_enabled}")
                 data = scp.get_data()
                 time_now = datetime.now()
-                datapoints = np.array(data[0]) * 1000
+                datapoints = np.array(data[1]) * 1000
 
                 # low pass filter to flatten out noise
                 cutoff_freq_normalized = 3000 / (0.5 * sampling_frequency)  # in Hz
@@ -217,7 +218,7 @@ if __name__ == "__main__":
                     for i in range(len(data)):
                         csv_file.write(';Ch' + str(i + 1))
                     csv_file.write(os.linesep)
-                    for i in range(len(data[0])):
+                    for i in range(len(data[1])):
                         csv_file.write(str(i))
                         for j in range(len(data)):
                             csv_file.write(';' + str(data[j][i]))

@@ -18,7 +18,7 @@ def FUG_initialize(com_port_idx):
     no_com_ports = len(com_ports)
 
     if no_com_ports > 0:
-        print("Total no. of available COM ports: " + str(no_com_ports))
+        print("[FUG] Total no. of available COM ports: " + str(no_com_ports))
         # show all available COM ports
         for idx, curr in enumerate(com_ports):
             print("  " + str(idx) + ".)  " + curr.description)
@@ -28,6 +28,7 @@ def FUG_initialize(com_port_idx):
             return None
 
         # configure the COM port to talk to. Default values: 115200,8,N,1
+        print(f"[FUG] trying to setup port {com_ports[com_port_idx].device}")
         com_port = serial.Serial(
             port=com_ports[com_port_idx].device,  # chosen COM port
             baudrate=115200,  # 115200

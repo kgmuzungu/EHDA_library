@@ -1,0 +1,12 @@
+{
+    "name": "Glycerol pure",
+    "surface tension": 0.0630,
+    "dielectric const": 24.3,
+    "viscosity": 1412.8,
+    "density": 1261,
+    "electrical conductivity": 0.000048,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+    "rho density": 789,
+    "slope": 10.0
+}

@@ -64,7 +64,7 @@ def data_acquisition(data_queue,
         # print_device_info(scp)
         print('[DATA_ACQUISITION THREAD] Oscilloscope initialized!')
     except Exception as e:
-        print("ERROR: ", str(e))
+        print("[DATA_ACQUISITION THREAD] ERROR: ", str(e))
         print("[DATA_ACQUISITION THREAD] Failed to config tie pie!")
         sys.exit(1)
 
@@ -133,9 +133,10 @@ def data_acquisition(data_queue,
         # adjust gain of input depending on the oscilloscope internal impedance being used
         try:
 
-            #  1Mohm input resistance when in single ended input mode
+            # 1Mohm input resistance when in single ended input mode
             # 2Mohm default input resistance
-            datapoints = np.array(data[0]) * multiplier_for_nA
+            # !!!! change data[x] the x according to the channel used !!!
+            datapoints = np.array(data[1]) * multiplier_for_nA
 
         except Exception as e:
             print("ERROR: ", str(e))

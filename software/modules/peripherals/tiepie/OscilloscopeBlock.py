@@ -63,7 +63,7 @@ if scp:
             ch.trigger.enabled = False
 
         # Setup channel trigger:
-        ch = scp.channels[0]  # Ch 1
+        ch = scp.channels[1]  # Ch 1
 
         # Enable trigger source:
         ch.trigger.enabled = True
@@ -72,10 +72,10 @@ if scp:
         ch.trigger.kind = libtiepie.TK_RISINGEDGE  # Rising edge
 
         # Level:
-        ch.trigger.levels[0] = 0.5  # 50 %
+        ch.trigger.levels[1] = 0.5  # 50 %
 
         # Hysteresis:
-        ch.trigger.hystereses[0] = 0.05  # 5 %
+        ch.trigger.hystereses[1] = 0.05  # 5 %
 
         # Print oscilloscope info:
         print_device_info(scp)
@@ -97,7 +97,7 @@ if scp:
             for i in range(len(data)):
                 csv_file.write(';Ch' + str(i + 1))
             csv_file.write(os.linesep)
-            for i in range(len(data[0])):
+            for i in range(len(data[1])):
                 csv_file.write(str(i))
                 for j in range(len(data)):
                     csv_file.write(';' + str(data[j][i]))

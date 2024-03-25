@@ -16,17 +16,19 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
     #  *************************************
 
     #              FUG INIT
+    print("[CONTROLLER THREAD] before FUG init!")
     obj_fug_com = FUG_initialize(fug_COM_port)  # parameter: COM port idx
     try:
         get_voltage_from_PS(obj_fug_com)
     except Exception as e:
-        print("ERROR: ", str(e))
+        print("[CONTROLLER THREAD] ERROR: ", str(e))
         print("[CONTROLLER THREAD] FAILED TO COMMUNICATE WITH POWER SUPPLY!")
         sys.exit(1)
     voltage = typeofmeasurement['voltage_start']
 
 
     #              PUMP INIT
+    print("[CONTROLLER THREAD] Start pump config!")
     obj_pump_com = PUMP_initialize(pump_COM_port)  # parameter: COM port idx
     flow_rate = typeofmeasurement['flow_rate']
 
@@ -45,13 +47,23 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
         if (get_voltage_from_PS(obj_fug_com) < typeofmeasurement['voltage_start'] or get_voltage_from_PS(obj_fug_com) > typeofmeasurement['voltage_start']):
             time.sleep(typeofmeasurement['step_time'])
 
-        while voltage < typeofmeasurement['voltage_stop']:
-            FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
-            time.sleep(typeofmeasurement['step_time'])
-            controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
-            voltage += typeofmeasurement['step_size']
-            controller_output_queue.put(controller_output)
-            # print("[FUG THREAD] put values in controller_output_queue")
+        # while voltage < typeofmeasurement['voltage_stop']:
+        if (typeofmeasurement['voltage_start'] > typeofmeasurement['voltage_stop']):
+            while voltage > typeofmeasurement['voltage_stop']:
+                FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
+                time.sleep(typeofmeasurement['step_time'])
+                controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+                voltage += typeofmeasurement['step_size']
+                controller_output_queue.put(controller_output)
+                # print("[FUG THREAD] put values in controller_output_queue")
+        else:
+            while voltage < typeofmeasurement['voltage_stop']:
+                FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
+                time.sleep(typeofmeasurement['step_time'])
+                controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, flow_rate]
+                voltage += typeofmeasurement['step_size']
+                controller_output_queue.put(controller_output)
+                # print("[FUG THREAD] put values in controller_output_queue")
 
         finish_event.set()
 
@@ -105,20 +117,34 @@ def controller(typeofmeasurement, finish_event, controller_output_queue, fug_COM
             beep_command(obj_pump_com)
 
             # Voltage loop
-            while voltage < typeofmeasurement['voltage_stop']:
-
-                FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
-                time.sleep(typeofmeasurement['step_time']/2)
-                controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
-                time.sleep(typeofmeasurement['step_time']/2)
-                voltage += typeofmeasurement['step_size']
-                controller_output_queue.put(controller_output)
-                # print("[FUG THREAD] put values in controller_output_queue")
-                # EXIT CONTROL SEQUENCE
-
-                if keyboard.is_pressed("q"):
-                    print("You pressed q")
-                    finish_event.set()
+            if (typeofmeasurement['voltage_start'] > typeofmeasurement['voltage_stop']):
+                # going down with the voltage
+                while voltage > typeofmeasurement['voltage_stop']:
+                    FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
+                    time.sleep(typeofmeasurement['step_time']/2)
+                    controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
+                    time.sleep(typeofmeasurement['step_time']/2)
+                    voltage += typeofmeasurement['step_size']
+                    controller_output_queue.put(controller_output)
+                    # print("[FUG THREAD] put values in controller_output_queue")
+                    # EXIT CONTROL SEQUENCE
+                    if keyboard.is_pressed("q"):
+                        print("You pressed q")
+                        finish_event.set()
+            else:
+                #going up with the voltage
+                while voltage < typeofmeasurement['voltage_stop']:
+                    FUG_sendcommands(obj_fug_com, ['U ' + str(voltage)])
+                    time.sleep(typeofmeasurement['step_time']/2)
+                    controller_output = [get_voltage_from_PS(obj_fug_com), get_current_from_PS(obj_fug_com), voltage, fr]
+                    time.sleep(typeofmeasurement['step_time']/2)
+                    voltage += typeofmeasurement['step_size']
+                    controller_output_queue.put(controller_output)
+                    # print("[FUG THREAD] put values in controller_output_queue")
+                    # EXIT CONTROL SEQUENCE
+                    if keyboard.is_pressed("q"):
+                        print("You pressed q")
+                        finish_event.set()
 
             stop_pumping(obj_pump_com)
             time.sleep(0.5)

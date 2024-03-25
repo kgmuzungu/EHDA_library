@@ -1,0 +1,12 @@
+{
+    "name": "Ethanol 85% Water 15%",
+    "surface tension": 0.02309,
+    "dielectric const": 24.3,
+    "viscosity": 1412.8,
+    "density": 795,
+    "electrical conductivity": 0.000047,
+    "unit system": "SI",
+    "vacuum permitivity": 8.85e-12,
+    "rho density": 789,
+    "slope": 10.0
+}

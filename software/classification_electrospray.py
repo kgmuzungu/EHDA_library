@@ -12,7 +12,7 @@ import math
 
 
 class ElectrosprayClassification:
-    
+
     def __init__(self, name_liquid):
         self.name_liquid = name_liquid
         self.all_data = []
@@ -36,7 +36,7 @@ class ElectrosprayClassification:
         self.cone_jet_mean = 0
 
 
-        
+
 
 
     def do_classification(
@@ -63,7 +63,7 @@ class ElectrosprayClassification:
         #
 
         try:
-                
+
             if mean != 0:
                 self.sjaak_std_mean = (stddeviation / mean)
                 # print("std/mean = %f ;" % (self.sjaak_std_mean))
@@ -103,7 +103,7 @@ class ElectrosprayClassification:
                 # print("Sjaak txt do_sjaak = ", classification_txt)
 
         except Exception as e:
-            print("ERROR: ", str(e)) 
+            print("ERROR: ", str(e))
             print("Error on Sjaaks classification")
 
 
@@ -140,7 +140,7 @@ class ElectrosprayClassification:
             return ("Signal to Noise Ratio : %s" % SNR0)"""
 
         except Exception as e:
-            print("ERROR: ", str(e)) 
+            print("ERROR: ", str(e))
             print("Error on monica classification")
 
 
@@ -161,9 +161,9 @@ class ElectrosprayClassification:
                 print("Error on João classification")
 
 
-        if True: # classifiying Multi jet by cone jet mean of previous classifications
+        if False: # classifiying Multi jet by cone jet mean of previous classifications
             try:
-                print(self.previous_states[-5:])
+                #print(self.previous_states[-5:])
                 if(classification_txt == "Cone Jet") and self.cone_jet_mean == 0 and (self.previous_states[-5:] == ['Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet', 'Cone Jet']):
                     self.cone_jet_mean = mean
 
@@ -184,9 +184,9 @@ class ElectrosprayClassification:
         #
         # try:
         #     if(classification_txt == "Dripping") and (self.previous_states[-1] == "Cone Jet" or self.previous_states[-1] == "Multi Jet"):
-        #         classification_txt = "Undefined"       
+        #         classification_txt = "Undefined"
         # except Exception as e:
-        #     print("ERROR: ", str(e)) 
+        #     print("ERROR: ", str(e))
         #     print("Error on correcting classification")
 
 
@@ -196,13 +196,13 @@ class ElectrosprayClassification:
         return classification_txt
 
 
- 
- 
-    def open_load_json_data(self, filename): 
-        with open(filename) as json_file: 
-            self.data_dict = json.load(json_file) 
-            print("\nconfig liquid:", self.data_dict['config']['liquid']) 
- 
+
+
+    def open_load_json_data(self, filename):
+        with open(filename) as json_file:
+            self.data_dict = json.load(json_file)
+            print("\nconfig liquid:", self.data_dict['config']['liquid'])
+
 
     def read_print_json(liquid):
         f = open(liquid + ".json")

@@ -63,10 +63,10 @@ if scp:
         # TRIGGER_OUTPUT_EVENT = 1 = {str} 'Generator start'
 
         # For all channels:
-        scp.channels[0].enabled = True
-        scp.channels[0].range = 0.2  # in V
-        scp.channels[0].coupling = libtiepie.CK_DCV
-        scp.channels[1].enabled = False
+        scp.channels[1].enabled = True
+        scp.channels[1].range = 0.2  # in V
+        scp.channels[1].coupling = libtiepie.CK_DCV
+        scp.channels[0].enabled = False
         scp.channels[2].enabled = False
         scp.channels[3].enabled = False
         """ 
