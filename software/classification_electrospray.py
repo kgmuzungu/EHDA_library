@@ -14,6 +14,7 @@ import math
 class ElectrosprayClassification:
 
     def __init__(self, name_liquid):
+        self.ml_median = 0.0
         self.name_liquid = name_liquid
         self.all_data = []
         self.sjaak_std_mean_array = []
@@ -34,10 +35,14 @@ class ElectrosprayClassification:
         self.rho = 0
         self.density = 0
         self.cone_jet_mean = 0
+        self.nozzle_outer_radius = 0.00068
 
-
-
-
+        f = open("../software/setup/liquid/" + self.name_liquid + ".json")
+        data_dict = json.load(f)
+        self.surface_tension = data_dict['surface tension']
+        self.permitivity_of_vacum = data_dict['vacuum permitivity']
+        self.density = data_dict['density']
+        self.conductivity = data_dict['electrical conductivity']
 
     def do_classification(
             self,
@@ -195,8 +200,63 @@ class ElectrosprayClassification:
 
         return classification_txt
 
+    def do_ml_classification(
+            self,
+            model,
+            mean,
+            variance,
+            std_dev,
+            median,
+            rms,
+            voltage,
+            flow_rate):
 
+        classification_txt = "Undefined"
 
+        ulmin_to_m3s = 1.67E-11
+
+        qzero = ((self.surface_tension * self.permitivity_of_vacum) / (self.density * self.conductivity)) * 10000000000
+
+        vzero = (2 * self.surface_tension * self.nozzle_outer_radius)
+
+        flow_rate = float(flow_rate)
+
+        try:
+            if median == 0:
+                self.ml_median = 1e-323
+            else:
+                self.ml_median = median
+
+            mean_over_median = mean/median
+
+            std_dev_over_median = std_dev/median
+
+            undimensional_flowrate = flow_rate * ulmin_to_m3s / qzero
+
+            undimensional_voltage = (voltage ** 2 * self.permitivity_of_vacum) / vzero
+
+            classification_txt = model.predict([[self.ml_median, variance, std_dev, median, rms, voltage, flow_rate,
+                                                undimensional_flowrate, undimensional_voltage, mean_over_median,
+                                                std_dev_over_median]])
+
+            if classification_txt == 0:
+                classification_txt = "Cone Jet"
+            elif classification_txt == 1:
+                classification_txt = "Corona"
+            elif classification_txt == 2:
+                classification_txt = "Dripping"
+            elif classification_txt == 3:
+                classification_txt = "Intermittent"
+            elif classification_txt == 4:
+                classification_txt = "Multi Jet"
+            else:
+                classification_txt = "Undefined"
+
+            return classification_txt
+
+        except Exception as e:
+            print("ERROR: ", str(e))
+            print("Error on Machine Learning Model classification")
 
     def open_load_json_data(self, filename):
         with open(filename) as json_file:

@@ -33,7 +33,7 @@ class ElectrosprayConfig:
 
         print("load_json_config_setup")
         # print(self.file_setup)
-        
+
         with open(self.file_setup, 'r') as file:
             # First we load existing data into a dict.
             self.json_setup_obj = json.load(file)
@@ -97,24 +97,24 @@ class ElectrosprayConfig:
         self.flow_rate_chen_pui = (
                 (dieletric_const ** 0.5) * permitivity * surface_tension / (rho * electrical_conductivity))
 
-    def get_flow_rate_min_est_chen_pui(self): 
-        return self.flow_rate_chen_pui 
- 
-    def get_dict_flow_rate_min_est_chen_pui(self): 
-        dictionary = { 
-            "flow_rate_chen_pui": self.flow_rate_chen_pui 
-        } 
-        return dictionary 
- 
-    def get_cone_jet_current_est_hartman(self, i_actual): 
-        b = i_actual / ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
+    def get_flow_rate_min_est_chen_pui(self):
+        return self.flow_rate_chen_pui
+
+    def get_dict_flow_rate_min_est_chen_pui(self):
+        dictionary = {
+            "flow_rate_chen_pui": self.flow_rate_chen_pui
+        }
+        return dictionary
+
+    def get_cone_jet_current_est_hartman(self, i_actual):
+        b = i_actual / ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5)
         # b = I_actual/pow((y * K * Q), (1/2)) 
-        I_hartman = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
-        b = 0.5 
-        I_hartman_05 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
-        b = 2 
-        I_hartman_2 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5) 
-        return I_hartman, I_hartman_05, I_hartman_2 
+        I_hartman = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5)
+        b = 0.5
+        I_hartman_05 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5)
+        b = 2
+        I_hartman_2 = b * ((self.γ * self.k_electrical_conductivity * self.q_flow_rate) ** .5)
+        return I_hartman, I_hartman_05, I_hartman_2
 
 
 # *****************************************
@@ -202,6 +202,7 @@ class ElectrosprayDataProcessing:
         self.fourier_peaks = []
         self.all_fourier_peaks = []
         self.shape_current = ""
+        self.ml_shape_current = ""
 
 
     # expected are the polinominal coef for denominator and numerator for filter function
@@ -264,7 +265,7 @@ class ElectrosprayDataProcessing:
         self.med = np.median(data)
         self.rms = np.sqrt(np.mean(data ** 2))
 
-        
+
     def calculate_peaks_fft(self, data):
         sorted_indices = np.argsort(abs(self.fourier_transform[self.all_fourier_peaks]))
         freq_step = self.freq[1] - self.freq[0]
@@ -323,7 +324,7 @@ class ElectrosprayDataProcessing:
           good smoothed estimate of its power spectral density.
        """
         freqs, self.psd_welch = signal.welch(data)
-        
+
         return freqs, self.psd_welch
 
     # string representation of this class
@@ -334,6 +335,7 @@ class ElectrosprayDataProcessing:
                 median=str(self.med),
                 rms=str(self.rms),
                 shape_current=self.shape_current,
+                ml_shape_current = self.ml_shape_current,
                 #  psd_welch=str(self.psd_welch.tolist()),
                 # fourier_transform=str(self.fourier_transform),
                 # total_variation_distance=str(self.total_variation_distance),
@@ -349,6 +351,7 @@ class ElectrosprayDataProcessing:
             "median": np.float64(self.med),
             "rms": np.float64(self.rms),
             "spray_mode": self.shape_current[0],
+            "ml_spray_mode": self.ml_shape_current[0]
             # "psd welch": self.psd_welch.tolist(),
             # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": np.float64(self.total_variation_distance),
@@ -367,3 +370,6 @@ class ElectrosprayDataProcessing:
 
     def set_shape(self, shape_current):
         self.shape_current = shape_current
+
+    def set_ml_shape(self, ml_shape_current):
+        self.ml_shape_current = ml_shape_current

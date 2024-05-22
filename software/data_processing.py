@@ -5,6 +5,8 @@ TITLE: data processing thread function
 from FUG_functions import *
 from scipy.signal import butter, lfilter
 
+from joblib import load
+
 # tiepie params
 sampling_frequency = 1e5  # 100 KHz
 multiplier_for_nA = 500
@@ -31,6 +33,10 @@ def data_processing(data_queue,
     sample = 0
     previous_flowrate = 0
 
+    setup = electrospray_config_liquid_setup_obj.get_json_setup
+
+    clf_model = load(setup["ml_model"])
+
     electrospray_validation.set_data_from_dict_liquid(electrospray_config_liquid_setup_obj.get_json_liquid())
 
     #  *************************************
@@ -42,7 +48,7 @@ def data_processing(data_queue,
         # get value from the queue
         while data_queue.empty():
             time.sleep(0.1)
-        electrospray_data  = data_queue.get()
+        electrospray_data = data_queue.get()
         # print("[DATA_PROCESSING THREAD] got datapoints from data_queue")
 
         # low pass filter to flatten out noise
@@ -110,8 +116,20 @@ def data_processing(data_queue,
                                                                         max_fft_peaks,
                                                                         cont_max_fft_peaks,
                                                                         electrospray_validation.I_emitted_chen_pui
+            )
+
+            machine_learning_classification_txt = electrospray_classification.do_ml_classification(
+                                                                        clf_model,
+                                                                        electrospray_processing.mean_value,
+                                                                        electrospray_processing.variance,
+                                                                        electrospray_processing.stddev,
+                                                                        electrospray_processing.med,
+                                                                        electrospray_processing.rms,
+                                                                        electrospray_data.voltage,
+                                                                        electrospray_data.flow_rate
 
             )
+
         except Exception as e:
             print("ERROR: ", str(e)) 
             print("[DATA_PROCESSING THREAD] Failed to classify")
@@ -123,9 +141,13 @@ def data_processing(data_queue,
 
             current_shape = classification_txt,
 
-            feedback_queue.put(classification_txt)
+            ml_current_shape = machine_learning_classification_txt,
+
+            feedback_queue.put(classification_txt, machine_learning_classification_txt)
 
             electrospray_processing.set_shape(current_shape)
+
+            electrospray_processing.set_ml_shape(ml_current_shape)
 
             txt_max_peaks = " Max: " + str(max_data) + " Quantity max: " + str(quantity_max_data) + " Percentage: " + str(percentage_max)
 
@@ -139,6 +161,8 @@ def data_processing(data_queue,
             sample += 1
 
             print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", classification_txt)
+
+            print(f"[DATA_PROCESSING THREAD - ML MODEL] data sample \f{sample} is classified as: ", machine_learning_classification_txt)
 
         except Exception as e:
             print("ERROR: ", str(e)) 
