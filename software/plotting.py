@@ -67,7 +67,7 @@ def start_plot(plotting_data_queue):
 
     electrospray_data, datapoints_filtered, time_step, electrospray_processing, txt_classification_str, txt_max_peaks = message
 
-    plt.style.use('seaborn-colorblind')
+    plt.style.use('seaborn-v0_8-colorblind')
     plt.ion()
 
     fig, ax = plt.subplots(3)

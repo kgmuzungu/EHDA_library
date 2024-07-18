@@ -95,7 +95,7 @@ def pretty_json(data):
 filename = "ethyleneglycolHNO3.json"
 listdir = os.listdir()
 j = 0
-plt.style.use('seaborn-colorblind')
+plt.style.use('seaborn-v0_8-colorblind')
 plt.ion()
 
 for i in listdir:

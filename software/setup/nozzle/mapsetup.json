@@ -12,19 +12,21 @@
     "units": "mm",
     "coflow gas type": "none",
     "osc_impedance": 2000000,
-    "ml_model": "xgb8liquid-testmodel.joblib",
+    "generalist_ml_model": "xgb8liquid-testmodel.joblib",
+    "ml_model": "EW82_XGBo_model.joblib",
+    "nn_model": "EW82_MLP_NN_model.joblib",
     "save_data": "True",
     "save_processing": "True",
     "save_config": "True",
     "save_validation": "False",
     "save_json": "True",
     "plot_real_time": "True",
-    "save_path": "D:/ELECTROSPRAY_MAPPINGS/EW55_ML/part7",
+    "save_path": "D:/ELECTROSPRAY_MAPPINGS/EW82_9/part7",
     "number_camera_partitions": 10,
-    "name_liquid" : "EW55",
-    "arduino_com_port" : 1,
-    "fug_com_port" : 3,
-    "pump_com_port" : 4,
+    "name_liquid" : "EW82",
+    "arduino_com_port" : 0,
+    "fug_com_port" : 1,
+    "pump_com_port" : 2,
     "typeofmeasurement": {
         "sequence": "map",
         "voltage_start": 3000,
@@ -44,6 +46,6 @@
                         "950",
                         "975",
                         "1000"
-                  ]
+         ]
     }
 }

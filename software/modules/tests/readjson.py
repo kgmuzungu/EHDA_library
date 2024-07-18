@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import numpy as np
 
-plt.style.use('seaborn-colorblind')
+plt.style.use('seaborn-v0_8-colorblind')
 plt.ion()
 
 

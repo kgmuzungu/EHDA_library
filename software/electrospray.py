@@ -202,7 +202,9 @@ class ElectrosprayDataProcessing:
         self.fourier_peaks = []
         self.all_fourier_peaks = []
         self.shape_current = ""
+        self.generalist_ml_shape_current = ""
         self.ml_shape_current = ""
+        self.nn_shape_current = ""
 
 
     # expected are the polinominal coef for denominator and numerator for filter function
@@ -335,7 +337,9 @@ class ElectrosprayDataProcessing:
                 median=str(self.med),
                 rms=str(self.rms),
                 shape_current=self.shape_current,
+                generalist_ml_shape_current = self.generalist_ml_shape_current,
                 ml_shape_current = self.ml_shape_current,
+                nn_shape_current = self.nn_shape_current,
                 #  psd_welch=str(self.psd_welch.tolist()),
                 # fourier_transform=str(self.fourier_transform),
                 # total_variation_distance=str(self.total_variation_distance),
@@ -351,7 +355,9 @@ class ElectrosprayDataProcessing:
             "median": np.float64(self.med),
             "rms": np.float64(self.rms),
             "spray_mode": self.shape_current[0],
-            "ml_spray_mode": self.ml_shape_current[0]
+            "generalist_ml_spray_mode": self.generalist_ml_shape_current[0],
+            "ml_spray_mode": self.ml_shape_current[0],
+            "nn_spray_mode": self.nn_shape_current[0]
             # "psd welch": self.psd_welch.tolist(),
             # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": np.float64(self.total_variation_distance),
@@ -371,5 +377,11 @@ class ElectrosprayDataProcessing:
     def set_shape(self, shape_current):
         self.shape_current = shape_current
 
+    def set_generalist_ml_shape(self, generalist_ml_shape_current):
+        self.generalist_ml_shape_current = generalist_ml_shape_current
+
     def set_ml_shape(self, ml_shape_current):
         self.ml_shape_current = ml_shape_current
+
+    def set_nn_shape(self, nn_shape_current):
+        self.nn_shape_current = nn_shape_current
