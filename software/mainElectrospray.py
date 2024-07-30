@@ -35,7 +35,7 @@ if __name__ == '__main__':
     sampling_frequency = 1e5  # 100000
 
     name_setup = "mapsetup"
-    setup = "setup/nozzle/" + name_setup
+    setup = "software/setup/nozzle/" + name_setup
 
     plt.style.use('seaborn-v0_8-colorblind')
     plt.ion()
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     electrospray_config_liquid_setup_obj = ElectrosprayConfig(setup + ".json")
     electrospray_config_liquid_setup_obj.load_json_config_setup()
     electrospray_config_setup = electrospray_config_liquid_setup_obj.get_json_setup()
-    liquid = "setup/liquid/" + electrospray_config_setup["name_liquid"]
+    liquid = "software/setup/liquid/" + electrospray_config_setup["name_liquid"]
     electrospray_config_liquid_setup_obj.load_json_config_liquid(liquid + ".json")
     electrospray_validation = ElectrosprayValidation(electrospray_config_setup["name_liquid"])
     electrospray_classification = classification_electrospray.ElectrosprayClassification(

@@ -4,6 +4,7 @@ logging_test.out
 *.out
 *.DS_Store
 .DS_Store
+venv
 
 /data_analysis
 /Documentation

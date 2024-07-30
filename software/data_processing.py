@@ -36,11 +36,12 @@ def data_processing(data_queue,
 
     setup = electrospray_config_liquid_setup_obj.get_json_setup()
 
-    generalist_clf_model = load(setup["generalist_ml_model"])
+    if "ml_model" in setup:
+        generalist_clf_model = load(setup["generalist_ml_model"])
 
-    clf_model = load(setup["ml_model"])
+        clf_model = load(setup["ml_model"])
 
-    nn_model = load(setup["nn_model"])
+        nn_model = load(setup["nn_model"])
 
     #  *************************************
     # 	thread main loop
@@ -119,43 +120,43 @@ def data_processing(data_queue,
                 cont_max_fft_peaks,
                 electrospray_validation.I_emitted_chen_pui
             )
+            if "ml_model" in setup:
+                generalist_machine_learning_classification_txt = electrospray_classification.do_generalist_ml_classification(
+                    generalist_clf_model,
+                    electrospray_processing.mean_value,
+                    electrospray_processing.variance,
+                    electrospray_processing.stddev,
+                    electrospray_processing.med,
+                    electrospray_processing.rms,
+                    electrospray_data.voltage,
+                    electrospray_data.flow_rate
+                )
 
-            generalist_machine_learning_classification_txt = electrospray_classification.do_generalist_ml_classification(
-                generalist_clf_model,
-                electrospray_processing.mean_value,
-                electrospray_processing.variance,
-                electrospray_processing.stddev,
-                electrospray_processing.med,
-                electrospray_processing.rms,
-                electrospray_data.voltage,
-                electrospray_data.flow_rate
-            )
+                machine_learning_classification_txt = electrospray_classification.do_ml_classification(
+                    clf_model,
+                    electrospray_processing.mean_value,
+                    electrospray_processing.variance,
+                    electrospray_processing.stddev,
+                    electrospray_processing.med,
+                    electrospray_processing.rms,
+                    electrospray_data.voltage,
+                    electrospray_data.flow_rate,
+                    electrospray_data.temperature,
+                    electrospray_data.humidity
+                )
 
-            machine_learning_classification_txt = electrospray_classification.do_ml_classification(
-                clf_model,
-                electrospray_processing.mean_value,
-                electrospray_processing.variance,
-                electrospray_processing.stddev,
-                electrospray_processing.med,
-                electrospray_processing.rms,
-                electrospray_data.voltage,
-                electrospray_data.flow_rate,
-                electrospray_data.temperature,
-                electrospray_data.humidity
-            )
-
-            neural_network_classification_txt = electrospray_classification.do_nn_classification(
-                nn_model,
-                electrospray_processing.mean_value,
-                electrospray_processing.variance,
-                electrospray_processing.stddev,
-                electrospray_processing.med,
-                electrospray_processing.rms,
-                electrospray_data.voltage,
-                electrospray_data.flow_rate,
-                electrospray_data.temperature,
-                electrospray_data.humidity
-            )
+                neural_network_classification_txt = electrospray_classification.do_nn_classification(
+                    nn_model,
+                    electrospray_processing.mean_value,
+                    electrospray_processing.variance,
+                    electrospray_processing.stddev,
+                    electrospray_processing.med,
+                    electrospray_processing.rms,
+                    electrospray_data.voltage,
+                    electrospray_data.flow_rate,
+                    electrospray_data.temperature,
+                    electrospray_data.humidity
+                )
 
         except Exception as e:
             print("ERROR: ", str(e))
@@ -167,21 +168,23 @@ def data_processing(data_queue,
 
             current_shape = classification_txt,
 
-            generalist_ml_current_shape = generalist_machine_learning_classification_txt,
+            if "ml_model" in setup:
+                generalist_ml_current_shape = generalist_machine_learning_classification_txt,
 
-            ml_current_shape = machine_learning_classification_txt,
+                ml_current_shape = machine_learning_classification_txt,
 
-            nn_current_shape = neural_network_classification_txt,
+                nn_current_shape = neural_network_classification_txt,
 
             feedback_queue.put(classification_txt)
 
             electrospray_processing.set_shape(current_shape)
 
-            electrospray_processing.set_generalist_ml_shape(generalist_ml_current_shape)
+            if "ml_model" in setup:
+                electrospray_processing.set_generalist_ml_shape(generalist_ml_current_shape)
 
-            electrospray_processing.set_ml_shape(ml_current_shape)
+                electrospray_processing.set_ml_shape(ml_current_shape)
 
-            electrospray_processing.set_nn_shape(nn_current_shape)
+                electrospray_processing.set_nn_shape(nn_current_shape)
 
             txt_max_peaks = " Max: " + str(max_data) + " Quantity max: " + str(
                 quantity_max_data) + " Percentage: " + str(percentage_max)
@@ -198,14 +201,15 @@ def data_processing(data_queue,
 
             print(f"[DATA_PROCESSING THREAD] data sample \f{sample} is classified as: ", classification_txt)
 
-            print(f"[DATA_PROCESSING THREAD - GENERALIST ML MODEL] data sample \f{sample} is classified as: ",
-                  generalist_machine_learning_classification_txt)
+            if "ml_model" in setup:
+                print(f"[DATA_PROCESSING THREAD - GENERALIST ML MODEL] data sample \f{sample} is classified as: ",
+                      generalist_machine_learning_classification_txt)
 
-            print(f"[DATA_PROCESSING THREAD - ML MODEL] data sample \f{sample} is classified as: ",
-                  machine_learning_classification_txt)
+                print(f"[DATA_PROCESSING THREAD - ML MODEL] data sample \f{sample} is classified as: ",
+                      machine_learning_classification_txt)
 
-            print(f"[DATA_PROCESSING THREAD - NN Classification] data sample \f{sample} is classified as: ",
-                  neural_network_classification_txt)
+                print(f"[DATA_PROCESSING THREAD - NN Classification] data sample \f{sample} is classified as: ",
+                      neural_network_classification_txt)
 
         except Exception as e:
             print("ERROR: ", str(e))

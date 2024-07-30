@@ -40,7 +40,7 @@ class ElectrosprayClassification:
         self.cone_jet_mean = 0
         self.nozzle_outer_radius = 0.00068
 
-        f = open("../software/setup/liquid/" + self.name_liquid + ".json")
+        f = open("software/setup/liquid/" + self.name_liquid + ".json")
         data_dict = json.load(f)
         self.surface_tension = data_dict['surface tension']
         self.permitivity_of_vacum = data_dict['vacuum permitivity']

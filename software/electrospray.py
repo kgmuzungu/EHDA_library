@@ -355,9 +355,9 @@ class ElectrosprayDataProcessing:
             "median": np.float64(self.med),
             "rms": np.float64(self.rms),
             "spray_mode": self.shape_current[0],
-            "generalist_ml_spray_mode": self.generalist_ml_shape_current[0],
-            "ml_spray_mode": self.ml_shape_current[0],
-            "nn_spray_mode": self.nn_shape_current[0]
+            "generalist_ml_spray_mode": "",
+            "ml_spray_mode": "",
+            "nn_spray_mode": ""
             # "psd welch": self.psd_welch.tolist(),
             # "fourier peaks": self.fourier_peaks,
             # "maximum variation distance": np.float64(self.total_variation_distance),
